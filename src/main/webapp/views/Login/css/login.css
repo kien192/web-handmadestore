@@ -1,0 +1,151 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("../../images/backgroup.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    font-size: 15px;
+    font-family: Arial ;
+}
+.container form {
+    width: 500px;
+    height: 550px;
+    background-color: #afe2ea;
+    margin:auto;
+    margin-top: 100px;
+    border-radius: 5px;
+}
+/*Logo*/
+.container form .logo {
+    text-align: center;
+    height: 80px;
+}
+/*label : dang nhap*/
+.container form .title {
+    margin-left: 170px;
+    margin-top: 0;
+}
+/*email và password*/
+.container form .item {
+    margin-left: 50px;
+    height: 40px;
+    display: flex;
+    margin-bottom: 20px;
+}
+.container form .item input{
+    height: 40px;
+    width: 350px;
+    border: none;
+    padding: 0;
+    padding-left: 10px;
+}
+.container form .item .icon {
+    height: 40px;
+    width: 40px;
+    background-color: #eae5e5;
+}
+.container form .item .icon i {
+    padding: 13px;
+}
+/*quen mat khau*/
+.container form .forgotpassword{
+    margin-left: 340px;
+}
+.container form .forgotpassword a {
+    text-decoration: none;
+    color: blue;
+}
+.container form .forgotpassword a:hover {
+    text-decoration: underline;
+}
+/*nut dang nhap*/
+.container form .submit {
+    margin-top: 10px;
+}
+.container form .submit button {
+    width: 150px;
+    height: 50px;
+    background: #183153;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 175px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+.container form .submit button:hover {
+    background-color: blue;
+}
+/*gach ngang*/
+.container form .solid {
+    width: 200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 145px;
+    border: 1px double grey;
+}
+/*icon*/
+.container form .icondn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*margin-left: 136px;*/
+}
+
+.icondn .item-media {
+    margin: 0px 10px;
+}
+/*.container form .icondn .item i {*/
+/*    font-size: 40px;*/
+/*    color: white;*/
+/*}*/
+/*.container form .icondn .item i:hover {*/
+/*    color: blue;*/
+/*}*/
+
+/*.icondn .item a {*/
+/*    font-size: 40px;*/
+/*    border-radius: 50%;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    !*color: #F8F9F9;*!*/
+/*}*/
+
+/*.icondn .item a .fb-icon {*/
+/*    background-color: #0171d3;*/
+/*}*/
+
+
+a.facebook .fb-icon , a.google .gg-icon {
+    height: 60px;
+    width: 60px;
+    font-size: 40px;
+    border-radius: 50%;
+    color: #F8F9F9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a.facebook .fb-icon {
+    background-color: #0171d3;
+}
+
+a.google .gg-icon {
+    background-color: #de5347;
+}
+
+a.facebook .fb-icon:hover {
+    background-color: #0138c3;
+    color: #ffffff;
+    border-color: #0171d3;
+
+}
+
+a.google .gg-icon:hover {
+    background-color: #ff4131;
+    color: #ffffff;
+}
