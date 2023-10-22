@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            font-family: arial;
+        }
+
+        /** float container */
+        .father {
+            border: solid 1px #ccc;
+            box-sizing: border-box;
+            margin-bottom: 8px;
+            padding: 0 8px;
+            position: relative;
+            width: 300px;
+        }
+
+        input {
+            border: none;
+            font-size: 16px;
+            outline: 0;
+            padding: 16px 0 10px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            position: absolute;
+            top: -6px;
+            left: 10px;
+            background: white;
+            opacity: 0;
+            transition: opacity 0.3s ease; /* Add a transition effect for opacity */
+        }
+
+        .label-visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<div id="floatContainer1" class="father">
+    <label for="floatField1" id="first_input_label">Label 1</label>
+    <input type="text" id="floatField1" data-placeholder="Placeholder 1" onclick="show_input_label()">
+</div>
+<script>
+    function show_input_label() {
+        let l = document.getElementById("first_input_label");
+        l.classList.add("label-visible"); // Add a class to show the label with transition
+    }
+</script>
+</body>
+</html>
