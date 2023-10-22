@@ -7,12 +7,17 @@ body {
     font-size: 15px;
     font-family: Arial ;
 }
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .container form {
     width: 500px;
     height: 550px;
     background-color: #afe2ea;
     margin:auto;
-    margin-top: 100px;
     border-radius: 5px;
 }
 /*Logo*/
@@ -89,12 +94,38 @@ body {
 /*icon*/
 .container form .icondn {
     display: flex;
-    margin-left: 136px;
+    align-items: center;
+    justify-content: center;
+    /*margin-left: 136px;*/
 }
-.container form .icondn .item i {
+.icondn .item-media a {
+    text-decoration: none;
+}
+.icondn .item-media {
+    margin: 0px 10px;
+}
+a.facebook .facebook-icon , a.google .google-icongit b {
+    height: 60px;
+    width: 60px;
     font-size: 40px;
-    color: white;
+    border-radius: 50%;
+    color: #F8F9F9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.container form .icondn .item i:hover {
-    color: blue;
+a.facebook .facebook-icon {
+    background-color: #0171d3;
+}
+a.google .google-icon {
+    background-color: #de5347;
+}
+a.facebook .facebook-icon:hover {
+    background-color: #0138c3;
+    color: #ffffff;
+    border-color: #0171d3;
+}
+a.google .google-icon:hover {
+    background-color: #ff4131;
+    color: #ffffff;
 }
