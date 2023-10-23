@@ -55,24 +55,24 @@ form {
 
 }
 .form .field {
-    height: 40px;
-    width: 100%;
-    margin-top: 20px;
-    position: relative;
-    border-radius: 6px;
-}
+        height: 40px;
+        width: 100%;
+        margin-top: 20px;
+        position: relative;
+        border-radius: 6px;
+    }
 
-.mail-icon , .key-icon {
-    padding: 12px;
-    font-size: 15px;
-    background-color: #eae5e5;
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
-    box-sizing: border-box;
-    border: 1px solid #CACACA;
-    color: #6494ce;
+   .mail-icon , .key-icon {
+       padding: 12px;
+       font-size: 15px;
+       background-color: #eae5e5;
+       border-top-left-radius: 6px;
+       border-bottom-left-radius: 6px;
+       box-sizing: border-box;
+       border: 1px solid #CACACA;
+       color: #6494ce;
 
-}
+   }
 
 
 .field input , .field button {
@@ -207,3 +207,5 @@ a.google .google-icon:hover {
     background-color: #ff4131;
     color: #ffffff;
 }
+
+
