@@ -63,7 +63,7 @@ body {
 .container form .forgotpassword a:hover {
     text-decoration: underline;
 }
-/*nut dang nhap*/
+/*nut dang nhap va dang ky*/
 .container form .submit {
     margin-top: 10px;
 }
@@ -78,10 +78,14 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-
 }
 .container form .submit button:hover {
     background-color: blue;
+}
+.container form .submit button a {
+    text-decoration: none;
+    color: white;
+    padding: 15px 26px;
 }
 /*gach ngang*/
 .container form .solid {
@@ -96,7 +100,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    /*margin-left: 136px;*/
+
 }
 .icondn .item-media a {
     text-decoration: none;
@@ -104,27 +108,32 @@ body {
 .icondn .item-media {
     margin: 0px 10px;
 }
-a.facebook .facebook-icon , a.google .google-icongit b {
+a.facebook .facebook-icon , a.google .google-icon {
     height: 60px;
     width: 60px;
     font-size: 40px;
     border-radius: 50%;
-    color: #F8F9F9;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #F8F9F9;
 }
+
 a.facebook .facebook-icon {
     background-color: #0171d3;
 }
+
 a.google .google-icon {
     background-color: #de5347;
 }
+
 a.facebook .facebook-icon:hover {
     background-color: #0138c3;
     color: #ffffff;
     border-color: #0171d3;
+
 }
+
 a.google .google-icon:hover {
     background-color: #ff4131;
     color: #ffffff;
