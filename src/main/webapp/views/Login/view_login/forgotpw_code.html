@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../../Login/css/forgotpassword.css">
     <title>Đặt lại mật khẩu</title>
 </head>
 <body>
 <div class="container">
-    <form id="form" action="">
+    <form id="form" action="#">
         <div class="xyz">
             <button id="back_btn"><i class="fa-solid fa-arrow-left" style="color: #183153"></i>
             </button>
@@ -22,19 +21,19 @@
         <div class="title">
             <h1>Đặt lại mật khẩu</h1>
         </div>
+        <p>Vui lòng cung cấp mã mà chúng tôi đã gửi đến email/số điện thoại mà bạn cung cấp</p>
 
         <div class="first_input_style">
-            <input type="text" name="phoneOrEmail" id="phoneOrEmail" placeholder="Nhập Email/Số Điện Thoại"
-                   maxlength="128">
+            <input type="text" name="code_send" id="code_send" placeholder="Nhập mã"
+                   maxlength="10">
         </div>
         <div class="check_input_notification">
 
         </div>
         <div class="submit dn">
-            <button type="submit">Tiếp theo</button>
+            <button>Tiếp theo</button>
         </div>
     </form>
 </div>
-
 </body>
 </html>
