@@ -1,0 +1,105 @@
+
+
+.header {
+
+    border-bottom: solid #2E4053  2px;
+
+}
+
+ .container-fluid {
+    padding-left: 40px;
+    padding-right: 50px;
+}
+.navbar form {
+    position: relative;
+    width: 40%;
+}
+
+
+
+.navbar form .form-control {
+padding-left: 50px  ;
+}
+
+.navbar form span {
+    position: absolute;
+    background-color: #dc3545;
+border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    padding: 10px;
+
+}
+
+
+.bi-fire {
+    color: #dc3545;
+}
+
+.navbar .bi {
+    font-size: 20px;
+}
+.nav-bar ul .nav-login {
+    align-items: center;
+}
+
+
+
+.navbar .nav-login a:hover {
+    background-color: #f9f9fb;
+    border-radius: 6px;
+}
+
+.navbar .nav-login a {
+    font-size: 15px;
+
+
+}
+
+.navbar .icon-preright {
+
+    text-align: center;
+
+}
+.navbar .icon-preright:hover {
+    border-radius: 50%;
+    background-color: #f9f9fb;
+}
+
+.navbar .icon-right {
+
+    text-align: center;
+}
+
+
+.carousel-inner .carousel-item {
+
+
+}
+.carousel-inner .carousel-item img {
+    height: 60vh;
+    object-fit: cover;
+    filter: brightness(40%);
+    -webkit-filter: brightness(40%);
+  }
+
+.carousel-inner .carousel-item h5 {
+    font-size: 40px;
+    font-family: "Dosis";
+}
+.carousel-inner .carousel-item p {
+    font-size: 40px;
+    font-family: "Dancing Script";
+    font-style: italic;
+}
+.content-product .product-title {
+    font-size: 25px;
+    font-family: Tahoma;
+
+
+}
+.content-product .product-title a {
+    text-align: center;
+    border-bottom: solid #d4d4d4 1px;
+    text-decoration: none;
+    color: #000000;
+}
