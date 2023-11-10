@@ -226,6 +226,65 @@ figure {
     transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
+/*relate product*/
+.info-item {
+    border: 1px solid #e1e1e1;
+}
+
+.info-img {
+    position : relative;
+    overflow: hidden;
+}
+.btns {
+    position: absolute;
+    left: 0;
+    bottom: -100%;
+    font-size: 15px;
+    font-weight: 300;
+    transition: all 0.3s ease-in-out;
+}
+.btns button {
+    border: none;
+    background-color: #e1e1e1;
+    transition: all 0.3s ease-in-out;
+
+
+}
+
+.btns button:hover {
+    background-color: #ff0000;
+    color: #ffffff;
+}
+
+.info-img:hover .btns {
+    bottom: 0;
+
+}
+
+.heart-icon {
+    position: absolute;
+    top: 16px;
+    right: 15px;
+    color: #ffffff;
+}
+.info-name {
+    transition: all 0.3s ease-in-out;
+
+}
+
+.info-name:hover {
+    color: #ff0000!important;
+
+
+}
+.info-price {
+    color: #e32124;
+}
+.info-rating {
+    font-size: 12px;
+}
+
+
 
 
 #footer {
@@ -233,6 +292,7 @@ figure {
     url("../../images/backgroup.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
+
 
 }
 #footer ul li p{
