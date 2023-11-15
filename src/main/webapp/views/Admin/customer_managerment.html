@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
+    <title>Quản Lý Khách Hàng</title>
+</head>
+<body>
+    <div class="container">
+        <div class="title m-auto p-2 fw-bold fs-5">
+            <span>Quản Lý Tài Khoản Khách Hàng</span>
+        </div>
+        <div class="customer_list m-auto my-5" id="customer">
+            <div class="title_customer ">
+                <p class="fw-bold fs-5 ">Danh sách Tài Khoản Khách Hàng</p>
+            </div>
+            <div class="mytables">
+                <table class="m-auto" id="mytable">
+                    <thead>
+                    <tr class="table_customer sticky-top">
+                        <th class="px-5" scope="col ">ID</th>
+                        <th  scope="col">Họ Và Tên</th>
+                        <th  scope="col">Ngày Sinh</th>
+                        <th  scope="col">Giới Tính</th>
+                        <th  scope="col">Địa Chỉ</th>
+                        <th  scope="col">Email</th>
+                        <th  scope="col">Password</th>
+                        <th  scope="col">Trạng Thái</th>
+                        <th  scope="col">Chức Năng</th>
+                    </tr>
+                    </thead>
+                    <tbody >
+                    <tr class="item ctm_1">
+                        <td >KH1</td>
+                        <td>Lê Bá Phụng</td>
+                        <td>12/3/2003</td>
+                        <td>Nam</td>
+                        <td>25 Phạm Văn Đồng ,Thủ Đức, TP.HCM</td>
+                        <td>lungbaphe@gmail.com</td>
+                        <td>lebaphung2003</td>
+                        <td>Bình Thường</td>
+                        <td><button>Khóa Tài Khoản</button></td>
+                    </tr>
+                    <tr class="item ctm_2">
+                        <td >KH2</td>
+                        <td>Nguyễn Trung Kiên</td>
+                        <td>2/5/2003</td>
+                        <td>Nam</td>
+                        <td>05 Võ Văn Ngân ,Thủ Đức, TP.HCM</td>
+                        <td>trungkien@gmail.com</td>
+                        <td>trungkien2003</td>
+                        <td>Bình Thường</td>
+                        <td><button>Khóa Tài Khoản</button></td>
+                    </tr>
+                    <tr class="item ctm_3">
+                        <td >KH3</td>
+                        <td>Nguyễn Trọng Nghĩa</td>
+                        <td>25/11/2003</td>
+                        <td>Nam</td>
+                        <td>An Nhơn,Bình Định</td>
+                        <td>trongnghia@gmail.com</td>
+                        <td>0123456789</td>
+                        <td>Bình Thường</td>
+                        <td><button>Khóa Tài Khoản</button></td>
+                    </tr>
+                    <tr class="item ctm_4">
+                        <td >KH4</td>
+                        <td>Phạm Văn Bá</td>
+                        <td>25/1/2005</td>
+                        <td>Nam</td>
+                        <td>Bình Chánh,Quảng Bình</td>
+                        <td>badao123@gmail.com</td>
+                        <td>badao123</td>
+                        <td>Bị Khóa</td>
+                        <td><button>Khóa Tài Khoản</button></td>
+                    </tr>
+                    <tr class="item ctm_5">
+                        <td >KH5</td>
+                        <td>Ngô Văn Tiên</td>
+                        <td>2/1/1998</td>
+                        <td>Nam</td>
+                        <td>Tam Kỳ,Quảng Nam</td>
+                        <td>tienngo123@gmail.com</td>
+                        <td>tienngo123</td>
+                        <td>Bình Thường</td>
+                        <td><button>Khóa Tài Khoản</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    body{
+        padding: 0;
+        margin: 0;
+        font-size: 15px;
+    }
+    .container{
+        background: #d5d3d3;
+
+    }
+    /*title*/
+    .container .title{
+        background: white;
+        width: 70%;
+        border-radius: 8px;
+        border-left: 2vh solid red;
+    }
+/*    list customer*/
+    .container .customer_list{
+        background: white;
+    }
+    .container .customer_list th,td {
+        border: 1px solid grey;
+        text-align: center;
+    }
+    .container .customer_list th{
+        background-color: cornflowerblue;
+    }
+    .container .customer_list .title_customer{
+        text-align: center;
+    }
+    .container .customer_list .item button{
+        border: none;
+        background: white;
+    }
+    .container .customer_list .item button:hover {
+        background: red;
+        color: white;
+    }
+    .container .customer_list tbody{
+        overflow-y: auto;
+        overflow-x:hidden ;
+    }
+    .container .customer_list {
+        border-bottom: 5px solid grey;
+    }
+    .mytables{
+        height: 50vh;
+        width: 75%;
+        margin: auto;
+        overflow-y: scroll;
+    }
+    tr{
+        line-height: 30px;
+        min-height: 20px;
+        height: 50px;
+    }
+</style>
+</html>
