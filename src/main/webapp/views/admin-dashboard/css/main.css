@@ -6,6 +6,10 @@
 
 
 }
+:root {
+    --background-col : #faf5f5;
+
+}
 
 @media (min-width: 400px) {
 
@@ -26,12 +30,12 @@ body {
 
 .navigation {
     position: fixed;
-    background-color: #1a73e8;
+    background-color: var(--background-col);
     transition: 0.5s;
     height: 100%;
     width: 300px;
     overflow: hidden;
-    border-left: 10px solid #1a73e8;
+    border-left: 10px solid var(--background-col);
 }
 .navigation.active {
     width: 80px;
@@ -81,14 +85,15 @@ background-color: #ffffff ;
     text-decoration: none;
     width: 100%;
     display: flex;
-    color: #ffffff;
+    color: #000000;
 
 
 }
 
 .navigation ul .nav-item:hover a,
 .navigation ul .nav-item.hovered a {
-    color:  #1a73e8;
+    color:   #000000;
+    font-weight: bold;
 }
 
 .navigation ul li a .icon {
@@ -128,7 +133,7 @@ background-color: #ffffff ;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    /*background-color: black;*/
+
     pointer-events: none;
 
 
@@ -168,9 +173,9 @@ background-color: #ffffff ;
 
     justify-content: space-between;
     align-items: center;
-    background-color: #1a73e8;;
+    background-color: var(--background-col);
     height: 60px;
-    border-bottom: solid 1px #8b8b8b;
+    border-bottom: solid 2px #000000;
 
 }
 
@@ -188,7 +193,7 @@ background-color: #ffffff ;
 
 .top-bar .toggle i {
     font-size: 2.5rem;
-    color: #ffffff;
+    color: #000000;
 }
 
 .top-bar .search {
@@ -256,9 +261,9 @@ background-color: #ffffff ;
 }
 
 .top-bar .user button {
-    background-color: #1a73e8;
+    background-color: var(--background-col);
     border: none;
-    color: #ffffff;
+    color: #000000;
     font-size: 10px;
 }
 
