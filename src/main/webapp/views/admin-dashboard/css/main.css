@@ -7,6 +7,10 @@
 
 }
 
+@media (min-width: 400px) {
+
+}
+
 body {
     min-height: 100vh;
     overflow-x: hidden ;
@@ -96,6 +100,7 @@ background-color: #ffffff ;
     text-align: center;
 }
 
+
 .navigation ul li a img {
     max-height: 60px;
     max-width: 60px;
@@ -165,7 +170,7 @@ background-color: #ffffff ;
     align-items: center;
     background-color: #1a73e8;;
     height: 60px;
-    border-bottom: solid 1px #ff0000;
+    border-bottom: solid 1px #8b8b8b;
 
 }
 
@@ -240,13 +245,21 @@ background-color: #ffffff ;
     border-bottom: solid 2px #CACACA;
 }
 
+
 .top-bar .user img {
     width: 40px;
     height: 40px;
     object-fit: cover;
     border-radius: 50%;
-    margin-right: 20px;
+    /*margin-right: 10px;*/
     cursor: pointer;
+}
+
+.top-bar .user button {
+    background-color: #1a73e8;
+    border: none;
+    color: #ffffff;
+    font-size: 10px;
 }
 
 /*main - contain*/
@@ -263,7 +276,6 @@ background-color: #ffffff ;
 }
 
 .main .card {
-    background-color: #f5f0ea;
     text-align: center;
     box-shadow: 0px 0px 3px 3px #CACACA;
 }
@@ -274,40 +286,49 @@ background-color: #ffffff ;
 }
 
 .main .card-icon i {
-    /*background-color: black;*/
+
     font-size: 50px;
     font-weight: bold;
     text-align: center;
     justify-content: center;
-    /*background-color: red;*/
+
 }
 
 .main .card-icon p {
-    /*background-color: black;*/
+
     font-size: 20px;
     font-weight: bold;
     text-align: center;
     justify-content: center;
-    /*background-color: red;*/
+
 }
 
 .main .card-text {
     font-size: 15px;
 }
+ .main-content-se {
+    display: grid;
+    position: relative;
+    border-radius: 4px;
+    box-shadow: 0 7px 25px #8b8b8b;
+
+}
 
 
-.main .table-order .order-header {
+.main .table-order .order-header, .main .table-user .user-header {
     display: flex;
     justify-content: space-between;
 }
 
-.main .table-order .order-header h5 {
+.title-f {
    font-weight: bold;
 }
 
 
 
-.main .table-order hr , .main .table-user hr  {
+
+
+.line-split {
     color:#1a73e8;
     border-width: 3px;
 }
@@ -315,5 +336,44 @@ background-color: #ffffff ;
 .table-hover tbody tr:hover {
     background-color: #1a73e8 ;
 }
+
+.table-order .status-cancel {
+    padding: 4px;
+    background-color: #ff0000;
+    color: #ffffff;
+    border-radius: 6px;
+}
+
+.table-order .status-success{
+    padding: 4px;
+    background-color: #4d8a54;
+    color: #ffffff;
+    border-radius: 6px;
+}
+
+.table-order .status-deliver {
+    padding: 4px;
+    background-color: #0171d3;
+    color: #ffffff;
+    border-radius: 6px;
+}
+
+.table-order .status-process {
+    padding: 4px;
+    background-color: #ffcc00;
+    color: #ffffff;
+    border-radius: 6px;
+}
+
+.table-user table tr:hover {
+    background-color: #ffcc00;
+}
+
+.chart-product {
+ text-align: center;
+
+}
+
+
 
 

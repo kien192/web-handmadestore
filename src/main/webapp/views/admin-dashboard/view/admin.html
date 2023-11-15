@@ -15,12 +15,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&display=swap" rel="stylesheet">
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+
 
 </head>
 <body>
 
 
-<div class="navigation">
+<div class="navigation content-to-embed">
     <ul class="ps-0">
         <li class="nav-head"><a href="#">
             <img src="../../images/logo1.png" alt="" class="img-fluid ">
@@ -48,12 +52,12 @@
             <span class="title">Quản lý khách hàng </span>
         </a>
         </li>
-        <li class="nav-item"><a href="#">
+        <li class="nav-item" data-href="setting.html"><a href="#">
             <span class="icon"><i class="bi bi-gear"></i></span>
             <span class="title">Cài đặt</span>
         </a>
         </li>
-        <li class="nav-item"><a href="#">
+        <li class="nav-item"><a href="../../Login/view_login/login.html">
             <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
             <span class="title">Thoát</span>
         </a>
@@ -64,7 +68,7 @@
 </div>
 
 <div class="main">
-    <div class="top-bar">
+    <div class="top-bar sticky-top">
 
         <div class="toggle">
 
@@ -80,8 +84,10 @@
 
         </div>
 
-        <div class="user">
+        <div class="user m-2">
+
             <img src="../../images/Pblues_admin.jpg" class="" alt="">
+            <button><i class="bi bi-caret-down-fill"></i></i></button>
         </div>
 
 
@@ -163,99 +169,206 @@
         </div>
 
     </div>
-<!--ĐƠN HÀNG-->
-    <div class="table-order m-3 ">
-        <div class="order-header">
-        <h5 >Tình trạng đơn hàng</h5>
-        <a href="#">Xem chi tiết</a>
+    <!--ĐƠN HÀNG-->
+    <div class="main-content-se row mx-2 mb-2">
+        <div class="chart-product row p-3">
+            <div class="best-sell-pd  col-sm-5">
+                <h5 class="title-f">Top 5 sản phẩm bán chạy</h5>
+                <hr class="line-split">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Id sản phẩm</th>
+                        <th scope="col">Số lượng bán</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <th scope="row"> IT030
+                        </th>
+                        <td>47</td>
+
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <th scope="row"> IC211
+                        </th>
+                        <td>39</td>
+
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <th scope="row"> IC200
+                        </th>
+                        <td>39</td>
+
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+                        <th scope="row"> IL128
+                        </th>
+                        <td>37</td>
+
+                    </tr>
+
+                    <tr>
+                        <td>5</td>
+                        <th scope="row"> IT273
+                        </th>
+                        <td>34</td>
+
+                    </tr>
+
+
+                    </tbody>
+
+
+                </table>
+
+            </div>
+
+            <div class="profit col-sm-7">
+                <h5 class="title-f">Doanh thu bán hàng năm 2023</h5>
+                <hr class="line-split">
+
+                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+
+            </div>
         </div>
-        <hr >
-        <table class="table  table-hover  ">
-            <thead>
-            <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Gmail khách hàng</th>
-                <th scope="col">Id đơn hàng</th>
-                <th scope="col">Tổng tiền</th>
-                <th scope="col">Trạng thái</th>
-            </tr>
-            </thead>
-            <tbody >
-            <tr>
-                <td>1</td>
-                <th scope="row">messim10@gmail.com</th>
-                <td>O1382</td>
-                <td>200.000đ</td>
-                <td> <span class="status-cancel">Đã hủy </span></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <th scope="row">ronaldo7@gmail.com</th>
-                <td>O1402</td>
-                <td>340000đ</td>
-                <td><span class="status-success">Thành công</span> </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <th scope="row">ozil401@gmail.com</th>
-                <td >O1920</td>
-                <td>512400đ</td>
+        <div class="table-order m-3 col-sm-8 ">
+            <div class="order-header">
+                <h5 class="title-f">Tình trạng đơn hàng</h5>
+                <a href="#">Chi tiết</a>
+            </div>
+            <hr class="line-split">
+            <table class="table table-hover  ">
+                <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Gmail khách hàng</th>
+                    <th scope="col">Id đơn hàng</th>
+                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Trạng thái</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <th scope="row">messim10@gmail.com</th>
+                    <td>O1382</td>
+                    <td>200.000đ</td>
+                    <td><span class="status-cancel">Đã hủy </span></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <th scope="row">ronaldo7@gmail.com</th>
+                    <td>O1402</td>
+                    <td>340.000đ</td>
+                    <td><span class="status-success">Thành công</span></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <th scope="row">ozil401@gmail.com</th>
+                    <td>O1920</td>
+                    <td>512.400đ</td>
 
-                <td><span class="status-process">Đang xử lý</span></td>
-            </tr>
+                    <td><span class="status-process">Đang xử lý</span></td>
+                </tr>
 
-            <tr>
-                <td>4</td>
-                <th scope="row">pep931@gmail.com</th>
-                <td >O1611</td>
-                <td>12400đ</td>
+                <tr>
+                    <td>4</td>
+                    <th scope="row">pep931@gmail.com</th>
+                    <td>O1611</td>
+                    <td>12.400đ</td>
 
-                <td><span class="status-deliver">Đang giao</span></td>
-            </tr>
-            </tbody>
-        </table>
+                    <td><span class="status-deliver">Đang giao</span></td>
+                </tr>
+                </tbody>
+            </table>
 
-    </div>
+        </div>
 
-    <div class="table-user m-3 ">
+        <div class="table-user m-3 col-sm-3 ">
+            <div class="user-header ">
+                <h5 class="title-f">Khách hàng mới</h5>
+                <span><a href="#">Chi tiết</a></span>
+            </div>
+            <hr class="line-split">
+            <table class="table table-hover primary">
+                <tr>
+                    <td>
+                        <i class="bi bi-person-circle"></i>
+                    </td>
+                    <td>chautinhtri@gmail.com</td>
 
-        <h5 >Khách hàng mới</h5>
-        <hr>
-        <table class="table   table-hover  ">
-            <thead>
-            <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Gmail</th>
-                <th scope="col">Mật khẩu</th>
-                <th scope="col">Số điện thoại</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>baphe123@gmail.com</td>
-                <td>phelungba</td>
-                <td>0892881221</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>nghiarunner91@gmail.com</td>
-                <td>lomatem</td>
-                <td>0711233010</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td >kienne11@gmail.com</td>
-                <td>vuilammm</td>
+                </tr>
 
-                 <td>0203100292</td>
-            </tr>
-            </tbody>
-        </table>
+                <tr>
+                    <td>
+                        <i class="bi bi-person-circle"></i>
+                    </td>
+                    <td>ngogiabao@gmail.com</td>
+
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <i class="bi bi-person-circle"></i>
+                    </td>
+                    <td>thanhlong@gmail.com</td>
+
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <i class="bi bi-person-circle"></i>
+                    </td>
+                    <td>lylienkiet@gmail.com</td>
+
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <i class="bi bi-person-circle"></i>
+                    </td>
+                    <td>votanphat@gmail.com</td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <i class="bi bi-person-circle"></i>
+                    </td>
+                    <td>nguyentruonggiang@gmail.com</td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <i class="bi bi-person-circle"></i>
+                    </td>
+                    <td>dokimphuc@gmail.com</td>
+
+                </tr>
+            </table>
+        </div>
+
 
     </div>
 </div>
 </div>
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
