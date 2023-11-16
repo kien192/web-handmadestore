@@ -2,16 +2,20 @@ body {
     margin: 0;
     padding: 0;
     background-image: url("../../images/backgroup.jpg");
+    backdrop-filter: blur(3px);
     background-size: 100%;
     background-repeat: no-repeat;
     font-size: 15px;
-    font-family: Tahoma, Arial, sans-serif ;
+    font-family: Tahoma, Arial, sans-ser    if ;
+
+
 }
 .container {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 .container form {
     width: 500px;
@@ -19,6 +23,7 @@ body {
     background-color: #afe2ea;
     margin:auto;
     border-radius: 5px;
+
 }
 /*Logo*/
 .container form .logo {

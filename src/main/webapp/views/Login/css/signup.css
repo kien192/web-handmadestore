@@ -5,6 +5,13 @@
     font-family: Tahoma, Arial, sans-serif;
 
 
+
+}
+
+body {
+    background-image: url("../../images/backgroup.jpg");
+    backdrop-filter: blur(3px);
+
 }
 
 .container {
@@ -13,7 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url("../../images/backgroup.jpg");
+
 
 }
 
