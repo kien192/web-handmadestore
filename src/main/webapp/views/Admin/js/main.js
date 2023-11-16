@@ -21,26 +21,11 @@ navItems.forEach(function (item) {
         if(pageName) {
             window.location.href=pageName;
         }
-        
+
     })
-    
+
 })
 
-//Giữ khung header & nav cho admin
-// const nav = document.querySelector('.header')
-// fetch('/header.html')
-//     .then(res=>res.text())
-//     .then(data=> {
-//         nav.innerHTML=data
-//     })
-
-
-// fetch('/setting.html')
-//     .then(res=>res.text())
-//     .then(data=> {
-//         nav.innerHTML=data
-//
-//     })
 
 
 
@@ -59,26 +44,5 @@ toggle.onclick = function () {
 
 // canvas vẽ biểu đồ
 
-    const xValues = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
-    const yValues = [0.34, 1.24, 3.55, 6.4, 2.25, 4.0, 3.8, 2.3, 2.0, 5.7, 10.1];
 
-    new Chart("myChart", {
-    type: "line",
-    data: {
-    labels: xValues,
-    datasets: [{
-    fill: false,
-    lineTension: 0,
-    backgroundColor: "#ff0000",
-    borderColor: "#1a73e8",
-    data: yValues
-}]
-},
-    options: {
-    legend: {display: false},
-    scales: {
-    yAxes: [{ticks: {min: 0, max: 14}}],
-}
-}
-});
 

@@ -7,9 +7,9 @@
     <title></title>
 </head>
 <body>
-    <div class="container m-auto">
+    <div class="container-fluid mx-auto mt-2">
         <div class="title m-auto p-2 fw-bold fs-5">
-            <span>Quản Lý Sản Phẩm</span>
+            <span class="ps-2">Quản Lý Sản Phẩm</span>
         </div>
         <div class="function d-flex m-4 fs-6">
             <select class="me-4 p-2" id="optionFunction">
@@ -30,9 +30,10 @@
         </div>
         <div class="solid"></div>
         <div class="product_list m-auto" id="product">
-            <div class="title_product ">
-                <p class="fw-bold fs-5 ">Danh sách sản phẩm</p>
+            <div class="title_product  ">
+                <p class="fw-bold fs-5 pt-3  ">Danh sách sản phẩm</p>
             </div>
+            <hr>
             <div class="mytables">
             <table class="m-auto" id="mytable">
                 <thead>
@@ -150,61 +151,82 @@
         padding: 0;
         margin: 0;
         font-size: 15px;
+        font-family: Tahoma, Arial, sans-serif;
+
     }
-    .container{
-        background: #d5d3d3;
+    .container-fluid{
+
+        width: 100%;
 
     }
     /*menubar*/
-    .container .title{
-        background: white;
-        width: 70%;
-        border-radius: 8px;
-        border-left: 2vh solid red;
+    .container-fluid .title{
+        background-color: #f5f0ea;
+        width: 100%;
+
+
+
     }
-    .container .function .add_product a{
+
+    .container-fluid  .product_list{
+        background-color: #ffffff;
+        box-shadow: 0px 0px 3px 3px #CACACA;
+        border-radius: 4px;
+        box-sizing: border-box;
+
+    }
+
+    .product_list hr {
+        color:#1a73e8;
+        border-width: 3px;
+    }
+    .title_product p {
+        text-align: center;
+    }
+
+    .container-fluid .function .add_product a{
         text-decoration: none;
         color: white;
     }
-    .container .function .add_product{
+    .container-fluid .function .add_product{
         background: deepskyblue;
         border-radius: 5px;
     }
-    .container .function .add_product:hover{
-        background: red;
+    .container-fluid .function .add_product:hover{
+        background: #4d9da9;
     }
-    .container .function .delete_all{
+    .container-fluid .function .delete_all{
         background: #aba8a8;
         color: white;
         border-radius: 5px;
         cursor: pointer;
     }
-    .container .function .delete_all:hover{
-        background: red;
+    .container-fluid .function .delete_all:hover{
+        background: #ff0000;
     }
     /*table*/
-    .container .product_list{
+    .container-fluid.product_list{
         background: white;
     }
-    .container .product_list th,td {
+    .container-fluid .product_list th,td {
         border: 1px solid grey;
         text-align: center;
     }
-    .container .product_list th{
-        background-color: cornflowerblue;
+    .container-fluid .product_list th{
+        background-color: #afe2ea;
     }
-    .container .product_list .item button:active{
-        background: cornflowerblue;
+    .container-fluid .product_list .item button:active{
+        background:#afe2ea;
         border: 1px solid white;
     }
-    .container .product_list tbody{
+    .container-fluid .product_list tbody{
         overflow-y: auto;
         overflow-x:hidden ;
     }
-    .container .product_list .title_product{
+    .container-fluid.product_list .title_product{
         text-align: center;
     }
-    .container .product_list {
+    .container-fluid .product_list {
         border-bottom: 5px solid grey;
     }
     .mytables{

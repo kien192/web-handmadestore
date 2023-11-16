@@ -7,15 +7,16 @@
     <title>Quản Lý Khách Hàng</title>
 </head>
 <body>
-    <div class="container">
-        <div class="title m-auto p-2 fw-bold fs-5">
+    <div class="container-fluid ">
+        <div class="title p-2 fw-bold fs-5 mt-2">
             <span>Quản Lý Tài Khoản Khách Hàng</span>
         </div>
-        <div class="customer_list m-auto my-5" id="customer">
+        <div class="customer_list mx-auto me-1 mt-5" id="customer">
             <div class="title_customer ">
-                <p class="fw-bold fs-5 ">Danh sách Tài Khoản Khách Hàng</p>
+                <p class="fw-bold fs-5 pt-3 ">Danh sách Tài Khoản Khách Hàng</p>
+                <hr>
             </div>
-            <div class="mytables">
+            <div class="mytables ">
                 <table class="m-auto" id="mytable">
                     <thead>
                     <tr class="table_customer sticky-top">
@@ -91,56 +92,80 @@
             </div>
         </div>
     </div>
+
+    <script>
+
+
+    </script>
+
 </body>
 <style>
+
     body{
         padding: 0;
         margin: 0;
         font-size: 15px;
+        font-family: Tahoma, Arial, sans-serif;
+
     }
-    .container{
-        background: #d5d3d3;
+    .container-fluid{
+
+        width: 100%;
+
+
+
+
 
     }
     /*title*/
-    .container .title{
-        background: white;
-        width: 70%;
-        border-radius: 8px;
-        border-left: 2vh solid red;
+    .container-fluid .title{
+        background-color: #f5f0ea;
+        width: 100%;
+
+
+
     }
+    .title_customer hr {
+        color:#1a73e8;
+        border-width: 3px;
+    }
+
 /*    list customer*/
-    .container .customer_list{
-        background: white;
+    .container-fluid  .customer_list{
+        background-color: #ffffff;
+        box-shadow: 0px 0px 3px 3px #CACACA;
+        border-radius: 4px;
+        box-sizing: border-box;
+
     }
-    .container .customer_list th,td {
+
+
+    .container-fluid  .customer_list th,td {
         border: 1px solid grey;
         text-align: center;
     }
-    .container .customer_list th{
+    .container-fluid  .customer_list th{
         background-color: cornflowerblue;
     }
-    .container .customer_list .title_customer{
+    .container-fluid  .customer_list .title_customer{
         text-align: center;
     }
-    .container .customer_list .item button{
+    .container-fluid  .customer_list .item button{
         border: none;
         background: white;
     }
-    .container .customer_list .item button:hover {
+    .container-fluid  .customer_list .item button:hover {
         background: red;
         color: white;
     }
-    .container .customer_list tbody{
+    .container-fluid  .customer_list tbody{
         overflow-y: auto;
         overflow-x:hidden ;
     }
-    .container .customer_list {
-        border-bottom: 5px solid grey;
-    }
+
     .mytables{
         height: 50vh;
-        width: 75%;
+        width: 100%;
         margin: auto;
         overflow-y: scroll;
     }
@@ -150,4 +175,5 @@
         height: 50px;
     }
 </style>
+
 </html>

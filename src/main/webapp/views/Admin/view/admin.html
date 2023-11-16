@@ -15,9 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&display=swap" rel="stylesheet">
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-    </script>
+
 
 
 </head>
@@ -27,23 +25,31 @@
 <div class="navigation content-to-embed">
     <ul class="ps-0 ">
 
-        <li class="nav-item"><a href="#">
+        <li class="nav-item"><a href="dashboard.html" target="content"
+                                onclick="changeIframeSrc('dashboard.html')"
+              class="nav-link">
             <span class="icon"><i class="bi bi-house-door"></i></span>
             <span class="title">Quản lý chung</span>
         </a>
         </li>
-        <li class="nav-item"><a href="#">
+        <li class="nav-item ">
+            <a href="../product_management.html" target="content"
+               onclick="changeIframeSrc('../product_management.html')" class="nav-link">
             <span class="icon"><i class="bi bi-shop"></i></i></span>
             <span class="title">Quản lý sản phẩm</span>
         </a>
         </li>
-        <li class="nav-item"><a href="#">
+        <li class="nav-item">
+            <a href="../order_managerment.html" target="content"
+               onclick="changeIframeSrc('../order_managerment.html')"  class="nav-link">
             <span class="icon"><i class="bi bi-minecart"></i></span>
             <span class="title">Quản lý đơn hàng</span>
         </a>
         </li>
 
-        <li class="nav-item"><a href="#">
+        <li class="nav-item"><a href="../customer_managerment.html"
+                                onclick="changeIframeSrc('../customer_managerment.html')"
+                                target="content" class="nav-link">
             <span class="icon"><i class="bi bi-people-fill"></i></span>
             <span class="title">Quản lý khách hàng </span>
         </a>
@@ -98,285 +104,12 @@
     </div>
 </div>
 
-<div class="main ">
+<div class="main">
+<iframe src="dashboard.html" frameborder="0" name="content" class="content"
 
-    <div class="title-main m-2 ">
-
-        <h5 class="p-3">Chào bạn quay trở lại, Admin ơi!</h5>
-
-    </div>
-    <div class="main-content">
-        <div class="card-box m-4 ">
-
-
-            <div class="card mb-3 me-3" style="max-width: 300px;">
-                <div class="row g-0">
-                    <div class="col-md-4 card-icon my-auto">
-                        <i class="bi bi-eye"></i>
-                        <p class="card-text">2003</p>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Lượt xem</h5>
-                            <p class="card-text">Tổng số lượt ghé thăm trang web</p>
-                            <p class="card-text"><small class="text-body-secondary">Cập nhật 7 giờ trước</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="card mb-3 me-3 " style="max-width: 300px;">
-                <div class="row g-0">
-                    <div class="col-md-4 card-icon my-auto">
-                        <i class="bi bi-bag-fill"></i>
-                        <p class="card-text">234</p>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Sản phẩm</h5>
-                            <p class="card-text">Tổng số lượng sản phẩm có sẵn</p>
-                            <p class="card-text"><small class="text-body-secondary">Cập nhật 7 giờ trước</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mb-3 me-3  " style="max-width: 300px;">
-                <div class="row g-0">
-                    <div class="col-md-4 card-icon my-auto">
-                        <i class="bi bi-truck"></i>
-                        <p class="card-text">78</p>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Đơn hàng</h5>
-                            <p class="card-text">Số lượng đơn hàng đang vận chuyển</p>
-                            <p class="card-text"><small class="text-body-secondary">Cập nhật 4 giờ trước</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mb-3   " style="max-width: 300px;">
-                <div class="row g-0">
-                    <div class="col-md-4 card-icon my-auto">
-                        <i class="bi bi-people-fill"></i>
-                        <p class="card-text">571</p>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Khách hàng</h5>
-                            <p class="card-text">Tổng số lượng khách hàng đang có</p>
-                            <p class="card-text"><small class="text-body-secondary">Cập nhật 4 giờ trước</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-    </div>
-    <!--ĐƠN HÀNG-->
-    <div class="main-content-se row mx-2 mb-2">
-        <div class="chart-product row p-3">
-            <div class="best-sell-pd  col-sm-5">
-                <h5 class="title-f">Top 5 sản phẩm bán chạy</h5>
-                <hr class="line-split">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">STT</th>
-                        <th scope="col">Id sản phẩm</th>
-                        <th scope="col">Số lượng bán</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <th scope="row"> IT030
-                        </th>
-                        <td>47</td>
-
-                    </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <th scope="row"> IC211
-                        </th>
-                        <td>39</td>
-
-                    </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <th scope="row"> IC200
-                        </th>
-                        <td>39</td>
-
-                    </tr>
-
-                    <tr>
-                        <td>4</td>
-                        <th scope="row"> IL128
-                        </th>
-                        <td>37</td>
-
-                    </tr>
-
-                    <tr>
-                        <td>5</td>
-                        <th scope="row"> IT273
-                        </th>
-                        <td>34</td>
-
-                    </tr>
-
-
-                    </tbody>
-
-
-                </table>
-
-            </div>
-
-            <div class="profit col-sm-7">
-                <h5 class="title-f">Doanh thu bán hàng năm 2023</h5>
-                <hr class="line-split">
-
-                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-
-
-            </div>
-        </div>
-        <div class="table-order m-3 col-sm-8 ">
-            <div class="order-header">
-                <h5 class="title-f">Tình trạng đơn hàng</h5>
-                <a href="#">Chi tiết</a>
-            </div>
-            <hr class="line-split">
-            <table class="table table-hover  ">
-                <thead>
-                <tr>
-                    <th scope="col">STT</th>
-                    <th scope="col">Gmail khách hàng</th>
-                    <th scope="col">Id đơn hàng</th>
-                    <th scope="col">Tổng tiền</th>
-                    <th scope="col">Trạng thái</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <th scope="row">messim10@gmail.com</th>
-                    <td>O1382</td>
-                    <td>200.000đ</td>
-                    <td><span class="status-cancel">Đã hủy </span></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <th scope="row">ronaldo7@gmail.com</th>
-                    <td>O1402</td>
-                    <td>340.000đ</td>
-                    <td><span class="status-success">Thành công</span></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <th scope="row">ozil401@gmail.com</th>
-                    <td>O1920</td>
-                    <td>512.400đ</td>
-
-                    <td><span class="status-process">Đang xử lý</span></td>
-                </tr>
-
-                <tr>
-                    <td>4</td>
-                    <th scope="row">pep931@gmail.com</th>
-                    <td>O1611</td>
-                    <td>12.400đ</td>
-
-                    <td><span class="status-deliver">Đang giao</span></td>
-                </tr>
-                </tbody>
-            </table>
-
-        </div>
-
-        <div class="table-user m-3 col-sm-3 ">
-            <div class="user-header ">
-                <h5 class="title-f">Khách hàng mới</h5>
-                <span><a href="#">Chi tiết</a></span>
-            </div>
-            <hr class="line-split">
-            <table class="table table-hover primary">
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>chautinhtri@gmail.com</td>
-
-                </tr>
-
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>ngogiabao@gmail.com</td>
-
-                </tr>
-
-
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>thanhlong@gmail.com</td>
-
-                </tr>
-
-
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>lylienkiet@gmail.com</td>
-
-                </tr>
-
-
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>votanphat@gmail.com</td>
-
-                </tr>
-
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>nguyentruonggiang@gmail.com</td>
-
-                </tr>
-
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>dokimphuc@gmail.com</td>
-
-                </tr>
-            </table>
-        </div>
-
-
-    </div>
+        id="frame" width="100%" height="1100px" scrolling="no"
+></iframe>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
@@ -386,6 +119,14 @@
 <script src="../js/main.js"></script>
 
 <script>
+function  resizeName(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+}
+function changeIframeSrc(newSrc) {
+    var iframe = document.getElementById('myIframe');
+    iframe.src = newSrc;
+    return false; // Ngăn chặn chuyển hướng theo href
+}
 
 
 </script>

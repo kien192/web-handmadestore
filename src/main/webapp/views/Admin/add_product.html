@@ -7,17 +7,17 @@
     <title>Thêm sản phẩm</title>
 </head>
 <body>
-    <div class="container">
-        <div class="title m-auto p-2 fw-bold fs-5">
+    <div class="container-fluid ">
+        <div class="title m-auto p-2 fw-bold fs-5 mt-2">
             <span>Thêm Sản Phẩm</span>
         </div>
         <div class="infor_product my-4">
-            <input class="infor col-5 mx-5 my-2 p-2" type="text" placeholder="Mã sản phẩm">
-            <input class="infor col-5 mx-5 my-2 p-2" type="text" placeholder="Tên sản phẩm">
-            <input class="infor col-5 mx-5 my-2 p-2" type="text" placeholder="Số lượng">
-            <input class="infor col-5 mx-5 my-2 p-2" type="text" placeholder="Giá nhập">
-            <input class="infor col-5 mx-5 my-2 p-2" type="text" placeholder="Giá bán">
-            <input class="infor col-5 mx-5 my-2 p-2" type="text" placeholder="Nhà cung cấp">
+            <input class="infor col-sm-5 mx-5 my-2 p-2" type="text" placeholder="Mã sản phẩm">
+            <input class="infor col-sm-5 mx-5 my-2 p-2" type="text" placeholder="Tên sản phẩm">
+            <input class="infor col-sm-5 mx-5 my-2 p-2" type="text" placeholder="Số lượng">
+            <input class="infor col-sm-5 mx-5 my-2 p-2" type="text" placeholder="Giá nhập">
+            <input class="infor col-sm-5 mx-5 my-2 p-2" type="text" placeholder="Giá bán">
+            <input class="infor col-sm-5 mx-5 my-2 p-2" type="text" placeholder="Nhà cung cấp">
         </div>
         <div class="image mx-5">
             <p class="fw-bold">Chọn ảnh đại diện cho sản phẩm</p>
@@ -27,7 +27,7 @@
                 <p class="mt-4 fs-5 fw-bold">Miêu tả sản phẩm</p>
                 <textarea></textarea>
         </div>
-        <div class="save_product mt-5 text-center" id="submit">
+        <div class="save_product my-4 text-center " id="submit">
             <button class="p-3 fw-bold">Lưu sản phẩm</button>
         </div>
     </div>
@@ -37,24 +37,39 @@
         padding: 0;
         margin: 0;
         font-size: 15px;
+        font-family: Tahoma, Arial, sans-serif;
+
     }
-    .container{
-        background: #d5d3d3;
+    .container-fluid{
+
+        width: 100%;
+
+
+
     }
+
+
+
     /*title*/
-    .container .title{
-        background: white;
-        width: 70%;
-        border-radius: 8px;
-        border-left: 2vh solid red;
+    .container-fluid .title{
+        background-color: #f5f0ea;
+        width: 100%;
+
     }
     /*infor*/
-    .container .infor_product .infor{
+    .container-fluid .infor_product .infor{
         border-radius: 5px;
         border: none;
     }
+    /*input*/
+    .container-fluid input {
+        background-color: #f5f0ea;
+        outline: none;
+    }
+
+
     /*image*/
-    .container .image{
+    .container-fluid .image{
         color: #168d16;
         background: white;
         border: 3px dotted grey;
@@ -63,27 +78,28 @@
         padding: 10px;
         cursor: pointer;
     }
-    .container .image:active{
-        background: deepskyblue;
+    .container-fluid .image:active{
+        background: #afe2ea;
     }
-    .container .image i{
+    .container-fluid .image i{
         margin-left: 40%;
     }
     /*description*/
-    .container .descrip_produce textarea{
+    .container-fluid .descrip_produce textarea{
         width: 100%;
         height: 25vh;
         border-radius: 7px;
     }
     /*save product*/
-    .container .save_product button{
+    .container-fluid .save_product button{
         border-radius: 5px;
-        background: deepskyblue;
-        color: white;
+        background: #afe2ea;
+        color: #000000;
         border: none;
     }
-    .container .save_product button:hover{
-        background: red;
+    .container-fluid .save_product button:hover{
+        background: #ff0000;
+        color: #ffffff;
     }
 </style>
 </html>
