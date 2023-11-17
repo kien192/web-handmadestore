@@ -15,9 +15,8 @@ body{
 .menu ul li {
     list-style-type: none;
 }
-.menu ul .logo{
-    padding-left: 2%;
-}
+
+
 .menu ul .sanpham .sub_menu{
     left: 0%;
     padding: 0;
@@ -186,6 +185,7 @@ body{
 #footer {
     background: linear-gradient(90deg, rgba(80, 82, 84, 0.7), rgba(44, 43, 43, 0.7)),
                 url("../../images/backgroup.jpg");
+
     background-repeat: no-repeat;
     background-size: 100%;
 
