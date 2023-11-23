@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../Login/css/login.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/views/Login/css/login.css">
+    <link href="<%=request.getContextPath()%>/views/bootstrap-css/bootstrap.min.css">
     <title>Đăng Nhập</title>
 </head>
 <body>
 <div class="container">
-    <form id="form">
+    <form id="form" action="<%=request.getContextPath()%>/login" method="post">
         <div class="logo">
-            <img  src="../../images/logo.png" width="25%">
+            <img src="../../images/logo.png" width="25%">
         </div>
         <div class="title">
             <h1>Đăng Nhập</h1>
@@ -20,7 +20,7 @@
                 <i class='bx bx-envelope mail-icon' style="color: #6494ce"></i>
             </div>
             <div class="input email">
-                <input type="email" placeholder="Email" class="email">
+                <input name="email" type="email" placeholder="Email" class="email">
             </div>
         </div>
         <div class="item password">
@@ -28,7 +28,7 @@
                 <i class='bx bx-key key-icon' style="color: #6494ce"></i>
             </div>
             <div class="input email">
-                <input type="password" placeholder="Mật Khẩu" class="password">
+                <input name="password" type="password" placeholder="Mật Khẩu" class="password">
             </div>
 
         </div>
@@ -36,7 +36,13 @@
             <span><a href="../view_login/forgotpassword.html">Quên Mật Khẩu?</a></span>
         </div>
         <div class="submit dn">
-            <button><a href="#">Đăng Nhập</a></button>
+            <button type="submit">Đăng Nhập</button>
+        </div>
+        <div>
+            <% String re = request.getAttribute("result") == null ? "" : request.getAttribute("result").toString(); %>
+
+            <p id="result" name="result"><%=re%>
+            </p>
         </div>
         <div class="solid"></div>
         <div class="icondn">
@@ -44,12 +50,13 @@
                 <a href="#" class="facebook"><i class='bx bxl-facebook facebook-icon'></i></a>
             </div>
             <div class="item-media">
-                <a href="#" class="google"><i class='bx bxl-google google-icon' ></i></a>
+                <a href="#" class="google"><i class='bx bxl-google google-icon'></i></a>
             </div>
         </div>
         <div class="submit dk">
             <button><a href="signup.html">Đăng Ký</a></button>
         </div>
+
     </form>
 </div>
 </body>
