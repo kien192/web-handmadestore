@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>ADMIN DASHBOARD</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/views/Admin/css/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -15,9 +15,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&display=swap" rel="stylesheet">
-
-
-
 </head>
 <body>
 
@@ -35,7 +32,7 @@
         <li class="nav-item ">
             <a href="../product_management.html" target="content"
                onclick="changeIframeSrc('../product_management.html')" class="nav-link">
-            <span class="icon"><i class="bi bi-shop"></i></i></span>
+            <span class="icon"><i class="bi bi-shop"></i></span>
             <span class="title">Quản lý sản phẩm</span>
         </a>
         </li>
@@ -59,7 +56,7 @@
             <span class="title">Cài đặt</span>
         </a>
         </li>
-        <li class="nav-item"><a href="../../Login/view_login/login.html">
+        <li class="nav-item"><a href="../../Login/view_login/login.jsp">
             <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
             <span class="title">Thoát</span>
         </a>
@@ -97,7 +94,7 @@
         <div class="user m-2">
 
             <img src="../../images/Pblues_admin.jpg" class="" alt="">
-            <button><i class="bi bi-caret-down-fill"></i></i></button>
+            <button><i class="bi bi-caret-down-fill"></i></button>
         </div>
 
 
