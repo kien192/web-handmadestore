@@ -17,6 +17,13 @@ public class UserDAO {
         return user.isEmpty() ? null : user.get();
     }
 
+    public static void setPasswordByEmail(final String email, String newPassword) {
+        JDBIConnector.me().useHandle(handle -> {
+            handle.createUpdate("update user set password = ? where email = ?")
+                    .bind(0, newPassword).bind(1, email).execute();
+        });
+    }
+
     public static void main(String[] args) {
         List<User> users = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from user").mapToBean(User.class).collect(Collectors.toList())
