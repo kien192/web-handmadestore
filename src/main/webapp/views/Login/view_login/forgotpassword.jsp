@@ -11,7 +11,7 @@
 <div class="container">
     <form id="form" action="<%=request.getContextPath()%>/forgotpassword?page=1" method="post">
         <div class="xyz">
-            <button type="button" id="back_btn" onclick="window.location = '<%=request.getContextPath()%>/login.jsp'"><i
+            <button type="submit" id="back_btn" name="action" value="back_login"><i
                     class="fa-solid fa-arrow-left" style="color: #183153"></i>
             </button>
 
@@ -39,6 +39,5 @@
         </div>
     </form>
 </div>
-
 </body>
 </html>

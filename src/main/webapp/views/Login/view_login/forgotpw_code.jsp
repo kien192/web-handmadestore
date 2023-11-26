@@ -10,12 +10,12 @@
 <div class="container">
     <form id="form" action="<%=request.getContextPath()%>/forgotpassword?page=2" method="post">
         <div class="xyz">
-            <button type="button" id="back_btn" onclick="window.location = 'login.html'"><i
+            <button type="submit" id="back_btn" name="action" value="back_forgotpassword"><i
                     class="fa-solid fa-arrow-left" style="color: #183153"></i>
             </button>
 
             <div class="logo">
-                <img src="../../images/logo.png" width="25%">
+                <img src="<%=request.getContextPath()%>/views/images/logo.png" width="25%">
             </div>
 
         </div>
