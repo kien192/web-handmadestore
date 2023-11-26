@@ -64,7 +64,7 @@
             <a href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp">Đăng Nhập</a>
             <%} else{%>
 
-            <button type="button" class="btn btn-sm btn-primary "><i class="fa-solid fa-user" style="color: white;"></i> <%= u.getName()%></button>
+            <button type="button" class="btn btn-sm btn-primary "><i class="fa-solid fa-user" style="color: white;"></i> <span><%= u.getName()%></span></button>
             <ul id="dangxuat" class="dx dropdown-menu">
                 <li><a class="dropdown-item" href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp">Đăng Xuất</a></li>
             </ul>
@@ -773,6 +773,8 @@
     .menu ul li.login:hover #dangxuat{
        display: block;
     }
-
+    .menu ul li.item {
+        text-align: center;
+    }
 </style>
 </html>
