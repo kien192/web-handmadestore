@@ -1,0 +1,19 @@
+-Danh sách Database (
+-Chức năng:
+	+ Responsive
+	+ Đăng nhập(khi ng dùng nhập email vs password kiểm tra trong DB USER
+			* phản hồi khi sai 
+			* vào trang web chính (sẽ hiện logo user và xóa từ đăng nhập)
+			* tùy quyền Role mà hiện trang web (Nghĩa)
+	+ Đăng ký(thêm thông tin email, password , họ tên và số điện thoại)
+		*thêm thông tin vô DB USER
+		* vào trang web chính (sẽ hiện logo user và xóa từ đăng nhập) 
+		* tất cả ng đăng ký đều quyền ROLE là người dùng (Kiên)
+	+ Quên mật khẩu *B1: nhập email hoặc SDT (kiểm tra trong DB user + nếu có tiếp tục 
+								+ nếu không thì phản hồi lại)
+			*B2:xác thực mã (kiểm tra đúng thì tiếp tục sai thì phản hổi)
+		*B3: đặt lại MK (sẽ thay đổi password trong DB user có email đã kiểm tra)
+		*B4 đăng nhập lại (Phụng)
+	+ 
+-Trong tuần này
+	

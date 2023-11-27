@@ -7,17 +7,18 @@ import model.dao.RoleDAO;
 public class RoleService {
     private static RoleService instance;
 
-    public static RoleService getInstance() {
-        if (instance == null) instance = new RoleService();
+    public static RoleService getInstance(){
+        if(instance==null) instance = new RoleService();
         return instance;
     }
 
-    public String checkRole(User user) {
+    public String checkRole(User user){
         Role role = RoleDAO.getRole(user);
-        if (role != null) {
-            if (role.getName().equals("admin")) return "admin";
-            return "user";
-        }
-        return null;
+            if(role.getName().equals("admin")){
+                return "admin";
+            }else{
+                return "user";
+            }
     }
+
 }

@@ -12,7 +12,11 @@ import java.util.stream.Collectors;
 public class UserDAO {
     public static User getUserByEmail(final String email) {
         Optional<User> user = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("select * from user where email= ?").bind(0, email).mapToBean(User.class).stream().findFirst()
+                handle.createQuery("select * from user where email= :e")
+                        .bind("e", email)
+                        .mapToBean(User.class)
+                        .stream()
+                        .findFirst()
         );
         return user.isEmpty() ? null : user.get();
     }
@@ -25,9 +29,11 @@ public class UserDAO {
     }
 
     public static void main(String[] args) {
-        List<User> users = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("select * from user").mapToBean(User.class).collect(Collectors.toList())
-        );
-        System.out.println(users);
+//        List<User> users = JDBIConnector.me().withHandle(handle ->
+//                handle.createQuery("select * from user").mapToBean(User.class).collect(Collectors.toList())
+//        );
+//        System.out.println(users);
+        User u = UserDAO.getUserByEmail("nghia@gmail.com");
+        System.out.println(u.toString());
     }
 }

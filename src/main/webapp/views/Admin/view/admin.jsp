@@ -32,7 +32,7 @@
         <li class="nav-item ">
             <a href="../product_management.html" target="content"
                onclick="changeIframeSrc('../product_management.html')" class="nav-link">
-            <span class="icon"><i class="bi bi-shop"></i></i></span>
+            <span class="icon"><i class="bi bi-shop"></i></span>
             <span class="title">Quản lý sản phẩm</span>
         </a>
         </li>
@@ -94,7 +94,7 @@
         <div class="user m-2">
 
             <img src="../../images/Pblues_admin.jpg" class="" alt="">
-            <button><i class="bi bi-caret-down-fill"></i></i></button>
+            <button><i class="bi bi-caret-down-fill"></i></button>
         </div>
 
 
@@ -103,7 +103,6 @@
 
 <div class="main">
 <iframe src="dashboard.html" frameborder="0" name="content" class="content"
-
         id="frame" width="100%" height="1100px" scrolling="no"
 ></iframe>
 </div>

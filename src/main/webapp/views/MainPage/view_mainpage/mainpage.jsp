@@ -1,10 +1,12 @@
+<%@ page import="model.bean.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+   <%User u = (User) session.getAttribute("auth");%>
 <html>
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
     <link rel="stylesheet" href="<%=request.getContextPath()%>/views/MainPage/css/mainpage.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
     <title>Cửa Hàng HandMade</title>
@@ -56,13 +58,21 @@
             <input type="text" placeholder="Bạn tìm gì...">
 
         </li>
-        <li class="login p-4 my-auto">
+        <li class="login p-4 my-auto dropdown">
+            <%if(u == null) {%>
             <i class="fa-solid fa-user" style="color: #496088;"></i>
             <a href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp">Đăng Nhập</a>
+            <%} else{%>
+
+            <button type="button" class="btn btn-sm btn-primary "><i class="fa-solid fa-user" style="color: white;"></i> <span><%= u.getName()%></span></button>
+            <ul id="dangxuat" class="dx dropdown-menu">
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp">Đăng Xuất</a></li>
+            </ul>
+            <%}%>
         </li>
         <li class="cart p-4 dropdown my-auto">
             <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>
-            <a href="#">Giỏ Hàng</a>
+            <a href="<%=request.getContextPath()%>/views/CartPage/cart.html">Giỏ Hàng</a>
         </li>
     </ul>
 </div>
@@ -745,7 +755,26 @@
         <p>Bản quyền thuộc về HEADQUARTERS| Cung cấp bởi HEADQUARTERS</p>
     </div>
 </div>
-
-
 </body>
+<style>
+    #dangxuat {
+        padding: 0;
+        display: none;
+    }
+    #dangxuat a:hover {
+        background: red;
+        color: white;
+    }
+    #dangxuat a {
+        color: black ;
+        padding-right: 25%;
+        padding-left: 25%;
+    }
+    .menu ul li.login:hover #dangxuat{
+       display: block;
+    }
+    .menu ul li.item {
+        text-align: center;
+    }
+</style>
 </html>
