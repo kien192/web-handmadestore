@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/views/Login/css/login.css">
     <link href="<%=request.getContextPath()%>/views/bootstrap-css/bootstrap.min.css">
+
+
     <title>Đăng Nhập</title>
 </head>
 <body>
 <div class="container">
     <form id="form" action="<%=request.getContextPath()%>/login" method="post">
         <div class="logo">
-            <img src="../../images/logo.png" width="25%">
+            <img src="/views/images/logo1.png" width="25%">
         </div>
         <div class="title">
             <h1>Đăng Nhập</h1>

@@ -23,7 +23,8 @@ public class login extends HttpServlet {
         String email = req.getParameter("email");
         String pw = req.getParameter("password");
 
-        User user = UserService.getInstance().checkLogin(email, pw);
+        User user = null;
+//                UserService.getInstance().checkLogin(email, pw);
         if (user != null) {
             HttpSession session = req.getSession();
             session.setAttribute("auth", user);

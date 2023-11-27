@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/views/MainPage/css/mainpage.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
+
     <title>Cửa Hàng HandMade</title>
 </head>
 <body>
@@ -16,7 +17,7 @@
     <ul class="d-flex m-0">
 
         <li class="logo me-4 my-auto">
-            <img src="../../images/logo.png" style="width: 12vh">
+            <img src="/views/images/logo1.png" style="width: 12vh">
 
         </li>
         <li class="item times p-4 my-auto">
@@ -127,13 +128,13 @@
         <ul>
             <li class="itemrow li1 d-flex">
                 <div class="item sp_t1  me-4">
-                    <a href="#"><img src="../../images/ThiepHandMade1.webp"></a>
+                    <a href="#"><img src="./images/anh8.webp"></a>
                     <a href="#"><p class="text-center">Thiệp Valentine ý nghĩa</p></a>
                     <p class="text-center text-danger">70.000₫</p>
                     <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
                 </div>
                 <div class="item sp_t2 me-4">
-                    <a href="#"><img src="../../images/ThiepHandMade2.webp"></a>
+                    <a href="#"><img src="/views/images/ThiepHandMade2.webp"></a>
                     <a href="#"><p class="text-center">Bì thư trơn đẹp Vintage</p></a>
                     <p class="text-center text-danger">35.000₫</p>
                     <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
