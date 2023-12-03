@@ -3,7 +3,7 @@ package model.dao;
 import model.bean.User;
 import model.db.JDBIConnector;
 
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +28,7 @@ public class UserDAO {
         });
     }
 
+
     public static void insertUser(User user) {
         if (user == null) {
             throw new IllegalArgumentException("User object is null");
@@ -46,6 +47,7 @@ public class UserDAO {
             JDBIConnector.me().useHandle(handle ->
                     handle.createUpdate("INSERT INTO user (password, name, email, phoneNumber) VALUES(:password, :name, :email, :telephone)")
                             .bind("password", userPass)
+
                             .bind("name", userName)
                             .bind("email", userEmail )
                             .bind("telephone",userTelephone)

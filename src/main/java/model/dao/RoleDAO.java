@@ -20,10 +20,12 @@ public class RoleDAO {
         return roles.isEmpty()?null: roles.get();
     }
 
+
     public static void main(String[] args) {
         List<Role> roles = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from role").mapToBean(Role.class).collect(Collectors.toList())
         );
         System.out.println(roles.toString());
     }
+
 }

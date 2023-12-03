@@ -1,3 +1,5 @@
+
+
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +11,7 @@
 }
 
 body {
-    background-image: url("../../images/backgroup.jpg");
+    background-image: url("../../images/anh1.webp");
     backdrop-filter: blur(3px);
 
 }
@@ -20,6 +22,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
 
 
 }
@@ -49,6 +52,9 @@ img.logo {
     border-radius: 6px;
 }
 
+
+
+
 header {
     font-size: 30px;
     font-weight: 600;
@@ -63,6 +69,12 @@ form {
     margin-top: 20px;
 
 }
+form .infor {
+    display : flex;
+    justify-content: space-around;
+    align-content: center;
+}
+
 .form .field {
         height: 40px;
         width: 100%;
@@ -70,6 +82,11 @@ form {
         position: relative;
         border-radius: 6px;
     }
+
+.infor .infor.sub {
+    padding: 0px ;
+
+}
 
    .mail-icon , .key-icon {
        padding: 12px;
@@ -163,7 +180,7 @@ form {
 }
 
 .line::before {
-    content: 'Hoặc';
+    content: 'Thông tin cá nhân';
     position: absolute;
     top: 50%;
     left: 50%;
