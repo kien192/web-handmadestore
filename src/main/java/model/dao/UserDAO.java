@@ -28,6 +28,38 @@ public class UserDAO {
         });
     }
 
+    public static void insertUser(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User object is null");
+        }
+
+        String userPass = user.getPassword();
+        String userName = user.getName();
+        String userEmail = user.getEmail();
+        String userTelephone = user.getPhoneNumber();
+
+        if (userPass == null || userName == null || userEmail == null || userTelephone == null) {
+            throw new IllegalArgumentException("User data is incomplete");
+        }
+
+        try {
+            JDBIConnector.me().useHandle(handle ->
+                    handle.createUpdate("INSERT INTO user (password, name, email, phoneNumber) VALUES(:password, :name, :email, :telephone)")
+                            .bind("password", userPass)
+                            .bind("name", userName)
+                            .bind("email", userEmail )
+                            .bind("telephone",userTelephone)
+                            .execute()
+
+
+            );
+
+        } catch (Exception e) {
+            // Xử lý exception tại đây, có thể log hoặc throw lại exception tùy vào yêu cầu của ứng dụng
+            e.printStackTrace();
+            throw new RuntimeException("Failed to insert user into the database", e);
+        }
+    }
     public static void main(String[] args) {
 //        List<User> users = JDBIConnector.me().withHandle(handle ->
 //                handle.createQuery("select * from user").mapToBean(User.class).collect(Collectors.toList())
