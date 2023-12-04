@@ -27,7 +27,7 @@ public class login extends HttpServlet {
         User user = UserService.getInstance().checkLogin(email, pw);
         if(checkEmail == null){
             req.setAttribute("errEmail","Email không tồn tại !");
-            req.getRequestDispatcher("./views/Login/view_login/login.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/Login/view_login/login.jsp").forward(req, resp);
         }
         if (user != null) {
             HttpSession session = req.getSession();
@@ -40,7 +40,7 @@ public class login extends HttpServlet {
                 resp.sendRedirect(req.getContextPath() + "/views/MainPage/view_mainpage/mainpage.jsp");
         } else {
             req.setAttribute("result", "Mật khẩu không chính xác!");
-            req.getRequestDispatcher("./views/Login/view_login/login.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/Login/view_login/login.jsp").forward(req, resp);
         }
     }
 
