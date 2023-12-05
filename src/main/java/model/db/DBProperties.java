@@ -16,7 +16,7 @@ public class DBProperties {
    public static String host = properties.getProperty("db.host");
    public static String port = properties.getProperty("db.port");
    public static String username = properties.getProperty("db.username");
-   public static String password = properties.getProperty("db.pass");
+   public static String password = properties.getProperty("db.password");
    public static String name = properties.getProperty("db.name");
 
 
