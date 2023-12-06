@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/views/Login/css/login.css">
-<%--    <link href="<%=request.getContextPath()%>/views/bootstrap-css/bootstrap.min.css">--%>
+    <link href="<%=request.getContextPath()%>/views/bootstrap-css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Đăng Nhập</title>
@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="submit dk">
-            <button><a  href="signup.html">Đăng Ký</a></button>
+            <button><a  href="signup.jsp">Đăng Ký</a></button>
         </div>
 
     </form>
