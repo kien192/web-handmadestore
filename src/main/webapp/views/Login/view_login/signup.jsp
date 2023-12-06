@@ -29,7 +29,7 @@
         }
 
         body {
-            background-image: url("../../images/backgroup.jpg");
+            background-image: url("<%=request.getContextPath()%>/images/background.jpg");
             backdrop-filter: blur(3px);
 
         }
@@ -217,7 +217,7 @@
 
         <div class="form signup">
             <div class="main-logo">
-                <img src="<%=request.getContextPath()%>/views/images/logo.png.png" alt="" class="logo">
+                <img src="<%=request.getContextPath()%>/images/logo.png" alt="" class="logo">
             </div>
 
             <div class="form-content">

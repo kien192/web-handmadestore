@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/views/Login/css/login.css">
-<<<<<<< HEAD
-<%--    <link href="<%=request.getContextPath()%>/views/bootstrap-css/bootstrap.min.css">--%>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-=======
+
     <link href="<%=request.getContextPath()%>/views/bootstrap-css/bootstrap.min.css">
 
 
->>>>>>> f5d1fb620456fb9e74872cfe01db371973116662
+
     <title>Đăng Nhập</title>
 </head>
 <body>
