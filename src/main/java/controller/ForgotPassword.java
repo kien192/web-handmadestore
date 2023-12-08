@@ -3,6 +3,7 @@ package controller;
 import model.bean.User;
 import model.dao.UserDAO;
 import model.db.JDBIConnector;
+import model.service.JavaMail.MailService;
 import model.service.RoleService;
 import model.service.UserService;
 
@@ -14,11 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/forgotpassword"})
+@WebServlet(name = "ForgotPassword", value = "/forgotpassword")
 public class ForgotPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        doPost(req, resp);
     }
 
     @Override
@@ -29,17 +30,21 @@ public class ForgotPassword extends HttpServlet {
         if ("back_login".equals(action)) {
             // Handle back button click
             resp.sendRedirect(req.getContextPath() + "/views/Login/view_login/login.jsp");
-        }else if("back_forgotpassword".equals(action)){
+        } else if ("back_forgotpassword".equals(action)) {
             resp.sendRedirect(req.getContextPath() + "/views/Login/view_login/forgotpassword.jsp");
         } else {
 
             String page = req.getParameter("page");
+            if (page == null) {
+                req.getRequestDispatcher("views/Login/view_login/forgotpassword.jsp").forward(req, resp);
+            }
             if (page.equals("1")) {
                 String email = req.getParameter("email");
 
                 User user = UserDAO.getUserByEmail(email);
                 if (user != null) {
-                    req.getSession().setAttribute("code", "abcd");
+                    String code = MailService.sendCode(email);
+                    req.getSession().setAttribute("code", code);
                     req.getSession().setAttribute("email", email);
                     //gởi email
                     resp.sendRedirect(req.getContextPath() + "/views/Login/view_login/forgotpw_code.jsp?email=" + email);
