@@ -1,8 +1,4 @@
 
-
-
-
-
 * {
     font-family: Tahoma, Arial, sans-serif;
     margin: 0;
@@ -11,9 +7,10 @@
 
 
 }
+
 /*#4d9da9*/
 :root {
-    --background-col : #afe2ea;
+    --background-col: #afe2ea;
 
 }
 
@@ -23,11 +20,11 @@
 
 body {
     min-height: 100vh;
-    overflow-x: hidden ;
-
+    overflow-x: hidden;
 
 
 }
+
 .container {
     position: relative;
 
@@ -43,6 +40,7 @@ body {
     overflow: hidden;
     border-left: 10px solid var(--background-col);
 }
+
 .navigation.active {
     width: 80px;
 }
@@ -65,16 +63,11 @@ body {
 }
 
 
-.navigation ul .nav-item:hover ,
-.navigation ul .nav-item.hovered{
-background-color: #ffffff ;
+.navigation ul .nav-item:hover,
+.navigation ul .nav-item.hovered {
+    background-color: #ffffff;
 
 }
-
-
-
-
-
 
 
 .navigation ul li a {
@@ -90,17 +83,19 @@ background-color: #ffffff ;
 
 .navigation ul .nav-item:hover a,
 .navigation ul .nav-item.hovered a {
-    color:   #000000;
+    color: #000000;
     font-weight: bold;
 }
 
 .navigation ul li a .icon {
-    display: block;
     line-height: 60px;
     position: relative;
-    height: 60px ;
+    height: 60px;
     min-width: 60px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -121,11 +116,11 @@ background-color: #ffffff ;
 }
 
 .navigation ul .nav-item:hover a::before,
-.navigation ul .nav-item.hovered a::before{
+.navigation ul .nav-item.hovered a::before {
     content: "";
     position: absolute;
     top: -50px;
-    box-shadow: 35px 35px 0 10px #ffffff ;
+    box-shadow: 35px 35px 0 10px #ffffff;
     /*top: -50px;*/
     right: 0px;
     width: 50px;
@@ -138,11 +133,11 @@ background-color: #ffffff ;
 }
 
 .navigation ul .nav-item:hover a::after,
-.navigation ul .nav-item.hovered a::after{
+.navigation ul .nav-item.hovered a::after {
     content: "";
     position: absolute;
 
-    box-shadow: 35px -35px 0px 10px #ffffff ;
+    box-shadow: 35px -35px 0px 10px #ffffff;
     bottom: -50px;
     right: 0px;
     width: 50px;
@@ -151,6 +146,7 @@ background-color: #ffffff ;
 
     pointer-events: none;
 }
+
 /*header------------*/
 .header .branch-tit {
     text-align: right;
@@ -164,7 +160,6 @@ background-color: #ffffff ;
     padding-right: 30px;
 
 
-
 }
 
 .header .branch-tit img {
@@ -173,7 +168,6 @@ background-color: #ffffff ;
     position: absolute;
     left: 10px;
     top: 5px;
-
 
 
 }
@@ -204,7 +198,7 @@ background-color: #ffffff ;
 
 }
 
-.top-bar .toggle  {
+.top-bar .toggle {
     position: relative;
     width: 60px;
     height: 60px;
@@ -221,61 +215,6 @@ background-color: #ffffff ;
     color: #000000;
 }
 
-.top-bar .search {
-    position: relative;
-    flex: 50px;
-    text-align: center;
-
-
-
-}
-
-.top-bar .search input {
-    width: 40%;
-    height: 30px;
-    box-sizing: border-box;
-    border: none;
-    outline: none;
-    padding-left: 20px;
-    padding-right: 30px;
-    border-radius: 6px;
-    font-family: Tahoma, Arial, sans-serif;
-}
-
-
-.top-bar .search button {
-    position: absolute;
-    right: 25%;
-    border: none;
-    /*background-color: #ff0000;*/
-    transform: translateX(-40px);
-    border-top-right-radius: 6px ;
-    border-bottom-right-radius: 6px ;
-    background-color: #ffffff;
-    color: #CACACA;
-
-    transform: translateX(-70%);
-
-
-}
-.top-bar .search button i {
-    padding: 5px;
-    font-size: 20px;
-
-
-
-}
-
-.top-bar .search input:focus + button{
-    background-color: #ff0000;
-    color: #ffffff;
-}
-
-.top-bar .search input:focus {
-    border-bottom: solid 2px #CACACA;
-}
-
-
 .top-bar .user img {
     width: 40px;
     height: 40px;
@@ -291,20 +230,18 @@ background-color: #ffffff ;
     color: #000000;
     font-size: 10px;
 }
+
 /*main-container*/
 .main {
 
     position: absolute;
     min-height: 100vh;
-    width: calc(100% -  300px);
+    width: calc(100% - 300px);
     left: 300px;
     transition: 0.5s;
 
 
 }
-
-
-
 
 
 .main.active {
@@ -315,12 +252,12 @@ background-color: #ffffff ;
 
 
 /*main - contain*/
- .title-main  {
+.title-main {
     background-color: #f5f0ea;
 
 }
 
- .card-box {
+.card-box {
     display: flex;
     justify-content: center;
     flex: 1;
@@ -333,7 +270,7 @@ background-color: #ffffff ;
     box-shadow: 0px 0px 3px 3px #CACACA;
 }
 
- .card:hover {
+.card:hover {
     background-color: #4d9da9;
     color: #ffffff;
 }
@@ -347,7 +284,7 @@ background-color: #ffffff ;
 
 }
 
- .card-icon p {
+.card-icon p {
 
     font-size: 20px;
     font-weight: bold;
@@ -356,10 +293,11 @@ background-color: #ffffff ;
 
 }
 
- .card-text {
+.card-text {
     font-size: 15px;
 }
- .main-content-se {
+
+.main-content-se {
     display: grid;
     position: relative;
     border-radius: 4px;
@@ -368,26 +306,23 @@ background-color: #ffffff ;
 }
 
 
- .table-order .order-header,  .table-user .user-header {
+.table-order .order-header, .table-user .user-header {
     display: flex;
     justify-content: space-between;
 }
 
 .title-f {
-   font-weight: bold;
+    font-weight: bold;
 }
 
 
-
-
-
 .line-split {
-    color:#1a73e8;
+    color: #1a73e8;
     border-width: 3px;
 }
 
 .table-hover tbody tr:hover {
-    background-color: #1a73e8 ;
+    background-color: #1a73e8;
 }
 
 .table-order .status-cancel {
@@ -397,7 +332,7 @@ background-color: #ffffff ;
     border-radius: 6px;
 }
 
-.table-order .status-success{
+.table-order .status-success {
     padding: 4px;
     background-color: #4d8a54;
     color: #ffffff;
@@ -423,7 +358,7 @@ background-color: #ffffff ;
 }
 
 .chart-product {
- text-align: center;
+    text-align: center;
 
 }
 

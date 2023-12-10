@@ -54,7 +54,7 @@ CREATE TABLE `handmadestore`.`user`
     `email`       varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     `password`    varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     `createDate`  datetime NULL DEFAULT current_timestamp (),
-    `status`      varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+    `status`      varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
     `roleId`      varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL,
     PRIMARY KEY (`id`) USING BTREE,
     INDEX         `fkuser`(`roleId`) USING BTREE,

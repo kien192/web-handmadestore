@@ -1,4 +1,9 @@
+<%@ page import="java.util.List" %>
+<%@ page import="model.bean.User" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%List<User> users = (List<User>) request.getAttribute("users");%>
+<% users = (users == null) ? new ArrayList<>() : users;%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,81 +28,41 @@
                 <tr class="table_customer sticky-top">
                     <th class="px-4" scope="col ">ID</th>
                     <th class="px-5" scope="col">Họ Và Tên</th>
-                    <th class="px-3" scope="col">Ngày Sinh</th>
-                    <th class="px-3" scope="col">Giới Tính</th>
-                    <th class="px-5" scope="col">Địa Chỉ</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Password</th>
-                    <th scope="col">Trạng Thái</th>
-                    <th scope="col">Chức Năng</th>
+                    <th class="px-3" scope="col">Số điện thoại</th>
+                    <th class="px-3" scope="col">Địa chỉ email</th>
+                    <th class="px-5" scope="col">Ngày tạo tài khoản</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Khóa/Bỏ khóa tài khoản</th>
                 </tr>
                 </thead>
                 <tbody>
+                <% for (User u : users) {%>
                 <tr class="item ctm_1">
-                    <td>KH1</td>
-                    <td>Lê Bá Phụng</td>
-                    <td>12/3/2003</td>
-                    <td>Nam</td>
-                    <td>25 Phạm Văn Đồng ,Thủ Đức, TP.HCM</td>
-                    <td>lungbaphe@gmail.com</td>
-                    <td>lebaphung2003</td>
-                    <td>Bình Thường</td>
+                    <td><%=u.getId()%>
+                    </td>
+                    <td><%=u.getName()%>
+                    </td>
+                    <td><%=u.getPhoneNumber()%>
+                    </td>
+                    <td><%=u.getEmail()%>
+                    </td>
+                    <td><%=u.getCreateDate()%>
+                    </td>
+                    <td><%=u.getStatus()%>
+                    </td>
                     <td>
-                        <button>Khóa Tài Khoản</button>
+                        <%if (u.getStatus().trim().startsWith("Bình")) {%>
+                        <a title="Khóa tải khoản"
+                           href="<%=request.getContextPath()%>/admin?func=customer_management&user_id=<%=u.getId()%>"><i
+                                class="fa-solid fa-lock"></i></a>
+                        <%} else if (u.getStatus().trim().equalsIgnoreCase("Bị khóa")) {%>
+                        <a title="Bỏ khóa tải khoản"
+                           href="<%=request.getContextPath()%>/admin?func=customer_management&user_id=<%=u.getId()%>"><i
+                                class="fa-solid fa-unlock"></i></a>
+                        <%}%>
                     </td>
                 </tr>
-                <tr class="item ctm_2">
-                    <td>KH2</td>
-                    <td>Nguyễn Trung Kiên</td>
-                    <td>2/5/2003</td>
-                    <td>Nam</td>
-                    <td>05 Võ Văn Ngân ,Thủ Đức, TP.HCM</td>
-                    <td>trungkien@gmail.com</td>
-                    <td>trungkien2003</td>
-                    <td>Bình Thường</td>
-                    <td>
-                        <button>Khóa Tài Khoản</button>
-                    </td>
-                </tr>
-                <tr class="item ctm_3">
-                    <td>KH3</td>
-                    <td>Nguyễn Trọng Nghĩa</td>
-                    <td>25/11/2003</td>
-                    <td>Nam</td>
-                    <td>An Nhơn,Bình Định</td>
-                    <td>trongnghia@gmail.com</td>
-                    <td>0123456789</td>
-                    <td>Bình Thường</td>
-                    <td>
-                        <button>Khóa Tài Khoản</button>
-                    </td>
-                </tr>
-                <tr class="item ctm_4">
-                    <td>KH4</td>
-                    <td>Phạm Văn Bá</td>
-                    <td>25/1/2005</td>
-                    <td>Nam</td>
-                    <td>Bình Chánh,Quảng Bình</td>
-                    <td>badao123@gmail.com</td>
-                    <td>badao123</td>
-                    <td>Bị Khóa</td>
-                    <td>
-                        <button>Khóa Tài Khoản</button>
-                    </td>
-                </tr>
-                <tr class="item ctm_5">
-                    <td>KH5</td>
-                    <td>Ngô Văn Tiên</td>
-                    <td>2/1/1998</td>
-                    <td>Nam</td>
-                    <td>Tam Kỳ,Quảng Nam</td>
-                    <td>tienngo123@gmail.com</td>
-                    <td>tienngo123</td>
-                    <td>Bình Thường</td>
-                    <td>
-                        <button>Khóa Tài Khoản</button>
-                    </td>
-                </tr>
+                <%}%>
                 </tbody>
             </table>
         </div>

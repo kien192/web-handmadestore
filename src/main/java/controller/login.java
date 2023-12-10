@@ -37,7 +37,7 @@ public class login extends HttpServlet {
             String c = RoleService.getInstance().checkRole(user);
             System.out.println("----------------" +c);
             if (c.equals("admin"))
-                resp.sendRedirect(req.getContextPath() + "/views/Admin/view/admin.jsp");
+                resp.sendRedirect(req.getContextPath() + "/views/Admin/admin.jsp");
             else
                 resp.sendRedirect(req.getContextPath() + "/views/MainPage/view_mainpage/mainpage.jsp");
         } else {
@@ -45,5 +45,4 @@ public class login extends HttpServlet {
             req.getRequestDispatcher("./views/Login/view_login/login.jsp").forward(req, resp);
         }
     }
-
 }
