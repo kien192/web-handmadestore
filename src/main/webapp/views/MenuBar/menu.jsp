@@ -1,5 +1,9 @@
+<%@ page import="model.bean.User" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
+<%User u = (User) session.getAttribute("auth");%>
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -67,54 +71,86 @@
     .menu ul li.cart a:hover {
         color: red;
     }
+     #dangxuat {
+         padding: 0;
+         display: none;
+     }
+    #dangxuat a:hover {
+        background: red;
+        color: white;
+    }
+    #dangxuat a {
+        color: black ;
+        padding-right: 25%;
+        padding-left: 25%;
+    }
+    .menu ul li.login:hover #dangxuat{
+        display: block;
+    }
+    .menu ul li.item {
+        text-align: center;
+    }
 </style>
 <body>
-<!--menu-->
-<div id="menubar" class="menu sticky-top" >
+<div id="menubar" class="menu sticky-top">
     <ul class="d-flex m-0">
+
         <li class="logo me-4 my-auto">
-            <img src="../../views/images/logo.png" style="width: 12vh">
+            <img src="<%=request.getContextPath()%>/images/logo.png" style="width: 12vh">
+
         </li>
         <li class="item times p-4 my-auto">
-            <a href="#carouselExampleCaptions" >Trang chủ</a>
+            <a href="#carouselExampleCaptions">Trang chủ</a>
         </li>
         <li class="item sanpham p-4 dropdown my-auto">
-            <a href="#"  class = "title_sp">Sản phẩm <i class="fa-solid fa-caret-down"></i></a>
+            <a href="#" class="title_sp">Sản phẩm <i class="fa-solid fa-caret-down"></i></a>
             <ul class="sub_menu dropdown-menu">
                 <li>
-                    <a href="#" class="item sp1 dropdown-item " >Thiệp HandMade Vintage</a>
+                    <a href="#thiep" class="item sp1 dropdown-item ">Thiệp HandMade Vintage</a>
                 </li>
                 <li>
-                    <a href="#" class="item sp2 dropdown-item" >Scrapbook,Album Ảnh</a>
+                    <a href="#anh" class="item sp2 dropdown-item">Scrapbook,Album Ảnh</a>
                 </li>
                 <li>
-                    <a href="#" class="item sp3 dropdown-item" >Sổ ghi chép, sổ tay</a>
+                    <a href="#sotay" class="item sp3 dropdown-item">Sổ ghi chép, sổ tay</a>
+                </li>
+
+                <li>
+                    <a href="#decore" class="item sp4 dropdown-item">Đồ decore trang trí nhà,cafe,Homestay</a>
                 </li>
                 <li>
-                    <a href="#" class="item sp4 dropdown-item" >Đồ decore trang trí nhà,cafe,Homestay</a>
+                    <a href="#nguyenlieu" class="item sp5 dropdown-item">Nguyên vật liệu,phụ kiện dụng cụ</a>
                 </li>
-                <li>
-                    <a href="#" class="item sp5 dropdown-item" >Nguyên vật liệu,phụ kiện dụng cụ</a>
-                </li>
+
             </ul>
         </li>
         <li class="item bikip p-4 my-auto">
-            <a href="#bikip" >Bí kíp làm đồ HandMade</a>
+            <a href="#bikip">Bí kíp làm đồ HandMade</a>
         </li>
         <li class="item footers p-4 my-auto">
-            <a href="#footer " >Về chúng tôi</a>
+            <a href="#footer ">Về chúng tôi</a>
         </li>
+
         <li class="search d-flex p-4 my-auto mx-5">
             <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
             <input type="text" placeholder="Bạn tìm gì...">
+
         </li>
-        <li class="login p-4 my-auto">
+        <li class="login p-4 my-auto dropdown">
+            <%if(u == null) {%>
             <i class="fa-solid fa-user" style="color: #496088;"></i>
-            <a href="../Login/view_login/login.jsp" >Đăng Nhập</a>
+            <a href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp">Đăng Nhập</a>
+            <%} else{%>
+
+            <button type="button" class="btn btn-sm btn-primary "><i class="fa-solid fa-user" style="color: white;"></i> <span><%= u.getName()%></span></button>
+            <ul id="dangxuat" class="dx dropdown-menu">
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp">Đăng Xuất</a></li>
+            </ul>
+            <%}%>
         </li>
         <li class="cart p-4 dropdown my-auto">
             <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>
-            <a href="#" >Giỏ Hàng</a>
+            <a href="<%=request.getContextPath()%>/views/CartPage/cart.html">Giỏ Hàng</a>
         </li>
     </ul>
 </div>

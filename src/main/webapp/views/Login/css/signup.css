@@ -11,7 +11,7 @@
 }
 
 body {
-    background-image: url("../../images/anh1.webp");
+    background-image: url("../../images/backgroup.jpg");
     backdrop-filter: blur(3px);
 
 }
@@ -22,7 +22,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
 
 
 }
@@ -51,9 +50,6 @@ img.logo {
     padding: 30px;
     border-radius: 6px;
 }
-
-
-
 
 header {
     font-size: 30px;
