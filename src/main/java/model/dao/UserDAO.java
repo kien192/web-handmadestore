@@ -3,7 +3,7 @@ package model.dao;
 import model.bean.User;
 import model.db.JDBIConnector;
 
-import java.sql.*;
+import java.sql.ResultSet;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
