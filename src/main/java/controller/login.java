@@ -20,14 +20,14 @@ public class login extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html; charset=UTF-8");
-        String email = req.getParameter("email");
+        resp.setContentType("text/jsp; charset=UTF-8");
+        String email = req.getParameter("email");// nhận input từ ng dùng
         String pw = req.getParameter("password");
         User checkEmail = UserDAO.getUserByEmail(email);
         User user = UserService.getInstance().checkLogin(email, pw);
         if(checkEmail == null){
             req.setAttribute("errEmail","Email không tồn tại !");
-            req.getRequestDispatcher("/views/Login/view_login/login.jsp").forward(req, resp);
+            req.getRequestDispatcher("/login.jsp").forward(req, resp);
         }
         if (user != null) {
             HttpSession session = req.getSession();

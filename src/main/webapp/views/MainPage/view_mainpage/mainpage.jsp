@@ -18,8 +18,7 @@
     <ul class="d-flex m-0">
 
         <li class="logo me-4 my-auto">
-            <img src="../../images/logo.png" style="width: 12vh">
-
+            <img src="../../../images/logo.png" style="width: 12vh">
         </li>
         <li class="item times p-4 my-auto">
             <a href="#carouselExampleCaptions">Trang chủ</a>
@@ -28,7 +27,7 @@
             <a href="#" class="title_sp">Sản phẩm <i class="fa-solid fa-caret-down"></i></a>
             <ul class="sub_menu dropdown-menu">
                 <li>
-                    <a href="#thiep" class="item sp1 dropdown-item ">Thiệp HandMade Vintage</a>
+                    <a href="<%=request.getContextPath()%>/product" class="item sp1 dropdown-item ">Thiệp HandMade Vintage</a>
                 </li>
                 <li>
                     <a href="#anh" class="item sp2 dropdown-item">Scrapbook,Album Ảnh</a>
