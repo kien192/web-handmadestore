@@ -72,11 +72,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public int getStatus() {
+    public int getSoldout() {
         return soldout;
     }
 
-    public void setStatus(int soldout) {
+    public void setSoldout(int soldout) {
         this.soldout = soldout;
     }
 

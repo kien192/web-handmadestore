@@ -1,6 +1,10 @@
 package controller;
 
+import model.bean.Category;
+import model.bean.Product;
 import model.bean.User;
+import model.dao.ProductDAO;
+import model.service.CategoryService;
 import model.service.RoleService;
 import model.service.UserService;
 
@@ -32,7 +36,10 @@ public class AdminController extends HttpServlet {
                         framePath = "/views/Admin/dashboard.jsp";
                         break;
                     case "product_management":
-
+                        List<Product> products = ProductDAO.getAll();
+                        List<Category> categories = CategoryService.getInstance().getALl();
+                        req.setAttribute("products", products);
+                        req.setAttribute("categories", categories);
                         framePath = "/views/Admin/product_management.jsp";
                         break;
                     case "order_management":

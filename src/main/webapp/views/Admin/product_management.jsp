@@ -1,4 +1,13 @@
+<%@ page import="java.util.List" %>
+<%@ page import="model.bean.Product" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.bean.Category" %>
+<%@ page import="model.service.CategoryService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%List<Product> products = (List<Product>) request.getAttribute("products");%>
+<%products = (products == null) ? new ArrayList<>() : products;%>
+<%List<Category> categories = (List<Category>) request.getAttribute("categories");%>
+<%categories = (categories == null) ? new ArrayList<>() : categories;%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,7 +23,10 @@
     </div>
     <div class="function d-flex m-4 fs-6">
         <select class="mx-4 p-2" id="optionFunction">
-            <option value="">Tìm kiếm loại sản phẩm</option>
+            <%for (Category c : categories) {%>
+            <option value=""><a href="#"><%=c.getName()%>
+            </a></option>
+            <%}%>
         </select>
         <div class="ms-auto d-flex">
             <div class="box_1 mx-4 p-2" id="addProduct">
@@ -56,21 +68,29 @@
                 </tr>
                 </thead>
                 <tbody>
+                <%for (Product p : products) {%>
                 <tr class="item sp_1">
-                    <td class="px-4">THM1</td>
-                    <td class="px-4">Thiệp Valentine ý nghĩa</td>
-                    <td class="px-4">150</td>
-                    <td class="px-4">Số lượng đã bán</td>
-                    <td class="px-4">50.000</td>
-                    <td class="px-4">70.000</td>
-                    <td class="px-4">Giảm giá 5%</td>
-                    <td class="px-4">Giá sản phẩm</td>
-                    <td class="px-4">Mô tả chi tiết</td>
+                    <td class="px-4"><%=p.getId()%>
+                    </td>
+                    <td class="px-4"><%=p.getName()%>
+                    </td>
+                    <td class="px-4"><%=p.getQuantity()%>
+                    </td>
+                    <td class="px-4"><%=p.getSoldout()%>
+                    </td>
+                    <td class="px-4"><%=p.getCostPrice()%>
+                    </td>
+                    <td class="px-4"><%=p.getSellingPrice()%>
+                    </td>
+                    <td class="px-4">Tên khuyến mãi</td>
+                    <td class="px-4">Tính giá cuôi cùng</td>
+                    <td class="px-4">Link mô tả</td>
                     <td class="px-4">
                         <button><i class="fa-solid fa-pen" style="color: #425e8f;"></i></button>
                         <button><i class="fa-solid fa-trash-can" style="color: #5c7093;"></i></button>
                     </td>
                 </tr>
+                <%}%>
                 </tbody>
             </table>
         </div>
