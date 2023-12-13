@@ -33,6 +33,7 @@ public class AdminController extends HttpServlet {
                         framePath = "/views/Admin/dashboard.jsp";
                         break;
                     case "product_management":
+
                         framePath = "/views/Admin/product_management.jsp";
                         break;
                     case "order_management":
@@ -43,9 +44,9 @@ public class AdminController extends HttpServlet {
                         if (user_id != null) {
                             //lock or unlock
                             User u = UserService.getInstance().getUserById(user_id);
-                            if (u.getStatus().trim().startsWith("Bình")) {
+                            if (u.getStatus().trim().startsWith("Bình Thường")) {
                                 UserService.getInstance().lockUser(user_id);
-                            } else if (u.getStatus().trim().equalsIgnoreCase("Bị khóa")) {
+                            } else if (u.getStatus().trim().equalsIgnoreCase("Bị Khóa")) {
                                 UserService.getInstance().unlockUser(user_id);
                             }
                         }

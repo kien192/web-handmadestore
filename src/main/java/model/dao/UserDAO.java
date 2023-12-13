@@ -80,6 +80,12 @@ public class UserDAO {
         return users;
     }
 
+    public static List<User> getNewUsersTop(int number) {
+        List<User> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select  * from user order by createDate desc limit " + number).mapToBean(User.class).stream().collect(Collectors.toList()));
+        return users;
+    }
+
     public static void lockUser(String user_id) {
         JDBIConnector.me().useHandle(handle ->
                 handle.createUpdate("UPDATE user SET status = 'Bị Khóa' WHERE id=?")
@@ -96,6 +102,12 @@ public class UserDAO {
         );
     }
 
+    public static long customersCount() {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select count(id) from user")
+                        .mapTo(Long.class).one());
+    }
+
     public static void main(String[] args) {
 //        List<User> users = JDBIConnector.me().withHandle(handle ->
 //                handle.createQuery("select * from user").mapToBean(User.class).collect(Collectors.toList())
@@ -103,7 +115,7 @@ public class UserDAO {
 //        System.out.println(users);
 //        User u = UserDAO.getUserByEmail("nghia@gmail.com");
 //        System.out.println(getAllUsers());
-        lockUser("u10");
-        System.out.println(getAllUsers());
+//        lockUser("u10");
+        System.out.println(getNewUsersTop(3));
     }
 }

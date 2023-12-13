@@ -32,33 +32,33 @@
                     <th class="px-3" scope="col">Địa chỉ email</th>
                     <th class="px-5" scope="col">Ngày tạo tài khoản</th>
                     <th scope="col">Trạng thái</th>
-                    <th scope="col">Khóa/Bỏ khóa tài khoản</th>
+                    <th scope="col"><i class="fa-solid fa-user-pen fs-4"></i></th>
                 </tr>
                 </thead>
                 <tbody>
                 <% for (User u : users) {%>
                 <tr class="item ctm_1">
-                    <td><%=u.getId()%>
+                    <td class="px-2"><%=u.getId()%>
                     </td>
-                    <td><%=u.getName()%>
+                    <td class="px-2"><%=u.getName()%>
                     </td>
-                    <td><%=u.getPhoneNumber()%>
+                    <td class="px-2"><%=u.getPhoneNumber()%>
                     </td>
-                    <td><%=u.getEmail()%>
+                    <td class="px-2"><%=u.getEmail()%>
                     </td>
-                    <td><%=u.getCreateDate()%>
+                    <td class="px-2"><%=u.getCreateDate()%>
                     </td>
-                    <td><%=u.getStatus()%>
+                    <td class="px-2"><%=u.getStatus()%>
                     </td>
-                    <td>
+                    <td class="px-2">
                         <%if (u.getStatus().trim().startsWith("Bình")) {%>
                         <a title="Khóa tải khoản"
                            href="<%=request.getContextPath()%>/admin?func=customer_management&user_id=<%=u.getId()%>"><i
-                                class="fa-solid fa-lock"></i></a>
+                                class="fa-solid fa-lock fs-4"></i></a>
                         <%} else if (u.getStatus().trim().equalsIgnoreCase("Bị khóa")) {%>
                         <a title="Bỏ khóa tải khoản"
                            href="<%=request.getContextPath()%>/admin?func=customer_management&user_id=<%=u.getId()%>"><i
-                                class="fa-solid fa-unlock"></i></a>
+                                class="fa-solid fa-unlock fs-4"></i></a>
                         <%}%>
                     </td>
                 </tr>
