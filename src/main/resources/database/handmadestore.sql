@@ -451,12 +451,12 @@ VALUES ('P28', 'Khung ảnh gỗ và thạch cao Ivory Vintage',
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P29', 'Khung ảnh Hải Âu Mediterranea', 'Chất liệu: gỗ; \nKích thước khung 18x23cm; khổ hình 10x15cm;',
-        101000.00, 189000.00, 1,  'C01', NULL);
+        101000.00, 189000.00, 1, 'C01', NULL);
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P30', 'Khung ảnh Địa Trung Hải Kayak',
         'Thiết kế thuyền kayak độc đáo, hiện đại và khác biệt, chiếc khung ảnh Địa Trung Hải này như một chút biến tấu cho không gian của bạn thêm sự mới lạ. Kích thước sản phẩm: 15 x 26cm, được làm bằng chất liệu: gỗ, thừng, thạch cao, sò biển...',
-        96000.00, 167000.00, 0,  'C01', NULL);
+        96000.00, 167000.00, 0, 'C01', NULL);
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P31', 'Khung ảnh vintage hoa văn vuông',
@@ -494,7 +494,7 @@ VALUES ('P37', 'KHUNG ẢNH NGÔI NHÀ CỬA SỔ NÂU (NGANG)', 'KÍCH THƯỚC
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P38', 'KHUNG ẢNH NGÔI NHÀ XE ĐẠP', 'KÍCH THƯỚC: 19*26.5cm \nChất liệu: Gỗ', 178000.00, 240000.00, 1,
-         'C01', NULL);
+        'C01', NULL);
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P39', 'KHUNG ẢNH VÒNG ĐU QUAY VINTAGE',
@@ -534,7 +534,7 @@ INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`,
                        `discountId`)
 VALUES ('P46', 'Scrapbook Retro Clock',
         '- Màu sắc: Nâu - trắng. \n\n- Kích thước: 20 x 20cm. \n\n- Chất liệu: Giấy cứng cao cấp, được trang trí hoàn toàn bằng tay (100% handmade). \n\n- Số trang: 11, có thể dán được 40-60 hình các size khác nhau.',
-        402000.00, 649000.00, 1,  'C02', NULL);
+        402000.00, 649000.00, 1, 'C02', NULL);
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P47', 'Scrapbook Vintage',
@@ -609,7 +609,7 @@ INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`,
                        `discountId`)
 VALUES ('P61', 'Album DIY Retro Clock',
         'Thiết kế mang dáng vẻ cổ điển cùng lối trang trí đơn giản nhưng mang lại nét sang trọng, nhẹ nhàng cùng chi tiết bánh răng, đồng hồ, poscard,...',
-        145000.00, 222000.00, 0,  'C02', NULL);
+        145000.00, 222000.00, 0, 'C02', NULL);
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P62', 'Scrapbook LIVE.LAUGH.LOVE',
@@ -714,7 +714,7 @@ INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`,
                        `discountId`)
 VALUES ('P82', 'Exploding love box album handmade',
         'Chất liệu: Giấy cứng hoa văn cao cấp \n\nKích thước: 9 x 13cm, cao 6cm, chứa được khoảng 29 tấm hình 6 x 9cm.',
-        310000.00, 449000.00, 0,  'C02', NULL);
+        310000.00, 449000.00, 0, 'C02', NULL);
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P83', 'Mini Love Card-Album Handmade',
@@ -774,12 +774,12 @@ INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`,
                        `discountId`)
 VALUES ('P94', 'Sổ ký tên Happy Light',
         'Sổ ký tên Happy Light Kích thước: 31x31cm Định lượng giấy 250gsm Số trang: 20 trang', 180000.00, 319000.00, 1,
-         'C02', NULL);
+        'C02', NULL);
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P95', 'Sổ ký tên Happy Forest',
         'Guestbook Happy Forest Định lượng giấy: 250gsm Số trang: 20 trang Kích thước 31x31cm', 180000.00, 319000.00, 1,
-         'C02', NULL);
+        'C02', NULL);
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P96', 'Sổ ký tên Tiny Love',
@@ -1673,3 +1673,8 @@ Tự tay làm chiếc thiệp hoa khô sẽ thật ý nghĩa...',
 câu chuyện hoàn chỉnh,Thời gian, sự kiện được ghi chú...',
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrTXzfl_2PiSjlmKrTX97ftDQdz_eZpWBThA&usqp=CAU',
         'https://youtu.be/U3kAyqvfWoc');
+/* insert logo, background */
+INSERT INTO `image` (`id`, `name`, `path`)
+VALUES ('logo', 'Logo', 'images/logo.png');
+INSERT INTO `image` (`id`, `name`, `path`)
+VALUES ('bg', 'Background', 'images/background.jpg');

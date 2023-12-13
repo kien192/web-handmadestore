@@ -7,20 +7,20 @@ public class Product {
     private double costPrice;
     private double sellingPrice;
     private int quantity;
-    private String status;
+    private int soldout;
     private String categoryId;
     private String discountId;
 
-    public Product(){
+    public Product() {
     }
 
-    public Product(String name, String description, double costPrice, double sellingPrice, int quantity, String status, String categoryId) {
+    public Product(String name, String description, double costPrice, double sellingPrice, int quantity, int soldout, String categoryId) {
         this.name = name;
         this.description = description;
         this.costPrice = costPrice;
         this.sellingPrice = sellingPrice;
         this.quantity = quantity;
-        this.status = status;
+        this.soldout = soldout;
         this.categoryId = categoryId;
     }
 
@@ -72,12 +72,12 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getStatus() {
-        return status;
+    public int getStatus() {
+        return soldout;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(int soldout) {
+        this.soldout = soldout;
     }
 
     public String getCategoryId() {
@@ -105,7 +105,7 @@ public class Product {
                 ", costPrice=" + costPrice +
                 ", sellingPrice=" + sellingPrice +
                 ", quantity=" + quantity +
-                ", status='" + status + '\'' +
+                ", status='" + soldout + '\'' +
                 ", categoryId='" + categoryId + '\'' +
                 ", discountId='" + discountId + '\'' +
                 '}';

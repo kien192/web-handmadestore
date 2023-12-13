@@ -26,7 +26,6 @@ public class AdminController extends HttpServlet {
         if (admin != null && RoleService.getInstance().checkRole(admin).equals("admin")) {
             String func = req.getParameter("func");
             String framePath = "views/Admin/admin.jsp";
-
             if (func != null) {
                 switch (func) {
                     case "dashboard":
