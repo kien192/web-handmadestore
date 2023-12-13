@@ -9,7 +9,6 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/views/MainPage/css/mainpage.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
-
     <title>Cửa Hàng HandMade</title>
 </head>
 <body>
@@ -19,8 +18,7 @@
     <ul class="d-flex m-0">
 
         <li class="logo me-4 my-auto">
-            <img src="/views/images/logo1.png" style="width: 12vh">
-
+            <img src="../../../images/logo.png" style="width: 12vh">
         </li>
         <li class="item times p-4 my-auto">
             <a href="#carouselExampleCaptions">Trang chủ</a>
@@ -29,7 +27,7 @@
             <a href="#" class="title_sp">Sản phẩm <i class="fa-solid fa-caret-down"></i></a>
             <ul class="sub_menu dropdown-menu">
                 <li>
-                    <a href="#thiep" class="item sp1 dropdown-item ">Thiệp HandMade Vintage</a>
+                    <a href="<%=request.getContextPath()%>/product" class="item sp1 dropdown-item ">Thiệp HandMade Vintage</a>
                 </li>
                 <li>
                     <a href="#anh" class="item sp2 dropdown-item">Scrapbook,Album Ảnh</a>
@@ -138,13 +136,13 @@
         <ul>
             <li class="itemrow li1 d-flex">
                 <div class="item sp_t1  me-4">
-                    <a href="#"><img src="./images/anh8.webp"></a>
+                    <a href="#"><img src="../../images/ThiepHandMade1.webp"></a>
                     <a href="#"><p class="text-center">Thiệp Valentine ý nghĩa</p></a>
                     <p class="text-center text-danger">70.000₫</p>
                     <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
                 </div>
                 <div class="item sp_t2 me-4">
-                    <a href="#"><img src="/views/images/ThiepHandMade2.webp"></a>
+                    <a href="#"><img src="../../images/ThiepHandMade2.webp"></a>
                     <a href="#"><p class="text-center">Bì thư trơn đẹp Vintage</p></a>
                     <p class="text-center text-danger">35.000₫</p>
                     <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
