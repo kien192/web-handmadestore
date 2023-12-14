@@ -21,6 +21,17 @@ public class UserDAO {
         return user.isEmpty() ? null : user.get();
     }
 
+    public static User getUserById(final String id) {
+        Optional<User> user = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from user where id= :id")
+                        .bind("id", id)
+                        .mapToBean(User.class)
+                        .stream()
+                        .findFirst()
+        );
+        return user.isEmpty() ? null : user.get();
+    }
+
     public static void setPasswordByEmail(final String email, String newPassword) {
         JDBIConnector.me().useHandle(handle -> {
             handle.createUpdate("update user set password = ? where email = ?")
@@ -49,8 +60,8 @@ public class UserDAO {
                             .bind("password", userPass)
 
                             .bind("name", userName)
-                            .bind("email", userEmail )
-                            .bind("telephone",userTelephone)
+                            .bind("email", userEmail)
+                            .bind("telephone", userTelephone)
                             .execute()
 
 
@@ -62,12 +73,49 @@ public class UserDAO {
             throw new RuntimeException("Failed to insert user into the database", e);
         }
     }
+
+    public static List<User> getAllUsers() {
+        List<User> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from user").mapToBean(User.class).stream().collect(Collectors.toList()));
+        return users;
+    }
+
+    public static List<User> getNewUsersTop(int number) {
+        List<User> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select  * from user order by createDate desc limit " + number).mapToBean(User.class).stream().collect(Collectors.toList()));
+        return users;
+    }
+
+    public static void lockUser(String user_id) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate("UPDATE user SET status = 'Bị Khóa' WHERE id=?")
+                        .bind(0, user_id)
+                        .execute()
+        );
+    }
+
+    public static void unlockUser(String user_id) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate("UPDATE user SET status = 'Bình Thường' WHERE id=?")
+                        .bind(0, user_id)
+                        .execute()
+        );
+    }
+
+    public static long customersCount() {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select count(id) from user")
+                        .mapTo(Long.class).one());
+    }
+
     public static void main(String[] args) {
 //        List<User> users = JDBIConnector.me().withHandle(handle ->
 //                handle.createQuery("select * from user").mapToBean(User.class).collect(Collectors.toList())
 //        );
 //        System.out.println(users);
-        User u = UserDAO.getUserByEmail("nghia@gmail.com");
-        System.out.println(u.toString());
+//        User u = UserDAO.getUserByEmail("nghia@gmail.com");
+//        System.out.println(getAllUsers());
+//        lockUser("u10");
+        System.out.println(getNewUsersTop(3));
     }
 }

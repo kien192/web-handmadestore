@@ -1,9 +1,11 @@
 <%@ page import="model.service.ImageService" %>
+<%@ page import="model.bean.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% String framePath = ((String) request.getAttribute("framePath") == null) ?
         request.getContextPath() + "/views/Admin/dashboard.jsp"
         : (request.getContextPath() + (String) request.getAttribute("framePath"));%>
-<%System.out.println("++++++++++: " + framePath); %>
+
+<%User u = (User) session.getAttribute("auth");%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,46 +22,96 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&display=swap" rel="stylesheet">
+    <style>
+        li {
+            list-style-type: none;
+        }
+
+        p, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul.menu {
+            overflow: auto;
+        }
+
+        nav ul.menu li.item {
+            float: left;
+            padding: 20px 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        nav ul.menu li.item ul.sub_menu {
+            position: absolute;
+            overflow: auto;
+            display: none;
+            right: 0;
+        }
+
+        nav ul.menu li.item:hover ul.sub_menu {
+            width: auto;
+            display: block;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+
+        nav ul.menu li.item ul.sub_menu li {
+            display: block;
+            background-color: #afe2ea;
+            padding: 5px 10px;
+        }
+
+        nav ul.menu li.item ul.sub_menu li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul.menu li.item ul.sub_menu li a:hover {
+            color: black;
+        }
+    </style>
 </head>
 <body>
 <div class="navigation content-to-embed">
     <ul class="ps-0 ">
         <li class="nav-item">
-            <a href="admin?func=dashboard" target="content"
+            <a href="<%=request.getContextPath()%>/admin?func=dashboard" target="content"
                class="nav-link">
                 <span class="icon"><i class="bi bi-house-door"></i></span>
                 <span class="title">Quản lý chung</span>
             </a>
         </li>
         <li class="nav-item ">
-            <a href="admin?func=product_management"
+            <a href="<%=request.getContextPath()%>/admin?func=product_management"
                target="content">
                 <span class="icon"><i class="bi bi-shop"></i></span>
                 <span class="title">Quản lý sản phẩm</span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="admin?func=order_management"
+            <a href="<%=request.getContextPath()%>/admin?func=order_management"
                target="content">
                 <span class="icon"><i class="bi bi-minecart"></i></span>
                 <span class="title">Quản lý đơn hàng</span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="admin?func=customer_management"
+            <a href="<%=request.getContextPath()%>/admin?func=customer_management"
                target="content" class="nav-link">
                 <span class="icon"><i class="bi bi-people-fill"></i></span>
                 <span class="title">Quản lý khách hàng </span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="admin?func=settings">
+            <a href="<%=request.getContextPath()%>/admin?func=settings">
                 <span class="icon"><i class="bi bi-gear"></i></span>
                 <span class="title">Cài đặt</span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="login">
+            <a href="<%=request.getContextPath()%>/login">
                 <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
                 <span class="title">Thoát</span>
             </a>
@@ -74,18 +126,19 @@
                 <span class="title">HEADQUARTERS</span>
             </a>
         </div>
-        <div class="toggle">
-            <i class="bi bi-list"></i>
-        </div>
-        <div class="search">
-            <input type="text" placeholder="Tìm kiếm .. ">
-            <button><i class="bi bi-search"></i></button>
-        </div>
-
-        <div class="user m-2">
-            <img src="../../images/Pblues_admin.jpg" class="" alt="">
-            <button><i class="bi bi-caret-down-fill"></i></button>
-        </div>
+        <section>
+            <nav>
+                <ul class="menu">
+                    <li class="item">
+                        <span style="color: white"><%= u.getName()%></span>
+                        <i class="fa-solid fa-user" style="color: white; margin: 0 5px"></i>
+                        <ul class="sub_menu border border-primary">
+                            <li><a href="<%=request.getContextPath()%>/login">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </section>
     </div>
 </div>
 
@@ -93,6 +146,5 @@
     <iframe src="<%=framePath%>" frameborder="0" name="content" class="content" id="frame" width="100%" height="1100px"
             scrolling="no"></iframe>
 </div>
-<script src="js/main.js"></script>
 </body>
 </html>
