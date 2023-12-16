@@ -206,6 +206,7 @@
 <%
     String error = request.getAttribute("error") == null ? "" : (String) request.getAttribute("error");
     String password = request.getParameter("pass") == null ? "" : request.getParameter("password");
+    String verify = request.getParameter("verify") == null ? "" : request.getParameter("password");
 %>
 <section class="container forms">
 
@@ -219,7 +220,7 @@
         <div class="form-content">
             <header>Đăng Ký</header>
             <!--    </div>-->
-            <form method="post" action="<%=request.getContextPath()%>/register">
+            <form method="post" action="<%=request.getContextPath()%>/login.jsp">
                 <div class="infor">
                     <div class="field input-field infor-sub">
                         <input type="text" placeholder="Tên hiển thị*" class="input" name="name" id="name">

@@ -13,6 +13,7 @@ public class ProductService {
         return instance;
     }
     public List<Product> sixProduct(int offset){
+
         return  ProductDAO.listSixProduct(offset);
     }
 

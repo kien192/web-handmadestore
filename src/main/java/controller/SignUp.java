@@ -2,6 +2,7 @@ package controller;
 
 import model.bean.User;
 import model.dao.UserDAO;
+import utils.HashPassword;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/register")
+@WebServlet(name = "Register" , value = "/login.jsp")
 public class SignUp extends HttpServlet {
 
 
@@ -25,6 +26,7 @@ public class SignUp extends HttpServlet {
         String uname = req.getParameter("name");
         String utel = req.getParameter("tel");
         String upass = req.getParameter("pass");
+        upass = HashPassword.toSHA1(upass);
         String uverify = req.getParameter("verify");
         String uemail = req.getParameter("email");
 
@@ -38,7 +40,7 @@ public class SignUp extends HttpServlet {
 
 
         userDAO.insertUser(user);
-
+        resp.sendRedirect(req.getContextPath() + "/views/Login/view_login/login.jsp");
 
     }
 }
