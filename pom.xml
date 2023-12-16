@@ -39,8 +39,8 @@
             <version>2.1.214</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
         <dependency>
+            <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
             <version>1.6.2</version>

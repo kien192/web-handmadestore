@@ -24,14 +24,14 @@ CREATE TABLE `handmadestore`.`discount`
 
 CREATE TABLE `handmadestore`.`product`
 (
-    `id`           varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL,
+    `id`           varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     `name`         varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
     `description`  text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    `costPrice`    decimal(10, 2)                                               NOT NULL,
-    `sellingPrice` decimal(10, 2)                                               NOT NULL,
+    `costPrice`    decimal(10, 2)                                              NOT NULL,
+    `sellingPrice` decimal(10, 2)                                              NOT NULL,
     `quantity`     int(11) NULL DEFAULT 1,
-    `status`       varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    `categoryId`   varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL,
+    `soldout`      int(11) NULL DEFAULT 0,
+    `categoryId`   varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     `discountId`   varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
     PRIMARY KEY (`id`) USING BTREE,
     INDEX          `fk_discount`(`discountId`) USING BTREE,
@@ -54,7 +54,7 @@ CREATE TABLE `handmadestore`.`user`
     `email`       varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     `password`    varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     `createDate`  datetime NULL DEFAULT current_timestamp (),
-    `status`      varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+    `status`      varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
     `roleId`      varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL,
     PRIMARY KEY (`id`) USING BTREE,
     INDEX         `fkuser`(`roleId`) USING BTREE,
@@ -148,658 +148,658 @@ VALUES ('DC05', 'Ngày Nhà giáo Việt Nam', '2024-11-15 00:00:00', '2024-11-2
 
 /* PRODUCT */
 
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P01', 'Thiệp handmade vintage Beauty & the Whit',
         'Kích thước lớn hơn thông thường: 11x18cm, gồm bì thư, giấy viết thông điệp và thiệp;\nChủ đề có sẵn: chúc mừng sinh nhật, valentine, 8/3, 20/10, 20/11;\nLiên lạc ngay với Craft & More Vietnam nếu bạn muốn làm thiệp theo chủ đề riêng;\nThiệp làm handmade tỉ mỉ với vật liệu giấy cứng, giấy mỹ thuật, hoa lá cỏ khô... rất thân thiện môi trường;\nTùy biến kích thước, câu chữ, logo cho nhóm, công ty, đoàn thể...\nLưu ý: Thiệp được làm thủ công-handmade với các vật liệu hoa, lá, cỏ, giấy... nên các chi tiết có thể khác đôi chút cho từng sản phẩm nhưng phong cách (concept) luôn thống nhất theo các mẫu.',
-        50000.00, 70000.00, 35, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        50000.00, 70000.00, 35, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P02', 'Thiệp handmade Film de Paris',
         'Mẫu thiệp chúc mừng FILM de PARIS đậm chất retro, vintage hoài cổ;\nKích thước lớn hơn thông thường: 11x18cm, gồm bì thư, giấy viết thông điệp và thiệp;\nChủ đề có sẵn: chúc mừng sinh nhật, valentine, 8/3, 20/10, 20/11;\nLiên lạc ngay với Craft & More Vietnam nếu bạn muốn làm thiệp theo chủ đề riêng;\nThiệp làm handmade tỉ mỉ với vật liệu giấy cứng, giấy mỹ thuật, hoa lá cỏ khô... rất thân thiện môi trường;\nTùy biến kích thước, câu chữ, logo cho nhóm, công ty, đoàn thể...\nLưu ý: Thiệp được làm thủ công-handmade với các vật liệu hoa, lá, cỏ, giấy... nên các chi tiết có thể khác đôi chút cho từng sản phẩm nhưng phong cách (concept) luôn thống nhất theo các mẫu.',
-        55000.00, 70000.00, 21, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        55000.00, 70000.00, 21, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P03', 'Thiệp chúc mừng Sweet Mint',
         'Mẫu thiệp SWEET MINT - ngọt ngào như viên kẹo bạc hà! \nKích thước lớn hơn thông thường: 11x18cm, gồm bì thư, giấy viết thông điệp và thiệp; \nChủ đề có sẵn: chúc mừng sinh nhật, valentine, 8/3, 20/10, 20/11; \nLiên lạc ngay với Craft & More Vietnam nếu bạn muốn làm thiệp theo chủ đề riêng; \nThiệp làm handmade tỉ mỉ với vật liệu giấy cứng, giấy mỹ thuật, hoa lá cỏ khô... rất thân thiện môi trường; \nTùy biến kích thước, câu chữ, logo cho nhóm, công ty, đoàn thể... \nLưu ý: Thiệp được làm thủ công-handmade với các vật liệu hoa, lá, cỏ, giấy... nên các chi tiết có thể khác đôi chút cho từng sản phẩm nhưng phong cách (concept) luôn thống nhất theo các mẫu.',
-        50000.00, 70000.00, 24, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        50000.00, 70000.00, 24, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P04', 'Thiệp chúc mừng Black & White',
         'Trắng - đen luôn có nét đẹp riêng, mẫu thiệp mang đậm phong cách vintage, hoài cổ & màu sắc tối giản nhưng cá tính với nền là giấy kraft cứng đen kết hợp die cut được sắp xếp hài hòa.\nKích thước: 11x14cm.\nGồm bì thư, giấy viết thông điệp và thiệp.\nThiệp được làm handmade tỉ mỉ, chỉn chu.\nThiệp phù hợp với nhiều dịp tặng 14/2 Valentine, 8/3, 20/10, 20/11, Noel Giáng Sinh...',
-        24000.00, 39000.00, 15, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        24000.00, 39000.00, 15, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P05', 'Thiệp handmade Amazing Carto',
         'Mẫu thiệp AMAZING CARTON cảm hứng từ những tấm bìa cứng thô ráp! \nKích thước: 9x14cm; \nChủ đề có sẵn: chúc mừng sinh nhật, valentine, 8/3, 20/10, 20/11; \nLiên lạc ngay với Craft & More Vietnam nếu bạn muốn làm thiệp theo chủ đề riêng; \nThiệp làm handmade tỉ mỉ với vật liệu giấy cứng, giấy mỹ thuật, hoa lá cỏ khô... rất thân thiện môi trường; \nTùy biến kích thước, câu chữ, logo cho nhóm, công ty, đoàn thể... \nLưu ý: Thiệp được làm thủ công-handmade với các vật liệu hoa, lá, cỏ, giấy... nên các chi tiết có thể khác đôi chút cho từng sản phẩm nhưng phong cách (concept) luôn thống nhất theo các mẫu.',
-        24000.00, 39000.00, 5, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        24000.00, 39000.00, 5, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P06', 'Thiệp handmade lớn Beauty & the White',
         'Kích thước 11x18cm \nChất liệu giấy mỹ thuật cao cấp \nChủ đề đa dạng, tùy biến \nPhù hợp với hầu hết các đối tượng, các dịp như 8/3, 20/10, 20/11, sinh nhật, chúc mừng...',
-        50000.00, 70000.00, 13, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        50000.00, 70000.00, 13, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P07', 'Thiệp da bò độc đáo',
         'Kích thước: 10x13.5cm \n\n- Chất liệu da bò chọn lọc, charm đồng, giấy dó \n\n- Tùy biến theo ý riêng: theo mục đích tặng (sinh nhật, 20/11, 20/10, 8/3, valentine 14/2, giáng sinh v.v...) hoặc thay đổi hoàn toàn thông điệp theo ý riêng.',
-        30000.00, 50000.00, 19, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        30000.00, 50000.00, 19, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P08', 'Thiệp dấu sáp mini',
         'Thiệp mini đơn giản nhưng đẹp! \n\nThiệp làm & đóng sáp thủ công handmade; \n\nKích thước 6x9cm, gồm giấy viết thông điệp bên trong thiệp; \n\nVật liệu: giấy craft, sáp đóng dấu, dây thừng, giấy mỹ thuật',
-        7000.00, 19000.00, 40, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        7000.00, 19000.00, 40, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P09', 'Thiệp handmade Vintage Film',
         'Kích thước: 10x14.5cm \n\n- Chất liệu giấy mỹ thuật đặc biệt, charm đồng \n\n- Sản phẩm gồm thiệp, tấm giấy ghi thông điệp, bì thư vintage \n\n- Tùy biến theo ý riêng: theo mục đích tặng (sinh nhật, 20/11, 20/10, 8/3, valentine 14/2, giáng sinh v.v...) hoặc thay đổi hoàn toàn thông điệp theo ý riêng.',
-        15000.00, 39000.00, 50, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        15000.00, 39000.00, 50, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P10', 'Thiệp handmade vintage vải bố',
         '- Kích thước: 10x14.5cm \n\n- Chất liệu vải bố nâu, charm đồng, giấy dó \n\n- Tùy biến theo ý riêng: theo mục đích tặng (sinh nhật, 20/11, 20/10, 8/3, valentine 14/2, giáng sinh v.v...) hoặc thay đổi hoàn toàn thông điệp theo ý riêng.',
-        18500.00, 39000.00, 34, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        18500.00, 39000.00, 34, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P100', 'Album DIY gáy lò xo tiện dụng Paris Je T',
         'Album tự trang trí gáy lò xo tiện dụng Paris Je Táime Kích thước vừa phải,tiện dụng: 17*18cm; Bìa giấy cứng cáp, 2 màu đen và nâu; có ruy băng vải buộc chắc chắn...',
-        78000.00, 125000.00, 27, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        78000.00, 125000.00, 27, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P101', 'Bình cắm hoa LYO',
         'Bình cắm hoa LYON trang trí, Kích thước 12cm đường kính x 20cm cao, chất liệu: thiếc không gỉ', 350000.00,
-        404000.00, 10, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        404000.00, 10, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P102', 'Bình sứ trang trí Vintage',
         'Bình sứ trang trí đẹp nhẹ nhàng phù hợp trang trí shop, studio, quán cafe, nhà hàng, phòng khách', 95000.00,
-        163000.00, 10, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        163000.00, 10, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P103', 'Bình cắm hoa trang trí dây thừng',
         'Bình cắm hoa trang trí dây thừng\nkích thước: 14cm đường kính x 19,5cm cao\nChất liệu thiếc được sơn chống gỉ.',
-        280000.00, 404000.00, 10, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        280000.00, 404000.00, 10, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P104', 'Chai thủy tinh quấn thừng lớ',
         'Chai (lọ) thủy tinh quấn thừng xinh xắn dùng cắm hoa cực đẹp Với chai thủy tinh, sợi thừng nhỏ, Cổ & Cũ đã giúp thổi hồn vào sản phẩm một cách tinh tế và điệu đà, sản phẩm \"chất\" và \"mộc\" một...',
-        89000.00, 119000.00, 10, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        89000.00, 119000.00, 10, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P105', 'Bình gốm cao giả cổ hoa văn vintage',
         'Chất liệu: sứ; hoa văn vintage cổ điển;\nKích thước: chân bình 15.5 cm; miệng bình 26 cm; cao 28 cm.',
-        320000.00, 545000.00, 10, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        320000.00, 545000.00, 10, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P106', 'Khay sứ giả cổ',
         'Chất liệu: sứ màu xanh ngọc; \nKích thước: cao 27cm, dài gồm tay cầm 43 cm, dài mặt trong khay 31cm, rộng 22cm, đường kính đáy khay 13cm.',
-        690000.00, 924000.00, 7, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        690000.00, 924000.00, 7, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P107', 'Giá để rượu vang gốm giả cổ', 'Chất liệu: gốm; \nKích thước: 18x30cm.', 310000.00, 499000.00, 14,
-        'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P108', 'Đế để rượu Nhân Sư Ai Cập', 'Kích thước: 31x11x17cm; \nChất liệu: thạch cao, nhựa tổng hợp.',
-        340000.00, 562000.00, 20, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        340000.00, 562000.00, 20, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P109', 'Giá rượu Mèo Thần Ai Cập', 'Kích thước: 23x26x10cm; \nChất liệu: thạch cao và nhựa tổng hợp.',
-        340000.00, 562000.00, 20, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        340000.00, 562000.00, 20, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P11', 'Thiệp gỗ Jigsaws',
         'Khắc thông điệp theo ý riêng \n\n- Kích thước: 10x14.5cm \n\n- Chất liệu gỗ polywood \n\n- Sản phẩm gồm thiệp, tấm giấy ghi thông điệp, bì thư vintage \n\n- Tùy biến theo ý riêng: theo mục đích tặng (sinh nhật, 20/11, 20/10, 8/3, valentine 14/2, giáng sinh v.v...) hoặc thay đổi hoàn toàn thông điệp theo ý riêng.',
-        20100.00, 39000.00, 49, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        20100.00, 39000.00, 49, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P110', 'Bình sứ Le Jardinier',
         'Chất liệu gốm sứ \nKích thước: 12.5 x 5.3 x 6.5cm \nDùng trang trí, cắm hoa,...', 23000.00, 52000.00, 35,
-        'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P111', 'Cốc vintage', 'Chất liệu; gốm sứ \nKích thước: 8,5cm x 7,7cm \nDung tích: 300ml', 45000.00, 69000.00,
-        0, 'Ngưng bán', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        0, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P112', 'Ly sứ vintage phong cảnh châu Âu', 'Cao 11.5cm; Đường kính 8cm; dung tích 300ml.', 59000.00, 89000.00,
-        0, 'Ngưng bán', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        0, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P113', 'Bình sứ xinh xắn Dream House', 'Dung tích: 200ml; \nKích thước: 8x10cm.', 70000.00, 105000.00, 0,
-        'Ngưng bán', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P114', 'Ly sứ starbucks coffee', 'Dung tích 300ml; \nLy cao 8.5cm; đường kính 7.5cm;', 23000.00, 45000.00, 0,
-        'Ngưng bán', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
-VALUES ('P115', 'Ly sứ vintage street', 'Cao 9cm; đường kính 7cm; có nắp.', 84000.00, 115000.00, 12, 'Còn hàng', 'C05',
+VALUES ('P115', 'Ly sứ vintage street', 'Cao 9cm; đường kính 7cm; có nắp.', 84000.00, 115000.00, 12, 'C05',
         NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
-VALUES ('P116', 'Bình hoa gốm trắng GRID', 'Kích thước 20x25cm;', 395000.00, 532000.00, 15, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+VALUES ('P116', 'Bình hoa gốm trắng GRID', 'Kích thước 20x25cm;', 395000.00, 532000.00, 15, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P117', 'Bình hoa gốm giả cổ trang trí nâu cao cổ', 'Kích thước: 17x38 cm;', 400000.00, 509000.00, 0,
-        'Ngưng bán', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P118', 'Bình sứ giả cổ Victoria',
         'Bình sứ trang trí đẹp nhẹ nhàng mang phong cách vintage phù hợp trang trí quán cafe, studio, shop,...',
-        240000.00, 395000.00, 2, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        240000.00, 395000.00, 2, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P119', 'Hộp đựng bút R102',
         'kích thước :16.5x7x21 (cm) \n\nKích thước thuyền :21×4.5×16(cm) \n\nChất liệu : Sắt sơn tĩnh điện, chống rỉ sét, mài mòn. \n\nGiúp cho phòng làm việc trở nên gọn gàng, hiện đại hơn, từ đó mà không gian trở nên thoải mái, làm việc cũng hiệu quả hơn.',
-        90000.00, 170000.00, 6, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        90000.00, 170000.00, 6, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P12', 'Thiệp gỗ Other Half',
         '- Kích thước: 10x14.5cm \n\n- Chất liệu gỗ polywood \n\n- Sản phẩm gồm thiệp, tấm giấy ghi thông điệp, bì thư vintage \n\n- Tùy biến theo ý riêng: theo mục đích tặng (sinh nhật, 20/10, 8/3, valentine 14/2, giáng sinh, annivesary...) hoặc thay đổi hoàn toàn thông điệp theo ý riêng.',
-        17800.00, 39000.00, 40, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        17800.00, 39000.00, 40, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P120', 'Mèo thần tài R104',
         'Mèo thần tài R104 với thiết kế góc cạnh hiện đại, được làm từ gốm sứ cao cấp, tráng men sáng bóng, màu sắc tươi tắn, sắc nét mang đến may mắn, bình an và tài lộc vô biên cho gia chủ. Mèo thần tài cũng rất phù hợp để làm quà tặng dịp mừng khai trương, tân gia, thăng quan tiến chức,…',
-        290000.00, 400000.00, 20, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        290000.00, 400000.00, 20, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P121', 'Tượng Hươu trang trí R103',
         'Từ xa xưa, hình ảnh hươu nai trang trí đã được các tầng lớp quý tộc vô cùng ưa chuộng. Bởi họ quan niệm rằng, hươu nai biểu tượng cho sự sung túc và giàu có. Do hươu là loài vật sống rất lâu năm nên việc trưng bày hình ảnh của loài vật này còn mang ý nghĩa may mắn và trường thọ. Đặt tượng hươu trang trí trong nhà sẽ mang đến cho gia đình một cuộc sống bình an, mạnh khỏe. Đặc biệt, hỗ trợ cực tốt cho gia chủ trên con đường làm ăn kinh doanh, phát tài phát lộc, gặp nhiều may mắn và thuận lợi trong công việc.',
-        550000.00, 649999.00, 19, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        550000.00, 649999.00, 19, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P122', 'Xe máy mô hình trang trí R101',
         'Kích thước :15 x 5.5 x 9.5 (cm) \n\nChất liệu : sắt phủ sơn tĩnh điện, chống rỉ sét, mài mòn. \n\nPhù hợp để trang trí bàn làm việc, văn phòng, Studio , giúp cho không gian thêm phần thanh lịch, hiện đại.',
-        75000.00, 135000.00, 27, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        75000.00, 135000.00, 27, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P123', 'Đèn bão trang trí Vintage',
         'Đèn bão vintage trang trí nhà cửa Đèn bão được phủ một lớp sơn đồng, bạc đậm chất retro. Đèn bão thời trước đây dùng trong các trường hợp không có điện, ngày nay khi mọi thứ trở nên hiện đại,...',
-        140000.00, 192000.00, 4, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        140000.00, 192000.00, 4, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P124', 'Móc treo nữ trang vintage', 'Kích thước: 25x16cm \nChất liệu: gỗ, kim loại', 100000.00,
-        152000.00, 4, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        152000.00, 4, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P125', 'Lọ hoa thủy tinh handmade',
         'LỌ HOA THỦY TINH HANDMADE Được chăm chút tỉ mỉ từng cánh hoa, chậu hoa handmade thủy tinh sẽ là một món quà tặng xinh xắn hay làm căn phòng của bạn dễ thương hơn bao giờ hết. Lọ hoa thủy...',
-        89000.00, 120000.00, 0, 'Ngưng bán', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        89000.00, 120000.00, 0, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P126', 'Hoa lavender oải hương handmade trang tr', 'Chất liệu foam, giấy, dây kẽm. \nMàu sắc đa dạng',
-        15000.00, 35000.00, 0, 'Ngưng bán', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        15000.00, 35000.00, 0, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P127', 'Hoa chậu handmade - Hoa hồng giấy',
         'Hoa chậu handmade - Hoa hồng giấy Hoa handmade chậu thủy tinh quấn thừng nhỏ xinh, dễ thương khi sử dụng làm quà tặng, người nhận có thể dùng trang trí kệ, bàn. Ưu điểm của hoa handmade là hình thức đẹp không...',
-        101000.00, 157000.00, 19, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        101000.00, 157000.00, 19, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P128', 'Hộp nhạc piano pha lê khắc tê',
         'Hộp nhạc dây cót piano pha lê khắc tên Thiết kế mới lạ, sang trọng, được làm từ nhựa trong acrylic bạn sẽ nhìn được chuyển động đang chạy trong hộp nhạc trông rất thú vị. Làm đồ decor trong nhà, bàn làm...',
-        510000.00, 559000.00, 25, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        510000.00, 559000.00, 25, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
-VALUES ('P129', 'Hộp nhạc gỗ Piano', 'Màu sắc trắng, hồng \nKhắc tên laser', 510000.00, 559000.00, 33, 'Còn hàng',
+VALUES ('P129', 'Hộp nhạc gỗ Piano', 'Màu sắc trắng, hồng \nKhắc tên laser', 510000.00, 559000.00, 33,
         'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P13', 'Thiệp chúc mừng handmade Blue Pastel',
         '- Kích thước: 10x14.5cm \n\n- Chất liệu giấy mỹ thuật đặc biệt, charm đồng \n\n- Sản phẩm gồm thiệp, tấm giấy ghi thông điệp, bì thư vintage \n\n- Tùy biến theo ý riêng: theo mục đích tặng (sinh nhật, 20/11, 20/10, 8/3, valentine 14/2, giáng sinh v.v...) hoặc thay đổi hoàn toàn thông điệp theo ý riêng.',
-        23000.00, 39000.00, 37, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        23000.00, 39000.00, 37, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P130', 'Hộp nhạc cổ điển camera',
         'Kích thước:12x6x7,5cm \nChất liệu: gỗ \nThiết kế tỉ mỉ, khéo léo \nMẫu mã thịnh hành \nThích hợp làm quà tặng sinh nhật, valentine, noel, 8/3, 20/10,..',
-        220000.00, 250000.00, 14, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        220000.00, 250000.00, 14, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P131', 'Tượng trang trí phòng khách Thinker',
         'Chất liệu: đá sa thạch bền chắc, thân thiện với môi trường và an toàn với người sử dụng. \nKích thước: cao 23cm x ngang 12,5cm. \nMàu sắc: như hình. \nBảo quản: Không được rửa bằng nước hay bất kì dung dịch nào. Khi tượng bám bụi, hãy dùng khăn mềm lau nhẹ nhàng.',
-        190000.00, 249000.00, 19, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        190000.00, 249000.00, 19, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P132', 'Tượng trang trí vintage không thấy - khô',
         'Kích thước 11x12 cao 32cm \nChất liệu : Đá Composite cao cấp \nMàu sắc giả đá tự nhiê', 260000.00, 406000.00,
-        27, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        27, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P133', 'Xe Vespa mô hình trang trí, phụ kiện chụ',
         'Mô hình xe Vespa chất liệu kim loại \n\n- Kích thước 12x7.5cm, nhỏ xinh siêu cute \n\n- Xe Vespa trang trí, làm đồ decor sưu tập, phụ kiện chụp ảnh',
-        108000.00, 152000.00, 19, 'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        108000.00, 152000.00, 19, 'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P134', 'Thuyền gỗ vintage decor trang trí, phụ k',
         'Có 3 kích thước 27cm; 34cm và 42cm \nChất liệu gỗ theo phong cách Địa Trung Hải.', 88000.00, 149000.00, 16,
-        'Còn hàng', 'C05', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        'C05', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P14', 'Thiệp vintage Retro Clock',
         '- Kích thước: 10x14.5cm \n\n- Chất liệu giấy mỹ thuật đặc biệt, charm đồng \n\n- Sản phẩm gồm thiệp, tấm giấy ghi thông điệp, bì thư vintage \n\n- Tùy biến theo ý riêng: theo mục đích tặng (sinh nhật, 20/11, 20/10, 8/3, valentine 14/2, giáng sinh v.v...) hoặc thay đổi hoàn toàn thông điệp theo ý riêng.',
-        17000.00, 30000.00, 25, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        17000.00, 30000.00, 25, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P15', 'Thiệp giấy carton handmade - Thiệp chúc ',
         'Thiệp làm handmade tỉ mỉ lấy cảm hứng từ những tấm carton thô ráp, kết hợp với hoa lá cỏ khô tạo thành mẫu thiệp đẹp, độc đáo. \n\nCó thể thay đổi chủ đề theo yêu cầu. \n\nKích thước: 11x14cm.',
-        28900.00, 49000.00, 19, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        28900.00, 49000.00, 19, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P16', 'Thiệp tặng bạn thân - Thiệp vintage retr',
         'Thiệp tặng bạn thân - Thiệp vintage retro Là một trong những mẫu thiệp handmade cổ điển, HeadQuarter giúp bạn trở về lại với những giá trị tinh thần mà nhiều khi sống giữa thời đại công nghệ chúng...',
-        16500.00, 49000.00, 11, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        16500.00, 49000.00, 11, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P17', 'Giấy viết thư cổ điển Vintage',
         '- Giấy viết thư cổ điển hoa văn vintage Mang dáng dấp cổ điển độc đáo, những tờ giấy viết thư đầy cảm xúc sẽ là của bạn với những thiết kế độc đáo, cổ điển Vintage lạ mắt. Giấy viết thư...',
-        17900.00, 35000.00, 34, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        17900.00, 35000.00, 34, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P18', 'Khung ảnh đẹp Frame Triple',
         'Bộ khung ảnh ba đẹp Bộ ba khung ảnh thiết kế với gỗ mộc mạc, mang phong cách Vintage độc đáo, thiết kế bộ ba, sử dụng trang trí được cả hai mặt tương đương với 6 bức hình. Khung ảnh bộ...',
-        145000.00, 377000.00, 20, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        145000.00, 377000.00, 20, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P19', 'Khung ảnh frame 6 in 1',
         'Khung ảnh frame gỗ trang trí Cực xinh xắn và tiện dụng với bộ khung ảnh frame theo phong cách Vintage ấn tượng: + Bộ sản phẩm tiện dụng với bộ khung gỗ, gắn móc khóa, đồng hồ và khung ảnh kích thước 53...',
-        950000.00, 1337000.00, 10, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        950000.00, 1337000.00, 10, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P20', 'Khung ảnh gỗ 3 in 1',
         'Thiết kế cực sang trọng với màu trắng làm chủ đạo, phù hợp với mọi không gian trong căn nhà bạn', 475000.00,
-        630000.00, 10, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        630000.00, 10, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P21', 'Khung ảnh, tủ móc khóa, móc treo 3 in 1', 'Kích thước: 21x28cm; \nChất liệu: gỗ;', 134000.00, 347000.00,
-        0, 'Ngưng bán', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        0, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P22', 'Khung hình vintage triple cỡ lớ',
         'Kích thước khung 57x31cm; cỡ hình 10x15cm; trọng lượng 1.38kg; \nChất liệu: gỗ, thiết kế hoài cổ, vintage, cá tính.',
-        376000.00, 519000.00, 6, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        376000.00, 519000.00, 6, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P23', 'Khung ảnh handmade - thiệp handmade đẹp ',
         'Sản phẩm được thiết kế cá tính và đậm chất Vintage cổ xưa sẽ là sản phẩm độc đáo dành cho bạn có nhu cầu lưu giữ những tấm ảnh \"hay ho\" hay ghi lại khoảnh khắc đáng nhớ. Bạn có thể dán hình hoặc câu chữ yêu thích đặt vào khung hình.',
-        13000.00, 29000.00, 0, 'Ngưng bán', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        13000.00, 29000.00, 0, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P24', 'Khung ảnh kiểu Địa Trung Hải',
         'Mang nắng, gió và biển Địa Trung Hải vào thiết kế không gian của bạn đơn giản chỉ với chiếc khung ảnh này. Kích thước: 19 x 23cm; Chất liệu: gỗ thông đẹp và bền bỉ.',
-        106000.00, 189000.00, 24, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        106000.00, 189000.00, 24, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P25', 'Khung ảnh vintage kiểu US Army',
         'Bằng chất liệu kim loại, gỗ cùng một chút sáng tạo, khung ảnh US Army sẽ là điểm nhấn cho không gian thêm phần khác lạ. Kích thước khung 1 x 23 x 28cm; cỡ hình 10 x 15cm;',
-        98000.00, 167000.00, 21, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        98000.00, 167000.00, 21, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P26', 'Khung ảnh vintage trắng ngà',
         'Khung hình thiết kế đơn giản, đẹp, tinh tế, nhẹ nhàng với tông màu trắng. Kích thước lần lượt cho các khổ ảnh 9x9cm giá 105k; 9x13cm giá 162k; 10x15cm giá 173k; 13x18cm giá 197k.',
-        88000.00, 97000.00, 16, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        88000.00, 97000.00, 16, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P27', 'Khung ảnh - móc treo FISH HOOK',
         'Kích thước: 55x4x20cm; \nChất liệu: gỗ, dây thừng \nKhung 3 ảnh 6x9cm được làm thủ công tỉ mỉ', 204000.00,
-        379000.00, 0, 'Ngưng bán', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        379000.00, 0, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P28', 'Khung ảnh gỗ và thạch cao Ivory Vintage',
         'Khung ảnh gỗ và thạch cao Ivory Vintage ấn tượng Chất liệu gỗ và thạch cao hòa quyện cùng sự sáng tạo độc đáo đã cho ra đời sản phẩm khung ảnh độc đáo Ivory Vintage. Kích thước sản phẩm: 4 x...',
-        219000.00, 349000.00, 5, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        219000.00, 349000.00, 5, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P29', 'Khung ảnh Hải Âu Mediterranea', 'Chất liệu: gỗ; \nKích thước khung 18x23cm; khổ hình 10x15cm;',
-        101000.00, 189000.00, 1, 'Tạm hết hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        101000.00, 189000.00, 1, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P30', 'Khung ảnh Địa Trung Hải Kayak',
         'Thiết kế thuyền kayak độc đáo, hiện đại và khác biệt, chiếc khung ảnh Địa Trung Hải này như một chút biến tấu cho không gian của bạn thêm sự mới lạ. Kích thước sản phẩm: 15 x 26cm, được làm bằng chất liệu: gỗ, thừng, thạch cao, sò biển...',
-        96000.00, 167000.00, 0, 'Tạm hết hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        96000.00, 167000.00, 0, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P31', 'Khung ảnh vintage hoa văn vuông',
         'Cổ điển và ấn tượng, chiếc khung ảnh Vintage mang hơi thở hoài cổ nhẹ nhàng và ấn tượng. Chất liệu: gỗ, kích thước khung 18 x 22cm; cỡ hình 10 x 15cm.',
-        104000.00, 150000.00, 0, 'Ngưng bán', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        104000.00, 150000.00, 0, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P32', 'Khung ảnh mèo Totoro',
         'Khung ảnh mèo Totoro Mang nét mộc mạc đơn sơ nhưng cực kì xinh xắn, với khung ảnh mèo Totoro, sự đơn giản từ chiếc khung ảnh có thể làm nổi bật lên tấm hình mà bạn muốn trưng cho không...',
-        65000.00, 84000.00, 3, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        65000.00, 84000.00, 3, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P33', 'Khung ảnh Staring time (lớn)',
         'Khung ảnh gỗ đẹp Staring time Không chỉ là chiếc khung ảnh gỗ, mà nó còn là kỉ vật thời gian gắn bó với rất nhiều người, do đó, một chiếc khung ảnh luôn là món đồ vật được trân trọng,...',
-        145000.00, 212000.00, 2, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        145000.00, 212000.00, 2, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P34', 'Khung ảnh gỗ thông Rustic',
         'Khung ảnh Rustic cỡ lớn Những điều ý nghĩa, những kỷ niệm đẹp hãy lưu lại và trân trọng điều đó bởi đó là những điều sẽ đi suốt cuộc đời của bạn. Chính vì thể hãy giữ cho những bức...',
-        179000.00, 227000.00, 15, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        179000.00, 227000.00, 15, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P35', 'Khung ảnh Hải Âu Mediterranea',
         'Quà tặng khung ảnh Hải Âu Mediterranean Chất liệu: gỗ; Kích thước khung 18x23cm; khổ hình 10x15cm; Like FACEBOOK VIETGIFTCENTER.COM để được cập nhật nhanh nhất!',
-        125000.00, 189000.00, 13, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        125000.00, 189000.00, 13, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P36', 'Khung trang trí bàn hoa hồng sứ C-rose f',
         'Phong cách \"mộc\" ấn tượng cho khung trang trí để bàn C-rose. Ngoài việc trang trí, khung trang trí còn là điểm nhấn phong thủy độc đáo cho nội thất của bạn. Khung trang trí để bàn hoa hồng Kích thước:13,9 x...',
-        241000.00, 317000.00, 18, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        241000.00, 317000.00, 18, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P37', 'KHUNG ẢNH NGÔI NHÀ CỬA SỔ NÂU (NGANG)', 'KÍCH THƯỚC: 24.5 * 20.5cm \nChất liệu: Gỗ', 178000.00,
-        240000.00, 4, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        240000.00, 4, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P38', 'KHUNG ẢNH NGÔI NHÀ XE ĐẠP', 'KÍCH THƯỚC: 19*26.5cm \nChất liệu: Gỗ', 178000.00, 240000.00, 1,
-        'Tạm hết hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P39', 'KHUNG ẢNH VÒNG ĐU QUAY VINTAGE',
         'Khung ảnh vòng đu quay vintage 2 \nKích thước: 33 x 18.5 cm \nChất liệu: kim loại', 0.00, 0.00, NULL,
-        'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P40', 'Bì thư vintage Tem Việt',
         'BÌ THƯ VINTAGE CỔ ĐIỂN Bao thư với phong cách vintage thích hợp cho bạn nếu yêu thích những phong cách retro đặc biệt ấn tượng này. Bạn có thể sử dụng để làm quà tặng hoặc để trang trí đều...',
-        19000.00, 35000.00, 12, 'Còn hàng', 'C01', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        19000.00, 35000.00, 12, 'C01', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P41', 'Scrapbook That Time',
         '- Kích thước 21x21x5cm; \n\n- Trang trí được 30-50 ảnh đủ các kích thước 4x6cm đến 13x18cm; \n\n- Sản phẩm được làm thủ công, chăm chút từng chi tiết nhỏ; scrapbook có phong cách, màu sắc đậm chất vintage, hoài cổ rất được yêu thích; \n\n- Scrapbook có thể thiết kế, tùy biến chủ đề theo ý riêng.',
-        450000.00, 649000.00, 10, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        450000.00, 649000.00, 10, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P42', 'Scrapbook Sweet Mint',
         '- Kích thước 21x21x5cm \n\n- Trang trí được 30-50 ảnh đủ các kích thước 4x6cm đến 13x18cm \n\n- Sản phẩm được làm thủ công, chăm chút từng chi tiết nhỏ \n\n- Scrapbook có thể thiết kế, tùy biến chủ đề theo ý riêng',
-        450000.00, 649000.00, 8, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        450000.00, 649000.00, 8, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P43', 'Scrapbook Fly That Time',
         '- Kích thước 14.5 x 21.5 x 5cm \n\n- Trang trí được 30 ảnh 6x9cm \n\n- Sản phẩm được làm handmade tỉ mỉ từng chi tiết nhỏ',
-        104000.00, 0.00, 13, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        104000.00, 0.00, 13, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P44', 'Album ảnh handmade Fly Sweet Mint',
         '- Sản phẩm được làm handmade chăm chút tỉ mỉ \n\n- Kích thước 14.5 x 21.5 x 5cm \n\n- Trang trí được 30 hình 6x9cm \n\n- Có thể tùy biến, thiết kế chủ đề theo yêu cầu riêng',
-        104000.00, 0.00, 16, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        104000.00, 0.00, 16, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P45', 'Album ảnh tự trang trí Love Story (Xanh)',
         'Màu xanh Vintage huyền bí cùng thiết kế theo phong cách Vintage đầy bí ẩn sẽ làm cuốn album của bạn thêm thu hút và độc đáo.',
-        147000.00, 220000.00, 24, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        147000.00, 220000.00, 24, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P46', 'Scrapbook Retro Clock',
         '- Màu sắc: Nâu - trắng. \n\n- Kích thước: 20 x 20cm. \n\n- Chất liệu: Giấy cứng cao cấp, được trang trí hoàn toàn bằng tay (100% handmade). \n\n- Số trang: 11, có thể dán được 40-60 hình các size khác nhau.',
-        402000.00, 649000.00, 1, 'Tạm hết hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        402000.00, 649000.00, 1, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P47', 'Scrapbook Vintage',
         'Scrapbook handmade cao cấp đậm chất vintage Just be me Quyển scrapbook (một dạng sổ ảnh handmade) được làm thủ công với thiết kế hoàn toàn khác biệt, chắc chắn, chứa được nhiều hình hơn so với các scrapbook khác. Màu...',
-        1350000.00, 1620000.00, 4, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        1350000.00, 1620000.00, 4, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P48', 'Scrapbook Lò Xo Handmade Phong Cách Retr',
         '✔ Kích thước: 20 x 21cm \n\n️ ✔ Các size ảnh: 4x6, 6x9, 9x12 \n\n️ ✔ 16 trang giấy cứng và các họa tiết trang trí ấn tượng. \n\n️ ✔ Tối đa 47 tấm hình. Có nhiều lớp được xếp chồng lên nhau và kéo thả để hiển thị hình ảnh.',
-        400000.00, 549000.00, 9, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        400000.00, 549000.00, 9, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P49', 'Album ảnh handmade Blue Pastel',
         'Màu sắc chủ đạo: Trắng - Xanh Rustic/Pastel nhẹ nhàng. \n\n- Kích thước: 20 x 20cm. \n\n- Chất liệu: Giấy cứng cao cấp, được trang trí hoàn toàn bằng tay (100% handmade). \n\n- Số trang: 11, có thể dán được 40-60 hình các size khác nhau.',
-        400000.00, 649000.00, 14, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        400000.00, 649000.00, 14, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P50', 'Scrapbook My Boy For The Memories',
         'Scrapbook thường được xem là món quà đặc biệt không chỉ với thiết kế mà còn giá trị của tinh thần lẫn vật chất của nó. Sản phẩm thành công và được nhiều người yêu thích vì những ý nghĩa...',
-        400000.00, 549000.00, 14, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        400000.00, 549000.00, 14, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P51', 'Scrapbook Lò Xo Handmade Trang Trí Độc L',
         '- Kích thước: 9,5 x 21cm\n\n- Các size ảnh phù hợp: 4x6, 6x9, 9x12\n\n- Giấy cứng và các họa tiết trang trí ấn tượng.\n\n- Tối đa 47 tấm hình. Có nhiều lớp được xếp chồng lên nhau và kéo thả để hình ảnh vô cùng độc lạ.',
-        400000.00, 549000.00, 14, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        400000.00, 549000.00, 14, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P52', 'Scrapbook Film de Paris',
         'Scrapbook handmade Film de Paris độc đáo và ấn tượng với phiên bản Blue siêu quyến rũ. Scrapbook dùng làm album ảnh lưu trữ những kỉ niệm đẹp. - Kích thước: 21 x 21cm - Có thể trang trí 50 hình lớn nhỏ - Chất liệu:...',
-        450000.00, 649000.00, 16, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        450000.00, 649000.00, 16, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P53', 'Scrapbook handmade Sweet Moments',
         '- Màu sắc: vàng lúa mạch.\n\n- Kích thước: 20 x 20cm.\n\n- Chất liệu: Giấy cứng cao cấp, được trang trí hoàn toàn bằng tay (100% handmade).\n\n- Số trang: 11, có thể dán được 40-60 hình các size khác nhau.',
-        450000.00, 649000.00, 12, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        450000.00, 649000.00, 12, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P54', 'SCRAPBOOK CHỦ ĐỀ CHO BÉ',
         'Scrapbook chủ đề cho bé trai và bé gái Bạn băn khoăn về việc lưu giữ hình ảnh của bé con sao cho vừa đẹp, vừa ý nghĩa, dễ thương mà vẫn độc đáo và khác biệt. Bạn không chỉ muốn đơn thuần...',
-        500000.00, 629000.00, 8, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        500000.00, 629000.00, 8, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P55', 'Fly album handmade bicycle',
         'Fly album handmade bicycle Chất liệu: giấy cứng cao cấp; Làm bằng tay hoàn toàn (100% handmade); Kích thước: 14.5*21.5 cm; Số trang: 14, Dán được được 30 hình khổ 6x9 cm. Like Fanpage vietgiftcenter.com để được hỗ trợ thông tin nhanh nhất.',
-        210000.00, 329000.00, 9, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        210000.00, 329000.00, 9, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P56', 'Fly album handmade Blue Pastel',
         '- Chất liệu: giấy cứng cao cấp; \n- Làm bằng tay hoàn toàn (100% handmade); \n- Kích thước: 14 cm*23 cm; \n- Số trang: 15, Dán được được 32 hình khổ 6 x 9cm.',
-        210000.00, 329000.00, 20, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        210000.00, 329000.00, 20, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P57', 'Fly album Love (Xanh)',
         'Phiên bản độc quyền mang phong cách riêng của Craft & More. Mang màu sắc cùng thiết kế bí ẩn, fly album handmade Love có thể trang trí trên bàn làm việc, bàn học, không gian. Sản phẩm có hộp đựng vô cùng xinh xắn.',
-        210000.00, 329000.00, 17, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        210000.00, 329000.00, 17, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P58', 'Fly album Sweet Moment',
         'Nếu fly album Anchor với tông màu hồng xin xắn dành riêng cho mùa xuân thì fly album Sweet Moment lại khơi gợi nét nhẹ nhàng, lãng đãng của mùa thu dịu dàng. Sản phẩm vừa là cuốn album ảnh \"độc\", vừa là vật trang trí cực lãng mạn cho không gian.',
-        210000.00, 329000.00, 6, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        210000.00, 329000.00, 6, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P59', 'Fly album Retro Clock',
         '- Chất liệu: giấy cứng cao cấp; \n- Làm bằng tay hoàn toàn (100% handmade); \n- Kích thước: 14 cm*23 cm; \n- Số trang: 15, Dán được được 32 hình khổ 6 x 9cm.',
-        210000.00, 329000.00, 11, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        210000.00, 329000.00, 11, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P60', 'Scrapbook độc đáo cho tình yêu THE JOURN',
         '- Màu sắc: Nâu trầm. \n\n- Kích thước: 21 x 21cm, gồm 11 trang giấy trang trí sẵn. \n\n- Sản phẩm mang thông điệp và màu sắc trung tính, có thể dùng làm quà tặng, album trang trí cho cả nam lẫn nữ. \n\n- Sản phẩm có 2 mẫu khác nhau. Vui lòng chọn mẫu khi đặt hàng.',
-        400000.00, 649000.00, 9, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        400000.00, 649000.00, 9, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P61', 'Album DIY Retro Clock',
         'Thiết kế mang dáng vẻ cổ điển cùng lối trang trí đơn giản nhưng mang lại nét sang trọng, nhẹ nhàng cùng chi tiết bánh răng, đồng hồ, poscard,...',
-        145000.00, 222000.00, 0, 'Tạm hết hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        145000.00, 222000.00, 0, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P62', 'Scrapbook LIVE.LAUGH.LOVE',
         'Scrapbook với chất liệu giấy cứng, khổ: 20*20 cm; có thể trang trí khoảng 50 hình lớn nhỏ.', 400000.00,
-        649000.00, 38, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        649000.00, 38, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P63', 'Scrapbook Were Growing',
         'Quà handmade cho bé, cho tuổi trẻ - scrapbook Were Growing - Sweet Laughing Album ảnh handmade có thiết kế ấn tượng tông màu nâu mang nét hoài cổ cá tính. Album phù hợp ghi dấu những chặng đường phát triển...',
-        550000.00, 699000.00, 25, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        550000.00, 699000.00, 25, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P64', 'Scrapbook JUST BE ME',
         'Scrapbook JUST BE ME Album ảnh có kích thước: 20x20cm; dán được 30-40 ảnh. Scrapbook được thiết kế ấn tượng theo phong cách VINTAGE, RETRO. Bạn có thể thêm bớt giấy tùy theo số lượng hình. Album được tặng thêm một số phụ...',
-        500000.00, 679000.00, 19, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        500000.00, 679000.00, 19, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P65', 'SCRAPBOOK CHỦ ĐỀ TÌNH YÊU',
         'Để giúp bạn dễ dàng hơn trong việc lựa chọn, ở bài viết này, Craft & More sẽ giới thiệu đến bạn một số mẫu Scrapbook theo chủ đề Tình yêu. Click vào tên sản phẩm để biết thêm nhiều thông...',
-        400000.00, 649000.00, 24, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        400000.00, 649000.00, 24, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P66', 'Scrapbook MY LITTLE PRINCESS',
         'Scrapbook độc đáo cho bé yêu - bé gái: MY LITTLE PRINCESS Album ảnh handmade có kích thước: 21*21 cm; giấy cao cấp, dán được khoảng trên 50 hình lớn nhỏ. Album được trang trí sẵn rất cá tính nhưng dịu dàng với tông màu hồng...',
-        400000.00, 649000.00, 35, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        400000.00, 649000.00, 35, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P67', 'Album handmade bé trai MY LITTLE PRINCE',
         'Scrapbook bé trai MY LITTLE PRINCE Album ảnh handmade dành riêng cho bé trai, tông màu xanh mạnh mẽ, cá tính - món quà độc đáo cho chàng hoàng tử bé của bạn; khổ: 21*21 cm; dán được 50 hình. Album làm...',
-        400000.00, 649000.00, 32, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        400000.00, 649000.00, 32, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P68', 'Album ảnh bé trai Wonderful My boy',
         'Scrapbook cho bé trai WONDERFUL - MY BOY Album ảnh handmade cho bé trai đậm chất vintage, là dạng kết hợp trang trí sẵn và tự làm (DIY): bìa và 3 trang bên trong trang trí sẵn; các trang còn lại trống (blank) để...',
-        500000.00, 679000.00, 15, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        500000.00, 679000.00, 15, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P69', 'Scrapbook cao cấp My little princess',
         'Scrapbook handmade cao cấp My little princess Album được bằng tay với nhiều chi tiết tinh xảo. Scrapbook có thể dán hơn 150 hình với khích thước khác nhau. Kích thước: 20x20cm. Like Facebook của chúng tôi để được cập nhật nhanh nhất thông...',
-        1400000.00, 1620000.00, 6, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        1400000.00, 1620000.00, 6, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P70', 'Scrapbook handmade Darling Daughter',
         '- Chất liệu: giấy cứng cao cấp; \n- Khổ: 20*20 cm; \n- Album gáy còng, có thể dễ dàng thêm bớt trang tùy thích. Sản phẩm có thể đựng được 50-60 hình lớn nhỏ.',
-        500000.00, 679000.00, 4, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        500000.00, 679000.00, 4, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P71', 'Scrapbook cao cấp I am marvelous',
         'Scrapbook cao cấp I am marvelous Album đươc làm hoàn toàn bằng tay tỉ mỉ, chất liệu giấy mỹ thuật cao cấp; kích thước: 20x20cm. Like Facebook của chúng tôi ngay các bạn nhé!',
-        1400000.00, 1620000.00, 22, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        1400000.00, 1620000.00, 22, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P72', 'Scrapbook cao cấp My boy',
         'Scrapbook handmade cao cấp My boy Album được làm hoàn toàn bằng tay rất tỉ mỉ. Kích thước: 20x20cm; Scrapbook có thể dán được hơn 150 hình với khích thước khác nhau. Chất liệu: giấy mỹ thuật cao cấp. Like ngay Facebook...',
-        1400000.00, 1620000.00, 21, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        1400000.00, 1620000.00, 21, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P73', 'Album cưới handmade Beautiful In White',
         'Album cưới handmade - scrapbook chủ đề TÌNH YÊU Beautiful In White Album handmade Beautiful in White đúng như tên gọi, được thiết kế thanh thoát, giản dị, lãng mạn với tông trắng chủ đạo. Các trang nền bên trong có hoa văn,...',
-        400000.00, 649000.00, 19, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        400000.00, 649000.00, 19, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P74', 'Album handmade scrapbook đẹp Together Fo',
         'Album handmade scrapbook đẹp Together Forever Làm bằng tay hoàn toàn, tĩ mĩ từng chi tiết nhỏ nhất! 20 trang giấy chuyên dụng được trang trí đặc sắc; Chủ đề tình yêu: TOGETHER FOREVER; Chứa khoảng...',
-        520000.00, 729000.00, 18, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        520000.00, 729000.00, 18, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P75', 'Scrapbook cao cấp Were growing',
         'Scrapbook cao cấp làm album ảnh đẹp cho bé và gia đình Sự ra đời của cuốn album scrapbook cao cấp Were growing là một sự đột phá trong cách trang trí, lưu giữ kỉ niệm bằng album. Bằng những trang giấy nghệ...',
-        1400000.00, 1620000.00, 0, 'Ngưng bán', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        1400000.00, 1620000.00, 0, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P76', 'Album ảnh handmade I am Marvelous',
         'Lưu giữ những khoảnh khắc đáng nhớ bằng scrapbook I am Marvelous Scrapbook I am Marvelous sẽ là nơi lý tưởng để bạn có thể lưu giữ những kỉ niệm hạnh phúc và đáng nhớ bên gia đình của mình. Những tấm hình...',
-        500000.00, 679000.00, 12, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        500000.00, 679000.00, 12, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P77', 'Flying album handmade Love Story',
         'Album ảnh handmade có thể kéo dài -flying album Chất liệu: giấy cứng cao cấp; Làm bằng tay hoàn toàn (100% handmade); Kích thước: 14.5*21.5 cm; Số trang: 14, đựng được 30 hình khổ 6*9 cm và 1 hình 9*12cm Like facebook Craft & More để...',
-        210000.00, 329000.00, 20, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        210000.00, 329000.00, 20, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P78', 'Flying album handmade Somewhere in time',
         'Flying album handmade tỉ mỉ Chất liệu: giấy cứng cao cấp; Làm bằng tay hoàn toàn (100% handmade); Kích thước: 14.5*21.5 cm; Số trang: 14, đựng được 30 hình khổ 6*9 cm và 1 hình 9x12cm. Món quà tặng độc đáo cho những người yêu...',
-        210000.00, 329000.00, 20, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        210000.00, 329000.00, 20, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P79', 'Flying album handmade A Moment in Time',
-        'Món quà tặng độc đáo cho những người yêu thương, hay cho chính bạn!', 210000.00, 329000.00, 20, 'Còn hàng',
+        'Món quà tặng độc đáo cho những người yêu thương, hay cho chính bạn!', 210000.00, 329000.00, 20,
         'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P80', 'Flying album vintage Memories',
         'Album ảnh bay handmade (flying album) Memories Chất liệu: giấy cứng cao cấp; Làm bằng tay hoàn toàn (100% handmade); Kích thước: 14.5*21.5 cm; Số trang: 14, đựng được 30 hình khổ 6*9 cm và 1 hình 9*12cm.',
-        210000.00, 329000.00, 25, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        210000.00, 329000.00, 25, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P81', 'Sổ ký tên đám cưới handmade',
         'Sổ ký tên đám cưới handmade phong cách vintage Album cưới handmade dùng để ký tên và dán hình trang trí tiệc cưới được làm bằng tay hoàn toàn. Sổ có tối thiểu 3 trang hình và 3 trang ký tên, chứa khoảng 10-15 hình;',
-        970000.00, 1129000.00, 34, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        970000.00, 1129000.00, 34, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P82', 'Exploding love box album handmade',
         'Chất liệu: Giấy cứng hoa văn cao cấp \n\nKích thước: 9 x 13cm, cao 6cm, chứa được khoảng 29 tấm hình 6 x 9cm.',
-        310000.00, 449000.00, 0, 'Tạm hết hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        310000.00, 449000.00, 0, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P83', 'Mini Love Card-Album Handmade',
         'Chất liệu: giấy cứng cao cấp; bền bỉ theo thời gian \nKích thước: 7.5*12 cm; \nChủ đề đa dạng, được thiết kế và thực hiện tại HeadQuarter',
-        56000.00, 109000.00, 14, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        56000.00, 109000.00, 14, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P84', 'ALBUM TỰ TRANG TRÍ (P.I) - SCRAPBOOK',
         'Khác với 5-10 năm trước đây, làm album handmade không chỉ là một phạm trù xa lạ mà còn khá khó khăn cho người làm bởi sự hạn chế về nguồn cung cấp và nơi bán các loại nguyên vật liệu....',
-        500000.00, 679000.00, 31, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        500000.00, 679000.00, 31, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P85', 'ALBUM TỰ TRANG TRÍ (P.II) - ALBUM DIY',
         'Bài trước, chúng ta đã tìm hiểu qua Scrapbook, bài tiếp theo này Craft & More xin giới thiệu tiếp đến Album ảnh DIY Album DIY (DO IT YOURSELF) Album DIY vượt trội hơn Scrapbook về số lượng ảnh được lưu trữ,...',
-        145000.00, 220000.00, 30, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        145000.00, 220000.00, 30, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P86', 'Album tự trang trí Vân gỗ trắng',
         'Album thiết kế tối giản với màu sơn trắng Vintage cổ điển, họa tiết dấu mộc cổ độc đáo như một nét chấm phá hoàn hảo cho cuốn album ảnh lưu bút độc đáo của bản thân.',
-        140000.00, 220000.00, 30, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        140000.00, 220000.00, 30, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P87', 'Album DIY Vân gỗ Đỏ',
         'Màu sắc chủ đạo: Nâu, vàng, đỏ được phối hợp khéo léo theo phong cách Vintage tinh tế. Thiết kế không bao giờ lỗi thời, tối giản tới mức thấp nhất mọi nét trang trí cầu kì trên sản phẩm.',
-        140000.00, 220000.00, 30, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        140000.00, 220000.00, 30, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P88', 'Album DIY Vân gỗ Pastel',
         'Màu chủ đạo: tông màu trắng + xanh Pastel dịu nhẹ. Thiết kế nhẹ nhàng và đầy ngẫu hứng, họa tiết vân gỗ quen thuộc nhưng vẫn gây cảm giác lạ mắt rất riêng cho sản phẩm.',
-        140000.00, 220000.00, 30, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        140000.00, 220000.00, 30, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P89', 'Album DIY Sọc nhỏ',
         'Họa tiết sọc xinh xắn, nhẹ nhàng, album gồm 60 trang với 2 màu nâu - đen đơn giản, 100% trang giấy trống cho bạn thỏa sức sáng tạo.',
-        140000.00, 220000.00, 19, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        140000.00, 220000.00, 19, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P90', 'Scrapbook handmade FOLIO',
         'Mẫu scrapbook đẹp với việc sắp xếp khéo léo nhiều tấm thẻ thành một quyển sổ ảnh, kết hợp việc phối màu sắc, hoa văn tạo nên tổng thể một quyển scrapbook handmade đậm chất retro. Scrapbook có kích thước A5,...',
-        230000.00, 479000.00, 18, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        230000.00, 479000.00, 18, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P91', 'Sổ ký tên handmade Save the date',
         'Thiết kế sổ ký tên + album ảnh cưới 2 in 1. Sản phẩm được làm 100% bằng tay từ ý tưởng đến thiết kế, lấy ý tưởng từ chủ đề đại dương lãng mạn và dịu dàng, sổ ký tên Save the date chắc chắn sẽ làm bạn và người chiêm ngưỡng bất ngờ và thích thú.',
-        1100000.00, 1380000.00, 20, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        1100000.00, 1380000.00, 20, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P92', 'Sổ ký tên Our Story',
         'Sản phẩm là sổ ký tên kết hợp album ảnh cưới cực độc đáo. Tông màu xanh, nâu trầm chủ đạo, họa tiết Vintage cuốn hút và quyến rũ. Cuốn sổ ký tên được thiết kế sang trọng và bắt mắt, ấn tượng như một câu chuyện cổ tích có thật!',
-        1100000.00, 1380000.00, 20, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        1100000.00, 1380000.00, 20, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P93', 'Sổ ký tên ngày cưới Let me love you',
         'Sổ ký tên đám cưới mua ở đâu? Khổ 31x31cm; 24 trang luôn bìa; các họa tiết vẽ tay artline in trên giấy mỹ thuật Tinki 250 gsm kết hợp làm album ảnh handmade độc đáo! Guestbook - sổ ký tên với...',
-        180000.00, 319000.00, 0, 'Ngưng bán', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        180000.00, 319000.00, 0, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P94', 'Sổ ký tên Happy Light',
         'Sổ ký tên Happy Light Kích thước: 31x31cm Định lượng giấy 250gsm Số trang: 20 trang', 180000.00, 319000.00, 1,
-        'Tạm hết hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P95', 'Sổ ký tên Happy Forest',
         'Guestbook Happy Forest Định lượng giấy: 250gsm Số trang: 20 trang Kích thước 31x31cm', 180000.00, 319000.00, 1,
-        'Tạm hết hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P96', 'Sổ ký tên Tiny Love',
         'Guestbook Tiny Love Kích thước: 31cm x 31cm Định lượng giấy: 250gsm Số lượng trang: 20 trang', 180000.00,
-        319000.00, 5, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        319000.00, 5, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P97', 'Album tự thiết kế Baby photo GIRL (27cm*',
         'Album tự thiết kế Baby photo màu hồng-món quà cho các bé gái và gia đình tại vietgiftcenter.com Khổ vuông 27cm*27cm, 64 trang luôn bìa, giấy bên trong 2 màu đen.',
-        176000.00, 280000.00, 16, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        176000.00, 280000.00, 16, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P98', 'Guest Book Feeling good',
         'Guest book-sổ kí tên Feeling good Kích thước: 31x31cm, định lượng giấy: 250gsm, số lượng trang: 20 trang.',
-        180000.00, 319000.00, 16, 'Còn hàng', 'C02', NULL);
-INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `status`, `categoryId`,
+        180000.00, 319000.00, 16, 'C02', NULL);
+INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `categoryId`,
                        `discountId`)
 VALUES ('P99', 'Guestbook - sổ ký tên đám cưới Memory Bo',
         'Guestbook - sổ ký tên đám cưới Khổ: 31x31cm; 24 trang luôn bìa, được thiết kế đặc biệt dành cho ký tên ngày cưới. Hoặc bạn có thể dùng làm album ảnh dán DIY. Bìa guestbook được thiết kế với tông màu...',
-        180000.00, 319000.00, 19, 'Còn hàng', 'C02', NULL);
+        180000.00, 319000.00, 19, 'C02', NULL);
 
 /* IMAGE */
 
@@ -1497,13 +1497,15 @@ VALUES ('I99', 'Scrapbook Fly That Time', 'images/products/p43_1.webp', 'P43');
 INSERT INTO `user` (`id`, `name`, `phoneNumber`, `email`, `password`, `createDate`, `status`, `roleId`)
 VALUES ('u0', 'Admin', '0342156985', 'admin@gmail.com', 'admin', '2023-11-27 00:00:00', 'Bình Thường', 'r0');
 INSERT INTO `user` (`id`, `name`, `phoneNumber`, `email`, `password`, `createDate`, `status`, `roleId`)
-VALUES ('u1', 'Nguyễn Trung Kiên', '243685542', 'kien@gmail.com', 'kien123', '2023-11-27 00:00:00', 'Bình Thường', 'r1');
+VALUES ('u1', 'Nguyễn Trung Kiên', '243685542', 'kien@gmail.com', 'kien123', '2023-11-27 00:00:00', 'Bình Thường',
+        'r1');
 INSERT INTO `user` (`id`, `name`, `phoneNumber`, `email`, `password`, `createDate`, `status`, `roleId`)
 VALUES ('u2', 'Lung Bá Phệ', '145278563', 'phe@gmail.com', 'phe123', '2023-11-27 00:00:00', 'Bình Thường', 'r1');
 INSERT INTO `user` (`id`, `name`, `phoneNumber`, `email`, `password`, `createDate`, `status`, `roleId`)
 VALUES ('u3', 'Nguyễn Bá Huy', '348578921', 'huy@gmail.com', 'huy123', '2023-11-27 00:00:00', 'Bình Thường', 'r1');
 INSERT INTO `user` (`id`, `name`, `phoneNumber`, `email`, `password`, `createDate`, `status`, `roleId`)
-VALUES ('u4', 'Lâm Bá Thương', '124782369', 'thuong@gmail.com', 'thuong123', '2023-11-27 00:00:00', 'Bình Thường', 'r1');
+VALUES ('u4', 'Lâm Bá Thương', '124782369', 'thuong@gmail.com', 'thuong123', '2023-11-27 00:00:00', 'Bình Thường',
+        'r1');
 INSERT INTO `user` (`id`, `name`, `phoneNumber`, `email`, `password`, `createDate`, `status`, `roleId`)
 VALUES ('u5', 'Nguyễn Trọng Nghĩa', '342578964', 'nghia@gmail.com', 'nghia123', '2023-11-27 00:00:00', 'Bình Thường',
         'r1');
@@ -1516,7 +1518,8 @@ VALUES ('u8', 'Lê Phú', '478523562', 'phu@gmail.com', 'phu123', '2023-11-28 00
 INSERT INTO `user` (`id`, `name`, `phoneNumber`, `email`, `password`, `createDate`, `status`, `roleId`)
 VALUES ('u9', 'Trần Long Ân', '245251511', 'an@gmail.com', 'an123', '2023-11-29 00:00:00', 'Bình Thường', 'r1');
 INSERT INTO `user` (`id`, `name`, `phoneNumber`, `email`, `password`, `createDate`, `status`, `roleId`)
-VALUES ('u10', 'Lê Bá Phụng', '245278954', 'lebatrong2003@gmail.com', 'phung123', '2023-11-30 00:00:00', 'Bình Thường', 'r1');
+VALUES ('u10', 'Lê Bá Phụng', '245278954', 'lebatrong2003@gmail.com', 'phung123', '2023-11-30 00:00:00', 'Bình Thường',
+        'r1');
 
 /* ORDER */
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
@@ -1634,7 +1637,7 @@ CREATE TABLE `handmadestore`.`banner_items`
 (
     `title`       varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-    `img_path`      text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    `img_path`    text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     PRIMARY KEY (`title`) USING BTREE
 
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
@@ -1644,7 +1647,7 @@ CREATE TABLE `handmadestore`.`tips`
 (
     `title`       varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  NOT NULL,
     `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-    `img_path`     text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    `img_path`    text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     `video_link`  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     PRIMARY KEY (`title`) USING BTREE
 
@@ -1652,13 +1655,26 @@ CREATE TABLE `handmadestore`.`tips`
 
 /* Insert data for Banner Items and Tips */
 INSERT INTO `banner_items` (`title`, `description`, `img_path`)
-VALUES ('KÍNH CHÀO QUÝ KHÁCH', 'Mỗi sản phẩm từ HandmadeStore là một phần trái tim của ai đó', 'images/banner_items/item_1.jpg'),
-       ('Độc - Đẹp - Bền - Giá Phù Hợp', 'Chế tạo những sản phẩm độc đáo, với tình yêu và sự tận tụy', 'images/products/item_2.jpg'),
+VALUES ('KÍNH CHÀO QUÝ KHÁCH', 'Mỗi sản phẩm từ HandmadeStore là một phần trái tim của ai đó',
+        'images/banner_items/item_1.jpg'),
+       ('Độc - Đẹp - Bền - Giá Phù Hợp', 'Chế tạo những sản phẩm độc đáo, với tình yêu và sự tận tụy',
+        'images/products/item_2.jpg'),
        ('CÙNG NHAU KHÁM PHÁ NÀO!', 'Những sản phẩm đang nóng lòng đợi bạn rinh về nè !', 'images/products/item_3.jpg');
 INSERT INTO `tips` (`title`, `description`, `img_path`, `video_link`)
 VALUES ('Cách cắm hoa khô đẹp trong 5 phút', 'Hoa khô hay còn gọi là hoa không tàn, hoa vĩnh cửu luôn có nét đẹp riêng,
-Để tăng thêm sự độc đáo và giá trị thì cách cắm hoa...', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ8lBiigy5MW1j56PFstMcdXypVGCGOI3rKQ&usqp=CAU', 'https://youtu.be/t4Sjrj0MvUg'),
+Để tăng thêm sự độc đáo và giá trị thì cách cắm hoa...',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ8lBiigy5MW1j56PFstMcdXypVGCGOI3rKQ&usqp=CAU',
+        'https://youtu.be/t4Sjrj0MvUg'),
        ('Cách làm trang trí thiệp hoa khô handmade siêu dễ', 'Thiệp hoa khô tự nhiên có nét quyến rũ thú vị, thể hiện sự chỉnh chu của người tặng,
-Tự tay làm chiếc thiệp hoa khô sẽ thật ý nghĩa...', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqeUKERx8fXxdyGuVP0PEfBoiHJr3FtIagLg&usqp=CAU', 'https://youtu.be/eA_cUtEO6zA'),
+Tự tay làm chiếc thiệp hoa khô sẽ thật ý nghĩa...',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqeUKERx8fXxdyGuVP0PEfBoiHJr3FtIagLg&usqp=CAU',
+        'https://youtu.be/eA_cUtEO6zA'),
        ('Hướng dẫn cách làm scrapbook album ảnh handmade siêu đơn giản', 'Scrapbook là một dạng nhật ký ảnh, album hình được làm, trang trí thủ công có nội dung ,
-câu chuyện hoàn chỉnh,Thời gian, sự kiện được ghi chú...', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrTXzfl_2PiSjlmKrTX97ftDQdz_eZpWBThA&usqp=CAU', 'https://youtu.be/U3kAyqvfWoc');
+câu chuyện hoàn chỉnh,Thời gian, sự kiện được ghi chú...',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrTXzfl_2PiSjlmKrTX97ftDQdz_eZpWBThA&usqp=CAU',
+        'https://youtu.be/U3kAyqvfWoc');
+/* insert logo, background */
+INSERT INTO `image` (`id`, `name`, `path`)
+VALUES ('logo', 'Logo', 'images/logo.png');
+INSERT INTO `image` (`id`, `name`, `path`)
+VALUES ('bg', 'Background', 'images/background.jpg');

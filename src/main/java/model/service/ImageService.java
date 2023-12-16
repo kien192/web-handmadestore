@@ -16,6 +16,15 @@ public class ImageService {
         return path.orElse("");  // Sử dụng orElse để trả về giá trị mặc định nếu Optional rỗng
     }
 
+    public static String getBackgroundImagePath() {
+        Optional<String> path = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select path from image where id = 'bg'")
+                        .mapTo(String.class)  // Sử dụng mapTo thay vì mapToBean vì bạn đang truy vấn một cột duy nhất
+                        .findFirst()
+        );
+        return path.orElse("");  // Sử dụng orElse để trả về giá trị mặc định nếu Optional rỗng
+    }
+
     public static boolean isExternalPath(String path) {
         try {
             URL url = new URL(path);
@@ -29,5 +38,6 @@ public class ImageService {
 
     public static void main(String[] args) {
         System.out.println(getLogoImagePath());
+        System.out.println(getBackgroundImagePath());
     }
 }

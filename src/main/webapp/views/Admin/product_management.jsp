@@ -1,4 +1,13 @@
+<%@ page import="java.util.List" %>
+<%@ page import="model.bean.Product" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.bean.Category" %>
+<%@ page import="model.service.CategoryService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%List<Product> products = (List<Product>) request.getAttribute("products");%>
+<%products = (products == null) ? new ArrayList<>() : products;%>
+<%List<Category> categories = (List<Category>) request.getAttribute("categories");%>
+<%categories = (categories == null) ? new ArrayList<>() : categories;%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,23 +22,29 @@
         <span class="ps-2">Quản Lý Sản Phẩm</span>
     </div>
     <div class="function d-flex m-4 fs-6">
-        <select class="me-4 p-2" id="optionFunction">
-            <option value="">Tìm kiếm loại sản phẩm</option>
-            <option value="thiep">Thiệp HandMade Vintage</option>
-            <option value="anh">Scrapbook,Album Ảnh</option>
-            <option value="so">Sổ ghi chép, sổ tay</option>
-            <option value="...">Đồ decore trang trí nhà,cafe,Homestay</option>
-            <option value="...">Nguyên vật liệu,phụ kiện dụng cụ</option>
+        <select class="mx-4 p-2" id="optionFunction">
+            <%for (Category c : categories) {%>
+            <option value=""><a href="#"><%=c.getName()%>
+            </a></option>
+            <%}%>
         </select>
-        <div class="add_product me-4 p-2" id="addProduct">
-            <a href="add_product.jsp"><i class="fa-solid fa-plus me-2" style="color: white;"></i>Tạo sản phẩm
-                mới</a>
-        </div>
-        <div class="delete_all d-flex p-2" id="deleteAll">
-            <i class="fa-solid fa-trash me-2 m-auto" style="color: white;"></i>
-            <span>Xóa tất cả</span>
+        <div class="ms-auto d-flex">
+            <div class="box_1 mx-4 p-2" id="addProduct">
+                <a href="add_product.jsp"><i class="fa-solid fa-plus me-2" style="color: white;"></i>Tạo sản phẩm
+                    mới</a>
+            </div>
+            <div class="delete_all d-flex p-2" id="deleteAll">
+                <i class="fa-solid fa-trash me-2 m-auto" style="color: white;"></i>
+                <span>Xóa tất cả</span>
+            </div>
+            <div class="box_1 mx-4 p-2" id="discount">
+                <a href="discount_management.jsp">
+                    <i class="fa-solid fa-pen  me-2 m-auto" style="color: white;"></i>Quản lý khuyến mãi giảm giá
+                </a>
+            </div>
         </div>
     </div>
+
     <div class="solid"></div>
     <div class="product_list m-auto" id="product">
         <div class="title_product  ">
@@ -40,108 +55,42 @@
             <table class="m-auto" id="mytable">
                 <thead>
                 <tr class="table_order sticky-top">
-                    <th class=" px-5" scope="col">#</th>
                     <th class="px-3" scope="col">Mã sản phẩm</th>
                     <th scope="col">Tên sản phẩm</th>
-                    <th class="px-3" scope="col">Số lượng</th>
-                    <th class="px-3" scope="col">Tình trạng</th>
-                    <th class="px-3" scope="col">Giá nguyên liệu</th>
-                    <th class="px-3" scope="col">Giá bán</th>
-                    <th class="px-3" scope="col">Chức năng</th>
+                    <th class="px-5" scope="col">Số lượng có sẵn</th>
+                    <th class="px-5" scope="col">Số lượng đã bán</th>
+                    <th class="px-5" scope="col">Giá nhập vào</th>
+                    <th class="px-5" scope="col">Giá bán ra</th>
+                    <th class="px-5" scope="col">Giảm giá được áp dụng</th>
+                    <th class="px-5" scope="col">Giá sản phẩm</th>
+                    <th class="px-5" scope="col">Mô tả chi tiết</th>
+                    <th class="px-5" scope="col">Chức năng</th>
                 </tr>
                 </thead>
                 <tbody>
+                <%for (Product p : products) {%>
                 <tr class="item sp_1">
-                    <td class="px-5"><input type="checkbox"></td>
-                    <td>THM1</td>
-                    <td>Thiệp Valentine ý nghĩa</td>
-                    <td>150</td>
-                    <td>Còn hàng</td>
-                    <td>50.000</td>
-                    <td>70.000</td>
-                    <td>
+                    <td class="px-4"><%=p.getId()%>
+                    </td>
+                    <td class="px-4"><%=p.getName()%>
+                    </td>
+                    <td class="px-4"><%=p.getQuantity()%>
+                    </td>
+                    <td class="px-4"><%=p.getSoldout()%>
+                    </td>
+                    <td class="px-4"><%=p.getCostPrice()%>
+                    </td>
+                    <td class="px-4"><%=p.getSellingPrice()%>
+                    </td>
+                    <td class="px-4">Tên khuyến mãi</td>
+                    <td class="px-4">Tính giá cuôi cùng</td>
+                    <td class="px-4">Link mô tả</td>
+                    <td class="px-4">
                         <button><i class="fa-solid fa-pen" style="color: #425e8f;"></i></button>
                         <button><i class="fa-solid fa-trash-can" style="color: #5c7093;"></i></button>
                     </td>
                 </tr>
-                <tr class="item sp_2">
-                    <td class="px-5"><input type="checkbox"></td>
-                    <td>SCRB1</td>
-                    <td>Scrapbook album ảnh handmade Beauty & the White</td>
-                    <td>125</td>
-                    <td>Còn hàng</td>
-                    <td>600.000</td>
-                    <td>649.000</td>
-                    <td>
-                        <button><i class="fa-solid fa-pen" style="color: #425e8f;"></i></button>
-                        <button><i class="fa-solid fa-trash-can" style="color: #5c7093;"></i></button>
-                    </td>
-                </tr>
-                <tr class="item sp_3">
-                    <td class="px-5"><input type="checkbox"></td>
-                    <td>ST1</td>
-                    <td>Sổ da cao cấp mã khóa</td>
-                    <td>29</td>
-                    <td>Còn hàng</td>
-                    <td>670.000</td>
-                    <td>750.000</td>
-                    <td>
-                        <button><i class="fa-solid fa-pen" style="color: #425e8f;"></i></button>
-                        <button><i class="fa-solid fa-trash-can" style="color: #5c7093;"></i></button>
-                    </td>
-                </tr>
-                <tr class="item sp_4">
-                    <td class="px-5"><input type="checkbox"></td>
-                    <td>DC1</td>
-                    <td>Đèn bão trang trí Vintage</td>
-                    <td>170</td>
-                    <td>Còn hàng</td>
-                    <td>170.000</td>
-                    <td>192.000</td>
-                    <td>
-                        <button><i class="fa-solid fa-pen" style="color: #425e8f;"></i></button>
-                        <button><i class="fa-solid fa-trash-can" style="color: #5c7093;"></i></button>
-                    </td>
-                </tr>
-                <tr class="item sp_5">
-                    <td class="px-5"><input type="checkbox"></td>
-                    <td>NL1</td>
-                    <td>Bó hoa khô mini</td>
-                    <td>250</td>
-                    <td>Còn hàng</td>
-                    <td>20.000</td>
-                    <td>50.000</td>
-                    <td>
-                        <button><i class="fa-solid fa-pen" style="color: #425e8f;"></i></button>
-                        <button><i class="fa-solid fa-trash-can" style="color: #5c7093;"></i></button>
-                    </td>
-                </tr>
-                <tr class="item sp_5">
-                    <td class="px-5"><input type="checkbox"></td>
-                    <td>NL1</td>
-                    <td>Bó hoa khô mini</td>
-                    <td>250</td>
-                    <td>Còn hàng</td>
-                    <td>20.000</td>
-                    <td>50.000</td>
-                    <td>
-                        <button><i class="fa-solid fa-pen" style="color: #425e8f;"></i></button>
-                        <button><i class="fa-solid fa-trash-can" style="color: #5c7093;"></i></button>
-                    </td>
-                </tr>
-                <tr class="item sp_5">
-                    <td class="px-5"><input type="checkbox"></td>
-                    <td>THM5</td>
-                    <td>Thiệp handmade Vintage Film</td>
-                    <td>250</td>
-                    <td>Còn hàng</td>
-                    <td>30.000</td>
-                    <td>39.000</td>
-                    <td>
-                        <button><i class="fa-solid fa-pen" style="color: #425e8f;"></i></button>
-                        <button><i class="fa-solid fa-trash-can" style="color: #5c7093;"></i></button>
-                    </td>
-                </tr>
+                <%}%>
                 </tbody>
             </table>
         </div>
@@ -188,17 +137,17 @@
         text-align: center;
     }
 
-    .container-fluid .function .add_product a {
+    .container-fluid .function a {
         text-decoration: none;
         color: white;
     }
 
-    .container-fluid .function .add_product {
+    .container-fluid .function .box_1 {
         background: deepskyblue;
         border-radius: 5px;
     }
 
-    .container-fluid .function .add_product:hover {
+    .container-fluid .function .box_1:hover {
         background: #4d9da9;
     }
 

@@ -1,4 +1,4 @@
-<%--
+<%@ page import="model.service.ImageService" %><%--
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 11/26/2023
@@ -25,11 +25,10 @@
             font-family: Tahoma, Arial, sans-serif;
 
 
-
         }
 
         body {
-            background-image: url("<%=request.getContextPath()%>/images/background.jpg");
+            background-image: url("<%=request.getContextPath()+"/"+ImageService.getBackgroundImagePath()%>");
             backdrop-filter: blur(3px);
 
         }
@@ -52,6 +51,7 @@
             position: relative;
 
         }
+
         img.logo {
             border-radius: 50%;
             height: 125px;
@@ -70,13 +70,10 @@
         }
 
 
-
-
         header {
             font-size: 30px;
             font-weight: 600;
             text-align: center;
-
 
 
         }
@@ -87,12 +84,13 @@
 
         /*}*/
         form .infor {
-            display : flex;
+            display: flex;
             justify-content: space-around;
             align-items: center;
 
 
         }
+
         .infor-sub:first-child {
             margin-right: 5px;
         }
@@ -106,8 +104,7 @@
         }
 
 
-
-        .mail-icon , .key-icon {
+        .mail-icon, .key-icon {
             padding: 12px;
             font-size: 15px;
             background-color: #eae5e5;
@@ -120,7 +117,7 @@
         }
 
 
-        .field input , .field button {
+        .field input, .field button {
             width: 100%;
             height: 100%;
             border: none;
@@ -135,6 +132,7 @@
             outline: none;
 
         }
+
         .field input:focus {
             border-bottom: 2px solid rgba(0, 0, 0, 0.55);
         }
@@ -143,7 +141,7 @@
             padding: 0 10px;
         }
 
-        .mail-icon , .key-icon {
+        .mail-icon, .key-icon {
             position: absolute;
             top: 50%;
             /*left: 10px;*/
@@ -201,86 +199,80 @@
         }
 
 
-
-
     </style>
 </head>
 <body>
 
-    <%
-    String error = request.getAttribute("error")==null?"":(String) request.getAttribute("error");
-    String password = request.getParameter("pass")==null?"": request.getParameter("password");
-    %>
-    <section class="container forms" >
+<%
+    String error = request.getAttribute("error") == null ? "" : (String) request.getAttribute("error");
+    String password = request.getParameter("pass") == null ? "" : request.getParameter("password");
+%>
+<section class="container forms">
 
-        <!--SIGN UP-->
+    <!--SIGN UP-->
 
-        <div class="form signup">
-            <div class="main-logo">
-                <img src="<%=request.getContextPath()%>/images/logo.png" alt="" class="logo">
-            </div>
+    <div class="form signup">
+        <div class="main-logo">
+            <img src="<%=request.getContextPath()+"/"+ImageService.getLogoImagePath()%>" alt="" class="logo">
+        </div>
 
-            <div class="form-content">
-                <header>Đăng Ký</header>
-                <!--    </div>-->
-                <form method="post" action="<%=request.getContextPath()%>/register">
-                    <div class="infor">
+        <div class="form-content">
+            <header>Đăng Ký</header>
+            <!--    </div>-->
+            <form method="post" action="<%=request.getContextPath()%>/register">
+                <div class="infor">
                     <div class="field input-field infor-sub">
-                        <input type="text" placeholder="Tên hiển thị*" class="input"  name="name" id="name">
+                        <input type="text" placeholder="Tên hiển thị*" class="input" name="name" id="name">
 
                     </div>
 
-                    <div class="field input-field infor-sub" >
+                    <div class="field input-field infor-sub">
                         <input type="tel" placeholder="Số điện thoại*" class="input" name="tel" id="tel">
 
                     </div>
 
-                    </div>
-                    <div class="field input-field">
-                        <input type="email" placeholder="Nhập email*" class="input" name="email">
-                        <i class='bx bx-envelope mail-icon'></i>
-                    </div>
-
-
-
-                    <div class="field input-field">
-                        <input type="password" value="<%=password%>" placeholder="Nhập mật khẩu*" class="password" name="pass"
-                        id="pass">
-                        <i class='bx bx-key key-icon'></i>
-                        <i class='bx bx-hide eye-icon'></i>
-                    </div>
-
-
-                    <div class="field input-field">
-
-                        <input type="password" placeholder="Xác thực mật khẩu*" class="password" name="verify" id="verify">
-                        <i class='bx bx-key key-icon'></i>
-                        <i class='bx bx-hide eye-icon'></i>
-
-                    </div>
-                    <p class="warning"> <%=error%>  </p>
-
-                    <div class="field button-field">
-                        <button type="submit" value="Register">Đăng Ký</button>
-                    </div>
-
-                </form>
-
-                <div class="form-link">
-                    <span>Bạn đã có tài khoản? <a href="login.jsp" class="login-link">Đăng Nhập</a></span>
+                </div>
+                <div class="field input-field">
+                    <input type="email" placeholder="Nhập email*" class="input" name="email">
+                    <i class='bx bx-envelope mail-icon'></i>
                 </div>
 
 
+                <div class="field input-field">
+                    <input type="password" value="<%=password%>" placeholder="Nhập mật khẩu*" class="password"
+                           name="pass"
+                           id="pass">
+                    <i class='bx bx-key key-icon'></i>
+                    <i class='bx bx-hide eye-icon'></i>
+                </div>
+
+
+                <div class="field input-field">
+
+                    <input type="password" placeholder="Xác thực mật khẩu*" class="password" name="verify" id="verify">
+                    <i class='bx bx-key key-icon'></i>
+                    <i class='bx bx-hide eye-icon'></i>
+
+                </div>
+                <p class="warning"><%=error%>
+                </p>
+
+                <div class="field button-field">
+                    <button type="submit" value="Register">Đăng Ký</button>
+                </div>
+
+            </form>
+
+            <div class="form-link">
+                <span>Bạn đã có tài khoản? <a href="login.jsp" class="login-link">Đăng Nhập</a></span>
             </div>
 
 
-
-
         </div>
-    </section>
 
 
-
+    </div>
+</section>
 
 
 </body>
