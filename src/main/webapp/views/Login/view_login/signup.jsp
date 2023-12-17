@@ -1,4 +1,5 @@
-<%@ page import="model.service.ImageService" %><%--
+<%@ page import="model.service.ImageService" %>
+<%@ page import="java.util.Map" %><%--
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 11/26/2023
@@ -129,8 +130,8 @@
         .field input {
             border: 1px solid #CACACA;
             padding: 0 52px;
+            padding-right: 20px;
             outline: none;
-
         }
 
         .field input:focus {
@@ -149,16 +150,16 @@
             transform: translateY(-50%);
         }
 
-        .eye-icon {
-            font-size: 18px;
-            color: #8b8b8b;
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            cursor: pointer;
-            padding: 5px;
-        }
+        /*.eye-icon {*/
+        /*    font-size: 18px;*/
+        /*    color: #8b8b8b;*/
+        /*    position: absolute;*/
+        /*    top: 50%;*/
+        /*    right: 10px;*/
+        /*    transform: translateY(-50%);*/
+        /*    cursor: pointer;*/
+        /*    padding: 5px;*/
+        /*}*/
 
         .field button {
             background-color: #0171d3;
@@ -200,14 +201,45 @@
 
 
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            //Kiểm tra xác thực lại mật khẩu ngay tại trang jsp
+            function validatePassword() {
+                var password = document.getElementById("pass").value.trim();
+                var verifyPassword = document.getElementById("verify").value.trim();
+                var errorMessageElement = document.getElementById("verify-error");
+
+                if(password !== verifyPassword) {
+                    errorMessageElement.innerHTML = "Xác thực mật khẩu không khớp";
+                }
+                else {
+                    errorMessageElement.innerHTML = "";
+                }
+
+            }
+            // document.getElementById("pass").addEventListener("input", validatePassword);
+            document.getElementById("verify").addEventListener("input", validatePassword);
+
+
+        });
+
+
+
+    </script>
 </head>
 <body>
 
 <%
-    String error = request.getAttribute("error") == null ? "" : (String) request.getAttribute("error");
-    String password = request.getParameter("pass") == null ? "" : request.getParameter("password");
-    String verify = request.getParameter("verify") == null ? "" : request.getParameter("password");
+    Map<String, String> listNull = (Map<String, String>) request.getAttribute("errors") ;
+    String email = request.getParameter("email") == null ? "" : request.getParameter("email");
+    String name = request.getParameter("name") == null ? "" : request.getParameter("name");
+    String tel = request.getParameter("tel") == null ? "" : request.getParameter("tel");
+
+
+
 %>
+
+
 <section class="container forms">
 
     <!--SIGN UP-->
@@ -221,30 +253,50 @@
             <header>Đăng Ký</header>
             <!--    </div>-->
             <form method="post" action="<%=request.getContextPath()%>/login.jsp">
+
+
+
+
                 <div class="infor">
                     <div class="field input-field infor-sub">
-                        <input type="text" placeholder="Tên hiển thị*" class="input" name="name" id="name">
-
+                        <input type="text" placeholder="Tên hiển thị*" value="<%=name%>" class="input" name="name" id="name">
+                        <% if (listNull != null && listNull.containsKey("name")) { %>
+                        <span class="error-message warning" style="font-size: 11px"><%= listNull.get("name") %></span>
+                        <% } %>
                     </div>
+
+
+
+
 
                     <div class="field input-field infor-sub">
-                        <input type="tel" placeholder="Số điện thoại*" class="input" name="tel" id="tel">
-
+                        <input type="tel" value="<%=tel%>" placeholder="Số điện thoại*" class="input" name="tel" id="tel">
+                        <% if (listNull != null && listNull.containsKey("tel")) { %>
+                        <span class="error-message warning" style="font-size: 11px"><%= listNull.get("tel") %></span>
+                        <% } %>
                     </div>
 
+
                 </div>
                 <div class="field input-field">
-                    <input type="email" placeholder="Nhập email*" class="input" name="email">
+                    <input type="email" placeholder="Nhập email*" value="<%=email%>" class="input" name="email">
                     <i class='bx bx-envelope mail-icon'></i>
+                    <% if (listNull != null && listNull.containsKey("email")) { %>
+                    <span class="error-message warning" style="font-size: 11px"><%= listNull.get("email") %></span>
+                    <% } %>
                 </div>
 
 
+
                 <div class="field input-field">
-                    <input type="password" value="<%=password%>" placeholder="Nhập mật khẩu*" class="password"
+                    <input type="password"  placeholder="Nhập mật khẩu*" class="password"
                            name="pass"
                            id="pass">
                     <i class='bx bx-key key-icon'></i>
-                    <i class='bx bx-hide eye-icon'></i>
+                    <% if (listNull != null && listNull.containsKey("pass")) { %>
+                    <span class="error-message warning" style="font-size: 11px"><%= listNull.get("pass") %></span>
+                    <% } %>
+
                 </div>
 
 
@@ -252,11 +304,12 @@
 
                     <input type="password" placeholder="Xác thực mật khẩu*" class="password" name="verify" id="verify">
                     <i class='bx bx-key key-icon'></i>
-                    <i class='bx bx-hide eye-icon'></i>
+                    <span class="error-message warning" id="verify-error" style="font-size: 11px"> </span>
+                    <% if (listNull != null && listNull.containsKey("verify")) { %>
+                    <span class="error-message warning" style="font-size: 11px"><%= listNull.get("verify") %></span>
+                    <% } %>
 
                 </div>
-                <p class="warning"><%=error%>
-                </p>
 
                 <div class="field button-field">
                     <button type="submit" value="Register">Đăng Ký</button>
