@@ -20,7 +20,8 @@
     <button type="submit">OK</button>
 </form>
 </body>
-<%} else {%>
-<body></body>
-<%}%>
+<%
+    } else {
+        response.sendRedirect(request.getContextPath() + "/login");
+    }%>
 </html>

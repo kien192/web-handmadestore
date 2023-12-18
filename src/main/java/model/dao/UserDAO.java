@@ -119,34 +119,39 @@ public class UserDAO {
                 handle.createQuery("select * from user order by createDate desc").mapToBean(User.class).stream().collect(Collectors.toList()));
         return users;
     }
+
     public static List<User> ascNameFilter() {
         List<User> users = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from user order by name asc").mapToBean(User.class).stream().collect(Collectors.toList()));
         return users;
     }
+
     public static List<User> descNameFilter() {
         List<User> users = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from user order by name desc").mapToBean(User.class).stream().collect(Collectors.toList()));
         return users;
     }
+
     public static List<User> findUsersByName(String name) {
         List<User> users = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("select * from user where name=? order by name asc").
-                        bind(0,name).
+                handle.createQuery("select * from user where name LIKE ? order by name asc").
+                        bind(0, "%" + name).
                         mapToBean(User.class).stream().collect(Collectors.toList()));
         return users;
     }
+
     public static List<User> findUserByPhone(String phoneNumber) {
         List<User> users = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from user where phoneNumber=? order by name asc").
-                        bind(0,phoneNumber).
+                        bind(0, phoneNumber).
                         mapToBean(User.class).stream().collect(Collectors.toList()));
         return users;
     }
+
     public static List<User> findUserByEmail(String email) {
         List<User> users = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from user where email=? order by name asc").
-                        bind(0,email).
+                        bind(0, email).
                         mapToBean(User.class).stream().collect(Collectors.toList()));
         return users;
     }

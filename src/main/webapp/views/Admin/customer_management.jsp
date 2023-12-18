@@ -103,9 +103,10 @@
     </div>
 </div>
 </body>
-<%} else {%>
-<body></body>
-<%}%>
+<%
+    } else {
+        response.sendRedirect(request.getContextPath()+"/login");
+    }%>
 <style>
 
     body {

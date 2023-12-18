@@ -228,7 +228,8 @@
 
 </script>
 </body>
-<%} else {%>
-<body></body>
-<%}%>
+<%
+    } else {
+        response.sendRedirect(request.getContextPath()+"/login");
+    }%>
 </html>

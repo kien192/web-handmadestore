@@ -45,14 +45,17 @@ public class UserService {
     }
 
     public List<User> findUsersByName(String name) {
+        name.trim();
         return UserDAO.findUsersByName(name);
     }
 
     public List<User> findUserByPhone(String phoneNumber) {
+        phoneNumber.trim();
         return UserDAO.findUserByPhone(phoneNumber);
     }
 
     public List<User> findUserByEmail(String email) {
+        email.trim();
         return UserDAO.findUserByEmail(email);
     }
 
