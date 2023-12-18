@@ -19,9 +19,11 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     </script>
 </head>
+<%
+    boolean isAdmin = ((request.getSession().getAttribute("isAdmin") == null) ? false : ((boolean) request.getSession().getAttribute("isAdmin")));
+    if (isAdmin) {
+%>
 <body>
-
-
 <div class="m-2 title-main">
     <h5 class="p-3">Chào bạn quay trở lại, Admin ơi!</h5>
 </div>
@@ -225,6 +227,8 @@
     });
 
 </script>
-
 </body>
+<%} else {%>
+<body></body>
+<%}%>
 </html>

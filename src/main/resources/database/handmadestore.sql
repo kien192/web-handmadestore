@@ -32,7 +32,9 @@ CREATE TABLE `handmadestore`.`product`
     `quantity`     int(11) NULL DEFAULT 1,
     `soldout`      int(11) NULL DEFAULT 0,
     `categoryId`   varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    `discountId`   varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+    `discountId`   varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+    `isSale`       TINYINT(1) NOT NULL DEFAULT 1,
+    CHECK (`isSale` IN (0, 1)),
     PRIMARY KEY (`id`) USING BTREE,
     INDEX          `fk_discount`(`discountId`) USING BTREE,
     CONSTRAINT `fk_discount` FOREIGN KEY (`discountId`) REFERENCES `handmadestore`.`discount` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT

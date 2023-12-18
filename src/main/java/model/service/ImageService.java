@@ -36,6 +36,14 @@ public class ImageService {
         }
     }
 
+    public static void deleteProductImage(String productId) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate("DELETE FROM image WHERE productId=?")
+                        .bind(0, productId)
+                        .execute()
+        );
+    }
+
     public static void main(String[] args) {
         System.out.println(getLogoImagePath());
         System.out.println(getBackgroundImagePath());

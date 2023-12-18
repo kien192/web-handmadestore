@@ -7,106 +7,79 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
     <title>Thêm sản phẩm</title>
 </head>
+<%
+    boolean isAdmin = ((request.getSession().getAttribute("isAdmin") == null) ? false : ((boolean) request.getSession().getAttribute("isAdmin")));
+    if (isAdmin) {
+%>
 <body>
-<div class="container-fluid ">
-    <div class="title m-auto p-2 fw-bold fs-5 mt-2">
-        <span>Thêm Sản Phẩm</span>
+<form action="<%=request.getContextPath()%>/addproduct" method="post">
+    <div class="row my-4">
+        <div class="col-md-6 mb-2">
+            <div class="form-floating w-75 mx-5 my-2 p-2 ">
+                <input type="text" class="form-control" id="productName" placeholder="Thiệp sinh nhật">
+                <label for="productName">Tên sản phẩm</label>
+            </div>
+            <div class="form-floating w-75 mx-5 my-2 p-2">
+                <input type="text" class="form-control" id="quantity" placeholder="Số lượng">
+                <label for="quantity">Số lượng</label>
+            </div>
+            <div class="form-floating w-75 mx-5 my-2 p-2">
+                <input type="text" class="form-control" id="costPrice" placeholder="Giá nhập vào">
+                <label for="costPrice">Giá nhập vào</label>
+            </div>
+            <div class="form-floating w-75 mx-5 my-2 p-2">
+                <input type="text" class="form-control" id="sellingPrice" placeholder="Giá bán">
+                <label for="sellingPrice">Giá bán</label>
+            </div>
+        </div>
+        <div class="col-md-6 mb-5">
+            <div class="form-floating w-75 mx-5 my-2 p-2 align-content-start">
+                <select class="form-select" id="category" aria-label="Chọn danh mục liên quan">
+                    <option value="1" selected>Danh mục 1</option>
+                    <option value="2">Danh mục 2</option>
+                    <option value="3">Danh mục 3</option>
+                </select>
+                <label for="category">Chọn danh mục liên quan</label>
+            </div>
+            <div class="form-floating w-75 mx-5 my-2 p-2">
+                <select class="form-select" id="discount" aria-label="Giảm giá áp dụng">
+                    <option value="1" selected>Giảm giá Giáng Sinh</option>
+                    <option value="2">Tết Nguyên Đán</option>
+                </select>
+                <label for="discount">Chọn giảm giá áp dụng</label>
+            </div>
+        </div>
     </div>
-    <div class="infor_product my-4">
-        <input class="infor col-sm-5 mx-5 my-2 p-2" type="text" placeholder="Mã sản phẩm">
-        <input class="infor col-sm-5 mx-5 my-2 p-2" type="text" placeholder="Tên sản phẩm">
-        <input class="infor col-sm-5 mx-5 my-2 p-2" type="text" placeholder="Số lượng">
-        <input class="infor col-sm-5 mx-5 my-2 p-2" type="text" placeholder="Giá nhập">
-        <input class="infor col-sm-5 mx-5 my-2 p-2" type="text" placeholder="Giá bán">
-        <input class="infor col-sm-5 mx-5 my-2 p-2" type="text" placeholder="Nhà cung cấp">
+    <div class="row my-4 mx-5 border rounded-3">
+        <label for="description" class="form-label">Mô tả sản phẩm</label>
+        <textarea class="form-control mx-auto w-70" style="height: 300px" id="description" rows="3"></textarea>
     </div>
-    <div class="image mx-5">
-        <p class="fw-bold">Chọn ảnh đại diện cho sản phẩm</p>
-        <i class="fa-solid fa-upload fs-2"></i>
+
+    <div class="row my-4 mx-5 border rounded-3">
+        <!--    input Images-->
+        <div class="row">
+            <p class="fw-bold">Chọn một hoặc nhiều ảnh cho sản phẩm</p>
+        </div>
+        <div class="row align-items-center" style="height: 100px;">
+            <div class="col-2 text-center ">
+                <a href=""><i class="fa-solid fa-upload fs-1" style="color: black"></i></a>
+            </div>
+            <!--        image -->
+            <div class="col-2 text-center mx-2">
+                <img src="#" alt="image product">
+            </div>
+        </div>
     </div>
-    <div class="descrip_produce mx-5">
-        <p class="mt-4 fs-5 fw-bold">Miêu tả sản phẩm</p>
-        <textarea></textarea>
+    <div class="row mb-2 me-5 mb-2">
+        <div class="d-flex justify-content-end m-0" id="submit">
+            <button type="submit" value="cancel" class="btn btn-outline-warning m-3">Hủy bỏ</button>
+            <button type="submit" value="addproduct" class="btn btn-outline-success m-3">Hoàn tất thêm sản phẩm mới
+            </button>
+        </div>
     </div>
-    <div class="save_product my-4 text-center " id="submit">
-        <button class="p-3 fw-bold">Lưu sản phẩm</button>
-    </div>
-</div>
+</form>
 </body>
-<style>
-    body {
-        padding: 0;
-        margin: 0;
-        font-size: 15px;
-        font-family: Tahoma, Arial, sans-serif;
-
-    }
-
-    .container-fluid {
-
-        width: 100%;
-
-
-    }
-
-
-    /*title*/
-    .container-fluid .title {
-        background-color: #f5f0ea;
-        width: 100%;
-
-    }
-
-    /*infor*/
-    .container-fluid .infor_product .infor {
-        border-radius: 5px;
-        border: none;
-    }
-
-    /*input*/
-    .container-fluid input {
-        background-color: #f5f0ea;
-        outline: none;
-    }
-
-
-    /*image*/
-    .container-fluid .image {
-        color: #168d16;
-        background: white;
-        border: 3px dotted grey;
-        border-radius: 10px;
-        display: inline-block;
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .container-fluid .image:active {
-        background: #afe2ea;
-    }
-
-    .container-fluid .image i {
-        margin-left: 40%;
-    }
-
-    /*description*/
-    .container-fluid .descrip_produce textarea {
-        width: 100%;
-        height: 25vh;
-        border-radius: 7px;
-    }
-
-    /*save product*/
-    .container-fluid .save_product button {
-        border-radius: 5px;
-        background: #afe2ea;
-        color: #000000;
-        border: none;
-    }
-
-    .container-fluid .save_product button:hover {
-        background: #ff0000;
-        color: #ffffff;
-    }
-</style>
+<%} else {%>
+<body></body>
+<%}%>
 </html>

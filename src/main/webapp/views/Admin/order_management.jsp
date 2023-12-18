@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
     <title>Quản lý đơn hàng</title>
 </head>
+<%
+    boolean isAdmin = ((request.getSession().getAttribute("isAdmin") == null) ? false : ((boolean) request.getSession().getAttribute("isAdmin")));
+    if (isAdmin) {
+%>
 <body>
 <div class="container-fluid mx-auto mt-2">
     <div class="title m-auto p-2 fw-bold fs-5">
@@ -101,6 +105,9 @@
     </div>
 </div>
 </body>
+<%} else {%>
+<body></body>
+<%}%>
 <style>
     body {
         padding: 0;
