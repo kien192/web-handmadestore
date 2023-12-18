@@ -31,18 +31,30 @@ public class CustomerAdminController extends HttpServlet {
                 UserService.getInstance().unlockUser(user_id);
             }
         }
-        List<User> users = UserService.getInstance().getAllUsers();
+        List<User> users = null;
         String filter = req.getParameter("filter");
+
+        String currentFilter = req.getParameter("currentFilter");
+        if (currentFilter != null) filter = currentFilter;
+
         if (filter != null) {
             if (filter.equals("ascCreatedDate")) {
+                currentFilter = filter;
                 users = UserService.getInstance().ascCreateDateFilter();
             } else if (filter.equals("descCreatedDate")) {
+                currentFilter = filter;
                 users = UserService.getInstance().descCreateDateFilter();
             } else if (filter.equals("ascName")) {
+                currentFilter = filter;
                 users = UserService.getInstance().ascNameFilter();
             } else if (filter.equals("descName")) {
+                currentFilter = filter;
                 users = UserService.getInstance().descNameFilter();
+            } else if (filter.equals("lockUsers")) {
+                currentFilter = filter;
+                users = UserService.getInstance().getLockUsers();
             } else if (filter.equals("findCustomer")) {
+                currentFilter = filter;
                 String name = req.getParameter("nameFilter");
                 String phone = req.getParameter("phoneFilter");
                 String email = req.getParameter("emailFilter");
@@ -55,7 +67,10 @@ public class CustomerAdminController extends HttpServlet {
                     users = UserService.getInstance().findUserByEmail(email);
                 }
             } else users = UserService.getInstance().getAllUsers();
+        } else {
+            users = UserService.getInstance().getAllUsers();
         }
+        req.setAttribute("currentFilter", currentFilter);
         req.setAttribute("users", users);
         req.getRequestDispatcher("/views/Admin/customer_management.jsp").forward(req, resp);
     }

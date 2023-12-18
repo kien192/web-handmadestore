@@ -1,5 +1,7 @@
 package controller.admin;
 
+import model.bean.Discount;
+import model.service.DiscountService;
 import model.service.ProductService;
 
 import javax.servlet.ServletException;
@@ -8,7 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "DiscountController", value = "/admin/discount")
@@ -32,6 +38,31 @@ public class DiscountAdminController extends HttpServlet {
 //            Khong có product nao duoc chon
                 ProductService.getInstance().setDiscountForProductList(discountId, null);
             }
+        }
+        // Thêm KM
+        String adddiscount = req.getParameter("submit_2_adddiscount");
+        if (adddiscount != null) {
+            String discountName = req.getParameter("discount_name");
+            String percentageOff = req.getParameter("percentageOff");
+            String startDate = req.getParameter("startDate");
+            String endDate = req.getParameter("endDate");
+            if (!(discountName.equals("") || percentageOff.equals("") || startDate.equals("") || endDate.equals(""))) {
+                //insert discount
+                DiscountService.getInstance().addDiscount(discountName, startDate, endDate, Double.parseDouble(percentageOff) / 100);
+            } else {
+                //Thông báo thiếu thông tin
+                req.setAttribute("result", "Hãy điền đầy đủ thông tin để tạo khuyến mãi! Vui lòng thử lại");
+            }
+        }
+        //Xóa discount bằng Id
+        String deleteDiscountId = req.getParameter("deleteDiscountId");
+        if (deleteDiscountId != null) {
+            //Chuyển sang confirm
+            req.setAttribute("title", "Xác nhận xóa sản phẩm");
+            req.setAttribute("message", "Sau khi xóa khuyến mãi giảm giá này, các sản phẩm được áp dụng trước đó không còn giảm giá theo nữa");
+            req.setAttribute("ok_link", "confirm?deleteDiscountId=" + deleteDiscountId + "&confirm=ok");
+            req.setAttribute("cancel_link", "confirm?deleteDiscountId=" + deleteDiscountId + "&confirm=cancel");
+            req.getRequestDispatcher("/views/Admin/confirm_box.jsp").forward(req, resp);
         }
         req.getRequestDispatcher("/views/Admin/discount_management.jsp").forward(req, resp);
     }

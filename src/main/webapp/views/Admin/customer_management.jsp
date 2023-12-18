@@ -4,6 +4,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%List<User> users = (List<User>) request.getAttribute("users");%>
 <% users = (users == null) ? new ArrayList<>() : users;%>
+<%
+    String currentFilter = (String) request.getAttribute("currentFilter");
+%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,9 +32,9 @@
         <%--        Find--%>
         <form action="<%=request.getContextPath()%>/admin/customer">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Tên khách hàng" name="nameFilter" value="">
-                <input type="text" class="form-control" placeholder="Hoặc Số điện thoại" name="phoneFilter" value="">
-                <input type="text" class="form-control" placeholder="Hoặc Email" name="emailFilter" value="">
+                <input type="text" class="form-control 1" placeholder="Tên khách hàng" name="nameFilter" value="">
+                <input type="text" class="form-control 2" placeholder="Hoặc Số điện thoại" name="phoneFilter" value="">
+                <input type="email" class="form-control 3" placeholder="Hoặc Email" name="emailFilter" value="">
                 <input type="text" name="func" value="customer_management" style="display: none"></p>
                 <input type="text" name="filter" value="findCustomer" style="display: none"></p>
 
@@ -48,7 +51,7 @@
             <table class="m-auto" id="mytable">
                 <thead>
                 <tr class="table_customer sticky-top">
-                    <th class="px-4" scope="col ">ID</th>
+                    <th class="px-4" scope="col ">STT</th>
                     <th class="px-5" scope="col">
                         <a href="<%=request.getContextPath()%>/admin/customer?func=customer_management&filter=ascName"
                            style="color: #eeeeee">A-Z</a>
@@ -65,14 +68,20 @@
                         <a href="<%=request.getContextPath()%>/admin/customer?func=customer_management&filter=descCreatedDate"
                            style="color: #eeeeee">Z-A</a>
                     </th>
-                    <th scope="col">Trạng thái</th>
+                    <th scope="col">
+                        Trạng thái
+                        <a href="<%=request.getContextPath()%>/admin/customer?func=customer_management&filter=lockUsers"
+                           style="color: #eeeeee"><i class="fa-solid fa-filter-circle-xmark"></i></a>
+                    </th>
                     <th scope="col"><i class="fa-solid fa-user-pen fs-4"></i></th>
                 </tr>
                 </thead>
                 <tbody>
+                <%int stt = 0;%>
                 <% for (User u : users) {%>
+                <%stt++;%>
                 <tr class="item ctm_1">
-                    <td class="px-2"><%=u.getId()%>
+                    <td class="px-2"><%=stt%>
                     </td>
                     <td class="px-2"><%=u.getName()%>
                     </td>
@@ -87,11 +96,11 @@
                     <td class="px-2">
                         <%if (u.getStatus().trim().startsWith("Bình")) {%>
                         <a title="Khóa tải khoản"
-                           href="<%=request.getContextPath()%>/admin/customer?func=customer_management&user_id=<%=u.getId()%>"><i
+                           href="<%=request.getContextPath()%>/admin/customer?func=customer_management&user_id=<%=u.getId()%>&currentFilter=<%=currentFilter%>"><i
                                 class="fa-solid fa-unlock fs-4"></i></a>
                         <%} else if (u.getStatus().trim().equalsIgnoreCase("Bị khóa")) {%>
                         <a title="Bỏ khóa tải khoản"
-                           href="<%=request.getContextPath()%>/admin/customer?func=customer_management&user_id=<%=u.getId()%>"><i
+                           href="<%=request.getContextPath()%>/admin/customer?func=customer_management&user_id=<%=u.getId()%>&currentFilter=<%=currentFilter%>"><i
                                 class="fa-solid fa-lock fs-4"></i></a>
                         <%}%>
                     </td>
@@ -105,7 +114,7 @@
 </body>
 <%
     } else {
-        response.sendRedirect(request.getContextPath()+"/login");
+        response.sendRedirect(request.getContextPath() + "/login");
     }%>
 <style>
 

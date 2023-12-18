@@ -1,5 +1,6 @@
 package controller.admin;
 
+import model.service.DiscountService;
 import model.service.ProductService;
 
 import javax.servlet.ServletException;
@@ -24,6 +25,7 @@ public class ConfirmAdminController extends HttpServlet {
 
         //Đang xử lý xóa 1 sán phẩm
         if (confirm_delete_product_id != null) {
+            System.out.println("confirm_delete_product_id: " + confirm_delete_product_id);
             String confirm = req.getParameter("confirm");
             //Nếu ok -> xóa product, isShowChildFrame = hide
             if (confirm != null && confirm.equals("ok")) {
@@ -35,8 +37,20 @@ public class ConfirmAdminController extends HttpServlet {
                 req.setAttribute("isShowChildFrame", "hide");
             }
             resp.sendRedirect(req.getContextPath() + "/admin/product?func=product_management&category_id=" + selectedCategory);
-        } else {
-            resp.sendRedirect(req.getContextPath() + "/admin/product?func=product_management&category_id=all");
+        }
+        //Đang xử lý xo 1 discount
+        String deleteDiscountId = req.getParameter("deleteDiscountId");
+        if (deleteDiscountId != null) {
+            String confirm = req.getParameter("confirm");
+            //Nếu ok -> xóa discount
+            if (confirm != null && confirm.equals("ok")) {
+                DiscountService.getInstance().deleteDiscountById(deleteDiscountId);
+            }
+            //Nếu cancel
+            else {
+                System.out.println("Chưa xóa " + deleteDiscountId);
+            }
+            req.getRequestDispatcher("/views/Admin/discount_management.jsp").forward(req, resp);
         }
     }
 }

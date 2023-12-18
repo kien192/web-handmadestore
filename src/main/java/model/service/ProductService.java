@@ -87,8 +87,12 @@ public class ProductService {
         ProductDAO.removeDiscount(product_id);
     }
 
-    public void setDiscountForProductList(String discountId,List<String> product_id_list) {
-        ProductDAO.setDiscountForProductList(discountId,product_id_list);
+    public void setDiscountForProductList(String discountId, List<String> product_id_list) {
+        ProductDAO.setDiscountForProductList(discountId, product_id_list);
+    }
+
+    public void setNullDiscountForProductList(String discountId) {
+        ProductDAO.setNullDiscountForProductList(discountId);
     }
 
     public static void main(String[] args) {

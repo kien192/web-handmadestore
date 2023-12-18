@@ -3,6 +3,7 @@ package model.service;
 import model.bean.Discount;
 import model.dao.DiscountDAO;
 
+import java.util.Date;
 import java.util.List;
 
 public class DiscountService {
@@ -19,6 +20,14 @@ public class DiscountService {
 
     public Discount getDiscountById(String id) {
         return DiscountDAO.getDiscountById(id);
+    }
+
+    public void addDiscount(String name, String startDate, String endDate, double percentageOff) {
+        DiscountDAO.insertDiscount(name, startDate, endDate, percentageOff);
+    }
+
+    public void deleteDiscountById(String id) {
+        DiscountDAO.deleteDiscountById(id);
     }
 
 }

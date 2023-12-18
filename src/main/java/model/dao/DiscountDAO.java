@@ -4,11 +4,14 @@ import model.bean.Category;
 import model.bean.Discount;
 import model.bean.User;
 import model.db.JDBIConnector;
+import model.service.ProductService;
 import org.h2.expression.function.SysInfoFunction;
 
 import javax.xml.transform.stream.StreamSource;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class DiscountDAO {
@@ -29,5 +32,31 @@ public class DiscountDAO {
                         .findFirst()
         );
         return discount.isEmpty() ? null : discount.get();
+    }
+
+    public static void insertDiscount(String name, String startDate, String endDate, double percentageOff) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate("INSERT INTO discount (id, name, startDate, endDate, percentageOff) VALUES (:id, :name, :startDate, :endDate, :percentageOff)")
+                        .bind("id", UUID.randomUUID().toString().substring(0, 6)) // Generate a random 6-character ID
+                        .bind("name", name)
+                        .bind("startDate", startDate + " 00:00:00")
+                        .bind("endDate", endDate + " 00:00:00")
+                        .bind("percentageOff", percentageOff)
+                        .execute()
+        );
+    }
+
+    public static void deleteDiscountById(String id) {
+        //set products list bằng null
+        ProductService.getInstance().setNullDiscountForProductList(id);
+        //xóa discount
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate(
+                                "DELETE FROM discount " +
+                                        "WHERE id= :id"
+                        )
+                        .bind("id", id)
+                        .execute()
+        );
     }
 }

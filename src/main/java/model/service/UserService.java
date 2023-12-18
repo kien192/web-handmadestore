@@ -44,6 +44,10 @@ public class UserService {
         return UserDAO.descNameFilter();
     }
 
+    public List<User> getLockUsers(){
+        return  UserDAO.getLockUsers();
+    }
+
     public List<User> findUsersByName(String name) {
         name.trim();
         return UserDAO.findUsersByName(name);

@@ -250,10 +250,7 @@
             <div class="box_1 mx-4 p-2" id="discount">
                 <a
                         href="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=<%=selectedCategory%>&func_2=showDiscountManagementFrame"
-                        style="cursor: pointer"><i class="fa-solid fa-pen  me-2 m-auto" style="color: white;"></i>Quản
-                    lý
-                    khuyến mãi giảm
-                    giá
+                        style="cursor: pointer"><i class="fa-solid fa-pen  me-2 m-auto" style="color: white;"></i>Quản lý khuyến mãi giảm giá
                 </a>
             </div>
         </div>

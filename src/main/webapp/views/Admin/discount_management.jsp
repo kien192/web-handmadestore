@@ -101,7 +101,13 @@
 <form action="<%=request.getContextPath()%>/admin/discount" method="post">
     <div class="container">
         <div class="row">
-            <div class="col-11"></div>
+            <div class="col-11">
+                <div class="err">
+                    <% String re = request.getAttribute("result") == null ? "" : request.getAttribute("result").toString(); %>
+                    <p style="color: red"><%=re%>
+                    </p>
+                </div>
+            </div>
             <div class="col-1">
                 <button type="button" onclick="showAddDiscount()"><i class="fa-regular fa-square-plus"
                                                                      style="font-size: 50px; color: #0dcaf0"></i>
@@ -197,10 +203,12 @@
                                 </nav>
                             </div>
                             <div class="col-md-2 text-center d-flex justify-content-center text-center mt-1">
-                                <a href="#" class="px-2"><i class="fa-solid fa-pen fs-4"
-                                                            style="color: #5c7093;"></i></a>
-                                <a href="#" class="px-2"><i class="fa-solid fa-trash-can fs-4"
-                                                            style="color: #5c7093;"></i></a>
+                                <a href="#" class="px-2">
+                                    <i class="fa-solid fa-pen fs-4" style="color: #5c7093;"></i>
+                                </a>
+                                <a href="<%=request.getContextPath()%>/admin/discount?deleteDiscountId=<%=d.getId()%>" class="px-2">
+                                    <i class="fa-solid fa-trash-can fs-4" style="color: #5c7093;"></i>
+                                </a>
                             </div>
                         </div>
                         <%}%>
@@ -216,26 +224,27 @@
                 <div class="input-group-prepend me-3">
                     <span class="input-group-text fw-bold">Tên khuyến mãi</span>
                 </div>
-                <input type="text" class="form-control" placeholder="Sinh nhật HandmadeStore">
+                <input name="discount_name" type="text" class="form-control" placeholder="Sinh nhật HandmadeStore">
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend me-3">
                     <span class="input-group-text fw-bold">Giảm giá(%)</span>
                 </div>
-                <input type="text" class="form-control w-25" placeholder="15">
+                <input name="percentageOff" type="number" class="form-control w-25" placeholder="15">
             </div>
             <div class="input-group">
                 <div class="input-group-prepend me-3">
                     <span class="input-group-text fw-bold">Ngày bắt bắt đầu và ngày kết thúc</span>
                 </div>
-                <input type="date" class="form-control">
-                <input type="date" class="form-control">
+                <input name="startDate" type="date" class="form-control">
+                <input name="endDate" type="date" class="form-control">
             </div>
             <div class="d-flex justify-content-end m-0">
                 <button type="button" onclick="hideAddDiscount()" class="btn btn-outline-warning m-3 fs-5 fw-bold"
                         style="color: #eeeeee">Hủy bỏ
                 </button>
-                <button type="submit" value="adddiscount" class="btn btn-outline-success m-3 fs-5 fw-bold"
+                <button type="submit" name="submit_2_adddiscount" value="adddiscount"
+                        class="btn btn-outline-success m-3 fs-5 fw-bold"
                         style="color: #eeeeee">Hoàn tất
                 </button>
             </div>
@@ -271,6 +280,6 @@
 </body>
 <%
     } else {
-        response.sendRedirect(request.getContextPath()+"/login");
+        response.sendRedirect(request.getContextPath() + "/login");
     }%>
 </html>

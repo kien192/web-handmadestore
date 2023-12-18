@@ -198,6 +198,16 @@ public class ProductDAO {
 
     }
 
+    public static void setNullDiscountForProductList(String discountId) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate(
+                                "UPDATE product " +
+                                        "SET discountId = null WHERE discountId=?"
+                        ).bind(0, discountId)
+                        .execute()
+        );
+    }
+
     public static void main(String[] args) {
         List<Product> all = ProductDAO.listSixProduct(0);
         System.out.println(all.toString());

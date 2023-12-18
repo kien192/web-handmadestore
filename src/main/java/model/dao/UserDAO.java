@@ -156,6 +156,13 @@ public class UserDAO {
         return users;
     }
 
+    public static List<User> getLockUsers() {
+        List<User> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from user where status='Bị Khóa' order by name asc").
+                        mapToBean(User.class).stream().collect(Collectors.toList()));
+        return users;
+    }
+
     public static void main(String[] args) {
 //        List<User> users = JDBIConnector.me().withHandle(handle ->
 //                handle.createQuery("select * from user").mapToBean(User.class).collect(Collectors.toList())
@@ -167,4 +174,5 @@ public class UserDAO {
 //        System.out.println(getNewUsersTop(3));
         System.out.println(findUserByEmail("admin@gmail.com"));
     }
+
 }
