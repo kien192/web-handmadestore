@@ -27,6 +27,9 @@ public class UploadController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/jsp; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
+
         Collection<Part> parts = req.getParts();
 
         String realPath = req.getServletContext().getRealPath("/images");

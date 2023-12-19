@@ -27,6 +27,7 @@ public class DiscountAdminController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/jsp; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
         String discountId = req.getParameter("submit_1_discountId");
         if (discountId != null) {
             String[] discountProductsId = req.getParameterValues(discountId);
@@ -63,6 +64,38 @@ public class DiscountAdminController extends HttpServlet {
             req.setAttribute("ok_link", "confirm?deleteDiscountId=" + deleteDiscountId + "&confirm=ok");
             req.setAttribute("cancel_link", "confirm?deleteDiscountId=" + deleteDiscountId + "&confirm=cancel");
             req.getRequestDispatcher("/views/Admin/confirm_box.jsp").forward(req, resp);
+        }
+        // Edit discount bằng Id
+        req.removeAttribute("discountAction");
+        req.removeAttribute("editDiscountId");
+        req.removeAttribute("editStt");
+
+        String discountAction = req.getParameter("discountAction");//edit
+        if (discountAction != null) {
+            String editDiscountId = req.getParameter("editDiscountId");//discountId
+            String editStt = req.getParameter("editStt");
+            //forward lại để hiện thị edit box
+            req.setAttribute("discountAction", discountAction);
+            req.setAttribute("editDiscountId", editDiscountId);
+            req.setAttribute("editStt", editStt);
+        }
+        // Thêm KM
+        String editdiscount = req.getParameter("submit_3_editdiscount");
+        if (editdiscount != null) {
+            String editDiscountId = req.getParameter("editDiscountId");
+            String edit_discount_name = req.getParameter("edit_discount_name");
+            String edit_percentageOff = req.getParameter("edit_percentageOff");
+            String edit_startDate = req.getParameter("edit_startDate");
+            String edit_endDate = req.getParameter("edit_endDate");
+            if (!(edit_discount_name.equals("") || edit_percentageOff.equals("") || edit_startDate.equals("") || edit_endDate.equals(""))) {
+                //edit discount
+                DiscountService.getInstance().updateDiscount(editDiscountId, edit_discount_name, edit_startDate, edit_endDate, Double.parseDouble(edit_percentageOff) / 100);
+                System.out.println("completed update");
+            } else {
+                //Thông báo thiếu thông tin
+                req.setAttribute("result", "Hãy điền đầy đủ thông tin để thay đồi thông tin khuyến mãi! Vui lòng thử lại");
+                System.out.println("fall update");
+            }
         }
         req.getRequestDispatcher("/views/Admin/discount_management.jsp").forward(req, resp);
     }

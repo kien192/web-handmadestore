@@ -3,8 +3,17 @@
 <%@ page import="model.service.DiscountService" %>
 <%@ page import="model.bean.Product" %>
 <%@ page import="model.service.ProductService" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%List<Discount> discounts = DiscountService.getInstance().getAll();%>
+
+<%String discountAction = (String) request.getAttribute("discountAction");%>
+<%
+    String editDiscountId = (String) request.getAttribute("editDiscountId");
+    Discount editDiscount = (editDiscountId != null) ? DiscountService.getInstance().getDiscountById(editDiscountId) : null;//null ->ko bắt ex thì nó che lỗi .getName() :)))
+%>
+<%String editStt = (String) request.getAttribute("editStt");%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -90,6 +99,19 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional: Add a box shadow for a subtle effect */
         }
 
+        #edit_discount {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: auto;
+            display: none;
+            z-index: 9;
+            background-color: #2c3e50; /* Adjust the background color as needed */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional: Add a box shadow for a subtle effect */
+        }
 
     </style>
 </head>
@@ -203,10 +225,14 @@
                                 </nav>
                             </div>
                             <div class="col-md-2 text-center d-flex justify-content-center text-center mt-1">
-                                <a href="#" class="px-2">
+                                <a
+                                        href="<%=request.getContextPath()%>/admin/discount?discountAction=edit&editDiscountId=<%=d.getId()%>&editStt=<%=stt%>"
+                                        class="mx-4">
                                     <i class="fa-solid fa-pen fs-4" style="color: #5c7093;"></i>
                                 </a>
-                                <a href="<%=request.getContextPath()%>/admin/discount?deleteDiscountId=<%=d.getId()%>" class="px-2">
+                                <a
+                                        href="<%=request.getContextPath()%>/admin/discount?deleteDiscountId=<%=d.getId()%>"
+                                        class="mx-4">
                                     <i class="fa-solid fa-trash-can fs-4" style="color: #5c7093;"></i>
                                 </a>
                             </div>
@@ -217,6 +243,7 @@
             </div>
         </div>
     </div>
+    <%--    Add Box--%>
     <div class="row d-flex justify-content-center">
         <div id="add_discount" class="w-50 bg-secondary p-3 rounded">
             <div class="text-center fw-bold p-3" style="font-size: 30px; color: #0dcaf0">Thêm khuyến mãi giảm giá</div>
@@ -250,14 +277,76 @@
             </div>
         </div>
     </div>
+    <%--    Edit Box--%>
+    <div class="row d-flex justify-content-center">
+        <div id="edit_discount" class="w-50 bg-secondary p-3 rounded"
+                <%if (discountAction != null && discountAction.equals("edit")) {%>
+             style="display: block"
+                <%} else {%>
+             style="display: none"
+                <%}%>>
+            <%if (editDiscount != null) {%>
+            <div class="text-center fw-bold p-3" style="font-size: 30px; color: #0dcaf0">
+                Chỉnh sửa khuyến mãi giảm giá
+            </div>
+            <div class="fw-bold p-3" style="color: #0dcaf0">
+                <p>STT: <%=editStt%>
+                </p>
+                <p>Tên khuyến mãi: <%=editDiscount.getName()%>
+                </p>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend me-3">
+                    <span class="input-group-text fw-bold">Tên khuyến mãi</span>
+                </div>
+                <input type="text" name="editDiscountId" value="<%=editDiscountId%>" style="display:none;">
+                <input name="edit_discount_name" type="text" class="form-control" value="<%=editDiscount.getName()%>">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend me-3">
+                    <span class="input-group-text fw-bold">Giảm giá(%)</span>
+                </div>
+                <input name="edit_percentageOff" type="number" class="form-control w-25"
+                       value="<%=editDiscount.getPercentageOff()*100%>">
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend me-3">
+                    <span class="input-group-text fw-bold">Ngày bắt bắt đầu và ngày kết thúc</span>
+                </div>
+                <%
+                    // Định dạng ngày theo "yyyy-MM-dd"
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                %>
+                <input name="edit_startDate" type="date" class="form-control"
+                       value=<%=dateFormat.format(editDiscount.getStartDate())%>>
+                <input name="edit_endDate" type="date" class="form-control"
+                       value=<%=dateFormat.format(editDiscount.getEndDate())%>>
+            </div>
+            <div class="d-flex justify-content-end m-0">
+                <button type="button" onclick="hideEditDiscount()" class="btn btn-outline-warning m-3 fs-5 fw-bold"
+                        style="color: #eeeeee">Hủy bỏ
+                </button>
+                <button type="submit" name="submit_3_editdiscount" value="editdiscount"
+                        class="btn btn-outline-success m-3 fs-5 fw-bold"
+                        style="color: #eeeeee">Hoàn tất
+                </button>
+            </div>
+            <%}%>
+        </div>
+    </div>
 </form>
 <script>
     function showAddDiscount() {
+        hideEditDiscount();
         document.getElementById("add_discount").style.display = "block";
     }
 
     function hideAddDiscount() {
         document.getElementById("add_discount").style.display = "none";
+    }
+
+    function hideEditDiscount() {
+        document.getElementById("edit_discount").style.display = "none";
     }
 
     function selectAllProductForDiscount() {

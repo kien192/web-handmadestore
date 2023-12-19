@@ -32,19 +32,18 @@ public class ProductDAO {
 
     public static void deleteProduct(String product_id) {
         //delete products image
-//        ImageService.deleteProductImage(product_id);
-        //delete order has products
-//        JDBIConnector.me().useHandle(handle ->
-//                handle.createUpdate("UPDATE order_details SET productId = null WHERE productId=?")
-//                        .bind(0, product_id)
-//                        .execute()
-//        );
-//        JDBIConnector.me().useHandle(handle ->
-//                handle.createUpdate("DELETE FROM product WHERE id=?")
-//                        .bind(0, product_id)
-//                        .execute()
-//        );
-        System.out.println("deleted Product!!!");
+        ImageService.deleteProductImage(product_id);
+        //delete order_details has products
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate("DELETE FROM order_details WHERE productId=?")
+                        .bind(0, product_id)
+                        .execute()
+        );
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate("DELETE FROM product WHERE id=?")
+                        .bind(0, product_id)
+                        .execute()
+        );
     }
 
     public static void switchIsSale(String product_id) {

@@ -21,6 +21,7 @@ public class CustomerAdminController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/jsp; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
         String user_id = req.getParameter("user_id");
         if (user_id != null) {
             //lock or unlock

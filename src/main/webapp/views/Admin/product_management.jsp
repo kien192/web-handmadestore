@@ -240,19 +240,23 @@
             <%}%>
         </select>
         <div class=" ms-auto d-flex">
-            <div class="box_1 mx-4 p-2" id="addProduct">
-                <a
-                        href="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=<%=selectedCategory%>&func_2=showAddProductFrame"
-                        style="cursor: pointer"><i class="fa-solid fa-plus me-2"
-                                                   style="color: white;"></i>
-                    Thêm sản phẩm mới</a>
-            </div>
-            <div class="box_1 mx-4 p-2" id="discount">
-                <a
-                        href="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=<%=selectedCategory%>&func_2=showDiscountManagementFrame"
-                        style="cursor: pointer"><i class="fa-solid fa-pen  me-2 m-auto" style="color: white;"></i>Quản lý khuyến mãi giảm giá
-                </a>
-            </div>
+            <a
+                    href="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=<%=selectedCategory%>&func_2=showAddProductFrame"
+                    style="cursor: pointer">
+                <div class="box_1 mx-4 p-2" id="addProduct">
+                    <i class="fa-solid fa-plus me-2"
+                       style="color: white;"></i>
+                    Thêm sản phẩm mới
+                </div>
+            </a>
+
+            <a
+                    href="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=<%=selectedCategory%>&func_2=showDiscountManagementFrame"
+                    style="cursor: pointer">
+                <div class="box_1 mx-4 p-2" id="discount">
+                    <i class="fa-solid fa-pen  me-2 m-auto" style="color: white;"></i>Quản lý khuyến mãi giảm giá
+                </div>
+            </a>
         </div>
     </div>
 
@@ -298,7 +302,7 @@
                     </td>
                     <td class="px-4">
                         <%Discount d = DiscountService.getInstance().getDiscountById(p.getDiscountId());%>
-                        <%=(d == null) ? "" : d.getName()%>
+                        <%=(d == null) ? "" : d.getName() + " - giảm " + (d.getPercentageOff() * 100) + "%"%>
                     </td>
                     <td class="px-4"><%=ProductService.getInstance().productPriceIncludeDiscount(p)%>
                     <td class="px-2">

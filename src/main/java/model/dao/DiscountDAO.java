@@ -59,4 +59,22 @@ public class DiscountDAO {
                         .execute()
         );
     }
+
+    /*
+    "UPDATE product " +
+                                                "SET discountId = null WHERE id NOT IN (" + ids + ") AND discountId = :id "
+     */
+    public static void updateDiscount(String editDiscountId, String name, String startDate, String endDate, double percentageOff) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate("UPDATE discount " +
+                                "SET name=:name,startDate=:startDate,endDate=:endDate,percentageOff=:percentageOff " +
+                                "WHERE id=:editDiscountId")
+                        .bind("editDiscountId", editDiscountId) // Generate a random 6-character ID
+                        .bind("name", name)
+                        .bind("startDate", startDate + " 00:00:00")
+                        .bind("endDate", endDate + " 00:00:00")
+                        .bind("percentageOff", percentageOff)
+                        .execute()
+        );
+    }
 }

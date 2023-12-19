@@ -20,6 +20,8 @@ public class ConfirmAdminController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/jsp; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
+
         String selectedCategory = req.getParameter("selectedCategory");
         String confirm_delete_product_id = req.getParameter("confirm_delete_product_id");
 

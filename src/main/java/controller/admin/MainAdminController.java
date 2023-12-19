@@ -25,6 +25,9 @@ public class MainAdminController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/jsp; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
+
         User admin = (User) req.getSession().getAttribute("auth");
         boolean isAdmin = ((req.getSession().getAttribute("isAdmin") == null) ? false : ((boolean) req.getSession().getAttribute("isAdmin")));
         if (admin != null && isAdmin) {

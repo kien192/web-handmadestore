@@ -23,6 +23,8 @@ public class ProductAdminController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/jsp; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
+
         String categoty_id = req.getParameter("category_id");
 //                       Ngừng bán sản phẩm
         String switch_product_isSale = req.getParameter("switch_product_isSale");
