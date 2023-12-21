@@ -6,6 +6,7 @@ import utils.HashPassword;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +27,7 @@ public class SignUp extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        req.setCharacterEncoding("UTF-8");
         String uname = req.getParameter("name");
         String utel = req.getParameter("tel");
         String upass = req.getParameter("pass");
@@ -43,10 +44,16 @@ public class SignUp extends HttpServlet {
         validateRequireField("verify", uverify, "Xác thực", errors);
         validateRequireField("email", uemail, "Email", errors);
 
-        if(!errors.isEmpty() || ! upass.equals(uverify)) {
+        if(!errors.isEmpty() ) {
             req.setAttribute("errors", errors);
             req.getRequestDispatcher("views/Login/view_login/signup.jsp").forward(req, resp);
         }
+        else if (!upass.equals(uverify)) {
+            req.setAttribute("errorVerify", "Lỗi xác thực mật khẩu không đúng!");
+            req.getRequestDispatcher("views/Login/view_login/signup.jsp").forward(req, resp);
+        }
+
+
         else {
 
             User user = new User();
@@ -69,5 +76,6 @@ public class SignUp extends HttpServlet {
             errors.put(fieldName, viewName + " không được bỏ trống");
         }
     }
+
 }
 

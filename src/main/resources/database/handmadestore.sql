@@ -1523,93 +1523,93 @@ VALUES ('u10', 'Lê Bá Phụng', '245278954', 'lebatrong2003@gmail.com', 'phung
 
 /* ORDER */
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD1', 218000.00, '2023-11-29 00:00:00', 'Đang giao', '29 Tô Vĩnh Diện , Đông Hòa ,Dĩ An , Bình Dương', 30.00,
-        'u1');
+VALUES (1, 218000.00, '2023-11-29 00:00:00', 'Đang giao', '29 Tô Vĩnh Diện , Đông Hòa ,Dĩ An , Bình Dương', 30.00,
+        1);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD10', 322000.00, '2023-12-01 00:00:00', 'Đang xử lý', '314 Âu Cơ, TT, Tân Châu, Tân Châu, An Giang', 30.00,
-        'u9');
+VALUES (10, 322000.00, '2023-12-01 00:00:00', 'Đang xử lý', '314 Âu Cơ, TT, Tân Châu, Tân Châu, An Giang', 30.00,
+        9);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD11', 78000.00, '2023-12-02 00:00:00', 'Thành công', '31 Trần Phú, P, Mộ Lao, Hà Đông, Hà Nội', 50.00, 'u6');
+VALUES (11, 78000.00, '2023-12-02 00:00:00', 'Thành công', '31 Trần Phú, P, Mộ Lao, Hà Đông, Hà Nội', 50.00, 6);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD12', 117000.00, '2023-12-02 00:00:00', 'Đã hủy', '18 Phan Văn Trị, Khuê Trung, Cẩm Lệ, Đà Nẵng', 40.00,
-        'u10');
+VALUES (12, 117000.00, '2023-12-02 00:00:00', 'Đã hủy', '18 Phan Văn Trị, Khuê Trung, Cẩm Lệ, Đà Nẵng', 40.00,
+        10);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD13', 1103000.00, '2023-12-02 00:00:00', 'Đang xử lý', '312 Trường Chinh, Nhơn Hưng, An Nhơn, Bình Định',
-        40.00, 'u2');
+VALUES (13, 1103000.00, '2023-12-02 00:00:00', 'Đang xử lý', '312 Trường Chinh, Nhơn Hưng, An Nhơn, Bình Định',
+        40.00, u2);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD14', 104000.00, '2023-12-02 00:00:00', 'Đang xử lý',
-        '416 Phạm Văn Đồng, Phường 11, Bình Thạnh, Thành phố Hồ Chí Minh', 30.00, 'u3');
+VALUES (14, 104000.00, '2023-12-02 00:00:00', 'Đang xử lý',
+        '416 Phạm Văn Đồng, Phường 11, Bình Thạnh, Thành phố Hồ Chí Minh', 30.00, 3);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD2', 1235000.00, '2023-11-29 00:00:00', 'Đang giao',
-        '416 Phạm Văn Đồng, Phường 11, Bình Thạnh, Thành phố Hồ Chí Minh', 30.00, 'u3');
+VALUES (2, 1235000.00, '2023-11-29 00:00:00', 'Đang giao',
+        '416 Phạm Văn Đồng, Phường 11, Bình Thạnh, Thành phố Hồ Chí Minh', 30.00, 3);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD3', 649000.00, '2023-11-30 00:00:00', 'Đang giao', '312 Trường Chinh, Nhơn Hưng, An Nhơn, Bình Định', 40.00,
-        'u2');
+VALUES (3, 649000.00, '2023-11-30 00:00:00', 'Đang giao', '312 Trường Chinh, Nhơn Hưng, An Nhơn, Bình Định', 40.00,
+        2);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD4', 349000.00, '2023-11-30 00:00:00', 'Đang giao',
-        '32 Đ, Mạc Đĩnh Chi, Đa Kao, Quận 1, Thành phố Hồ Chí Minh', 30.00, 'u4');
+VALUES (4, 349000.00, '2023-11-30 00:00:00', 'Đang giao',
+        '32 Đ, Mạc Đĩnh Chi, Đa Kao, Quận 1, Thành phố Hồ Chí Minh', 30.00, 4);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD5', 117000.00, '2023-11-30 00:00:00', 'Đang giao',
-        '312 Đường Võ Nguyên Giáp, Thiện Nghiệp, Thành phố Phan Thiết, Bình Thuận', 40.00, 'u5');
+VALUES (5, 117000.00, '2023-11-30 00:00:00', 'Đang giao',
+        '312 Đường Võ Nguyên Giáp, Thiện Nghiệp, Thành phố Phan Thiết, Bình Thuận', 40.00, 5);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD6', 780000.00, '2023-11-30 00:00:00', 'Đang giao', '31 Trần Phú, P, Mộ Lao, Hà Đông, Hà Nội', 50.00, 'u6');
+VALUES (6, 780000.00, '2023-11-30 00:00:00', 'Đang giao', '31 Trần Phú, P, Mộ Lao, Hà Đông, Hà Nội', 50.00, 6);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD7', 240000.00, '2023-12-01 00:00:00', 'Đang giao', '29 Tô Vĩnh Diện , Đông Hòa ,Dĩ An , Bình Dương', 30.00,
-        'u1');
+VALUES (7, 240000.00, '2023-12-01 00:00:00', 'Đang giao', '29 Tô Vĩnh Diện , Đông Hòa ,Dĩ An , Bình Dương', 30.00,
+        1);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD8', 649000.00, '2023-12-01 00:00:00', 'Đang giao', '15 Trường Chinh, Phước Trung, Bà Rịa, Bà Rịa - Vũng Tàu',
-        30.00, 'u8');
+VALUES (8, 649000.00, '2023-12-01 00:00:00', 'Đang giao', '15 Trường Chinh, Phước Trung, Bà Rịa, Bà Rịa - Vũng Tàu',
+        30.00, 8);
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES ('OD9', 404000.00, '2023-12-01 00:00:00', 'Đang giao',
-        '21 Võ Trường Toản, An Phú, Quận 2, Thành phố Hồ Chí Minh', 30.00, 'u7');
+VALUES (9, 404000.00, '2023-12-01 00:00:00', 'Đang giao',
+        '21 Võ Trường Toản, An Phú, Quận 2, Thành phố Hồ Chí Minh', 30.00, 7);
 
 
 /* ORDER DETAILS */
 
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD1', 'P01', 2);
+VALUES (1, 01, 2);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD1', 'P05', 2);
+VALUES (1, 05, 2);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD10', 'P111', 1);
+VALUES (10, 111, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD10', 'P37', 1);
+VALUES (10, 37, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD11', 'P24', 1);
+VALUES (11, 24, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD11', 'P66', 1);
+VALUES (11, 66, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD12', 'P01', 3);
+VALUES (12, 01, 3);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD13', 'P30', 2);
+VALUES (13, 30, 2);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD13', 'P40', 1);
+VALUES (13, 40, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD14', 'P35', 2);
+VALUES (14, 35, 2);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD2', 'P07', 1);
+VALUES (2, 07, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD2', 'P115', 1);
+VALUES (2, 115, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD2', 'P90', 1);
+VALUES (2, 90, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD3', 'P50', 1);
+VALUES (3, 50, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD4', 'P58', 1);
+VALUES (4, 58, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD4', 'P94', 2);
+VALUES (4, 94, 2);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD5', 'P24', 3);
+VALUES (5, 24, 3);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD6', 'P10', 1);
+VALUES (6, 10, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD6', 'P23', 1);
+VALUES (6, 23, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD7', 'P66', 1);
+VALUES (7, 66, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD8', 'P45', 1);
+VALUES (8, 45, 1);
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES ('OD9', 'P100', 1);
+VALUES (9, 100, 1);
 
 
 /* RATE */

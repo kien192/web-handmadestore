@@ -6,13 +6,13 @@
   Time: 5:44 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 
 
 <html>
 <head>
     <title>SIGN UP FORM</title>
-
+    <meta charset="UTF-8">
 
     <!-- Boxicons Css-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -224,6 +224,15 @@
         });
 
 
+      function formatPhone(input) {
+          var phoneNum = input.value.replace(/\D/g, '');
+
+
+           phoneNum = phoneNum.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+
+          input.value = phoneNum
+      }
+
 
     </script>
 </head>
@@ -234,7 +243,7 @@
     String email = request.getParameter("email") == null ? "" : request.getParameter("email");
     String name = request.getParameter("name") == null ? "" : request.getParameter("name");
     String tel = request.getParameter("tel") == null ? "" : request.getParameter("tel");
-
+    String errorVerify = request.getAttribute("errorVerify")==null?"" : (String) request.getAttribute("errorVerify") ;
 
 
 %>
@@ -252,14 +261,14 @@
         <div class="form-content">
             <header>Đăng Ký</header>
             <!--    </div>-->
-            <form method="post" action="<%=request.getContextPath()%>/login.jsp">
+            <form method="post" action="<%=request.getContextPath()%>/login.jsp" accept-charset="UTF-8">
 
 
 
 
                 <div class="infor">
                     <div class="field input-field infor-sub">
-                        <input type="text" placeholder="Tên hiển thị*" value="<%=name%>" class="input" name="name" id="name">
+                        <input  type="text" placeholder="Tên hiển thị*" value="<%=name%>" class="input" name="name" id="name">
                         <% if (listNull != null && listNull.containsKey("name")) { %>
                         <span class="error-message warning" style="font-size: 11px"><%= listNull.get("name") %></span>
                         <% } %>
@@ -270,7 +279,12 @@
 
 
                     <div class="field input-field infor-sub">
-                        <input type="tel" value="<%=tel%>" placeholder="Số điện thoại*" class="input" name="tel" id="tel">
+                        <input type="tel" value="<%=tel%>" placeholder="Số điện thoại*" class="input phone_vn" name="tel" id="tel"
+                        maxlength="12"
+                               oninput="formatPhone(this)" required
+
+
+                        >
                         <% if (listNull != null && listNull.containsKey("tel")) { %>
                         <span class="error-message warning" style="font-size: 11px"><%= listNull.get("tel") %></span>
                         <% } %>
@@ -309,6 +323,8 @@
                     <span class="error-message warning" style="font-size: 11px"><%= listNull.get("verify") %></span>
                     <% } %>
 
+                    <span class="error-message warning" style="font-size: 11px"><%=errorVerify%></span>
+
                 </div>
 
                 <div class="field button-field">
@@ -328,6 +344,6 @@
     </div>
 </section>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 </html>
