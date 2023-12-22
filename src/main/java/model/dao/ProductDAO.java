@@ -14,6 +14,9 @@ public class ProductDAO {
         );
         return product;
     }
+
+
+
     public static List<Product> listSixProduct(int offset){
         try {
             List<Product> products = JDBIConnector.me().withHandle(handle ->
@@ -38,7 +41,10 @@ public class ProductDAO {
                         .toList());
         return products;
     }
-    
+
+
+
+
     public static void main(String[] args) {
         List<Product> all = ProductDAO.listSixProduct(0);
         System.out.println(all.toString());

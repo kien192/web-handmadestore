@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class UserDAO {
@@ -56,7 +57,9 @@ public class UserDAO {
 
         try {
             JDBIConnector.me().useHandle(handle ->
-                    handle.createUpdate("INSERT INTO user (password, name, email, phoneNumber) VALUES(:password, :name, :email, :telephone)")
+                    handle.createUpdate("INSERT INTO user ( password, name, email, phoneNumber)" +
+                                    " VALUES(:password, :name, :email, :telephone)")
+
                             .bind("password", userPass)
 
                             .bind("name", userName)
