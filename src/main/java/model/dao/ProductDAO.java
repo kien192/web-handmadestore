@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProductDAO {
+    //Tất cả các sản phẩm
     public static List<Product> getAll(){
         List<Product> product = JDBIConnector.me().withHandle(handle ->
             handle.createQuery("select * from product")
@@ -14,21 +15,7 @@ public class ProductDAO {
         );
         return product;
     }
-    public static List<Product> listSixProduct(int offset){
-        try {
-            List<Product> products = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery("select * from product limit 6 offset :offset")
-                            .bind("offset", offset)
-                            .mapToBean(Product.class)
-                            .stream().toList());
-
-            return products;
-        } catch (Exception e) {
-            // Xử lý exception, ví dụ: log hoặc throw lại một exception khác.
-            e.printStackTrace();
-            return Collections.emptyList(); // hoặc return null tùy vào trường hợp
-        }
-    }
+//   Tìm kiếm sản phẩm theo danh mục
     public static  List<Product> findByCategory(String categoryID){
         List<Product> products = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from product where categoryId = :id")
@@ -38,9 +25,27 @@ public class ProductDAO {
                         .toList());
         return products;
     }
-    
-    public static void main(String[] args) {
-        List<Product> all = ProductDAO.listSixProduct(0);
-        System.out.println(all.toString());
+//    Sắp xếp theo giá tăng dần
+    public static List<Product> sortProductAZ(){
+        List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice ASC")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productAZ;
     }
+    //    Sắp xếp theo giá giảm dần
+    public static List<Product> sortProductZA(){
+        List<Product> productZA = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice DESC")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productZA;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(sortProductAZ().toString());
+    }
+
 }

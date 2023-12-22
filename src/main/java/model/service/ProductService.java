@@ -12,12 +12,18 @@ public class ProductService {
         if(instance == null) instance = new ProductService();
         return instance;
     }
-    public List<Product> sixProduct(int offset){
-        return  ProductDAO.listSixProduct(offset);
+    public List<Product> allProduct(){
+        return  ProductDAO.getAll();
+    }
+    //Sắp xếp từ thấp đến cao
+    public List<Product> sortProductsAZ(){
+        return ProductDAO.sortProductAZ();
+    }
+    //sắp xếp từ cao đến thấp
+    public List<Product> sortProductsZA(){
+        return ProductDAO.sortProductZA();
     }
 
     public static void main(String[] args) {
-        List<Product> products = ProductService.getInstance().sixProduct(0);
-        System.out.println(products);
     }
 }
