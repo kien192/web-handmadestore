@@ -22,6 +22,14 @@ public class UserDAO {
         return user.isEmpty() ? null : user.get();
     }
 
+    public static boolean isPhoneExist(String phoneNumber) {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select COUNT(*) FROM user where phoneNumber = :phoneNumber")
+                        .bind("phoneNumber", phoneNumber)
+                        .mapTo(Integer.class)
+                        .one() > 0);
+    }
+
     public static User getUserById(final String id) {
         Optional<User> user = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from user where id= :id")
@@ -76,6 +84,7 @@ public class UserDAO {
             throw new RuntimeException("Failed to insert user into the database", e);
         }
     }
+
 
     public static List<User> getAllUsers() {
         List<User> users = JDBIConnector.me().withHandle(handle ->

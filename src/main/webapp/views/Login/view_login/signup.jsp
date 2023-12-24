@@ -244,7 +244,8 @@
     String name = request.getParameter("name") == null ? "" : request.getParameter("name");
     String tel = request.getParameter("tel") == null ? "" : request.getParameter("tel");
     String errorVerify = request.getAttribute("errorVerify")==null?"" : (String) request.getAttribute("errorVerify") ;
-
+    String erDuplicateEmail = request.getAttribute("erDuplicateEmail")==null?"" : (String) request.getAttribute("erDuplicateEmail") ;
+    String erPhoneExist = request.getAttribute("erPhoneExist")==null?"" : (String) request.getAttribute("erPhoneExist");
 
 %>
 
@@ -288,6 +289,9 @@
                         <% if (listNull != null && listNull.containsKey("tel")) { %>
                         <span class="error-message warning" style="font-size: 11px"><%= listNull.get("tel") %></span>
                         <% } %>
+                        <span class="error-message warning" style="font-size: 11px"> <%=erPhoneExist%></span>
+
+
                     </div>
 
 
@@ -298,6 +302,7 @@
                     <% if (listNull != null && listNull.containsKey("email")) { %>
                     <span class="error-message warning" style="font-size: 11px"><%= listNull.get("email") %></span>
                     <% } %>
+                    <span class="error-message warning" style="font-size: 11px"> <%=erDuplicateEmail%></span>
                 </div>
 
 

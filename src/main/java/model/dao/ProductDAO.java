@@ -4,6 +4,7 @@ import model.bean.Product;
 import model.db.JDBIConnector;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class ProductDAO {
@@ -42,10 +43,38 @@ public class ProductDAO {
         return products;
     }
 
+    public static void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, List<String> imagesPath) {
+        JDBIConnector.me().useHandle(handle -> {
+            // Insert into product table with auto-increment ID
+            int productId = handle.createUpdate("INSERT INTO product(name, description, costPrice, sellingPrice, quantity, categoryId) VALUES (:name, :description, :costPrice, :sellingPrice, :quantity, :categoryId)")
+                    .bind("name", name)
+                    .bind("description", description)
+                    .bind("costPrice", costPrice)
+                    .bind("sellingPrice", sellingPrice)
+                    .bind("quantity", quantity)
+                    .bind("categoryId", categoryId)
+                    .executeAndReturnGeneratedKeys("id")
+                    .mapTo(Integer.class)
+                    .one();
+
+            for (String imagePath : imagesPath) {
+                // Insert into image table with auto-increment ID
+                int imageId = handle.createUpdate("INSERT INTO image(name, path, product) VALUES (:name, :path, :productId)")
+                        .bind("name", name + " " + imagePath)
+                        .bind("path", imagePath)
+                        .bind("productId", productId)
+                        .executeAndReturnGeneratedKeys("id")
+                        .mapTo(Integer.class)
+                        .one();
+            }
+        });
+    }
 
 
 
-    public static void main(String[] args) {
+
+
+        public static void main(String[] args) {
         List<Product> all = ProductDAO.listSixProduct(0);
         System.out.println(all.toString());
     }
