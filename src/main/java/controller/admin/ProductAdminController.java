@@ -112,7 +112,6 @@ public class ProductAdminController extends HttpServlet {
                         products = ProductService.getInstance().getNullQuantityProduct();
                         break;
                     default:
-                        categoty_id = "all";
                         products = ProductService.getInstance().getProductsByCategoryId(categoty_id);
                         break;
                 }

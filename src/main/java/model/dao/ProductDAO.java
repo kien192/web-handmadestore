@@ -137,7 +137,7 @@ public class ProductDAO {
     public static List<Product> getProductBySubName(String subName) {
         List<Product> products = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from product where name like :subName")
-                        .bind("subName", "%"+subName+"%")
+                        .bind("subName", "%" + subName + "%")
                         .mapToBean(Product.class)
                         .stream()
                         .toList());

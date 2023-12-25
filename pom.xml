@@ -7,6 +7,8 @@
     <version>1.0-SNAPSHOT</version>
     <name>HandMadeStore Maven Webapp</name>
     <url>http://maven.apache.org</url>
+
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -33,10 +35,12 @@
             <version>8.2.0</version>
         </dependency>
         <dependency>
+
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.1.214</version>
         </dependency>
+
         <dependency>
             <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
             <groupId>javax.mail</groupId>
@@ -48,6 +52,7 @@
             <artifactId>javax.mail</artifactId>
             <version>1.6.2</version>
         </dependency>
+
     </dependencies>
     <build>
         <finalName>HandMadeStore</finalName>

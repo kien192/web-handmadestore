@@ -5,6 +5,7 @@ import model.bean.User;
 import model.dao.UserDAO;
 import model.service.RoleService;
 import model.service.UserService;
+import utils.HashPassword;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -25,6 +26,7 @@ public class login extends HttpServlet {
         req.getSession().removeAttribute("isAdmin");
         String email = req.getParameter("email");// nhận input từ ng dùng
         String pw = req.getParameter("password");
+        pw = HashPassword.toSHA1(pw);
         User checkEmail = UserDAO.getUserByEmail(email);
         User user = UserService.getInstance().checkLogin(email, pw);
         if (email == null) {

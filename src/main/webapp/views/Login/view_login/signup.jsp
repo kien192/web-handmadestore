@@ -1,17 +1,18 @@
-<%@ page import="model.service.ImageService" %><%--
+<%@ page import="model.service.ImageService" %>
+<%@ page import="java.util.Map" %><%--
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 11/26/2023
   Time: 5:44 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 
 
 <html>
 <head>
     <title>SIGN UP FORM</title>
-
+    <meta charset="UTF-8">
 
     <!-- Boxicons Css-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -129,8 +130,8 @@
         .field input {
             border: 1px solid #CACACA;
             padding: 0 52px;
+            padding-right: 20px;
             outline: none;
-
         }
 
         .field input:focus {
@@ -149,16 +150,16 @@
             transform: translateY(-50%);
         }
 
-        .eye-icon {
-            font-size: 18px;
-            color: #8b8b8b;
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            cursor: pointer;
-            padding: 5px;
-        }
+        /*.eye-icon {*/
+        /*    font-size: 18px;*/
+        /*    color: #8b8b8b;*/
+        /*    position: absolute;*/
+        /*    top: 50%;*/
+        /*    right: 10px;*/
+        /*    transform: translateY(-50%);*/
+        /*    cursor: pointer;*/
+        /*    padding: 5px;*/
+        /*}*/
 
         .field button {
             background-color: #0171d3;
@@ -200,13 +201,54 @@
 
 
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            //Kiểm tra xác thực lại mật khẩu ngay tại trang jsp
+            function validatePassword() {
+                var password = document.getElementById("pass").value.trim();
+                var verifyPassword = document.getElementById("verify").value.trim();
+                var errorMessageElement = document.getElementById("verify-error");
+
+                if(password !== verifyPassword) {
+                    errorMessageElement.innerHTML = "Xác thực mật khẩu không khớp";
+                }
+                else {
+                    errorMessageElement.innerHTML = "";
+                }
+
+            }
+            // document.getElementById("pass").addEventListener("input", validatePassword);
+            document.getElementById("verify").addEventListener("input", validatePassword);
+
+
+        });
+
+
+      function formatPhone(input) {
+          var phoneNum = input.value.replace(/\D/g, '');
+
+
+           phoneNum = phoneNum.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+
+          input.value = phoneNum
+      }
+
+
+    </script>
 </head>
 <body>
 
 <%
-    String error = request.getAttribute("error") == null ? "" : (String) request.getAttribute("error");
-    String password = request.getParameter("pass") == null ? "" : request.getParameter("password");
+    Map<String, String> listNull = (Map<String, String>) request.getAttribute("errors") ;
+    String email = request.getParameter("email") == null ? "" : request.getParameter("email");
+    String name = request.getParameter("name") == null ? "" : request.getParameter("name");
+    String tel = request.getParameter("tel") == null ? "" : request.getParameter("tel");
+    String errorVerify = request.getAttribute("errorVerify")==null?"" : (String) request.getAttribute("errorVerify") ;
+
+
 %>
+
+
 <section class="container forms">
 
     <!--SIGN UP-->
@@ -219,31 +261,56 @@
         <div class="form-content">
             <header>Đăng Ký</header>
             <!--    </div>-->
-            <form method="post" action="<%=request.getContextPath()%>/register">
+            <form method="post" action="<%=request.getContextPath()%>/login.jsp" accept-charset="UTF-8">
+
+
+
+
                 <div class="infor">
                     <div class="field input-field infor-sub">
-                        <input type="text" placeholder="Tên hiển thị*" class="input" name="name" id="name">
-
+                        <input  type="text" placeholder="Tên hiển thị*" value="<%=name%>" class="input" name="name" id="name">
+                        <% if (listNull != null && listNull.containsKey("name")) { %>
+                        <span class="error-message warning" style="font-size: 11px"><%= listNull.get("name") %></span>
+                        <% } %>
                     </div>
+
+
+
+
 
                     <div class="field input-field infor-sub">
-                        <input type="tel" placeholder="Số điện thoại*" class="input" name="tel" id="tel">
+                        <input type="tel" value="<%=tel%>" placeholder="Số điện thoại*" class="input phone_vn" name="tel" id="tel"
+                        maxlength="12"
+                               oninput="formatPhone(this)" required
 
+
+                        >
+                        <% if (listNull != null && listNull.containsKey("tel")) { %>
+                        <span class="error-message warning" style="font-size: 11px"><%= listNull.get("tel") %></span>
+                        <% } %>
                     </div>
 
+
                 </div>
                 <div class="field input-field">
-                    <input type="email" placeholder="Nhập email*" class="input" name="email">
+                    <input type="email" placeholder="Nhập email*" value="<%=email%>" class="input" name="email">
                     <i class='bx bx-envelope mail-icon'></i>
+                    <% if (listNull != null && listNull.containsKey("email")) { %>
+                    <span class="error-message warning" style="font-size: 11px"><%= listNull.get("email") %></span>
+                    <% } %>
                 </div>
 
 
+
                 <div class="field input-field">
-                    <input type="password" value="<%=password%>" placeholder="Nhập mật khẩu*" class="password"
+                    <input type="password"  placeholder="Nhập mật khẩu*" class="password"
                            name="pass"
                            id="pass">
                     <i class='bx bx-key key-icon'></i>
-                    <i class='bx bx-hide eye-icon'></i>
+                    <% if (listNull != null && listNull.containsKey("pass")) { %>
+                    <span class="error-message warning" style="font-size: 11px"><%= listNull.get("pass") %></span>
+                    <% } %>
+
                 </div>
 
 
@@ -251,11 +318,14 @@
 
                     <input type="password" placeholder="Xác thực mật khẩu*" class="password" name="verify" id="verify">
                     <i class='bx bx-key key-icon'></i>
-                    <i class='bx bx-hide eye-icon'></i>
+                    <span class="error-message warning" id="verify-error" style="font-size: 11px"> </span>
+                    <% if (listNull != null && listNull.containsKey("verify")) { %>
+                    <span class="error-message warning" style="font-size: 11px"><%= listNull.get("verify") %></span>
+                    <% } %>
+
+                    <span class="error-message warning" style="font-size: 11px"><%=errorVerify%></span>
 
                 </div>
-                <p class="warning"><%=error%>
-                </p>
 
                 <div class="field button-field">
                     <button type="submit" value="Register">Đăng Ký</button>
@@ -274,6 +344,6 @@
     </div>
 </section>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 </html>

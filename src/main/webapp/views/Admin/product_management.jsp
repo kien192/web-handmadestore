@@ -233,7 +233,7 @@
 
                 <%for (Category c : categories) {%>
                 <option value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=<%=c.getId()%>"
-                        <%if (selectedCategory != null && selectedCategory.equals(c.getId())) {%>
+                        <%if (selectedCategory != null && selectedCategory.equals(c.getId() + "")) {%>
                         selected
                         <%}%>
                 ><%=c.getName()%>
