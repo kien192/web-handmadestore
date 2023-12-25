@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "AddProductForAdmin", value = "/admin/product")
@@ -80,33 +81,49 @@ public class ProductAdminController extends HttpServlet {
         List<Category> categories = CategoryService.getInstance().getALl();
         req.setAttribute("categories", categories);
         String categoty_id = req.getParameter("category_id");
-        if (categoty_id == null || categoty_id.equals("all")) {
-            products = ProductService.getInstance().getAll();
-            categoty_id = "all";
-        } else
-            switch (categoty_id) {
-                case "isSaleTrue":
-                    products = ProductService.getInstance().getTrueIsSaleProduct();
-                    break;
-                case "isSaleFalse":
-                    products = ProductService.getInstance().getFalseIsSaleProduct();
-                    break;
-                case "hasDiscountTrue":
-                    products = ProductService.getInstance().getTrueHasDiscountProduct();
-                    break;
-                case "hasDiscountFalse":
-                    products = ProductService.getInstance().getFalseHasDiscountProduct();
-                    break;
-                case "nullQuantity":
-                    products = ProductService.getInstance().getNullQuantityProduct();
-                    break;
-                default:
-                    products = ProductService.getInstance().getProductsByCategoryId(categoty_id);
-                    break;
+
+        String nameFilter = req.getParameter("nameFilter");
+        if (nameFilter != null && !nameFilter.equals("")) {
+            if (nameFilter.charAt(0) == '#') {
+                products = new ArrayList<>();
+                products.add(ProductService.instance.getProductById(nameFilter.substring(1, nameFilter.length())));
+            } else
+                products = ProductService.instance.getProductByAsName(nameFilter);
+            req.setAttribute("nameFilter", nameFilter);
+        } else {
+            if (categoty_id == null || categoty_id.equals("all")) {
+                products = ProductService.getInstance().getAll();
+                categoty_id = "all";
+            } else {
+                switch (categoty_id) {
+                    case "isSaleTrue":
+                        products = ProductService.getInstance().getTrueIsSaleProduct();
+                        break;
+                    case "isSaleFalse":
+                        products = ProductService.getInstance().getFalseIsSaleProduct();
+                        break;
+                    case "hasDiscountTrue":
+                        products = ProductService.getInstance().getTrueHasDiscountProduct();
+                        break;
+                    case "hasDiscountFalse":
+                        products = ProductService.getInstance().getFalseHasDiscountProduct();
+                        break;
+                    case "nullQuantity":
+                        products = ProductService.getInstance().getNullQuantityProduct();
+                        break;
+                    default:
+                        categoty_id = "all";
+                        products = ProductService.getInstance().getProductsByCategoryId(categoty_id);
+                        break;
+                }
             }
+        }
+
         req.setAttribute("isShowChildFrame", "hide");
         req.setAttribute("selectedCategory", categoty_id);
         req.setAttribute("products", products);
-        req.getRequestDispatcher("/views/Admin/product_management.jsp").forward(req, resp);
+        req.getRequestDispatcher("/views/Admin/product_management.jsp").
+
+                forward(req, resp);
     }
 }

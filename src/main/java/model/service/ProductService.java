@@ -29,11 +29,11 @@ public class ProductService {
 
     public double productPriceIncludeDiscount(Product p) {
         if (p != null) {
-            Discount discountApplied = DiscountService.getInstance().getDiscountById(p.getDiscountId());
+            Discount discountApplied = DiscountService.getInstance().getDiscountById(p.getDiscountId() + "");
             if (discountApplied != null) {
                 Timestamp currentTimestamp = new Timestamp(new Date().getTime());
-                if ((discountApplied.getStartDate().after(currentTimestamp) || discountApplied.getStartDate().equals(currentTimestamp))
-                        && (currentTimestamp.before(discountApplied.getEndDate()) || currentTimestamp.equals(discountApplied.getEndDate()))) {
+                if ((discountApplied.getStartDate().getTime() <= (currentTimestamp.getTime()))
+                        && (currentTimestamp.getTime() <= (discountApplied.getEndDate().getTime()))) {
                     return p.getSellingPrice() * (1 - discountApplied.getPercentageOff());
                 } else {
                     return p.getSellingPrice();
@@ -79,6 +79,10 @@ public class ProductService {
         return ProductDAO.getNullQuantityProduct();
     }
 
+    public List<Product> getProductByAsName(String subName) {
+        return ProductDAO.getProductBySubName(subName);
+    }
+
     public List<Product> getProductByDiscountId(String discountId) {
         return ProductDAO.getProductByDiscountId(discountId);
     }
@@ -93,6 +97,14 @@ public class ProductService {
 
     public void setNullDiscountForProductList(String discountId) {
         ProductDAO.setNullDiscountForProductList(discountId);
+    }
+
+    public void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, List<String> imagesPath) {
+        ProductDAO.insertNewProduct(name, description, costPrice, sellingPrice, quantity, categoryId, imagesPath);
+    }
+
+    public void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, String discountId, List<String> imagesPath) {
+        ProductDAO.insertNewProduct(name, description, costPrice, sellingPrice, quantity, categoryId, discountId, imagesPath);
     }
 
     public static void main(String[] args) {

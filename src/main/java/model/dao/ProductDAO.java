@@ -5,9 +5,7 @@ import model.bean.User;
 import model.db.JDBIConnector;
 import model.service.ImageService;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProductDAO {
@@ -136,6 +134,16 @@ public class ProductDAO {
         return products;
     }
 
+    public static List<Product> getProductBySubName(String subName) {
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from product where name like :subName")
+                        .bind("subName", "%"+subName+"%")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return products;
+    }
+
     public static void removeDiscount(String product_id) {
         JDBIConnector.me().useHandle(handle ->
                 handle.createUpdate("UPDATE product SET discountId = 'null' WHERE id=?")
@@ -207,8 +215,58 @@ public class ProductDAO {
         );
     }
 
+    public static void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, List<String> imagesPath) {
+        JDBIConnector.me().useHandle(handle -> {
+                    int productId = handle.createUpdate("INSERT INTO product (name, description, costPrice, sellingPrice,quantity,categoryId) VALUES (:name, :description, :costPrice, :sellingPrice,:quantity,:categoryId)")
+                            .bind("name", name)
+                            .bind("description", description)
+                            .bind("costPrice", costPrice)
+                            .bind("sellingPrice", sellingPrice)
+                            .bind("quantity", quantity)
+                            .bind("categoryId", categoryId)
+                            .executeAndReturnGeneratedKeys("id")
+                            .mapTo(Integer.class).one();
+                    int count = 0;
+                    for (String imagePath : imagesPath) {
+                        count++;
+                        handle.createUpdate("INSERT INTO image (name, path, productId) VALUES (:name, :path, :productId)")
+                                .bind("name", name + " - " + count)
+                                .bind("path", imagePath)
+                                .bind("productId", productId)
+                                .executeAndReturnGeneratedKeys("id")
+                                .mapTo(Integer.class).one();
+                    }
+                }
+        );
+    }
+
+    public static void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, String discountId, List<String> imagesPath) {
+        JDBIConnector.me().useHandle(handle -> {
+                    int productId = handle.createUpdate("INSERT INTO product (name, description, costPrice, sellingPrice,quantity,categoryId,discountId) VALUES (:name, :description, :costPrice, :sellingPrice,:quantity,:categoryId,:discountId)")
+                            .bind("name", name)
+                            .bind("description", description)
+                            .bind("costPrice", costPrice)
+                            .bind("sellingPrice", sellingPrice)
+                            .bind("quantity", quantity)
+                            .bind("categoryId", categoryId)
+                            .bind("discountId", discountId)
+                            .executeAndReturnGeneratedKeys("id")
+                            .mapTo(Integer.class).one();
+
+                    for (String imagePath : imagesPath) {
+                        handle.createUpdate("INSERT INTO image (name, path, productId) VALUES (:name, :path, :productId)")
+                                .bind("name", name)
+                                .bind("path", imagePath)
+                                .bind("productId", productId)
+                                .executeAndReturnGeneratedKeys("id")
+                                .mapTo(Integer.class).one();
+                    }
+                }
+        );
+    }
+
     public static void main(String[] args) {
-        List<Product> all = ProductDAO.listSixProduct(0);
-        System.out.println(all.toString());
+//        insertNewProduct("Chuối Noel", "hahaha", 55000, 60000, 2, "5", "1", new ArrayList<String>());
+        System.out.println(getProductBySubName("Black"));
     }
 }

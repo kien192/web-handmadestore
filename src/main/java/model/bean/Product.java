@@ -1,21 +1,21 @@
 package model.bean;
 
 public class Product {
-    private String id;
+    private int id;
     private String name;
     private String description;
     private double costPrice;
     private double sellingPrice;
     private int quantity;
     private int soldout;
-    private String categoryId;
-    private String discountId;
+    private int categoryId;
+    private int discountId;
     private int isSale;
 
     public Product() {
     }
 
-    public Product(String name, String description, double costPrice, double sellingPrice, int quantity, int soldout, String categoryId, int isSale) {
+    public Product(String name, String description, double costPrice, double sellingPrice, int quantity, int soldout, int categoryId, int isSale) {
         this.name = name;
         this.description = description;
         this.costPrice = costPrice;
@@ -26,11 +26,11 @@ public class Product {
         this.isSale = isSale;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -82,19 +82,19 @@ public class Product {
         this.soldout = soldout;
     }
 
-    public String getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
-    public String getDiscountId() {
+    public int getDiscountId() {
         return discountId;
     }
 
-    public void setDiscountId(String discountId) {
+    public void setDiscountId(int discountId) {
         this.discountId = discountId;
     }
 

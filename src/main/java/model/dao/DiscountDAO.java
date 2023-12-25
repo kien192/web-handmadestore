@@ -36,8 +36,7 @@ public class DiscountDAO {
 
     public static void insertDiscount(String name, String startDate, String endDate, double percentageOff) {
         JDBIConnector.me().useHandle(handle ->
-                handle.createUpdate("INSERT INTO discount (id, name, startDate, endDate, percentageOff) VALUES (:id, :name, :startDate, :endDate, :percentageOff)")
-                        .bind("id", UUID.randomUUID().toString().substring(0, 6)) // Generate a random 6-character ID
+                handle.createUpdate("INSERT INTO discount (name, startDate, endDate, percentageOff) VALUES (:name, :startDate, :endDate, :percentageOff)")
                         .bind("name", name)
                         .bind("startDate", startDate + " 00:00:00")
                         .bind("endDate", endDate + " 00:00:00")

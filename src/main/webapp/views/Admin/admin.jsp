@@ -110,14 +110,15 @@
             <a href="<%=request.getContextPath()%>/admin/customer?func=customer_management"
                target="content" class="nav-link myfunccolor"
                onclick="choiceMainFunc(4)" id="4">
-                <span class="icon"><i class="bi bi-people-fill"></i></span>
+                <span class="icon"><i class="fa-solid fa-users-gear"></i></span>
                 <span class="title">Quản lý khách hàng </span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="<%=request.getContextPath()%>/admin?func=support" class="myfunccolor"
+            <a href="<%=request.getContextPath()%>/admin?func=support"
+               target="content" class="nav-link myfunccolor"
                onclick="choiceMainFunc(5)" id="5">
-                <span class="icon"><i class="bi bi-gear"></i></span>
+                <span class="icon"><i class="fa-solid fa-circle-info"></i></span>
                 <span class="title">Hỗ trợ</span>
             </a>
         </li>

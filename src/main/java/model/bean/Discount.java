@@ -3,7 +3,7 @@ package model.bean;
 import java.sql.Timestamp;
 
 public class Discount {
-    private String id;
+    private int id;
     private String name;
     private Timestamp startDate;
     private Timestamp endDate;
@@ -12,7 +12,7 @@ public class Discount {
     public Discount() {
     }
 
-    public Discount(String id, String name, Timestamp startDate, Timestamp endDate, double percentageOff) {
+    public Discount(int id, String name, Timestamp startDate, Timestamp endDate, double percentageOff) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -20,11 +20,11 @@ public class Discount {
         this.percentageOff = percentageOff;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

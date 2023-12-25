@@ -25,6 +25,7 @@ public class DiscountService {
     public void addDiscount(String name, String startDate, String endDate, double percentageOff) {
         DiscountDAO.insertDiscount(name, startDate, endDate, percentageOff);
     }
+
     public void updateDiscount(String editDiscountId, String name, String startDate, String endDate, double percentageOff) {
         DiscountDAO.updateDiscount(editDiscountId, name, startDate, endDate, percentageOff);
     }

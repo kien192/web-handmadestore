@@ -182,63 +182,85 @@
         <span class="ps-2">Quản Lý Sản Phẩm</span>
     </div>
     <div class="function d-flex m-4 fs-6">
-        <select class="mx-4 p-2" id="optionFunction" onchange="location=this.value;">
+        <div class="mx-4 p-2 d-flex">
+            <select class="me-2" id="optionFunction" onchange="location=this.value;">
+                </option>
+                <option value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=all"
+                        <%if (selectedCategory == null || selectedCategory.equals("all")) {%>
+                        selected
+                        <%}%>
+                >Tất cả sản phẩm
+                </option>
 
-            <option value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=all"
-                    <%if (selectedCategory == null || selectedCategory.equals("all")) {%>
-                    selected
-                    <%}%>
-            >Tất cả sản phẩm
-            </option>
+                <option class="op-bg"
+                        value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=isSaleTrue"
+                        <%if (selectedCategory != null && selectedCategory.equals("isSaleTrue")) {%>
+                        selected
+                        <%}%>
+                >Sản phẩm đang kinh doanh
+                </option>
 
-            <option class="op-bg"
-                    value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=isSaleTrue"
-                    <%if (selectedCategory != null && selectedCategory.equals("isSaleTrue")) {%>
-                    selected
-                    <%}%>
-            >Sản phẩm đang kinh doanh
-            </option>
+                <option class="op-bg"
+                        value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=isSaleFalse"
+                        <%if (selectedCategory != null && selectedCategory.equals("isSaleFalse")) {%>
+                        selected
+                        <%}%>
+                >Sản phẩm ngừng kinh doanh
+                </option>
+                <option class="op-bg"
+                        value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=hasDiscountTrue"
+                        <%if (selectedCategory != null && selectedCategory.equals("hasDiscountTrue")) {%>
+                        selected
+                        <%}%>
+                >Sản phẩm đang áp dụng giảm giá
+                </option>
+                </option>
+                <option class="op-bg"
+                        value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=hasDiscountFalse"
+                        <%if (selectedCategory != null && selectedCategory.equals("hasDiscountFalse")) {%>
+                        selected
+                        <%}%>
+                >Sản phẩm không áp dụng giảm giá nào
+                </option>
 
-            <option class="op-bg"
-                    value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=isSaleFalse"
-                    <%if (selectedCategory != null && selectedCategory.equals("isSaleFalse")) {%>
-                    selected
-                    <%}%>
-            >Sản phẩm ngừng kinh doanh
-            </option>
-            <option class="op-bg"
-                    value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=hasDiscountTrue"
-                    <%if (selectedCategory != null && selectedCategory.equals("hasDiscountTrue")) {%>
-                    selected
-                    <%}%>
-            >Sản phẩm đang áp dụng giảm giá
-            </option>
-            </option>
-            <option class="op-bg"
-                    value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=hasDiscountFalse"
-                    <%if (selectedCategory != null && selectedCategory.equals("hasDiscountFalse")) {%>
-                    selected
-                    <%}%>
-            >Sản phẩm không áp dụng giảm giá nào
-            </option>
+                <option class="op-bg"
+                        value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=nullQuantity"
+                        <%if (selectedCategory != null && selectedCategory.equals("nullQuantity")) {%>
+                        selected
+                        <%}%>
+                >Sản phẩm hết hàng
+                </option>
 
-            <option class="op-bg"
-                    value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=nullQuantity"
-                    <%if (selectedCategory != null && selectedCategory.equals("nullQuantity")) {%>
-                    selected
+                <%for (Category c : categories) {%>
+                <option value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=<%=c.getId()%>"
+                        <%if (selectedCategory != null && selectedCategory.equals(c.getId())) {%>
+                        selected
+                        <%}%>
+                ><%=c.getName()%>
+                </option>
+                <%}%>
+                <option
+                    <%if (request.getAttribute("nameFilter") != null) {%>
+                        selected
                     <%}%>
-            >Sản phẩm hết hàng
-            </option>
-
-            <%for (Category c : categories) {%>
-            <option value="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=<%=c.getId()%>"
-                    <%if (selectedCategory != null && selectedCategory.equals(c.getId())) {%>
-                    selected
-                    <%}%>
-            ><%=c.getName()%>
-            </option>
-            <%}%>
-        </select>
+                        disabled
+                >
+            </select>
+            <form action="<%=request.getContextPath()%>/admin/product">
+                <div class="input-group">
+                    <input type="text" class="form-control 1" placeholder="Nhập từ khóa"
+                           title="Nhập ký tự # ở đầu để tìm theo mã sản phẩm"
+                           name="nameFilter"
+                           value="<%=request.getAttribute("nameFilter")==null?"":request.getAttribute("nameFilter")%>">
+                    <input type="text" name="func" value="product_management" style="display: none">
+                    <div class="input-group-append">
+                        <button
+                                class="btn btn-outline-secondary" type="submit">Tìm
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class=" ms-auto d-flex">
             <a
                     href="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=<%=selectedCategory%>&func_2=showAddProductFrame"
@@ -290,7 +312,12 @@
                     </td>
                     <td class="px-4"><%=p.getName()%>
                     </td>
-                    <td class="px-4"><%=p.getDescription().substring(0, 10) + "..."%>
+                    <td class="px-4">
+                        <%if (p.getDescription().length() > 9) {%>
+                        <%=p.getDescription().substring(0, 10) + "..."%>
+                        <%} else {%>
+                        <%=p.getDescription() + "..."%>
+                        <%}%>
                     </td>
                     <td class="px-4"><%=p.getQuantity()%>
                     </td>
@@ -301,7 +328,7 @@
                     <td class="px-4"><%=p.getSellingPrice()%>
                     </td>
                     <td class="px-4">
-                        <%Discount d = DiscountService.getInstance().getDiscountById(p.getDiscountId());%>
+                        <%Discount d = DiscountService.getInstance().getDiscountById(p.getDiscountId() + "");%>
                         <%=(d == null) ? "" : d.getName() + " - giảm " + (d.getPercentageOff() * 100) + "%"%>
                     </td>
                     <td class="px-4"><%=ProductService.getInstance().productPriceIncludeDiscount(p)%>

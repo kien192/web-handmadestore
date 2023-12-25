@@ -42,7 +42,7 @@ public class login extends HttpServlet {
                 req.getSession().setAttribute("isAdmin", true);
                 resp.sendRedirect(req.getContextPath() + "/views/Admin/admin.jsp");
             } else {
-                req.getSession().setAttribute("isAdmin", true);
+                req.getSession().setAttribute("isAdmin", false);
                 resp.sendRedirect(req.getContextPath() + "/views/MainPage/view_mainpage/mainpage.jsp");
             }
         } else {

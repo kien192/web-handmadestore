@@ -209,7 +209,8 @@
                                                         <input class="form-check-input chk" type="checkbox"
                                                                id="<%=p.getId()%>"
                                                                name="<%=d.getId()%>" value="<%=p.getId()%>"
-                                                            <%if(p.getDiscountId()!=null && p.getDiscountId().equals(d.getId())) {%>
+<%--                                                            <%if(p.getDiscountId()!=null && p.getDiscountId()==(d.getId())) {%>--%>
+                                                            <%if(p.getDiscountId()==(d.getId())) {%>
                                                                checked
                                                             <%}%>
                                                         >

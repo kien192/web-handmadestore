@@ -9,7 +9,7 @@ import java.util.Optional;
 public class ImageService {
     public static String getLogoImagePath() {
         Optional<String> path = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("select path from image where id = 'logo'")
+                handle.createQuery("select path from image where name = 'Logo'")
                         .mapTo(String.class)  // Sử dụng mapTo thay vì mapToBean vì bạn đang truy vấn một cột duy nhất
                         .findFirst()
         );
@@ -18,7 +18,7 @@ public class ImageService {
 
     public static String getBackgroundImagePath() {
         Optional<String> path = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("select path from image where id = 'bg'")
+                handle.createQuery("select path from image where name = 'Background'")
                         .mapTo(String.class)  // Sử dụng mapTo thay vì mapToBean vì bạn đang truy vấn một cột duy nhất
                         .findFirst()
         );

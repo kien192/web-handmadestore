@@ -59,7 +59,7 @@ public class DiscountAdminController extends HttpServlet {
         String deleteDiscountId = req.getParameter("deleteDiscountId");
         if (deleteDiscountId != null) {
             //Chuyển sang confirm
-            req.setAttribute("title", "Xác nhận xóa sản phẩm");
+            req.setAttribute("title", "Xác nhận xóa khuyến mãi giảm giá");
             req.setAttribute("message", "Sau khi xóa khuyến mãi giảm giá này, các sản phẩm được áp dụng trước đó không còn giảm giá theo nữa");
             req.setAttribute("ok_link", "confirm?deleteDiscountId=" + deleteDiscountId + "&confirm=ok");
             req.setAttribute("cancel_link", "confirm?deleteDiscountId=" + deleteDiscountId + "&confirm=cancel");

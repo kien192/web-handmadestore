@@ -1,6 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.bean.User" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="model.service.UserService" %>
+<%@ page import="model.service.RoleService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%List<User> users = (List<User>) request.getAttribute("users");%>
 <% users = (users == null) ? new ArrayList<>() : users;%>
@@ -94,7 +96,8 @@
                     <td class="px-2"><%=u.getStatus()%>
                     </td>
                     <td class="px-2">
-                        <%if (u.getStatus().trim().startsWith("Bình")) {%>
+                        <%if (!RoleService.getInstance().checkRole(u).equals("admin")) {%>
+                        <%if (u.getStatus().trim().equalsIgnoreCase("Bình Thường")) {%>
                         <a title="Khóa tải khoản"
                            href="<%=request.getContextPath()%>/admin/customer?func=customer_management&user_id=<%=u.getId()%>&currentFilter=<%=currentFilter%>"><i
                                 class="fa-solid fa-unlock fs-4"></i></a>
@@ -102,6 +105,7 @@
                         <a title="Bỏ khóa tải khoản"
                            href="<%=request.getContextPath()%>/admin/customer?func=customer_management&user_id=<%=u.getId()%>&currentFilter=<%=currentFilter%>"><i
                                 class="fa-solid fa-lock fs-4"></i></a>
+                        <%}%>
                         <%}%>
                     </td>
                 </tr>
