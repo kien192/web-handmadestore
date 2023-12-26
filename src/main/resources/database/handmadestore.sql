@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Dec 25, 2023 at 04:25 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
-
 --
 -- Database: `handmadestore`
 --
@@ -16,10 +7,8 @@ DATABASE handmadestore;
 USE
 handmadestore;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `banner_items`
+-- Table structure
 --
 
 CREATE TABLE `banner_items`
@@ -29,34 +18,11 @@ CREATE TABLE `banner_items`
     `img_path`    text        NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
-
-
-INSERT INTO `banner_items` (`title`, `description`, `img_path`)
-VALUES ('CÙNG NHAU KHÁM PHÁ NÀO!', 'Những sản phẩm đang nóng lòng đợi bạn rinh về nè !', 'images/products/item_3.jpg'),
-       ('Độc - Đẹp - Bền - Giá Phù Hợp', 'Chế tạo những sản phẩm độc đáo, với tình yêu và sự tận tụy',
-        'images/products/item_2.jpg'),
-       ('KÍNH CHÀO QUÝ KHÁCH', 'Mỗi sản phẩm từ HandmadeStore là một phần trái tim của ai đó',
-        'images/banner_items/item_1.jpg');
-
--- --------------------------------------------------------
-
-
 CREATE TABLE `category`
 (
     `id`   int(11) NOT NULL,
     `name` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
-
-INSERT INTO `category` (`id`, `name`)
-VALUES (1, 'Thiệp, Khung Ảnh Handmade Vint'),
-       (2, 'Scrapbook, Album Ảnh'),
-       (3, 'Sổ ghi chép, sổ tay'),
-       (4, 'Trang sức, phụ kiện thời trang'),
-       (5, 'Đồ decor trang trí');
-
--- --------------------------------------------------------
-
 
 CREATE TABLE `discount`
 (
@@ -67,19 +33,99 @@ CREATE TABLE `discount`
     `percentageOff` decimal(10, 2) DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
+CREATE TABLE `image`
+(
+    `id`        int(11) NOT NULL,
+    `name`      varchar(255) DEFAULT NULL,
+    `path`      text NOT NULL,
+    `productId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
+CREATE TABLE `order`
+(
+    `id`          int(11) NOT NULL,
+    `totalPrice`  decimal(10, 2) NOT NULL,
+    `orderDate`   datetime       DEFAULT current_timestamp(),
+    `status`      varchar(20)    NOT NULL,
+    `address`     varchar(200)   NOT NULL,
+    `shippingFee` decimal(10, 2) DEFAULT 0.00,
+    `userId`      int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
-INSERT INTO `discount` (`id`, `name`, `startDate`, `endDate`, `percentageOff`)
-VALUES (1, 'Giáng Sinh', '2023-12-20 00:00:00', '2023-12-26 00:00:00', 0.15),
-       (2, 'Tết Nguyên Đán', '2024-02-01 00:00:00', '2023-02-16 00:00:00', 0.20),
-       (3, 'Ngày phụ nữ Việt Nam', '2024-10-19 00:00:00', '2024-10-20 00:00:00', 0.30),
-       (4, 'Ngày Valentine', '2024-02-10 00:00:00', '2024-02-14 00:00:00', 0.30),
-       (5, 'Ngày Nhà giáo Việt Nam', '2024-11-15 00:00:00', '2024-11-20 00:00:00', 0.20);
+CREATE TABLE `order_details`
+(
+    `orderId`   int(11) NOT NULL,
+    `productId` int(11) NOT NULL,
+    `quantity`  int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
+CREATE TABLE `product`
+(
+    `id`           int(11) NOT NULL,
+    `name`         varchar(255) DEFAULT NULL,
+    `description`  text           NOT NULL,
+    `costPrice`    decimal(10, 2) NOT NULL,
+    `sellingPrice` decimal(10, 2) NOT NULL,
+    `quantity`     int(11) DEFAULT 1,
+    `soldout`      int(11) DEFAULT 0,
+    `categoryId`   int(11) NOT NULL,
+    `discountId`   int(11) DEFAULT NULL,
+    `isSale`       tinyint(1) NOT NULL DEFAULT 1 CHECK (`isSale` in (0,1))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `rate`
+(
+    `productId`   int(11) NOT NULL,
+    `userId`      int(11) NOT NULL,
+    `starRatings` int(11) NOT NULL,
+    `comment`     text NOT NULL,
+    `createDate`  datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `role`
+(
+    `id`   int(11) NOT NULL DEFAULT 1,
+    `name` varchar(20) DEFAULT 'user'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `tips`
+(
+    `title`       varchar(50)  NOT NULL,
+    `description` text DEFAULT NULL,
+    `img_path`    text         NOT NULL,
+    `video_link`  varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `user`
+(
+    `id`          int(11) NOT NULL,
+    `name`        varchar(40) NOT NULL,
+    `phoneNumber` varchar(12) NOT NULL,
+    `email`       varchar(30) NOT NULL,
+    `password`    varchar(30) NOT NULL,
+    `createDate`  datetime    DEFAULT current_timestamp(),
+    `status`      varchar(25) DEFAULT 'Bình Thường',
+    `roleId`      int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Trigger: id > 0: category, discount, order, product, rate, user
+--
+DELIMITER
+CREATE TRIGGER `trigger_insert_category`
+    BEFORE INSERT
+    ON `category`
+    FOR EACH ROW
+BEGIN
+    IF NEW.id <= 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Cannot insert a non-positive value into an auto-increment column';
+END IF;
+END
+DELIMITER ;
 
 DELIMITER
-$$
-CREATE TRIGGER `before_insert_discount`
+CREATE TRIGGER `trigger_insert_discount`
     BEFORE INSERT
     ON `discount`
     FOR EACH ROW
@@ -89,22 +135,82 @@ BEGIN
         SET MESSAGE_TEXT = 'Cannot insert a non-positive value into an auto-increment column';
 END IF;
 END
-$$
 DELIMITER ;
 
--- --------------------------------------------------------
+DELIMITER
+CREATE TRIGGER `trigger_insert_order`
+    BEFORE INSERT
+    ON `order`
+    FOR EACH ROW
+BEGIN
+    IF NEW.id <= 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Cannot insert a non-positive value into an auto-increment column';
+END IF;
+END
+DELIMITER ;
 
+DELIMITER
+CREATE TRIGGER `trigger_insert_product`
+    BEFORE INSERT
+    ON `product`
+    FOR EACH ROW
+BEGIN
+    IF NEW.id <= 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Cannot insert a non-positive value into an auto-increment column';
+END IF;
+END
+DELIMITER ;
 
+DELIMITER
+CREATE TRIGGER `trigger_insert_rate`
+    BEFORE INSERT
+    ON `rate`
+    FOR EACH ROW
+BEGIN
+    IF NEW.id <= 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Cannot insert a non-positive value into an auto-increment column';
+END IF;
+END
+DELIMITER ;
 
-CREATE TABLE `image`
-(
-    `id`        int(11) NOT NULL,
-    `name`      varchar(255) DEFAULT NULL,
-    `path`      text NOT NULL,
-    `productId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+DELIMITER
+CREATE TRIGGER `trigger_insert_user`
+    BEFORE INSERT
+    ON `user`
+    FOR EACH ROW
+BEGIN
+    IF NEW.id <= 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Cannot insert a non-positive value into an auto-increment column';
+END IF;
+END
+DELIMITER ;
 
+--
+-- INSERT DATA
+--
+INSERT INTO `banner_items` (`title`, `description`, `img_path`)
+VALUES ('CÙNG NHAU KHÁM PHÁ NÀO!', 'Những sản phẩm đang nóng lòng đợi bạn rinh về nè !', 'images/products/item_3.jpg'),
+       ('Độc - Đẹp - Bền - Giá Phù Hợp', 'Chế tạo những sản phẩm độc đáo, với tình yêu và sự tận tụy',
+        'images/products/item_2.jpg'),
+       ('KÍNH CHÀO QUÝ KHÁCH', 'Mỗi sản phẩm từ HandmadeStore là một phần trái tim của ai đó',
+        'images/banner_items/item_1.jpg');
+INSERT INTO `category` (`id`, `name`)
+VALUES (1, 'Thiệp, Khung Ảnh Handmade Vint'),
+       (2, 'Scrapbook, Album Ảnh'),
+       (3, 'Sổ ghi chép, sổ tay'),
+       (4, 'Trang sức, phụ kiện thời trang'),
+       (5, 'Đồ decor trang trí');
 
+INSERT INTO `discount` (`id`, `name`, `startDate`, `endDate`, `percentageOff`)
+VALUES (1, 'Giáng Sinh', '2023-12-20 00:00:00', '2023-12-26 00:00:00', 0.15),
+       (2, 'Tết Nguyên Đán', '2024-02-01 00:00:00', '2023-02-16 00:00:00', 0.20),
+       (3, 'Ngày phụ nữ Việt Nam', '2024-10-19 00:00:00', '2024-10-20 00:00:00', 0.30),
+       (4, 'Ngày Valentine', '2024-02-10 00:00:00', '2024-02-14 00:00:00', 0.30),
+       (5, 'Ngày Nhà giáo Việt Nam', '2024-11-15 00:00:00', '2024-11-20 00:00:00', 0.20);
 
 INSERT INTO `image` (`id`, `name`, `path`, `productId`)
 VALUES (1, 'Thiệp handmade vintage Beauty & the White', 'images/products/1.webp', 1),
@@ -454,22 +560,6 @@ VALUES (1, 'Thiệp handmade vintage Beauty & the White', 'images/products/1.web
        (345, 'Logo', 'images/logo.png', NULL),
        (346, 'Background', 'images/background.jpg', NULL);
 
--- --------------------------------------------------------
-
-
-CREATE TABLE `order`
-(
-    `id`          int(11) NOT NULL,
-    `totalPrice`  decimal(10, 2) NOT NULL,
-    `orderDate`   datetime       DEFAULT current_timestamp(),
-    `status`      varchar(20)    NOT NULL,
-    `address`     varchar(200)   NOT NULL,
-    `shippingFee` decimal(10, 2) DEFAULT 0.00,
-    `userId`      int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
-
-
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
 VALUES (1, 218000.00, '2023-11-29 00:00:00', 'Đang giao', '29 Tô Vĩnh Diện , Đông Hòa ,Dĩ An , Bình Dương', 30.00, 1),
        (2, 1235000.00, '2023-11-29 00:00:00', 'Đang giao',
@@ -492,18 +582,6 @@ VALUES (1, 218000.00, '2023-11-29 00:00:00', 'Đang giao', '29 Tô Vĩnh Diện 
         2),
        (14, 104000.00, '2023-12-02 00:00:00', 'Đang xử lý',
         '416 Phạm Văn Đồng, Phường 11, Bình Thạnh, Thành phố Hồ Chí Minh', 30.00, 3);
-
--- --------------------------------------------------------
-
-
-CREATE TABLE `order_details`
-(
-    `orderId`   int(11) NOT NULL,
-    `productId` int(11) NOT NULL,
-    `quantity`  int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
-
 
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
 VALUES (1, 1, 2),
@@ -528,25 +606,6 @@ VALUES (1, 1, 2),
        (13, 46, 2),
        (13, 111, 1),
        (14, 132, 2);
-
--- --------------------------------------------------------
-
-
-CREATE TABLE `product`
-(
-    `id`           int(11) NOT NULL,
-    `name`         varchar(255) DEFAULT NULL,
-    `description`  text           NOT NULL,
-    `costPrice`    decimal(10, 2) NOT NULL,
-    `sellingPrice` decimal(10, 2) NOT NULL,
-    `quantity`     int(11) DEFAULT 1,
-    `soldout`      int(11) DEFAULT 0,
-    `categoryId`   int(11) NOT NULL,
-    `discountId`   int(11) DEFAULT NULL,
-    `isSale`       tinyint(1) NOT NULL DEFAULT 1 CHECK (`isSale` in (0,1))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
-
 
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `soldout`, `categoryId`,
                        `discountId`, `isSale`)
@@ -937,20 +996,6 @@ VALUES (1, 'Thiệp handmade vintage Beauty & the White',
         'Tôi đã làm cây macrame này bằng dây bông màu xanh nhạt,\n\nNó được làm trên một chiếc nhẫn bằng đồng 25 mm và có thêm 10 hạt gỗ và một ngôi sao/bông tuyết bằng gỗ ở trên cùng,\n\nTổng số đo bao gồm vòng và tua là khoảng, 30cm x 11cm',
         113000.00, 200000.00, 0, 0, 5, NULL, 1);
 
--- --------------------------------------------------------
-
-
-CREATE TABLE `rate`
-(
-    `productId`   int(11) NOT NULL,
-    `userId`      int(11) NOT NULL,
-    `starRatings` int(11) NOT NULL,
-    `comment`     text NOT NULL,
-    `createDate`  datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
-
-
 INSERT INTO `rate` (`productId`, `userId`, `starRatings`, `comment`, `createDate`)
 VALUES (2, 1, 4, 'Sản phẩm tốt', '2023-11-29 00:00:00'),
        (4, 1, 5, 'Thiếp đẹp mắt và rất phù hợp', '2023-12-03 00:00:00'),
@@ -961,31 +1006,9 @@ VALUES (2, 1, 4, 'Sản phẩm tốt', '2023-11-29 00:00:00'),
        (119, 9, 5, 'Không có gì để chê sản phẩm này !', '2023-12-03 00:00:00'),
        (124, 9, 5, 'Quá ưng ý với sản phẩm này!', '2023-12-03 00:00:00');
 
-
-
-CREATE TABLE `role`
-(
-    `id`   int(11) NOT NULL DEFAULT 1,
-    `name` varchar(20) DEFAULT 'user'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
 INSERT INTO `role` (`id`, `name`)
 VALUES (0, 'admin'),
        (1, 'user');
-
--- --------------------------------------------------------
-
-
-CREATE TABLE `tips`
-(
-    `title`       varchar(50)  NOT NULL,
-    `description` text DEFAULT NULL,
-    `img_path`    text         NOT NULL,
-    `video_link`  varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
-
 
 INSERT INTO `tips` (`title`, `description`, `img_path`, `video_link`)
 VALUES ('Cách cắm hoa khô đẹp trong 5 phút',
@@ -1001,56 +1024,44 @@ VALUES ('Cách cắm hoa khô đẹp trong 5 phút',
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrTXzfl_2PiSjlmKrTX97ftDQdz_eZpWBThA&usqp=CAU',
         'https://youtu.be/U3kAyqvfWoc');
 
--- --------------------------------------------------------
-
-
-CREATE TABLE `user`
-(
-    `id`          int(11) NOT NULL,
-    `name`        varchar(40) NOT NULL,
-    `phoneNumber` varchar(12) NOT NULL,
-    `email`       varchar(30) NOT NULL,
-    `password`    varchar(30) NOT NULL,
-    `createDate`  datetime    DEFAULT current_timestamp(),
-    `status`      varchar(25) DEFAULT 'Bình Thường',
-    `roleId`      int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
-
-
 INSERT INTO `user` (`id`, `name`, `phoneNumber`, `email`, `password`, `createDate`, `status`, `roleId`)
-VALUES (-5, 'lương tính', '0778188299', 'luongt@gmail.com', 'j5Y57UE67Etm9o/3budppVPs26Y=', '2023-12-21 11:55:58',
+VALUES (1, 'admin', '0865266994', 'handmadestore@gmail.com', 'j5Y57UE67Etm9o/3budppVPs26Y=', '2023-12-21 11:55:58',
         'Bình Thường', 0),
-       (1, 'admin', '0865266994', 'handmadestore@gmail.com', 'j5Y57UE67Etm9o/3budppVPs26Y=', '2023-12-21 11:55:58',
+       (2, 'Nguyễn Trung Kiên', '0336677141', '	21130408@st.hcmuaf.edu.vn', 'j5Y57UE67Etm9o/3budppVPs26Y=',
+        '2023-12-21 11:55:58',
+        'Bình Thường', 1),
+       (3, 'Nguyễn Trọng Nghĩa', '0336677141', 'NTN@st.hcmuaf.edu.vn', 'j5Y57UE67Etm9o/3budppVPs26Y=',
+        '2023-12-21 11:55:58',
+        'Bình Thường', 1),
+       (4, 'Pblues', '0336677141', 'lungbaphe772003@gmail.com', 'j5Y57UE67Etm9o/3budppVPs26Y=', '2023-12-21 11:55:58',
         'Bình Thường', 0),
-       (2, 'Giàng A Phò', '0383301249', 'gioaphang10@gmail.com', 'bzEG9mi+7P1TKsq8TWaJPvLB/rA=', '2023-12-21 11:57:42',
+
+       (5, 'Giàng A Phò', '0383301249', 'gioaphang10@gmail.com', 'bzEG9mi+7P1TKsq8TWaJPvLB/rA=', '2023-12-21 11:57:42',
         'Bình Thường', 1),
-       (3, 'Giàng A Lữ', '0383331294', 'alu122@gmail.com', 'tmJ8E7v+JZxOlCpaUDHANskmiFQ=', '2023-12-21 11:58:07',
+       (6, 'Giàng A Lữ', '0383331294', 'alu122@gmail.com', 'tmJ8E7v+JZxOlCpaUDHANskmiFQ=', '2023-12-21 11:58:07',
         'Bình Thường', 1),
-       (4, 'Cáp Tần', '0747712817', 'captanam12@gmail.com', 'FT2mYccNA0jxMv5hr7KHMPThfsk=', '2023-12-21 11:58:36',
+       (7, 'Cáp Tần', '0747712817', 'captanam12@gmail.com', 'FT2mYccNA0jxMv5hr7KHMPThfsk=', '2023-12-21 11:58:36',
         'Bình Thường', 1),
-       (5, 'Nguyễn Thị Nghĩa', '0846992305', 'nghiarunner1@gmail.com', 'gkwSuLZQX5Uw2621/gVpx+MXpCo=',
+       (8, 'Nguyễn Thị Nghĩa', '0846992305', 'nghiarunner1@gmail.com', 'gkwSuLZQX5Uw2621/gVpx+MXpCo=',
         '2023-12-21 11:59:30', 'Bình Thường', 1),
-       (6, 'Lê Ngọc Phụng', '0932100348', 'chanden12@gmail.com', 'YG1YVf8v5O2tVb8w6XgN9aFm/Jo=', '2023-12-21 12:00:08',
+       (9, 'Lê Ngọc Phụng', '0932100348', 'chanden12@gmail.com', 'YG1YVf8v5O2tVb8w6XgN9aFm/Jo=', '2023-12-21 12:00:08',
         'Bình Thường', 1),
-       (7, 'Nguyễn Quang Hải', '0875244129', 'quanghai19@gmail.com', 'JxcrosuODLiKLbKuTAEOJuQrzTg=',
+       (10, 'Nguyễn Quang Hải', '0875244129', 'quanghai19@gmail.com', 'JxcrosuODLiKLbKuTAEOJuQrzTg=',
         '2023-12-21 12:00:49', 'Bình Thường', 1),
-       (8, 'Phan Thanh Hòa', '0324712889', 'pdl199@gmail.com', 'PT/lnWok0bM7NAadn1sCWRqTjUg=', '2023-12-21 12:01:28',
+       (11, 'Phan Thanh Hòa', '0324712889', 'pdl199@gmail.com', 'PT/lnWok0bM7NAadn1sCWRqTjUg=', '2023-12-21 12:01:28',
         'Bình Thường', 1),
-       (9, 'Tôn Ngộ Không', '0671821176', 'wukong99@gmail.com', 'HcAWujhP8PZAsYe/3icfc9N4b1s=', '2023-12-21 12:02:03',
+       (12, 'Tôn Ngộ Không', '0671821176', 'wukong99@gmail.com', 'HcAWujhP8PZAsYe/3icfc9N4b1s=', '2023-12-21 12:02:03',
         'Bình Thường', 1),
-       (10, 'Đường Tăng Tạng', '0315821901', 'thinhkinh008@gmail.com', 'jHdhq9r1HYxgovt/ST+OaNAaF/w=',
+       (13, 'Đường Tăng Tạng', '0315821901', 'thinhkinh008@gmail.com', 'jHdhq9r1HYxgovt/ST+OaNAaF/w=',
         '2023-12-21 12:02:30', 'Bình Thường', 1),
-       (11, 'Trư Bát Giới', '0871881103', 'packgioi77@gmail.com', 'SIBC9HV8hbf63+dVHRSjRaV+TWk=', '2023-12-21 12:03:06',
+       (14, 'Trư Bát Giới', '0871881103', 'packgioi77@gmail.com', 'SIBC9HV8hbf63+dVHRSjRaV+TWk=', '2023-12-21 12:03:06',
         'Bình Thường', 1),
-       (12, 'Người Cồn', '0341007611', 'nguoicon88@gmail.com', 'En4OJjjx1rRcqPxSFAgmP4/82/w=', '2023-12-21 12:05:41',
+       (15, 'Người Cồn', '0341007611', 'nguoicon88@gmail.com', 'En4OJjjx1rRcqPxSFAgmP4/82/w=', '2023-12-21 12:05:41',
         'Bình Thường', 1),
-       (17, 'Nguyễn Khư', '0765 122 822', 'coko@gmail.com', 'bkB6UP/uoLhvBxphkqHaxgRUGxU=', '2023-12-25 00:04:10',
+       (16, 'Nguyễn Khư', '0765 122 822', 'coko@gmail.com', 'bkB6UP/uoLhvBxphkqHaxgRUGxU=', '2023-12-25 00:04:10',
         'Bình Thường', 1),
-       (19, 'Ngô Huy', '0756 788 192', 'huyngu92@go.vn', '3BMxq3cwKG/6fhkEG1SJMySX+58=', '2023-12-25 00:14:09',
+       (17, 'Ngô Huy', '0756 788 192', 'huyngu92@go.vn', '3BMxq3cwKG/6fhkEG1SJMySX+58=', '2023-12-25 00:14:09',
         'Bình Thường', 1);
-
-
 
 ALTER TABLE `banner_items`
     ADD PRIMARY KEY (`title`) USING BTREE;

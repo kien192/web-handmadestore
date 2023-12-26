@@ -175,7 +175,8 @@ public class UserDAO {
 //        System.out.println(getAllUsers());
 //        lockUser("u10");
 //        System.out.println(getNewUsersTop(3));
-        System.out.println(findUserByEmail("admin@gmail.com"));
+//        System.out.println(findUserByEmail("admin@gmail.com"));
+//        setPasswordByEmail("lungbaphe772003@gmail.com", "haha");
     }
 
 }
