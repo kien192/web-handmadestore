@@ -12,7 +12,12 @@ public class CategoryService {
         if (instance == null) instance = new CategoryService();
         return instance;
     }
+
     public List<Category> getALl() {
         return CategoryDAO.getAll();
+    }
+
+    public String createNewCategory(String newCategoryName) {
+        return CategoryDAO.insertCategory(newCategoryName);
     }
 }

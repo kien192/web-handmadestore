@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class UserDAO {
@@ -56,7 +57,9 @@ public class UserDAO {
 
         try {
             JDBIConnector.me().useHandle(handle ->
-                    handle.createUpdate("INSERT INTO user (password, name, email, phoneNumber) VALUES(:password, :name, :email, :telephone)")
+                    handle.createUpdate("INSERT INTO user ( password, name, email, phoneNumber)" +
+                                    " VALUES(:password, :name, :email, :telephone)")
+
                             .bind("password", userPass)
 
                             .bind("name", userName)
@@ -108,6 +111,61 @@ public class UserDAO {
                         .mapTo(Long.class).one());
     }
 
+    public static List<User> ascCreateDateFilter() {
+        List<User> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from user order by createDate asc").mapToBean(User.class).stream().collect(Collectors.toList()));
+        return users;
+    }
+
+    public static List<User> descCreateDateFilter() {
+        List<User> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from user order by createDate desc").mapToBean(User.class).stream().collect(Collectors.toList()));
+        return users;
+    }
+
+    public static List<User> ascNameFilter() {
+        List<User> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from user order by name asc").mapToBean(User.class).stream().collect(Collectors.toList()));
+        return users;
+    }
+
+    public static List<User> descNameFilter() {
+        List<User> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from user order by name desc").mapToBean(User.class).stream().collect(Collectors.toList()));
+        return users;
+    }
+
+    public static List<User> findUsersByName(String name) {
+        List<User> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from user where name LIKE ? order by name asc").
+                        bind(0, "%" + name).
+                        mapToBean(User.class).stream().collect(Collectors.toList()));
+        return users;
+    }
+
+    public static List<User> findUserByPhone(String phoneNumber) {
+        List<User> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from user where phoneNumber=? order by name asc").
+                        bind(0, phoneNumber).
+                        mapToBean(User.class).stream().collect(Collectors.toList()));
+        return users;
+    }
+
+    public static List<User> findUserByEmail(String email) {
+        List<User> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from user where email=? order by name asc").
+                        bind(0, email).
+                        mapToBean(User.class).stream().collect(Collectors.toList()));
+        return users;
+    }
+
+    public static List<User> getLockUsers() {
+        List<User> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from user where status='Bị Khóa' order by name asc").
+                        mapToBean(User.class).stream().collect(Collectors.toList()));
+        return users;
+    }
+
     public static void main(String[] args) {
 //        List<User> users = JDBIConnector.me().withHandle(handle ->
 //                handle.createQuery("select * from user").mapToBean(User.class).collect(Collectors.toList())
@@ -116,6 +174,9 @@ public class UserDAO {
 //        User u = UserDAO.getUserByEmail("nghia@gmail.com");
 //        System.out.println(getAllUsers());
 //        lockUser("u10");
-        System.out.println(getNewUsersTop(3));
+//        System.out.println(getNewUsersTop(3));
+//        System.out.println(findUserByEmail("admin@gmail.com"));
+//        setPasswordByEmail("lungbaphe772003@gmail.com", "haha");
     }
+
 }

@@ -28,6 +28,41 @@ public class UserService {
         return users;
     }
 
+    public List<User> ascCreateDateFilter() {
+        return UserDAO.ascCreateDateFilter();
+    }
+
+    public List<User> descCreateDateFilter() {
+        return UserDAO.descCreateDateFilter();
+    }
+
+    public List<User> ascNameFilter() {
+        return UserDAO.ascNameFilter();
+    }
+
+    public List<User> descNameFilter() {
+        return UserDAO.descNameFilter();
+    }
+
+    public List<User> getLockUsers(){
+        return  UserDAO.getLockUsers();
+    }
+
+    public List<User> findUsersByName(String name) {
+        name.trim();
+        return UserDAO.findUsersByName(name);
+    }
+
+    public List<User> findUserByPhone(String phoneNumber) {
+        phoneNumber.trim();
+        return UserDAO.findUserByPhone(phoneNumber);
+    }
+
+    public List<User> findUserByEmail(String email) {
+        email.trim();
+        return UserDAO.findUserByEmail(email);
+    }
+
     public User getUserById(String id) {
         return UserDAO.getUserById(id);
     }
@@ -39,5 +74,6 @@ public class UserService {
     public void unlockUser(String id) {
         UserDAO.unlockUser(id);
     }
+
 
 }

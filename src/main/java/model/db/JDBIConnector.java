@@ -10,7 +10,7 @@ public class JDBIConnector {
 
    public static void connect(){
        MysqlDataSource mysqlDataSource = new MysqlDataSource();
-       mysqlDataSource.setURL("jdbc:mysql://" + DBProperties.host+":" + DBProperties.port + "/" + DBProperties.name);
+       mysqlDataSource.setURL("jdbc:mysql://" + DBProperties.host+":" + DBProperties.port + "/" + DBProperties.name );
        mysqlDataSource.setUser(DBProperties.username);
        mysqlDataSource.setPassword(DBProperties.password);
        try {
