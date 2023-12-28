@@ -23,9 +23,6 @@
     .menu ul li {
         list-style-type: none;
     }
-    .menu ul .logo{
-        padding-left: 2%;
-    }
     .menu ul .sanpham .sub_menu{
         left: 0%;
         padding: 0;
@@ -100,10 +97,10 @@
 
         </li>
         <li class="item times p-4 my-auto">
-            <a href="#carouselExampleCaptions">Trang chủ</a>
+            <a href="<%=request.getContextPath()%>/views/MainPage/view_mainpage/mainpage.jsp">Trang chủ</a>
         </li>
         <li class="item sanpham p-4 dropdown my-auto">
-            <a href="#" class="title_sp">Sản phẩm <i class="fa-solid fa-caret-down"></i></a>
+            <a href="<%=request.getContextPath()%>/product" class="title_sp">Sản phẩm <i class="fa-solid fa-caret-down"></i></a>
             <ul class="sub_menu dropdown-menu">
                 <li>
                     <a href="#thiep" class="item sp1 dropdown-item ">Thiệp HandMade Vintage</a>
@@ -139,7 +136,7 @@
         <li class="login p-4 my-auto dropdown">
             <%if(u == null) {%>
             <i class="fa-solid fa-user" style="color: #496088;"></i>
-            <a href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp">Đăng Nhập</a>
+            <a href="<%=request.getContextPath()%>/login">Đăng Nhập</a>
             <%} else{%>
 
             <button type="button" class="btn btn-sm btn-primary "><i class="fa-solid fa-user" style="color: white;"></i> <span><%= u.getName()%></span></button>
