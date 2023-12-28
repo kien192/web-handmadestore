@@ -113,42 +113,6 @@ body {
     right: 0;
     bottom: 0;
 }
-/*Sort*/
-.menu_sort {
-    padding: 0;
-    margin: 0;
-    margin-left: 5px;
-    padding-right: 5em;
-    border: 1px solid grey;
-}
-
-.list_sort span {
-    padding-left: 1.5em;
-}
-
-.menu_sort li .sort_submenu {
-    padding: 0;
-    left: 0;
-    top: 100%;
-    border-radius: 0;
-}
-
-.menu_sort li .sort li {
-    border-bottom: 1px solid grey;
-}
-
-.sort_submenu {
-    display: none;
-}
-
-.menu_sort:hover .sort_submenu {
-    display: block;
-}
-
-.sort_submenu .sort_item:hover {
-    background: red;
-    color: white;
-}
 
 /*Số trang*/
 .pagination a {

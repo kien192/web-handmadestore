@@ -25,7 +25,7 @@ public class ProductDAO {
                         .toList());
         return products;
     }
-//    Sắp xếp theo giá tăng dần
+//    Sắp xếp theo giá tăng dần toàn bộ
     public static List<Product> sortProductAZ(){
         List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice ASC")
@@ -34,7 +34,7 @@ public class ProductDAO {
                         .toList());
         return productAZ;
     }
-    //    Sắp xếp theo giá giảm dần
+    //    Sắp xếp theo giá giảm dần toàn bộ
     public static List<Product> sortProductZA(){
         List<Product> productZA = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice DESC")
@@ -43,9 +43,29 @@ public class ProductDAO {
                         .toList());
         return productZA;
     }
+    //    Sắp xếp theo giá tăng dần theo category
+    public static List<Product> sortProductByCategoryAZ(String Categoryid){
+        List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product WHERE categoryId = :id ORDER BY product.sellingPrice ASC")
+                        .bind("id",Categoryid)
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productAZ;
+    }
+    //    Sắp xếp theo giá giảm dần theo category
+    public static List<Product> sortProductByCategoryZA(String Categoryid){
+        List<Product> productZA = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product WHERE categoryId = :id ORDER BY product.sellingPrice DESC")
+                        .bind("id",Categoryid)
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productZA;
+    }
 
     public static void main(String[] args) {
-        System.out.println(sortProductAZ().toString());
+        System.out.println(sortProductByCategoryZA("C02").toString());
     }
 
 }

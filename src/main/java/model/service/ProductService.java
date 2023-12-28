@@ -23,7 +23,12 @@ public class ProductService {
     public List<Product> sortProductsZA(){
         return ProductDAO.sortProductZA();
     }
-
+    //danh sách sản phẩm theo danh mục
+    public List<Product> productByCategoryC01() {return  ProductDAO.findByCategory("C01");}
+    public List<Product> productByCategoryC02() {return  ProductDAO.findByCategory("C02");}
+    public List<Product> productByCategoryC03() {return  ProductDAO.findByCategory("C03");}
+    public List<Product> productByCategoryC04() {return  ProductDAO.findByCategory("C04");}
+    public List<Product> productByCategoryC05() {return  ProductDAO.findByCategory("C05");}
     public static void main(String[] args) {
     }
 }
