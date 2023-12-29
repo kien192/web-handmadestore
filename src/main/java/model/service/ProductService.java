@@ -17,8 +17,6 @@ public class ProductService {
         if (instance == null) instance = new ProductService();
         return instance;
     }
-    public List<Product> allProduct(){
-        return  ProductDAO.getAll();
     public List<Product> getAll() {
         return ProductDAO.getAll();
     }
@@ -48,7 +46,7 @@ public class ProductService {
         return ProductDAO.listSixProduct(offset);
     }
 
-    public List<Product> getProductsByCategoryId(String category_id) {
+    public List<Product> getProductsByCategoryId(int category_id) {
         return ProductDAO.findByCategory(category_id);
     }
 
@@ -115,14 +113,8 @@ public class ProductService {
     public List<Product> sortProductsZA(){
         return ProductDAO.sortProductZA();
     }
-    //danh sách sản phẩm theo danh mục
-    public List<Product> productByCategoryC01() {return  ProductDAO.findByCategory("C01");}
-    public List<Product> productByCategoryC02() {return  ProductDAO.findByCategory("C02");}
-    public List<Product> productByCategoryC03() {return  ProductDAO.findByCategory("C03");}
-    public List<Product> productByCategoryC04() {return  ProductDAO.findByCategory("C04");}
-    public List<Product> productByCategoryC05() {return  ProductDAO.findByCategory("C05");}
-    public static void main(String[] args) {
 
-        System.out.println(ProductService.getInstance().productPriceIncludeDiscount(ProductService.getInstance().getProductById("P02")));
+    public static void main(String[] args) {
+        System.out.println(getInstance().getProductsByCategoryId(2));
     }
 }

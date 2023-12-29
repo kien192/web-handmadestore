@@ -1,6 +1,8 @@
 package controller;
 
+import model.bean.Category;
 import model.bean.Product;
+import model.dao.CategoryDAO;
 import model.dao.ProductDAO;
 import model.service.ProductService;
 
@@ -28,41 +30,41 @@ public class productList extends HttpServlet {
         String category = req.getParameter("category");
         if (filter != null && category != null) {
             if (filter.equals("ascPrice")) {
-                productList = switch (category) {
-                    case "categoryC01" -> ProductDAO.sortProductByCategoryAZ("C01");
-                    case "categoryC02" -> ProductDAO.sortProductByCategoryAZ("C02");
-                    case "categoryC03" -> ProductDAO.sortProductByCategoryAZ("C03");
-                    case "categoryC04" -> ProductDAO.sortProductByCategoryAZ("C04");
-                    case "categoryC05" -> ProductDAO.sortProductByCategoryAZ("C05");
-                    default -> ProductService.getInstance().sortProductsAZ();
-                };
+                List<Category> categoryList = CategoryDAO.getAll();
+                for (Category value : categoryList) {
+                    String values = String.valueOf(value.getId());
+                    if (category.equals(values)) {
+                        productList = ProductDAO.sortProductByCategoryAZ(value.getId());
+                        break;
+                    }
+                }
             } else if (filter.equals("descPrice")) {
-                productList = switch (category) {
-                    case "categoryC01" -> ProductDAO.sortProductByCategoryZA("C01");
-                    case "categoryC02" -> ProductDAO.sortProductByCategoryZA("C02");
-                    case "categoryC03" -> ProductDAO.sortProductByCategoryZA("C03");
-                    case "categoryC04" -> ProductDAO.sortProductByCategoryZA("C04");
-                    case "categoryC05" -> ProductDAO.sortProductByCategoryZA("C05");
-                    default -> ProductService.getInstance().sortProductsZA();
-                };
+                List<Category> categoryList = CategoryDAO.getAll();
+                for (Category value : categoryList) {
+                    String values = String.valueOf(value.getId());
+                    if (category.equals(values)) {
+                        productList = ProductDAO.sortProductByCategoryZA(value.getId());
+                        break;
+                    }
+                }
             }
         }else if(filter == null && category != null){
-            productList = switch (category) {
-                case "categoryC01" -> ProductService.getInstance().productByCategoryC01();
-                case "categoryC02" -> ProductService.getInstance().productByCategoryC02();
-                case "categoryC03" -> ProductService.getInstance().productByCategoryC03();
-                case "categoryC04" -> ProductService.getInstance().productByCategoryC04();
-                case "categoryC05" -> ProductService.getInstance().productByCategoryC05();
-                default -> ProductService.getInstance().allProduct();
-            };
-        }else if(filter != null && category == null) {
+            List<Category> categoryList = CategoryDAO.getAll();
+            for (Category value : categoryList) {
+                String values = String.valueOf(value.getId());
+                if (category.equals(values)) {
+                    productList = ProductService.getInstance().getProductsByCategoryId(value.getId());
+                    break;
+                }
+            }
+        }else if(filter != null) {
             if (filter.equals("ascPrice")) {
                 productList = ProductService.getInstance().sortProductsAZ();
             } else if (filter.equals("descPrice")) {
                 productList = ProductService.getInstance().sortProductsZA();
             }
         }else{
-            productList = ProductService.getInstance().allProduct();
+            productList = ProductService.getInstance().getAll();
         }
 
         req.setAttribute("filter", filter);
