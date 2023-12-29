@@ -35,31 +35,12 @@
             <p>Danh Mục</p>
         </div>
         <ul class="category_list text-center">
-            <li id="C01" class="item_category py-2">
-                <a id="C01a" href="<%=request.getContextPath()%>/product?category=categoryC01"><%=nameCategory.get(0).getName()%>
-                    <i
-                            class="fa-solid fa-caret-down"></i></a>
+            <%for (Category c : nameCategory){ %>
+            <li id="<%=c.getId()%>" class="item_category py-2">
+                <a id="a<%=c.getId()%>" href="<%=request.getContextPath()%>/product?category=<%=c.getId()%>"><%=c.getName()%>
+            <i class="fa-solid fa-caret-down"></i></a>
             </li>
-            <li id="C02" class="item_category py-2">
-                <a id="C02a" href="<%=request.getContextPath()%>/product?category=categoryC02"><%=nameCategory.get(1).getName()%>
-                    <i
-                            class="fa-solid fa-caret-down"></i></a>
-            </li>
-            <li id="C03" class="item_category py-2">
-                <a id="C03a" href="<%=request.getContextPath()%>/product?category=categoryC03"><%=nameCategory.get(2).getName()%>
-                    <i
-                            class="fa-solid fa-caret-down"></i></a>
-            </li>
-            <li id="C04" class="item_category py-2">
-                <a id="C04a" href="<%=request.getContextPath()%>/product?category=categoryC04"><%=nameCategory.get(3).getName()%>
-                    <i
-                            class="fa-solid fa-caret-down"></i></a>
-            </li>
-            <li id="C05" class="item_category py-2">
-                <a id="C05a" href="<%=request.getContextPath()%>/product?category=categoryC05"><%=nameCategory.get(4).getName()%>
-                    <i
-                            class="fa-solid fa-caret-down"></i></a>
-            </li>
+            <%}%>
         </ul>
     </div>
     <div class="productList">
@@ -171,7 +152,7 @@
             %>
                 <a class="fs-5" href="./product?page=<%=(currentPage + 1)%>"> Tiếp</a>
                     <%}else{%>
-                <a class="fs-5" href="./product?category=<%=categorys%>page=<%=(currentPage + 1)%>"> Tiếp</a>
+                <a class="fs-5" href="./product?category=<%=categorys%>&page=<%=(currentPage + 1)%>"> Tiếp</a>
                     <%}%>
                     <%} else {
                         if(categorys == null){
@@ -195,33 +176,14 @@
 <script>
     let urlParagram  = new URLSearchParams(window.location.search);
     let categoryParam = urlParagram.get('category');
-    console.log(categoryParam);
-    let categoryC01 = document.getElementById("C01");
-    let categoryC01a = document.getElementById("C01a");
-    let categoryC02 = document.getElementById("C02");
-    let categoryC02a = document.getElementById("C02a");
-    let categoryC03 = document.getElementById("C03");
-    let categoryC03a = document.getElementById("C03a");
-    let categoryC04 = document.getElementById("C04");
-    let categoryC04a = document.getElementById("C04a");
-    let categoryC05 = document.getElementById("C05");
-    let categoryC05a = document.getElementById("C05a");
-    if(categoryParam == 'categoryC01'){
-        categoryC01.style.background = 'red';
-        categoryC01a.style.color = 'white';
-    }else if(categoryParam == 'categoryC02'){
-        categoryC02.style.background = 'red';
-        categoryC02a.style.color = 'white';
-    }else if(categoryParam =='categoryC03'){
-        categoryC03.style.background = 'red';
-        categoryC03a.style.color = 'white';
-    }else if(categoryParam  == 'categoryC04'){
-        categoryC04.style.background = 'red';
-        categoryC04a.style.color = 'white';
-    }else if(categoryParam == 'categoryC05'){
-        categoryC05.style.background = 'red';
-        categoryC05a.style.color = 'white';
+    <%for (Category category1 : nameCategory){%>
+    let category<%=category1.getId()%> = document.getElementById("<%=category1.getId()%>");
+    let acategory<%=category1.getId()%> = document.getElementById("a<%=category1.getId()%>");
+    if(categoryParam == <%=category1.getId()%>){
+        category<%=category1.getId()%>.style.background = 'red';
+        acategory<%=category1.getId()%>.style.color = 'white';
     }
+    <%}%>
 
 </script>
 <style>

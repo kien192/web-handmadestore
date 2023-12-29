@@ -41,7 +41,7 @@ public class ImageService {
             return false;
         }
     }
-    public static String pathImageOnly(String productId){
+    public static String pathImageOnly(int productId){
         return ImageDAO.pathImage(productId);
     }
 
@@ -53,7 +53,5 @@ public class ImageService {
         );
     }
 
-    public static void main(String[] args) {
-        System.out.println(pathImageOnly("P43"));
-    }
+
 }
