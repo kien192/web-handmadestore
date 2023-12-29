@@ -1,7 +1,8 @@
 <%@ page import="org.w3c.dom.stylesheets.LinkStyle" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.bean.Product" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.bean.Image" %><%--
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 12/11/2023
@@ -9,93 +10,21 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% List<Product> data = (List<Product>) request.getAttribute("data");
-    if(data == null) data = new ArrayList<>();
-%>
+<%--<% List<Product> data = (List<Product>) request.getAttribute("data");--%>
+<%--    if(data == null) data = new ArrayList<>();--%>
+<% List<Image> imageList =(List<Image>) request.getAttribute("listImage");%>
+
+
 <html>
 <head>
     <title>ProductDetails</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/product.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,500&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&display=swap" rel="stylesheet">
-    <style>
-        .small-img-group {
-            display: flex;
-            justify-content: space-between;
-        }
 
-        .small-img-col {
-            flex-basis: 24%;
-            cursor: pointer;
-        }
-
-
-
-    </style>
+    <jsp:include page="/views/product-details/css/detailCss.jsp"/>
 </head>
 <body>
-<div id="menubar" class="menu sticky-top" >
-    <ul class="d-flex m-0">
 
-        <li class="logo me-4 my-auto">
-            <img src="../../images/logo.png" style="width: 12vh">
+<jsp:include page="/views/MenuBar/menu.jsp"/>
 
-        </li>
-        <li class="item times p-4 my-auto">
-            <a href="#carouselExampleCaptions" >Trang chủ</a>
-        </li>
-        <li class="item sanpham p-4 dropdown my-auto">
-            <a href="#"  class = "title_sp">Sản phẩm <i class="fa-solid fa-caret-down"></i></a>
-            <ul class="sub_menu dropdown-menu">
-                <li>
-                    <a href="#thiep" class="item sp1 dropdown-item " >Thiệp HandMade Vintage</a>
-                </li>
-                <li>
-                    <a href="#anh" class="item sp2 dropdown-item" >Scrapbook,Album Ảnh</a>
-                </li>
-                <li>
-                    <a href="#sotay" class="item sp3 dropdown-item" >Sổ ghi chép, sổ tay</a>
-                </li>
-
-                <li>
-                    <a href="#decore" class="item sp4 dropdown-item" >Đồ decore trang trí nhà,cafe,Homestay</a>
-                </li>
-                <li>
-                    <a href="#nguyenlieu" class="item sp5 dropdown-item" >Nguyên vật liệu,phụ kiện dụng cụ</a>
-                </li>
-
-            </ul>
-        </li>
-        <li class="item bikip p-4 my-auto">
-            <a href="#bikip" >Bí kíp làm đồ HandMade</a>
-        </li>
-        <li class="item footers p-4 my-auto">
-            <a href="#footer " >Về chúng tôi</a>
-        </li>
-
-        <li class="search d-flex p-4 my-auto mx-5">
-            <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
-            <input type="text" placeholder="Bạn tìm gì...">
-
-        </li>
-        <li class="login p-4 my-auto">
-            <i class="fa-solid fa-user" style="color: #496088;"></i>
-            <a href="../../Login/view_login/login.jsp">Đăng Nhập</a>
-        </li>
-        <li class="cart p-4 dropdown my-auto">
-            <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>
-            <a href="../../CartPage/cart.html" >Giỏ Hàng</a>
-        </li>
-    </ul>
-</div>
 <!-- Nội dung Product-details-->
 <!-- Thẻ navigation   -->
 <section class="product-details container  pt-2">
@@ -104,34 +33,36 @@
         <ol class="breadcrumb ">
             <li class="breadcrumb-item"><a href="../../MainPage/view_mainpage/mainpage.jsp">Home</a></li>
             <li class="breadcrumb-item"><a href="../../MainPage/view_mainpage/mainpage.jsp">Scrapbook, Album Ảnh</a> </li>
-            <li class="breadcrumb-item active" aria-current="page">Scrapbook album ảnh handmade Retro Clock</li>
+            <li class="breadcrumb-item active" aria-current="page"><%=request.getAttribute("productById")%>></li>
         </ol>
     </nav>
     <div class="row mt-3 ">
         <!--  zoom container start-->
+
+
         <div class="xzoom-container col-lg-5 col-md-12 col-12">
-            <img class="img-fluid w-100 pb-1 xzoom " id="MainImg" src="../../images/anh1.webp"   alt="">
+            <%if(imageList != null && !imageList.isEmpty()) {
+                Image mainImage = imageList.get(0);
+
+            %>
+            <img class="img-fluid w-100 pb-1 xzoom " id="MainImg" src="<%=mainImage.getPath()%>"   alt="">
             <div class="small-img-group">
+                <%for(int i = 1; i< Math.min(imageList.size(), 4); i++) {
+                    Image secondImage = imageList.get(i);
+                %>
                 <div class="small-img-col">
-                    <img src="../../images/anh1.webp" width="100%" class="small-img" alt="">
+                    <img src="<%= secondImage.getPath()%>" width="100%" class="small-img" alt="">
                 </div>
-                <div class="small-img-col">
-                    <img src="../../images/anh1.webp" width="100%" class="small-img" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img src="../../images/anh1.webp" width="100%" class="small-img" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img src="../../images/anh1.webp" width="100%" class="small-img" alt="">
-                </div>
+                <%}}%>
+
 
 
             </div>
 
         </div>
         <div class="col-lg-7 col-md-12 col-12 right-pd">
-            <% for (Product p: data) { %>
-            <h3 class=""><%= p.getName()%></h3>
+
+            <h3 class=""><%=request.getAttribute("proName") %></h3>
             <div class="d-flex rate-content" >
                 <div class="icon-rate me-3">
                     <i class="bi bi-star "></i>
@@ -144,14 +75,23 @@
             </div>
             <div class="state-pd my-2">
                 <label class="me-2 gray-content">Trạng thái: </label>
-                <span><%=p.getStatus()%></span>
+<%--    <% int available =Integer.parseInt((String) request.getAttribute("proAvai")); %>--%>
+<%--                <%if(available == 0 ) { %>--%>
+<%--                <%="Hết hàng nha quý zịiiii"%>--%>
+
+<%--                <%} else {%>--%>
+<%--                <%="Hàng bán đến tết congo cũng chưa hết!!"%>--%>
+<%--                <%}%>--%>
+
+
+     <span><%="Còn hàng"%></span>
             </div>
             <h2 class="price-pd mb-4">
-                <%=p.getSellingPrice()%></h2>
+                <%=request.getAttribute("proQua") + " đ"%>
 
             <div class="row">
                 <div class="quantity-pd mb-4 col-4">
-                    <label  class="me-2" >Số lượng: </label>
+                    <label  class="me-2"  style="font-size: 14px">Số lượng: </label>
                     <div class="qu-value">
                         <button class="pd-des m-0">-</button>
                         <input type="text" class="quantity-input p-0" value="1">
@@ -159,15 +99,32 @@
                     </div>
                 </div>
 
-                <button class="buy-btn col-4">Thêm vào giỏ hàng</button>
+
+
+                <button class="buy-btn col-4" style="font-size: 16px" <%=request.getAttribute("disable")%>>Thêm vào giỏ hàng</button>
+
+
             </div>
+
+<%--                    <c:if test="${request.getAttribute('alert')}">--%>
+<%--                    <div class="row justify-content-center mt-3">--%>
+<%--                        <div class="alert alert-danger d-flex justify-content-center" role="alert"--%>
+<%--                             data-aos="fade-up" style="max-width: 600px; min-width: 400px">--%>
+<%--                            <strong class="font-weight-bold">--%>
+<%--                                Chỉ còn <%= request.getAttribute("productById.quantity") %> có sẵn !--%>
+<%--                            </strong>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    </c:if>--%>
+        </div>
+
+
             <hr class="mx-auto">
             <h4 class=" mt-4 mb-4 ">Chi tiết sản phẩm</h4>
-            <span class="gray-content">
+            <p class="gray-content">
+            <%=request.getAttribute("proDtails")%>
 
-              <%=p.getDescription() %>
-                <%}%>
-            </span>
+            </p>
         </div>
     </div>
 

@@ -1,5 +1,6 @@
 package model.dao;
 
+import model.bean.Image;
 import model.bean.Product;
 import model.db.JDBIConnector;
 import java.util.Collections;
@@ -34,13 +35,33 @@ public class ProductDAO {
         }
     }
     public static  List<Product> findByCategory(String categoryID){
-        List<Product> products = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("select * from product where categoryId = :id")
+        List<Product> products = JDBIConnector.me().withHandle(
+                handle -> handle.createQuery("select * from product where categoryId = :id")
                         .bind("id",categoryID)
                         .mapToBean(Product.class)
                         .stream()
                         .toList());
         return products;
+    }
+
+    //Lấy sản phẩm dựa vào id product
+    public static Product getProduct(int productID) {
+        Product p = JDBIConnector.me().withHandle(
+                handle ->  handle.createQuery("SELECT * from product where id = :productID")
+                        .bind("productID", productID)
+                            .mapToBean(Product.class).findFirst().orElse(null)
+                 );
+        return p;
+    }
+
+    public static List<Image> getImagesForProduct(int productId) {
+        List<Image> imageList = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * from image where productId = :productId ")
+                        .bind("productId", productId)
+                        .mapToBean(Image.class)
+                        .stream().toList());
+
+                        return  imageList;
     }
 
     public static void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, List<String> imagesPath) {
@@ -75,7 +96,13 @@ public class ProductDAO {
 
 
         public static void main(String[] args) {
+            System.out.println("lololo");
+        Product p = getProduct(11);
         List<Product> all = ProductDAO.listSixProduct(0);
-        System.out.println(all.toString());
+        List<Image> im = ProductDAO.getImagesForProduct(10);
+        if(im == null) System.out.println("Ko co gi");
+        for(Image i : im) {
+            System.out.println(i.toString());
+        }
     }
 }

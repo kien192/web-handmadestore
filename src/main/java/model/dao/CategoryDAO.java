@@ -14,4 +14,11 @@ public class CategoryDAO {
         );
         return categories;
     }
+
+    public static void main(String[] args) {
+        List<Category> c = getAll();
+        for(Category sub : c) {
+            System.out.println(sub.toString());
+        }
+    }
 }

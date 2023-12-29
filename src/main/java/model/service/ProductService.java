@@ -16,9 +16,16 @@ public class ProductService {
 
         return  ProductDAO.listSixProduct(offset);
     }
-
+    public List<Product> getAllProduct() {
+        return ProductDAO.getAll();
+    }
+    public Product getProductById(int productID) {
+        return ProductDAO.getProduct(productID);
+    }
     public static void main(String[] args) {
         List<Product> products = ProductService.getInstance().sixProduct(0);
-        System.out.println(products);
+        List<Product> productsa = ProductService.getInstance().getAllProduct();
+        Product a = ProductService.getInstance().getProductById(10);
+        System.out.println(a);
     }
 }

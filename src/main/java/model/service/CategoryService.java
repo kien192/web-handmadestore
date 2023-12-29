@@ -13,6 +13,18 @@ public class CategoryService {
         return instance;
     }
     public List<Category> getALl() {
-        return CategoryDAO.getAll();
+
+
+        return CategoryDAO.getAll() ;
     }
-}
+
+
+    public static void main(String[] args) {
+        List<Category> list = getInstance().getALl();
+        for(Category sub : list) {
+            System.out.println(sub.toString());
+        }
+
+
+    }
+    }
