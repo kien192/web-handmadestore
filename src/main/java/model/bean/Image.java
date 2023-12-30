@@ -1,6 +1,7 @@
 package model.bean;
 
 public class Image {
+
     private int id;
     private String name;
     private String path;
@@ -16,6 +17,7 @@ public class Image {
         this.path = path;
         this.productId = productId;
     }
+
 
     public int getId() {
         return id;
@@ -46,16 +48,18 @@ public class Image {
     }
 
     public void setProductId(int productId) {
+
         this.productId = productId;
     }
 
     @Override
     public String toString() {
         return "Image{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", path='" + path + '\'' +
-                ", productId=" + productId +
+                ", productId='" + productId + '\'' +
+
                 '}';
     }
 }

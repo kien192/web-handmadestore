@@ -1,5 +1,6 @@
 <%@ page import="model.service.ImageService" %>
 <%@ page import="model.bean.User" %>
+<%@ page import="model.service.RoleService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% String framePath = ((String) request.getAttribute("framePath") == null) ?
         request.getContextPath() + "/views/Admin/dashboard.jsp"
@@ -73,47 +74,52 @@
         }
     </style>
 </head>
+<%
+    boolean isAdmin = ((request.getSession().getAttribute("isAdmin") == null) ? false : ((boolean) request.getSession().getAttribute("isAdmin")));
+    if (isAdmin) {
+%>
 <body>
 <div class="navigation content-to-embed">
     <ul class="ps-0 ">
         <li class="nav-item">
             <a href="<%=request.getContextPath()%>/admin?func=dashboard" target="content"
-               class="nav-link">
+               class="nav-link myfunccolor"
+               onclick="choiceMainFunc(1)" id="1">
                 <span class="icon"><i class="bi bi-house-door"></i></span>
-                <span class="title">Quản lý chung</span>
+                <span class="title">Thống kê tham khảo</span>
             </a>
         </li>
         <li class="nav-item ">
-            <a href="<%=request.getContextPath()%>/admin?func=product_management"
-               target="content">
+            <a href="<%=request.getContextPath()%>/admin/product?func=product_management"
+               target="content"
+               class="myfunccolor"
+               onclick="choiceMainFunc(2)" id="2">
                 <span class="icon"><i class="bi bi-shop"></i></span>
                 <span class="title">Quản lý sản phẩm</span>
             </a>
         </li>
         <li class="nav-item">
             <a href="<%=request.getContextPath()%>/admin?func=order_management"
-               target="content">
+               target="content" class="myfunccolor"
+               onclick="choiceMainFunc(3)" id="3">
                 <span class="icon"><i class="bi bi-minecart"></i></span>
                 <span class="title">Quản lý đơn hàng</span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="<%=request.getContextPath()%>/admin?func=customer_management"
-               target="content" class="nav-link">
-                <span class="icon"><i class="bi bi-people-fill"></i></span>
+            <a href="<%=request.getContextPath()%>/admin/customer?func=customer_management"
+               target="content" class="nav-link myfunccolor"
+               onclick="choiceMainFunc(4)" id="4">
+                <span class="icon"><i class="fa-solid fa-users-gear"></i></span>
                 <span class="title">Quản lý khách hàng </span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="<%=request.getContextPath()%>/admin?func=settings">
-                <span class="icon"><i class="bi bi-gear"></i></span>
-                <span class="title">Cài đặt</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="<%=request.getContextPath()%>/login">
-                <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
-                <span class="title">Thoát</span>
+            <a href="<%=request.getContextPath()%>/admin?func=support"
+               target="content" class="nav-link myfunccolor"
+               onclick="choiceMainFunc(5)" id="5">
+                <span class="icon"><i class="fa-solid fa-circle-info"></i></span>
+                <span class="title">Hỗ trợ</span>
             </a>
         </li>
     </ul>
@@ -146,5 +152,23 @@
     <iframe src="<%=framePath%>" frameborder="0" name="content" class="content" id="frame" width="100%" height="1100px"
             scrolling="no"></iframe>
 </div>
+<script>
+    function choiceMainFunc(funcNumber) {
+        // Lấy tất cả các phần tử có class "nav-link"
+        var elements = document.getElementsByClassName("myfunccolor");
+
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].style.backgroundColor = "#afe2ea";
+        }
+
+        var e = document.getElementById(funcNumber);
+        e.style.backgroundColor = "#FFB6C1";
+    }
+
+</script>
 </body>
+<%
+    } else {
+        response.sendRedirect(request.getContextPath()+"/login");
+    }%>
 </html>

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.lang.annotation.Target;
 
 public class User implements Serializable {
-    private String id;
+    private int id;
     private String name;
     private String phoneNumber;
     private String email;
@@ -13,7 +13,7 @@ public class User implements Serializable {
     private Timestamp createDate;
 
     private String status;
-    private String roleId;
+    private int roleId;
 
     public User() {
     }
@@ -25,11 +25,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -81,11 +81,11 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public String getRoleId() {
+    public int getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
 

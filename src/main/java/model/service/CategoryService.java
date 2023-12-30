@@ -12,6 +12,7 @@ public class CategoryService {
         if (instance == null) instance = new CategoryService();
         return instance;
     }
+
     public List<Category> getALl() {
 
 
@@ -19,12 +20,12 @@ public class CategoryService {
     }
 
 
-    public static void main(String[] args) {
-        List<Category> list = getInstance().getALl();
-        for(Category sub : list) {
-            System.out.println(sub.toString());
-        }
 
 
+
+
+    public String createNewCategory(String newCategoryName) {
+        return CategoryDAO.insertCategory(newCategoryName);
     }
-    }
+}
+

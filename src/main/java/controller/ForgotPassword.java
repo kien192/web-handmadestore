@@ -6,6 +6,7 @@ import model.db.JDBIConnector;
 import model.service.JavaMail.MailService;
 import model.service.RoleService;
 import model.service.UserService;
+import utils.HashPassword;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,7 +66,6 @@ public class ForgotPassword extends HttpServlet {
             }
         } else if (page.equals("3")) {
             String email = (String) req.getSession().getAttribute("email");
-            req.getSession().removeAttribute("email");
             String new_pw = req.getParameter("new_pw");
             String confirm_new_pw = req.getParameter("confirm_new_pw");
             if (new_pw == null && confirm_new_pw == null) {
@@ -73,7 +73,9 @@ public class ForgotPassword extends HttpServlet {
             } else {
                 if (new_pw.equals(confirm_new_pw)) {
                     //update password
-                    UserDAO.setPasswordByEmail(email, new_pw);
+                    UserDAO.setPasswordByEmail(email, HashPassword.toSHA1(new_pw));
+                    System.out.println("đã update " + email + " - " + new_pw);
+                    req.getSession().removeAttribute("email");
                     resp.sendRedirect(req.getContextPath() + "/views/Login/view_login/login.jsp");
                 } else {
                     req.setAttribute("result", "Mật khẩu xác nhận không khớp. Vui lòng thử lại");

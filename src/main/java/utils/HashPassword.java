@@ -1,6 +1,7 @@
 package utils;
 
 import com.mysql.cj.util.Base64Decoder;
+import model.dao.UserDAO;
 
 import java.security.MessageDigest;
 import java.sql.SQLOutput;
@@ -17,18 +18,14 @@ public class HashPassword {
         String salt = "kaJsfIew3232@!ana;oxdkaife01928211";
         String result = null;
 
-        str = str+salt;
+        str = str + salt;
         try {
             byte[] dataBytes = str.getBytes("UTF-8");
             MessageDigest md = MessageDigest.getInstance("SHA-1");
             result = Base64.getEncoder().encodeToString(md.digest(dataBytes));
-        }
-
-        catch (Exception E) {
+        } catch (Exception E) {
             E.printStackTrace();
         }
         return result;
     }
-
-
 }

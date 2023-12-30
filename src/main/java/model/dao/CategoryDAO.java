@@ -4,6 +4,7 @@ import model.bean.Category;
 import model.db.JDBIConnector;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class CategoryDAO {
@@ -15,10 +16,19 @@ public class CategoryDAO {
         return categories;
     }
 
-    public static void main(String[] args) {
-        List<Category> c = getAll();
-        for(Category sub : c) {
-            System.out.println(sub.toString());
-        }
+
+    public static String insertCategory(String newCategoryName) {
+        AtomicInteger newID = new AtomicInteger();
+        JDBIConnector.me().useHandle(handle -> {
+                     newID.set(handle.createUpdate("INSERT INTO category (name) VALUES (:name)")
+                             .bind("name", newCategoryName)
+                             .executeAndReturnGeneratedKeys("id")
+                             .mapTo(Integer.class)
+                             .one());
+                }
+        );
+
+        return newID.get()+"";
+
     }
 }

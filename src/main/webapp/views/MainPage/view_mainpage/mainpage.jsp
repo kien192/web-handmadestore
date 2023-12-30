@@ -23,7 +23,6 @@
 <body>
 
 
-
 <!--carousel-->
 <div id="carouselExampleCaptions" class="carousel slide">
     <div class="carousel-indicators">
@@ -214,7 +213,7 @@
 <%--                </div>--%>
 <%--                <div class="item sp_t2 me-4">--%>
 <%--                    <a href="#"><img src="../../images/anh2.webp"></a>--%>
-<%--                    <a href="../../product-details/view/productdt.html"><p class="text-center">Scrapbook album ảnh--%>
+<%--
 <%--                        handmade Retro Clock</p></a>--%>
 <%--                    <p class="text-center text-danger">649.000₫</p>--%>
 <%--                    <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>--%>

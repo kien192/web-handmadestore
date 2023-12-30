@@ -1,6 +1,9 @@
 package controller;
 
+import model.bean.Category;
 import model.bean.Product;
+import model.dao.CategoryDAO;
+import model.dao.ProductDAO;
 import model.service.ProductService;
 
 import javax.servlet.*;
@@ -10,26 +13,78 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "product", value = "/product")
+@WebServlet(urlPatterns = {"/product"})
 public class productList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setContentType("html/text; charset= UTF-8");
-        //tất cả sản phẩm
-        List<Product> products = ProductService.getInstance().sixProduct(0);
-        System.out.println("-----: "+ products.size());
-        System.out.println("-----: "+ products.size());
-        req.setAttribute("allProduct",products);
-        try {
-            req.getRequestDispatcher("/views/ProductList/productList.jsp").forward(req,resp);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        }    }
+        doPost(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-     doGet(req,resp);
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("html/text; charset= UTF-8");
+        List<Product> productList = null;/**/
+        String filter = req.getParameter("filter");
+        String category = req.getParameter("category");
+        if (filter != null && category != null) {
+            if (filter.equals("ascPrice")) {
+                List<Category> categoryList = CategoryDAO.getAll();
+                for (Category value : categoryList) {
+                    String values = String.valueOf(value.getId());
+                    if (category.equals(values)) {
+                        productList = ProductDAO.sortProductByCategoryAZ(value.getId());
+                        break;
+                    }
+                }
+            } else if (filter.equals("descPrice")) {
+                List<Category> categoryList = CategoryDAO.getAll();
+                for (Category value : categoryList) {
+                    String values = String.valueOf(value.getId());
+                    if (category.equals(values)) {
+                        productList = ProductDAO.sortProductByCategoryZA(value.getId());
+                        break;
+                    }
+                }
+            }
+        }else if(filter == null && category != null){
+            List<Category> categoryList = CategoryDAO.getAll();
+            for (Category value : categoryList) {
+                String values = String.valueOf(value.getId());
+                if (category.equals(values)) {
+                    productList = ProductService.getInstance().getProductsByCategoryId(value.getId());
+                    break;
+                }
+            }
+        }else if(filter != null) {
+            if (filter.equals("ascPrice")) {
+                productList = ProductService.getInstance().sortProductsAZ();
+            } else if (filter.equals("descPrice")) {
+                productList = ProductService.getInstance().sortProductsZA();
+            }
+        }else{
+            productList = ProductService.getInstance().getAll();
+        }
+
+        req.setAttribute("filter", filter);
+        int itemPerPage = 16; // số lượng sp trên mỗi trang
+        //lấy số trang hiện tại từ tham số yêu cầu
+        int currentPage = 1;
+        String paraParam = req.getParameter("page");
+        if (paraParam != null && !paraParam.isEmpty()) {
+            currentPage = Integer.parseInt(paraParam);
+        }
+        //Tính số sản phẩm bắt đầu và kết thúc
+        int startIndex = (currentPage - 1) * itemPerPage;
+        int endIndex = Math.min(startIndex + itemPerPage, productList.size());
+        //lấy danh sách sản phẩm cho trang hiện tại
+        List<Product> currentPageItems = productList.subList(startIndex, endIndex);
+
+        req.setAttribute("currentPage", currentPage);
+        req.setAttribute("totalPage", (int) Math.ceil((double) productList.size() / itemPerPage));
+        req.setAttribute("productInPage", currentPageItems);
+        String path = "./views/ProductList/productList.jsp";
+        req.getRequestDispatcher(path).forward(req, resp);
     }
 }
