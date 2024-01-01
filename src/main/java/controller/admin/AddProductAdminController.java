@@ -53,7 +53,6 @@ public class AddProductAdminController extends HttpServlet {
 //      Yêu cầu: xử lý file name = product Id +'stt';
         if (!(productName.equals("") || quantity.equals("") || costPrice.equals("") || sellingPrice.equals("") || description.equals("") ||
                 (radio_choiceCategory == null || radio_choiceCategory.equals("")))) {
-            System.out.println("Đủ thong tin!!!");
             if (radio_choiceCategory != null) {
                 String categoryId = null;
                 System.out.println(availableCategory + " - " + newCategory);
@@ -70,16 +69,6 @@ public class AddProductAdminController extends HttpServlet {
                         List<String> paths = writeProductImagesFromClient(productName, req, resp);
                         //insert
                         try {
-                            System.out.println("---------------------------------------------------------------------------");
-                            System.out.println("productName: " + productName);
-                            System.out.println("description: " + description);
-                            System.out.println("costPrice: " + costPrice);
-                            System.out.println("sellingPrice: " + sellingPrice);
-                            System.out.println("quantity: " + quantity);
-                            System.out.println("categoryId: " + categoryId);
-                            System.out.println("discount: " + discount);
-                            System.out.println("paths: " + paths);
-                            System.out.println("---------------------------------------------------------------------------");
                             if (!discount.equals("")) {
                                 ProductService.getInstance().insertNewProduct(productName, description, Double.parseDouble(costPrice), Double.parseDouble(sellingPrice), Integer.parseInt(quantity),
                                         categoryId, discount, paths);
