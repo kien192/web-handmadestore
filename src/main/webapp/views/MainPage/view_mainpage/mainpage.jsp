@@ -140,7 +140,7 @@
                 <%List<Product> product15 = ProductDAO.list15product(ca.getId());
                     for (Product pr : product15) {%>
                 <%String pathImage = ImageService.getInstance().pathImageOnly(pr.getId());%>
-                <li class="product_li">
+                <li class="product_list">
                     <div class="item_product  me-4">
                         <a class="image" href="#"> <img src="<%=request.getContextPath()%>/<%=pathImage%>"> </a>
                         <a href="#"><p class="pt-4 px-3"><%=pr.getName() %>

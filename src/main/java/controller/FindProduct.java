@@ -41,8 +41,6 @@ public class FindProduct extends HttpServlet {
         int startIndex1 = (currentPage1 - 1) * itemPerPage1;
         int endIndex1 = Math.min(startIndex1 + itemPerPage1, numberProduct);
         //lấy danh sách sản phẩm cho trang hiện tại
-        System.out.println(startIndex1 +"dsa"+ endIndex1);
-        System.out.println(productList1.size());
         List<Product> currentPageItems1 = productList1.subList(startIndex1, endIndex1);
 
         req.setAttribute("currentPage1", currentPage1);
