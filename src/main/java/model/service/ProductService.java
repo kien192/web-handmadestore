@@ -113,7 +113,6 @@ public class ProductService {
     public List<Product> sortProductsZA(){
         return ProductDAO.sortProductZA();
     }
-
     public static void main(String[] args) {
         System.out.println(getInstance().getProductsByCategoryId(2));
     }

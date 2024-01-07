@@ -1,4 +1,7 @@
 <%@ page import="model.bean.User" %>
+<%@ page import="model.service.CategoryService" %>
+<%@ page import="model.bean.Category" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -59,8 +62,9 @@
     }
     .menu ul li.search input{
         padding-left: 10px;
-        width: 35vh;
+        width: 85%;
         border: none;
+        height: 100%;
     }
     .menu ul li.login a:hover {
         color: red;
@@ -87,6 +91,11 @@
     .menu ul li.item {
         text-align: center;
     }
+    .search button{
+        padding: 12px;
+        border: none;
+        background: red;
+    }
 </style>
 <body>
 <div id="menubar" class="menu sticky-top">
@@ -102,23 +111,10 @@
         <li class="item sanpham p-4 dropdown my-auto">
             <a href="<%=request.getContextPath()%>/product" class="title_sp">Sản phẩm <i class="fa-solid fa-caret-down"></i></a>
             <ul class="sub_menu dropdown-menu">
-                <li>
-                    <a href="#thiep" class="item sp1 dropdown-item ">Thiệp HandMade Vintage</a>
-                </li>
-                <li>
-                    <a href="#anh" class="item sp2 dropdown-item">Scrapbook,Album Ảnh</a>
-                </li>
-                <li>
-                    <a href="#sotay" class="item sp3 dropdown-item">Sổ ghi chép, sổ tay</a>
-                </li>
-
-                <li>
-                    <a href="#decore" class="item sp4 dropdown-item">Đồ decore trang trí nhà,cafe,Homestay</a>
-                </li>
-                <li>
-                    <a href="#nguyenlieu" class="item sp5 dropdown-item">Nguyên vật liệu,phụ kiện dụng cụ</a>
-                </li>
-
+                <%List<Category> categories = CategoryService.getInstance().getALl();%>
+                <%for(Category c : categories){%>
+                <li><a href="#<%=c.getId()%>"  class="item dropdown-item"><%=c.getName()%></a></li>
+                <%}%>
             </ul>
         </li>
         <li class="item bikip p-4 my-auto">
@@ -129,9 +125,10 @@
         </li>
 
         <li class="search d-flex p-4 my-auto mx-5">
-            <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
-            <input type="text" placeholder="Bạn tìm gì...">
-
+            <form action="<%=request.getContextPath()%>/findProduct" method="post" id="find" class="d-flex">
+                <input name="findProducts" type="text" placeholder="Bạn tìm gì...">
+                <button><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
+            </form>
         </li>
         <li class="login p-4 my-auto dropdown">
             <%if(u == null) {%>

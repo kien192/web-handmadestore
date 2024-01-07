@@ -1,3 +1,4 @@
+
 body{
     margin: 0;
     padding: 0;
@@ -52,8 +53,14 @@ body{
 }
 .menu ul li.search input{
     padding-left: 10px;
-    width: 35vh;
+    width: 85%;
     border: none;
+    height: 100%;
+}
+.search button{
+    padding: 12px;
+    border: none;
+    background: red;
 }
 .menu ul li.login a:hover {
     color: red;
@@ -116,51 +123,34 @@ body{
 .product .sp ul li .sp_t1{
     margin-left: 14%;
 }
-.product .sp ul li img{
-    width: 80%;
-    height: 100%;
+.product .sp ul .product_li img{
+    width:80%;
     margin-top: 10%;
 }
-.product .sp ul li img:hover{
-    width: 90%;
-    height: 110%;
+.product .sp ul .product_li img:hover{
+    width: 85%;
+    height: 100%;
 }
+
 .product .sp ul li {
     margin-bottom: 20px;
 }
 .product .sp ul li p {
     margin-bottom: 0;
 }
-.product .sp ul li .add-to-cart {
-    background: #8b8b8b;
-    font-size: 1rem;
-    padding: 1rem 0.8rem;
-    text-align: center;
-    color: white;
-    cursor: pointer;
-    visibility: hidden;
-}
-.product .sp ul .itemrow .item:hover .add-to-cart {
-    visibility: visible;
-}
-.product .sp ul li .add-to-cart:hover {
-    background: red;
-}
+
 .product .load_produce{
     background: #8b8b8b;
     width: 13%;
     padding: 20px;
     margin: auto;
-    color: white;
     cursor: pointer;
 }
+
 .product .load_produce:hover{
     background: red;
 }
 /*BiKip*/
-.bikip .content_bk ul li{
-    list-style-type: none;
-}
 .bikip .solid_bk {
     width: 20%;
     height: 1px;
@@ -169,18 +159,7 @@ body{
 .bikip .title_bk p:hover {
     color: red;
 }
-.bikip .content_bk .content1{
-    margin-left: 10%;
-}
-.bikip .content_bk .item p {
-    color: rgb(128, 128, 128);
-}
-.bikip .content_bk .item a{
-    text-decoration: none;
-}
-.bikip .content_bk .item h6:hover{
-    color: red;
-}
+
 /*Footer*/
 #footer {
     background: linear-gradient(90deg, rgba(80, 82, 84, 0.7), rgba(44, 43, 43, 0.7)),
@@ -206,4 +185,106 @@ body{
 }
 #footer .content_end p{
     color: rgba(245, 241, 241, 0.7);
+}
+
+/**/
+#dangxuat {
+    padding: 0;
+    display: none;
+}
+
+#dangxuat a:hover {
+    background: red;
+    color: white;
+}
+
+#dangxuat a {
+    color: black;
+    padding-right: 25%;
+    padding-left: 25%;
+}
+
+.menu ul li.login:hover #dangxuat {
+    display: block;
+}
+/*    add product*/
+li {
+    list-style: none;
+}
+.products {
+    justify-content: space-evenly;
+}
+.products .product_li .item_product a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 7em;
+}
+
+.products .product_li .item_product a.image {
+    height: 10em;
+}
+
+.products .product_li .item_product {
+    border: 1px solid #e1e1e1;
+    text-align: center;
+    position: relative;
+}
+
+.products .product_li .item_product a p {
+    color: black;
+}
+
+.products .product_li .item_product a p:hover {
+    color: red;
+}
+
+.products .product_li .item_product p {
+    color: red;
+}
+
+.products .product_li .item_product .add-to-cart {
+    background: #8b8b8b;
+    font-size: 1rem;
+    padding: 1rem 0.8rem;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.products .product_li .item_product:hover .add-to-cart {
+    visibility: visible;
+}
+
+.products .product_li .item_product .add-to-cart:hover {
+    background: red;
+}
+.add-to-cart {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.product_li {
+    width: 18%;
+    margin-top: 1rem;
+    margin-bottom: 1.5em;
+}
+.item_product {
+    height: 23em;
+}
+.product .load_produce a{
+    text-decoration: none;
+    color: white;
+}
+.content_bk .item {
+    width: 40%;
+}
+.product .item_product img{
+    height: 80%;
+}
+.content_bk .item img{
+    height: 60%;
 }
