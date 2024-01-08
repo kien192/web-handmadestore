@@ -1,5 +1,6 @@
 package model.dao;
 
+import model.bean.Category;
 import model.bean.Image;
 import model.bean.Product;
 import model.bean.User;
@@ -98,7 +99,7 @@ public class ProductDAO {
                  );
         return p;
     }
-
+//Lấy ra danh sách ảnh của sản phẩm.
     public static List<Image> getImagesForProduct(int productId) {
         List<Image> imageList = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT * from image where productId = :productId ")
@@ -108,6 +109,25 @@ public class ProductDAO {
 
                         return  imageList;
     }
+//Lấy ra các sản phẩm liên quan đến sản phẩm (trang chi tiết sản phẩm).
+    public static List<Product> getRelatedProduct(int productId, int categoryId, int limit) {
+       try {
+           List<Product> products = JDBIConnector.me().withHandle(
+                   handle -> handle.createQuery("SELECT * FROM product WHERE categoryId = :categoryId AND id != :productId LIMIT :limit")
+                           .bind("categoryId", categoryId)
+                           .bind("productId", productId)
+                           .bind("limit", limit)
+                           .mapToBean(Product.class)
+                           .stream().toList()
+
+           );
+           return products;
+       }catch (Exception e) {
+           e.printStackTrace();
+           return Collections.emptyList();
+       }
+    }
+
 
     public static void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, int categoryId, List<String> imagesPath) {
         JDBIConnector.me().useHandle(handle -> {

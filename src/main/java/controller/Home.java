@@ -36,8 +36,8 @@ public class Home extends HttpServlet {
             RequestDispatcher rd = req.getRequestDispatcher("views/MenuBar/menu.jsp");
             rd.forward(req, resp);
         } catch (Exception e) {
-logger.error("Lôỗi khi lấy danh sách cate", e);
-e.printStackTrace();
+    logger.error("Lôỗi khi lấy danh sách cate", e);
+        e.printStackTrace();
         }
 
     }

@@ -9,9 +9,10 @@
 .menu .branch-name {
 
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 
 }
+
 
 
 .menu .branch-name .logo {
@@ -21,14 +22,31 @@
 
 }
 
-
+/*Hình ảnh trang web */
 .menu .logo img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     object-fit: cover;
 
 
 }
+
+.small-img-group {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.small-img-col {
+    flex-basis: 25%;
+    cursor: pointer;
+    padding: 0px 10px;
+}
+
+
+
+
 
 .menu .branch-name .branch-title {
 font-family: 'Alumni Sans Inline One', sans-serif;
@@ -140,16 +158,6 @@ font-family: 'Alumni Sans Inline One', sans-serif;
 }
 
 
-
-/*.product-details input {*/
-/*    width: 50px;*/
-/*    height: 40px;*/
-/*    padding-left: 10px;*/
-/*    font-size: 16px;*/
-/*    margin-right: 10px;*/
-/*    outline: none;*/
-
-/*}*/
 
 .quantity-pd {
     display: flex;
@@ -328,7 +336,7 @@ figure {
 
 #footer {
     background: linear-gradient(90deg, rgba(80, 82, 84, 0.7), rgba(44, 43, 43, 0.7)),
-    url("../../images/backgroup.jpg");
+    url("../view");
     background-repeat: no-repeat;
     background-size: 100%;
 

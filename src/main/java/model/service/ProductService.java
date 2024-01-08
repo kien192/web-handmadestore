@@ -118,6 +118,9 @@ public class ProductService {
     public Product getProductById(int productID) {
         return ProductDAO.getProduct(productID);
     }
+    public List<Product> getRelatedProduct(int productId, int categoryId, int limit) {
+      return  ProductDAO.getRelatedProduct(productId, categoryId,limit);
+    }
     public static void main(String[] args) {
 
         List<Product> products = ProductService.getInstance().sixProduct(0);

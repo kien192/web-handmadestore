@@ -19,6 +19,10 @@ public class CategoryService {
         return CategoryDAO.getAll() ;
     }
 
+    public  Category getCategoryById(int id) {
+        return CategoryDAO.getCategoryById(id);
+    }
+
 
 
 

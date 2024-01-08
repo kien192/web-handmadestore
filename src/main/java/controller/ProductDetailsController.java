@@ -1,8 +1,10 @@
 package controller;
 
+import model.bean.Category;
 import model.bean.Image;
 import model.bean.Product;
 import model.dao.ProductDAO;
+import model.service.CategoryService;
 import model.service.ProductService;
 
 import javax.servlet.RequestDispatcher;
@@ -23,18 +25,22 @@ public class ProductDetailsController extends HttpServlet {
 //Kiểm tra khi tăng số lượng mua > số lượng hàng có sẵn nè
         boolean alert =req.getParameter("invalid-quantity") != null;
 
+
         //Lấy id từ sản phẩm được chọn !!
         int id = Integer.parseInt(req.getParameter("id"));
 
 //Lấy sản phẩm từ database với id đã được chọn
         Product product = ProductDAO.getProduct(id);
+        Category category = CategoryService.getInstance().getCategoryById(product.getCategoryId());
         List<Image> imageList = ProductDAO.getImagesForProduct(id);
+        //Lâấy ra 5 sản phẩm liên quan!!
+        List<Product> relatedList = ProductService.getInstance().getRelatedProduct(product.getId(), product.getCategoryId(), 5);
 
         //Kiểm tra số lượng có sẵn , nếu quantity = soldout => disable lẹ ko cho thêm vào giỏ hàng
         String disable = "";
         int available = product.getQuantity() - product.getSoldout();
         if(available <= 0) {
-disable = "disable";
+        disable = "disable";
 
         }
 //Thiết lập chế đô active từ menu bar (trang chủ)
@@ -43,12 +49,12 @@ disable = "disable";
         req.setAttribute("alert", alert);
         req.setAttribute("disable", disable);
         req.setAttribute("shop_active", active);
+
+//Các thông tin chi tiết của sản phẩm.
         req.setAttribute("productById", product);
-        req.setAttribute("proName", product.getName());
-        req.setAttribute("proQua", product.getSellingPrice());
-        req.setAttribute("proDtails", product.getDescription());
-        req.setAttribute("proAvai", product.getQuantity() - product.getSoldout());
         req.setAttribute("listImage",imageList );
+        req.setAttribute("categoryByProduct", category);
+        req.setAttribute("productRelated", relatedList);
 
 
         ServletContext context = req.getServletContext();
@@ -61,10 +67,7 @@ disable = "disable";
 
         RequestDispatcher rq = req.getRequestDispatcher(jspPath);
         rq.forward(req, resp);
-//        RequestDispatcher rq =req.getRequestDispatcher("/views/product-details/view/productdt.jsp");
-//        rq.forward(req, resp);
 
-//
 
 
 

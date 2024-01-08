@@ -3,7 +3,9 @@
 <%@ page import="model.service.ProductService" %>
 <%@ page import="model.service.ImageService" %>
 <%@ page import="model.bean.Category" %>
-<%@ page import="model.dao.CategoryDAO" %><%--
+<%@ page import="model.dao.CategoryDAO" %>
+
+<%--
   Created by IntelliJ IDEA.
   User: ASUS
   Date: 12/7/2023
@@ -11,6 +13,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
@@ -43,7 +46,10 @@
             <%}%>
         </ul>
     </div>
+<%-- Phần chính trong danh sách sản phẩm (Sắp xếp, hiêển thị, số trang, chuyển tiếp ,...v..v)   --%>
     <div class="productList">
+
+<%--Hiển thị theo việc sắp xếp. --%>
         <div class="sort ms-5 d-flex">
             <span>Sắp xếp: </span>
             <ul class="menu_sort">
@@ -69,18 +75,28 @@
                 </li>
             </ul>
         </div>
+
+<%-- Hiển thị sản phẩm theo category.   --%>
         <%List<Product> allProduct = (List<Product>) request.getAttribute("productInPage");%>
         <ul id="allProduct" class="products m-2 me-5 ms-3 d-flex flex-wrap">
-            <%if (allProduct == null) {%>
-            <p>Không có dữ liệu</p>
-            <%} else {%>
-            <%for (Product p : allProduct) {%>
+
+               <%if (allProduct == null) {%>
+                <p>Không có dữ liệu</p>
+                 <%} else {%>
+        <%for (Product p : allProduct) {%>
             <%String pathImage = ImageService.getInstance().pathImageOnly(p.getId());%>
+
             <li class="product_li">
                 <div class="item_product  me-4">
-                    <a class="image" href="#"> <img src="<%=request.getContextPath()%>/<%=pathImage%>"> </a>
-                    <a href="#"><p class="pt-4 px-3"><%=p.getName() %>
-                    </p></a>
+                    <a class="image" href="product-detail?id=<%=p.getId()%>">
+                        <img src="<%=request.getContextPath()%>/<%=pathImage%>">
+                    </a>
+
+
+                    <a href="product-detail?id=<%=p.getId()%>"><p class="pt-4 px-3"><%=p.getName() %>
+                    </p>
+                    </a>
+
                     <p><%=p.getSellingPrice()%>
                     </p>
                     <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
@@ -90,7 +106,7 @@
             <%}%>
             <%}%>
         </ul>
-        <%--    Số Trang--%>
+    <%--    Số Trang--%>
         <div class="pagination mx-5">
             <%int currentPage = (int) request.getAttribute("currentPage");%>
             <%int totalPage = (int) request.getAttribute("totalPage");%>
@@ -169,6 +185,7 @@
         </div>
     </div>
 </div>
+<%--footer--%>
 <div class="footer">
     <%@include file="./../Footer/footer.jsp" %>
 </div>

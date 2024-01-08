@@ -2,7 +2,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.bean.Product" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.bean.Image" %><%--
+<%@ page import="model.bean.Image" %>
+<%@ page import="model.bean.Category" %>
+<%@ page import="model.service.ImageService" %><%--
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 12/11/2023
@@ -10,9 +12,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<% List<Product> data = (List<Product>) request.getAttribute("data");--%>
-<%--    if(data == null) data = new ArrayList<>();--%>
+
+<%response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");%>
+
+<% Product product = (Product) request.getAttribute("productById");%>
 <% List<Image> imageList =(List<Image>) request.getAttribute("listImage");%>
+<% Category categoryByProduct = (Category) request.getAttribute("categoryByProduct");%>
+<% String description = product.getDescription();%>
+<% List<Product> relatedProduct = (List<Product>) request.getAttribute("productRelated");%>
 
 
 <html>
@@ -29,401 +36,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<%request.getContextPath();%>/views/product-details/css/product.css">
-
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,700&family=Roboto:ital@1&display=swap');
 
-        /*MenuBar*/
-        .menu {
-            background: rgba(250, 244, 244,0.92);
-            border-bottom: 1px solid rgba(155, 158, 162, 0.7);
-        }
-
-        .menu .branch-name {
-
-            align-items: center;
-            justify-content: space-around;
-
-        }
-
-
-        .menu .branch-name .logo {
-            text-align: center;
-            padding-left: 0;
-
-
-        }
-
-
-        .menu .logo img {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-
-
-        }
-
-        .menu .branch-name .branch-title {
-            font-family: 'Alumni Sans Inline One', sans-serif;
-            font-size: 30px;
-            margin: 0px;
-        }
-
-        .menu ul a{
-            text-decoration: none;
-            color: #797974;
-        }
-        .menu ul li {
-            list-style-type: none;
-        }
-
-        .menu ul .sanpham .sub_menu{
-            left: 0%;
-            padding: 0;
-            top: 100%;
-            border: 1px;
-            display: none;
-        }
-        .menu ul li.times{
-            border-left: #8b8b8b solid 1px;
-        }
-        .menu ul li.item:hover {
-            background: red;
-        }
-        .menu ul li.item:hover a{
-            color: white;
-        }
-        .menu ul li.sanpham:hover .sub_menu{
-            display: block;
-        }
-        .menu ul li.sanpham .sub_menu li a{
-            color: #797974;
-        }
-        .menu ul li.sanpham .sub_menu li a:hover{
-            color: red;
-            font-size: 17px;
-        }
-        .menu ul li.search i{
-            background: red;
-            padding: 4%;
-        }
-        .menu ul li.search {
-            border-left: 1px solid #8b8b8b;
-        }
-        .menu ul li.search input{
-            padding-left: 10px;
-            width: 35vh;
-            border: none;
-        }
-        .menu ul li.login a:hover {
-            color: red;
-        }
-        .menu ul li.cart a:hover {
-            color: red;
-        }
-
-        /*Product details*/
-
-        .product-details .breadcrumb .breadcrumb-item a {
-            color: #565959;
-
-            text-decoration: none;
-        }
-        .product-details .breadcrumb .breadcrumb-item a:hover {
-            font-weight: bold;
-        }
-
-
-        .product-details h6 {
-            color: #565959;
-        }
-
-        .product-details .right-pd h3 {
-            font-family: 'Roboto', sans-serif;
-        }
-        .product-details .rate-content .icon-rate {
-            color: #ffcc00;
-        }
-        .product-details .rate-content a {
-            text-decoration: none;
-            color: #4d8a54;
-        }
-
-        .product-details .rate-content a:hover {
-            text-decoration: underline;
-        }
-        .gray-content {
-            color: #898989;
-        }
-        .right-pd .state-pd span {
-            color: #4d8a54;
-            font-weight: bold;
-        }
-
-        .product-details .right-pd .price-pd {
-            color: #e32124;
-            font-size: 25px;
-            font-weight: bold;
-        }
-
-
-        .product-details .right-pd span {
-
-
-        }
-
-
-
-        /*.product-details input {*/
-        /*    width: 50px;*/
-        /*    height: 40px;*/
-        /*    padding-left: 10px;*/
-        /*    font-size: 16px;*/
-        /*    margin-right: 10px;*/
-        /*    outline: none;*/
-
-        /*}*/
-
-        .quantity-pd {
-            display: flex;
-            align-items: center;
-
-        }
-        .quantity-input {
-            border: 0;
-            outline: none;
-            width: 40px;
-            text-align: center;
-            font-size: 16px;
-
-
-        }
-        .qu-value {
-            border: solid #edeff6 1px ;
-            height: 36px;
-        }
-        .pd-des , .pd-inc {
-            padding: 5px 10px;
-            color: #000000;
-            border: none;
-            cursor: pointer;
-            background-color: #ffffff;
-        }
-        .pd-des:hover , .pd-inc:hover {
-            font-weight: bold;
-        }
-
-
-
-        .buy-btn {
-            font-weight: bold;
-            background-color: #ff1a1a;
-            opacity: 1;
-            transition: 0.3s all;
-            color: #ffffff;
-            border: 0;
-            outline: none;
-            height: 36px;
-
-
-        }
-        .buy-btn:hover {
-            background-color: #e60000;
-
-
-        }
-
-        .ratings {
-            color: #CACFD2;
-            cursor: pointer;
-        }
-
-        .star {
-            display: inline-block;
-            font-size: 24px;
-            cursor: pointer;
-
-        }
-        .comment-pd {
-            align-items: center;
-            position: relative;
-
-        }
-        .ratings i:hover {
-            color:  #ffcc00;
-
-        }
-
-        .comment-input {
-            width: 100%;
-            padding: 10px;
-            resize: none;
-            border-color: #CACFD2;
-            background-color: #f2f2f2;
-
-        }
-
-        .comment-input:focus {
-            border-color: red;
-        }
-
-        .submit-comment {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            margin: 5px;
-            visibility: hidden;
-
-        }
-
-        .comment-input:focus + .submit-comment {
-            visibility: visible;
-        }
-
-        /*description*/
-        figure {
-            text-align: center;
-            color:  #898989;
-            font-style: italic;
-        }
-
-        .zoom {
-
-            transition: transform .2s; /* Animation */
-
-
-        }
-
-        .zoom:hover {
-            transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-        }
-
-        /*relate product*/
-        .info-item {
-            border: 1px solid #e1e1e1;
-        }
-
-        .info-img {
-            position : relative;
-            overflow: hidden;
-        }
-        .btns {
-            position: absolute;
-            left: 0;
-            bottom: -100%;
-            font-size: 15px;
-            font-weight: 300;
-            transition: all 0.3s ease-in-out;
-        }
-        .btns button {
-            border: none;
-            background-color: #e1e1e1;
-            transition: all 0.3s ease-in-out;
-
-
-        }
-
-        .btns button:hover {
-            background-color: #ff0000;
-            color: #ffffff;
-        }
-
-        .info-img:hover .btns {
-            bottom: 0;
-
-        }
-
-        .heart-icon {
-            position: absolute;
-            top: 16px;
-            right: 15px;
-            color: #ffffff;
-        }
-        .info-name {
-            transition: all 0.3s ease-in-out;
-
-        }
-
-        .info-name:hover {
-            color: #ff0000!important;
-
-
-        }
-        .info-price {
-            color: #e32124;
-        }
-        .info-rating {
-            font-size: 12px;
-        }
-
-
-
-
-        #footer {
-            /*background: linear-gradient(90deg, rgba(80, 82, 84, 0.7), rgba(44, 43, 43, 0.7)),*/
-            /*!*url("");*!*/
-            background-repeat: no-repeat;
-            background-size: 100%;
-
-
-        }
-        #footer ul li p{
-            color: white;
-        }
-        #footer ul li {
-            list-style-type: none;
-        }
-        #footer ul .contact .content {
-            color: #8fcc8f;
-        }
-        #footer .solid{
-            width: 70%;
-            height: 2px;
-            background: #858282;
-        }
-        #footer .content_end p{
-            color: rgba(245, 241, 241, 0.7);
-        }
-
-        .small-img-group {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .small-img-col {
-            flex-basis: 24%;
-            cursor: pointer;
-        }
-
-
+        <%@include file="../css/product.css"%>
 
     </style>
 
 </head>
 <body>
-
-<jsp:include page="/views/MenuBar/menu.jsp"/>
+<%--Thanh điều hướng - header--%>
+<%@include file="/views/MenuBar/menu.jsp" %>
 
 <!-- Nội dung Product-details-->
-<!-- Thẻ navigation   -->
+<!-- Thẻ navigation : thanh chuyển hướng -->
 <section class="product-details container  pt-2">
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb ">
-            <li class="breadcrumb-item"><a href="../../MainPage/view_mainpage/mainpage.jsp">Home</a></li>
-            <li class="breadcrumb-item"><a href="../../MainPage/view_mainpage/mainpage.jsp">Scrapbook, Album Ảnh</a> </li>
-            <li class="breadcrumb-item active" aria-current="page"><%=request.getAttribute("productById")%>></li>
+            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="product?category=<%=categoryByProduct.getId()%>"><%=categoryByProduct.getName()%></a> </li>
+            <li class="breadcrumb-item active" aria-current="page" style="color: #e32124"><%=product.getName()%></li>
         </ol>
     </nav>
-    <div class="row mt-3 ">
-        <!--  zoom container start-->
-
-
-        <div class="xzoom-container col-lg-5 col-md-12 col-12">
+ <div class="row mt-3 ">
+     <%--    Phần hiển thị ảnh sản phẩm. (trái)--%>
+     <!--  zoom container start-->
+     <div class="xzoom-container col-lg-5 col-md-12 col-12">
             <%if(imageList != null && !imageList.isEmpty()) {
                 Image mainImage = imageList.get(0);
-
             %>
             <img class="img-fluid w-100 pb-1 xzoom " id="MainImg" src="<%=mainImage.getPath()%>"   alt="">
             <div class="small-img-group">
@@ -433,16 +73,16 @@
                 <div class="small-img-col">
                     <img src="<%= secondImage.getPath()%>" width="100%" class="small-img" alt="">
                 </div>
-                <%}}%>
-
-
+                <%}
+            }%>
 
             </div>
 
         </div>
+<%--     Phần hiển thị thông tin chi tiết của sản phẩm (phải)--%>
         <div class="col-lg-7 col-md-12 col-12 right-pd">
 
-            <h3 class=""><%=request.getAttribute("proName") %></h3>
+            <h3 class=""><%=product.getName() %></h3>
             <div class="d-flex rate-content" >
                 <div class="icon-rate me-3">
                     <i class="bi bi-star "></i>
@@ -455,19 +95,22 @@
             </div>
             <div class="state-pd my-2">
                 <label class="me-2 gray-content">Trạng thái: </label>
-<%--    <% int available =Integer.parseInt((String) request.getAttribute("proAvai")); %>--%>
-<%--                <%if(available == 0 ) { %>--%>
-<%--                <%="Hết hàng nha quý zịiiii"%>--%>
+<%--                Xử lý trạng thái còn hàng , hết hàng --%>
+                <%int countProduct = product.getQuantity() - product.getSoldout(); %>
 
-<%--                <%} else {%>--%>
-<%--                <%="Hàng bán đến tết congo cũng chưa hết!!"%>--%>
-<%--                <%}%>--%>
+                <%if(countProduct >1) {%>
+                <span>Còn hàng</span>
+
+                <% } else { %>
+
+                <span style="color:#e32124 ">Tạm hết hàng</span>
+
+                <%}%>
 
 
-     <span><%="Còn hàng"%></span>
             </div>
             <h2 class="price-pd mb-4">
-                <%=request.getAttribute("proQua") + " đ"%>
+                <%=product.getSellingPrice()%>
 
             <div class="row">
                 <div class="quantity-pd mb-4 col-4">
@@ -486,25 +129,21 @@
 
             </div>
 
-<%--                    <c:if test="${request.getAttribute('alert')}">--%>
-<%--                    <div class="row justify-content-center mt-3">--%>
-<%--                        <div class="alert alert-danger d-flex justify-content-center" role="alert"--%>
-<%--                             data-aos="fade-up" style="max-width: 600px; min-width: 400px">--%>
-<%--                            <strong class="font-weight-bold">--%>
-<%--                                Chỉ còn <%= request.getAttribute("productById.quantity") %> có sẵn !--%>
-<%--                            </strong>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    </c:if>--%>
-        </div>
+
+
 
 
             <hr class="mx-auto">
             <h4 class=" mt-4 mb-4 ">Chi tiết sản phẩm</h4>
-            <p class="gray-content">
-            <%=request.getAttribute("proDtails")%>
 
-            </p>
+            <%--          Xử lý hiển thị chi tiết sản phẩm theo từng dòng văn bản--%>
+            <%String[] lines = description.split("\\r?\\n");
+                for(String line : lines) {
+
+%>
+
+  <p class="gray-content"><%=line%>      </p>
+                <%}%>
         </div>
     </div>
 
@@ -562,9 +201,13 @@
         <hr class="mx-auto">
 
         <div class="row my-5 " >
+
+            <%for(Product pr : relatedProduct) {%>
+            <%String pathImage = ImageService.getInstance().pathImageOnly(pr.getId());%>
+
             <div class="col info-item mx-3">
                 <div class="info-img ">
-                    <img src="../../images/anh3.webp" alt="" class="img-fluid d-block mx-auto mt-2">
+                    <img src="<%=request.getContextPath()%>/<%=pathImage%>" alt="" class="img-fluid d-block mx-auto mt-2">
 
 
                     <div class="row btns w-100 mx-auto ">
@@ -573,15 +216,15 @@
 
                         </button>
                         <button type="button" class="col-6 py-2">
-                            <i class="bi bi-eye"></i>
+                            <a href="product-detail?id=<%=pr.getId()%>">  <i class="bi bi-eye"></i> </a>
                         </button>
                     </div>
                 </div>
                 <div class="info-product p-3" >
-                    <a href="#" class="d-block text-dark text-decoration-none py-2 info-name">
-                        Scrapbook album ảnh handmade Sweet Mint
+                    <a href="product-detail?id=<%=pr.getId()%>" class="d-block text-dark text-decoration-none py-2 info-name">
+                        <%=pr.getName()%>
                     </a>
-                    <span class="info-price fw-bold">649.000₫ </span>
+                    <span class="info-price fw-bold"><%=pr.getSellingPrice()%></span>
                     <div class="info-rating d-flex mt-1">
                         <i class="bi bi-star-fill "></i>
                         <i class="bi bi-star-fill "></i>
@@ -593,130 +236,10 @@
                 </div>
 
             </div>
-            <div class="col info-item mx-3">
-                <div class="info-img ">
-                    <img src="../../images/anh3.webp" alt="" class="img-fluid d-block mx-auto mt-2">
+            <%}%>
 
 
-                    <div class="row btns w-100 mx-auto ">
-                        <button type="button" class="col-6 py-2">
-                            <i class="bi bi-cart-plus"></i>
 
-                        </button>
-                        <button type="button" class="col-6 py-2">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="info-product p-3" >
-                    <a href="#" class="d-block text-dark text-decoration-none py-2 info-name">
-                        Scrapbook album ảnh handmade Sweet Mint
-                    </a>
-                    <span class="info-price fw-bold">649.000₫ </span>
-                    <div class="info-rating d-flex mt-1">
-                        <i class="bi bi-star-fill "></i>
-                        <i class="bi bi-star-fill "></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <span>(25 đánh giá)</span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col info-item mx-3">
-                <div class="info-img ">
-                    <img src="../../images/anh3.webp" alt="" class="img-fluid d-block mx-auto mt-2">
-
-
-                    <div class="row btns w-100 mx-auto ">
-                        <button type="button" class="col-6 py-2">
-                            <i class="bi bi-cart-plus"></i>
-
-                        </button>
-                        <button type="button" class="col-6 py-2">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="info-product p-3" >
-                    <a href="#" class="d-block text-dark text-decoration-none py-2 info-name">
-                        Scrapbook album ảnh handmade Sweet Mint
-                    </a>
-                    <span class="info-price fw-bold">649.000₫ </span>
-                    <div class="info-rating d-flex mt-1">
-                        <i class="bi bi-star-fill "></i>
-                        <i class="bi bi-star-fill "></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <span>(25 đánh giá)</span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col info-item mx-3">
-                <div class="info-img ">
-                    <img src="../../images/anh3.webp" alt="" class="img-fluid d-block mx-auto mt-2">
-
-
-                    <div class="row btns w-100 mx-auto ">
-                        <button type="button" class="col-6 py-2">
-                            <i class="bi bi-cart-plus"></i>
-
-                        </button>
-                        <button type="button" class="col-6 py-2">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="info-product p-3" >
-                    <a href="#" class="d-block text-dark text-decoration-none py-2 info-name">
-                        Scrapbook album ảnh handmade Sweet Mint
-                    </a>
-                    <span class="info-price fw-bold">649.000₫ </span>
-                    <div class="info-rating d-flex mt-1">
-                        <i class="bi bi-star-fill "></i>
-                        <i class="bi bi-star-fill "></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <span>(25 đánh giá)</span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col info-item mx-3">
-                <div class="info-img ">
-                    <img src="../../images/anh3.webp" alt="" class="img-fluid d-block mx-auto mt-2">
-
-
-                    <div class="row btns w-100 mx-auto ">
-                        <button type="button" class="col-6 py-2">
-                            <i class="bi bi-cart-plus"></i>
-
-                        </button>
-                        <button type="button" class="col-6 py-2">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="info-product p-3" >
-                    <a href="#" class="d-block text-dark text-decoration-none py-2 info-name">
-                        Scrapbook album ảnh handmade Sweet Mint
-                    </a>
-                    <span class="info-price fw-bold">649.000₫ </span>
-                    <div class="info-rating d-flex mt-1">
-                        <i class="bi bi-star-fill "></i>
-                        <i class="bi bi-star-fill "></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <span>(25 đánh giá)</span>
-                    </div>
-                </div>
-
-            </div>
 
         </div>
 
@@ -732,38 +255,7 @@
 </section>
 
 <!--    Footer-->
-<div id="footer">
-    <ul class="d-flex ">
-        <li class="content col-6" >
-            <img src="../../images/logo.png" width="30%">
-            <p class="me-5">
-                HEADQUARTERS là cửa hàng về đồ HANDMADE về đồ trang trí, phụ kiện, thiệp, album ảnh, sổ tay được làm thủ công
-                đẹp, ý nghĩa, thân thiện với mọi người.
-            </p>
-        </li>
-        <li class="contact col-6 mt-5">
-            <p class="content fs-2 fw-bold">Liên hệ với chúng tôi</p>
-            <div class="address d-flex">
-                <i class="fa-solid fa-location-dot py-2" style="color: #4d8a54"></i>
-                <p class="p-2">Địa chỉ: Lớp DH21DTC,Khoa Công Nghệ Thông Tin,</br> Trường Đại Học Nông Lâm TP.HCM</p>
-            </div>
-            <div class="hotline d-flex">
-                <i class="fa-solid fa-mobile-screen py-2" style="color: #4d8a54"></i>
-                <p class="p-2">Hotline : 1900 3456</p>
-            </div>
-            <div class="icon">
-                <a class="me-3 fs-3" href=""><i class="fa-brands fa-twitter" style="color: #4d8a54"></i></a>
-                <a class="mx-3 fs-3" href=""><i class="fa-brands fa-facebook" style="color: #4d8a54"></i></a>
-                <a class="mx-3 fs-3" href=""><i class="fa-brands fa-square-instagram" style="color: #4d8a54"></i></a>
-                <a class="mx-3 fs-3" href=""><i class="fa-brands fa-youtube" style="color: #4d8a54"></i></a>
-            </div>
-        </li>
-    </ul>
-    <div class="solid  m-auto "></div>
-    <div class="content_end fs-6 fw-bold text-center">
-        <p>Bản quyền thuộc về HEADQUARTERS| Cung cấp bởi HEADQUARTERS</p>
-    </div>
-</div>
+    <%@include file="/views/Footer/footer.jsp"%>
 
 
 
