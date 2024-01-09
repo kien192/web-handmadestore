@@ -49,7 +49,11 @@ public class ProductAdminController extends HttpServlet {
                 childFramePath = "views/Admin/discount_management.jsp";
                 childFrameTitle = "Quản lý khuyến mãi giảm giá";
             }
-//                        Sửa sảm phẩm
+//            Quản lý Danh mục
+            else if (func_2.equals("showCategoriesFrame")) {
+                childFramePath = "views/Admin/category_management.jsp";
+                childFrameTitle = "Quản lý danh mục sản phẩm";
+            }
 //                        Tất cả những cái cần confirm
             if (func_2.equals("showConfirmBox")) {
                 childFramePath = "views/Admin/confirm_box.jsp";
@@ -72,7 +76,9 @@ public class ProductAdminController extends HttpServlet {
                 req.getRequestDispatcher("/views/Admin/product_management.jsp").forward(req, resp);
             }
         }
-//                        Hiển thị sản phẩm - Lọc Sản phẩm
+        //edit product
+        editProduct(req, resp);
+        // Hiển thị sản phẩm - Lọc Sản phẩm
         product_management_filter(req, resp);
     }
 
@@ -124,5 +130,76 @@ public class ProductAdminController extends HttpServlet {
         req.getRequestDispatcher("/views/Admin/product_management.jsp").
 
                 forward(req, resp);
+    }
+
+    private void editProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+//                        Sửa sảm phẩm
+        String edit_product_id = req.getParameter("edit_product_id");
+        String last_edit_product_id = req.getParameter("last_edit_product_id");
+        if (edit_product_id != null) {
+            req.setAttribute("edit_product", ProductService.getInstance().getProductById(edit_product_id));
+        } else if (last_edit_product_id != null) {
+            //submit to edit product
+            String productName = req.getParameter("productName");
+            String quantity = req.getParameter("quantity");
+            String costPrice = req.getParameter("costPrice");
+            String sellingPrice = req.getParameter("sellingPrice");
+
+            String radio_choiceCategory = req.getParameter("choiceCategory");
+
+            String discount = req.getParameter("discount");
+            String description = req.getParameter("description");
+
+            String availableCategory = req.getParameter("availableCategory");//category id
+            String newCategory = req.getParameter("newCategory");
+
+/*
+           Kiểm tra đủ tt?
+                Chưa -> forward kèm attribute để khỏi nhập lại,
+                Đủ -> forward nếu parse không thành công (DL sai), ngược lại update db và forward thành công
+ */
+            if (!(productName.equals("") || quantity.equals("") || costPrice.equals("") || sellingPrice.equals("") || description.equals("") ||
+                    (radio_choiceCategory == null || radio_choiceCategory.equals("")))) {
+                System.out.println("ok đủ tt");
+                if (radio_choiceCategory != null) {
+                    String categoryId = null;
+                    if (radio_choiceCategory.equals("choiceAvailableCategory")) {
+                        //Danh mục có sẵn
+                        categoryId = availableCategory;
+                        try {
+                            if (discount.equals(""))
+                                ProductService.getInstance().editProduct(last_edit_product_id, productName, description, Double.parseDouble(costPrice), Double.parseDouble(sellingPrice), Integer.parseInt(quantity),
+                                        categoryId);
+                            else
+                                ProductService.getInstance().editProduct(last_edit_product_id, productName, description, Double.parseDouble(costPrice), Double.parseDouble(sellingPrice), Integer.parseInt(quantity),
+                                        categoryId, discount);
+                            req.setAttribute("result", "Đã thành công thay đổi thông tin sản phẩm.");
+                        } catch (NullPointerException e) {
+                            req.setAttribute("result", "Dữ liệu không chính xác!Vui lòng thử lại");
+                        }
+                    } else if (radio_choiceCategory.equals("choiceNewCategory")) {
+                        //create new category in table
+                        categoryId = CategoryService.getInstance().createNewCategory(newCategory) + "";
+                        try {
+                            if (discount.equals(""))
+                                ProductService.getInstance().editProduct(last_edit_product_id, productName, description, Double.parseDouble(costPrice), Double.parseDouble(sellingPrice), Integer.parseInt(quantity),
+                                        categoryId);
+                            else
+                                ProductService.getInstance().editProduct(last_edit_product_id, productName, description, Double.parseDouble(costPrice), Double.parseDouble(sellingPrice), Integer.parseInt(quantity),
+                                        categoryId, discount);
+                            req.setAttribute("result", "Đã thành công thay đổi thông tin sản phẩm.");
+                        } catch (NullPointerException e) {
+                            CategoryService.getInstance().deleteNoUsedCategoryById(categoryId);
+                            req.setAttribute("result", "Dữ liệu không chính xác!Vui lòng thử lại");
+                        }
+                    }
+                }
+            } else {
+                req.setAttribute("edit_product", ProductService.getInstance().getProductById(last_edit_product_id));
+                req.setAttribute("result", "Điền đầy đủ để thay đổi thông tin sản phẩm! Vui lòng thử lại");
+                System.out.println("Thiếu tt");
+            }
+        }
     }
 }
