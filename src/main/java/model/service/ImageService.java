@@ -1,5 +1,6 @@
 package model.service;
 
+import model.dao.ImageDAO;
 import model.db.JDBIConnector;
 
 import java.net.MalformedURLException;
@@ -7,6 +8,11 @@ import java.net.URL;
 import java.util.Optional;
 
 public class ImageService {
+    public static ImageService instance;
+    public static ImageService getInstance(){
+        if (instance==null) instance = new ImageService();
+        return instance;
+    }
     public static String getLogoImagePath() {
         Optional<String> path = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select path from image where name = 'Logo'")
@@ -35,6 +41,9 @@ public class ImageService {
             return false;
         }
     }
+    public static String pathImageOnly(int productId){
+        return ImageDAO.pathImage(productId);
+    }
 
     public static void deleteProductImage(String productId) {
         JDBIConnector.me().useHandle(handle ->
@@ -44,8 +53,5 @@ public class ImageService {
         );
     }
 
-    public static void main(String[] args) {
-        System.out.println(getLogoImagePath());
-        System.out.println(getBackgroundImagePath());
-    }
+
 }

@@ -9,10 +9,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProductDAO {
+    //Tất cả các sản phẩm
     public static List<Product> getAll() {
         List<Product> product = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from product")
-                        .mapToBean(Product.class).stream().collect(Collectors.toList())
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList()
         );
         return product;
     }
@@ -69,7 +72,7 @@ public class ProductDAO {
         }
     }
 
-    public static List<Product> findByCategory(String categoryID) {
+    public static List<Product> findByCategory(int categoryID) {
         List<Product> products = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from product where categoryId = :id")
                         .bind("id", categoryID)
@@ -142,6 +145,48 @@ public class ProductDAO {
                         .stream()
                         .toList());
         return products;
+    }
+
+    //    Sắp xếp theo giá tăng dần toàn bộ
+    public static List<Product> sortProductAZ() {
+        List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice ASC")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productAZ;
+    }
+
+    //    Sắp xếp theo giá giảm dần toàn bộ
+    public static List<Product> sortProductZA() {
+        List<Product> productZA = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice DESC")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productZA;
+    }
+
+    //    Sắp xếp theo giá tăng dần theo category
+    public static List<Product> sortProductByCategoryAZ(int Categoryid) {
+        List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product WHERE categoryId = :id ORDER BY product.sellingPrice ASC")
+                        .bind("id", Categoryid)
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productAZ;
+    }
+
+    //    Sắp xếp theo giá giảm dần theo category
+    public static List<Product> sortProductByCategoryZA(int Categoryid) {
+        List<Product> productZA = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product WHERE categoryId = :id ORDER BY product.sellingPrice DESC")
+                        .bind("id", Categoryid)
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productZA;
     }
 
     public static void removeDiscount(String product_id) {
@@ -303,7 +348,7 @@ public class ProductDAO {
     }
 
     public static void main(String[] args) {
-//        insertNewProduct("Chuối Noel", "hahaha", 55000, 60000, 2, "5", "1", new ArrayList<String>());
-        System.out.println(getProductById("1"));
+        System.out.println(findByCategory(1));
     }
+
 }

@@ -17,7 +17,6 @@ public class ProductService {
         if (instance == null) instance = new ProductService();
         return instance;
     }
-
     public List<Product> getAll() {
         return ProductDAO.getAll();
     }
@@ -47,7 +46,7 @@ public class ProductService {
         return ProductDAO.listSixProduct(offset);
     }
 
-    public List<Product> getProductsByCategoryId(String category_id) {
+    public List<Product> getProductsByCategoryId(int category_id) {
         return ProductDAO.findByCategory(category_id);
     }
 
@@ -106,6 +105,14 @@ public class ProductService {
     public void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, String discountId, List<String> imagesPath) {
         ProductDAO.insertNewProduct(name, description, costPrice, sellingPrice, quantity, categoryId, discountId, imagesPath);
     }
+    //Sắp xếp từ thấp đến cao
+    public List<Product> sortProductsAZ(){
+        return ProductDAO.sortProductAZ();
+    }
+    //sắp xếp từ cao đến thấp
+    public List<Product> sortProductsZA(){
+        return ProductDAO.sortProductZA();
+    }
 
     public void editProduct(String id, String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, String discountId) {
         ProductDAO.updateProduct(id, name, description, costPrice, sellingPrice, quantity, categoryId, discountId);
@@ -116,8 +123,6 @@ public class ProductService {
     }
 
     public static void main(String[] args) {
-//        List<Product> products = ProductService.getInstance().sixProduct(0);
-//        System.out.println(products);
-        System.out.println(ProductService.getInstance().productPriceIncludeDiscount(ProductService.getInstance().getProductById("P02")));
+        System.out.println(getInstance().getProductsByCategoryId(2));
     }
 }
