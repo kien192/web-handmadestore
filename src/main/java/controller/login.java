@@ -26,7 +26,7 @@ public class login extends HttpServlet {
         req.getSession().removeAttribute("isAdmin");
         String email = req.getParameter("email");// nhận input từ ng dùng
         String pw = req.getParameter("password");
-        pw = HashPassword.toSHA1(pw);
+        pw = HashPassword.toSHA1(pw);// Hàm băm code
         User checkEmail = UserDAO.getUserByEmail(email);
         User user = UserService.getInstance().checkLogin(email, pw);
         if (email == null) {

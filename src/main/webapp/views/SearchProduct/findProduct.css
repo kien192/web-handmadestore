@@ -1,0 +1,38 @@
+
+.find p {
+font-size: 20px;
+font-weight: bold;
+margin-left: 10vh;
+margin-top: 4vh;
+margin-bottom: 1vh;
+}
+.find .box_find{
+    margin-left: 10vh;
+}
+.find input {
+    padding: 8px;
+}
+.find a {
+    padding: 1vh 1.5vh;
+    background: red;
+    color: white;
+    cursor: pointer;
+}
+.box_find form button{
+    padding: 13px;
+    border: none;
+    background: red
+}
+.pagination strong {
+    text-decoration: none;
+    border: 1px #e8f7fa solid;
+    text-align: center;
+    padding: 0.5rem;
+    background: deepskyblue;
+}
+.pagination a{
+    text-decoration: none;
+    border: 1px #e8f7fa solid;
+    text-align: center;
+    padding: 0.5rem;
+}

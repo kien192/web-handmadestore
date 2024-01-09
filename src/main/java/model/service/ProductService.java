@@ -122,6 +122,7 @@ public class ProductService {
         ProductDAO.updateProduct(id, name, description, costPrice, sellingPrice, quantity, categoryId);
     }
 
+
     public static void main(String[] args) {
         System.out.println(getInstance().getProductsByCategoryId(2));
     }

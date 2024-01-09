@@ -5,6 +5,7 @@ import model.bean.User;
 import model.db.JDBIConnector;
 import model.service.ImageService;
 
+import java.sql.Connection;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -310,6 +311,28 @@ public class ProductDAO {
         );
     }
 
+
+    //Trang chính xuất 15 sản phẩm trong từng category và phải còn hàng
+    public static List<Product> list15product(int idCategory) {
+        List<Product> productList = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product WHERE categoryId = :id AND quantity > 0 LIMIT 15")
+                        .bind("id", idCategory)
+                        .mapToBean(Product.class)
+                        .stream().toList()
+        );
+        return productList;
+    }
+    //Tìm sản phẩm
+    public static List<Product> findProduct(String nameP){
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product WHERE name LIKE :name")
+                        .bind("name","%" +nameP +"%")
+                        .mapToBean(Product.class)
+                        .stream().toList());
+        return products;
+    }
+
+
     public static void updateProduct(String id, String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, String discountId) {
         JDBIConnector.me().useHandle(handle ->
                 handle.createUpdate(
@@ -349,6 +372,7 @@ public class ProductDAO {
 
     public static void main(String[] args) {
         System.out.println(findByCategory(1));
+
     }
 
 }
