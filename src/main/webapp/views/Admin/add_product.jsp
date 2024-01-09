@@ -131,7 +131,6 @@
             <label for="discount">Chọn giảm giá áp dụng</label>
         </div>
     </div>
-    </div>
     <div class="row my-4 mx-5 border rounded-3">
         <label for="description" class="form-label">Mô tả sản phẩm</label>
         <textarea class="form-control mx-auto w-70" style="height: 200px" id="description" name="description"

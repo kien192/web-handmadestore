@@ -113,6 +113,16 @@ public class ProductService {
     public List<Product> sortProductsZA(){
         return ProductDAO.sortProductZA();
     }
+
+    public void editProduct(String id, String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, String discountId) {
+        ProductDAO.updateProduct(id, name, description, costPrice, sellingPrice, quantity, categoryId, discountId);
+    }
+
+    public void editProduct(String id, String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId) {
+        ProductDAO.updateProduct(id, name, description, costPrice, sellingPrice, quantity, categoryId);
+    }
+
+
     public static void main(String[] args) {
         System.out.println(getInstance().getProductsByCategoryId(2));
     }

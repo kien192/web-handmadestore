@@ -311,6 +311,7 @@ public class ProductDAO {
         );
     }
 
+
     //Trang chính xuất 15 sản phẩm trong từng category và phải còn hàng
     public static List<Product> list15product(int idCategory) {
         List<Product> productList = JDBIConnector.me().withHandle(handle ->
@@ -331,9 +332,47 @@ public class ProductDAO {
         return products;
     }
 
+
+    public static void updateProduct(String id, String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, String discountId) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate(
+                                "UPDATE product" +
+                                        " SET name=:name, description=:description, costPrice=:costPrice, sellingPrice=:sellingPrice, quantity=:quantity, categoryId=:categoryId, discountId=:discountId" +
+                                        " WHERE id=:id"
+                        )
+                        .bind("name", name)
+                        .bind("description", description)
+                        .bind("costPrice", costPrice)
+                        .bind("sellingPrice", sellingPrice)
+                        .bind("quantity", quantity)
+                        .bind("categoryId", categoryId)
+                        .bind("discountId", discountId)
+                        .bind("id", id)
+                        .execute()
+        );
+    }
+
+    public static void updateProduct(String id, String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate(
+                                "UPDATE product" +
+                                        " SET name=:name, description=:description, costPrice=:costPrice, sellingPrice=:sellingPrice, quantity=:quantity, categoryId=:categoryId" +
+                                        " WHERE id=:id"
+                        )
+                        .bind("name", name)
+                        .bind("description", description)
+                        .bind("costPrice", costPrice)
+                        .bind("sellingPrice", sellingPrice)
+                        .bind("quantity", quantity)
+                        .bind("categoryId", categoryId)
+                        .bind("id", id)
+                        .execute()
+        );
+    }
+
     public static void main(String[] args) {
-//        insertNewProduct("Chuối Noel", "hahaha", 55000, 60000, 2, "5", "1", new ArrayList<String>());
-        System.out.println(findProduct("Th"));
+        System.out.println(findByCategory(1));
+
     }
 
 }
