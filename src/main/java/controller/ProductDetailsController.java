@@ -1,11 +1,11 @@
 package controller;
 
-import model.bean.Category;
-import model.bean.Image;
-import model.bean.Product;
+import model.bean.*;
 import model.dao.ProductDAO;
+import model.dao.UserDAO;
 import model.service.CategoryService;
 import model.service.ProductService;
+import model.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -33,8 +33,11 @@ public class ProductDetailsController extends HttpServlet {
         Product product = ProductDAO.getProduct(id);
         Category category = CategoryService.getInstance().getCategoryById(product.getCategoryId());
         List<Image> imageList = ProductDAO.getImagesForProduct(id);
+        List<Rate> rateList = ProductService.getInstance().getRateForProduct(product.getId());
         //Lâấy ra 5 sản phẩm liên quan!!
         List<Product> relatedList = ProductService.getInstance().getRelatedProduct(product.getId(), product.getCategoryId(), 5);
+
+
 
         //Kiểm tra số lượng có sẵn , nếu quantity = soldout => disable lẹ ko cho thêm vào giỏ hàng
         String disable = "";
@@ -53,8 +56,10 @@ public class ProductDetailsController extends HttpServlet {
 //Các thông tin chi tiết của sản phẩm.
         req.setAttribute("productById", product);
         req.setAttribute("listImage",imageList );
+        req.setAttribute("listRate",rateList );
         req.setAttribute("categoryByProduct", category);
         req.setAttribute("productRelated", relatedList);
+
 
 
         ServletContext context = req.getServletContext();

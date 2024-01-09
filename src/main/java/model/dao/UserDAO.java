@@ -41,6 +41,22 @@ public class UserDAO {
         return user.isEmpty() ? null : user.get();
     }
 
+    public String getUserNameByIdRate(int userId) {
+        try {
+            String sql = "SELECT u.name from user u join rate r on u.id = r.userId where r.userId = :userId";
+            String userName = JDBIConnector.me().withHandle(handle ->
+                    handle.createQuery(sql).bind("userId", userId)
+                            .mapTo(String.class).findOne().orElse(null));
+            return userName;
+        }
+    catch (Exception e) {
+            e.printStackTrace();
+            return null;
+    }
+    }
+
+
+
     public static void setPasswordByEmail(final String email, String newPassword) {
         JDBIConnector.me().useHandle(handle -> {
             handle.createUpdate("update user set password = ? where email = ?")

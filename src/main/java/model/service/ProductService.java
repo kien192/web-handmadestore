@@ -2,6 +2,7 @@ package model.service;
 
 import model.bean.Discount;
 import model.bean.Product;
+import model.bean.Rate;
 import model.dao.ProductDAO;
 import model.db.JDBIConnector;
 
@@ -120,6 +121,10 @@ public class ProductService {
     }
     public List<Product> getRelatedProduct(int productId, int categoryId, int limit) {
       return  ProductDAO.getRelatedProduct(productId, categoryId,limit);
+    }
+
+    public List<Rate> getRateForProduct(int productId) {
+        return ProductDAO.getRateForProduct(productId);
     }
     public static void main(String[] args) {
 

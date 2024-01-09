@@ -1,9 +1,6 @@
 package model.dao;
 
-import model.bean.Category;
-import model.bean.Image;
-import model.bean.Product;
-import model.bean.User;
+import model.bean.*;
 import model.db.JDBIConnector;
 
 import java.util.Collections;
@@ -99,6 +96,15 @@ public class ProductDAO {
                  );
         return p;
     }
+//Lấy ra danh saách bình luận
+public static List<Rate> getRateForProduct(int productId) {
+        List<Rate> rateList = JDBIConnector.me().withHandle(
+                handle -> handle.createQuery("SELECT FROM rate  where productId =:productId ")
+                        .bind("productId", productId).mapToBean(Rate.class)
+                        .stream().toList());
+                return rateList;
+      }
+
 //Lấy ra danh sách ảnh của sản phẩm.
     public static List<Image> getImagesForProduct(int productId) {
         List<Image> imageList = JDBIConnector.me().withHandle(handle ->
@@ -344,6 +350,7 @@ public class ProductDAO {
                             .execute()
             );
         }
+
 
 
     }

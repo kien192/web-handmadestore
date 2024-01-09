@@ -1,10 +1,8 @@
 <%@ page import="org.w3c.dom.stylesheets.LinkStyle" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.bean.Product" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.bean.Image" %>
-<%@ page import="model.bean.Category" %>
-<%@ page import="model.service.ImageService" %><%--
+<%@ page import="model.service.ImageService" %>
+<%@ page import="model.bean.*" %><%--
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 12/11/2023
@@ -16,10 +14,12 @@
 <%response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");%>
 
 <% Product product = (Product) request.getAttribute("productById");%>
-<% List<Image> imageList =(List<Image>) request.getAttribute("listImage");%>
+<% List<Image> imageList = (List<Image>) request.getAttribute("listImage");%>
 <% Category categoryByProduct = (Category) request.getAttribute("categoryByProduct");%>
 <% String description = product.getDescription();%>
 <% List<Product> relatedProduct = (List<Product>) request.getAttribute("productRelated");%>
+<%List<Rate> rateList = (List<Rate>) request.getAttribute("listRate");%>
+<%%>
 
 
 <html>
@@ -54,36 +54,44 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb ">
             <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
-            <li class="breadcrumb-item"><a href="product?category=<%=categoryByProduct.getId()%>"><%=categoryByProduct.getName()%></a> </li>
-            <li class="breadcrumb-item active" aria-current="page" style="color: #e32124"><%=product.getName()%></li>
+            <li class="breadcrumb-item"><a
+                    href="product?category=<%=categoryByProduct.getId()%>"><%=categoryByProduct.getName()%>
+            </a></li>
+            <li class="breadcrumb-item active" aria-current="page" style="color: #e32124"><%=product.getName()%>
+            </li>
         </ol>
     </nav>
- <div class="row mt-3 ">
-     <%--    Phần hiển thị ảnh sản phẩm. (trái)--%>
-     <!--  zoom container start-->
-     <div class="xzoom-container col-lg-5 col-md-12 col-12">
-            <%if(imageList != null && !imageList.isEmpty()) {
-                Image mainImage = imageList.get(0);
+    <div class="row mt-3 ">
+        <%--    Phần hiển thị ảnh sản phẩm. (trái)--%>
+        <!--  zoom container start-->
+        <div class="xzoom-container col-lg-5 col-md-12 col-12">
+            <%
+                if (imageList != null && !imageList.isEmpty()) {
+                    Image mainImage = imageList.get(0);
             %>
-            <img class="img-fluid w-100 pb-1 xzoom " id="MainImg" src="<%=mainImage.getPath()%>"   alt="">
+            <img class="img-fluid w-100 pb-1 xzoom " id="MainImg" src="<%=mainImage.getPath()%>" alt="">
             <div class="small-img-group">
-                <%for(int i = 1; i< Math.min(imageList.size(), 4); i++) {
-                    Image secondImage = imageList.get(i);
+                <%
+                    for (int i = 1; i < Math.min(imageList.size(), 4); i++) {
+                        Image secondImage = imageList.get(i);
                 %>
                 <div class="small-img-col">
                     <img src="<%= secondImage.getPath()%>" width="100%" class="small-img" alt="">
                 </div>
-                <%}
-            }%>
+                <%
+                        }
+                    }
+                %>
 
             </div>
 
         </div>
-<%--     Phần hiển thị thông tin chi tiết của sản phẩm (phải)--%>
+        <%--     Phần hiển thị thông tin chi tiết của sản phẩm (phải)--%>
         <div class="col-lg-7 col-md-12 col-12 right-pd">
 
-            <h3 class=""><%=product.getName() %></h3>
-            <div class="d-flex rate-content" >
+            <h3 class=""><%=product.getName() %>
+            </h3>
+            <div class="d-flex rate-content">
                 <div class="icon-rate me-3">
                     <i class="bi bi-star "></i>
                     <i class="bi bi-star"></i>
@@ -95,10 +103,10 @@
             </div>
             <div class="state-pd my-2">
                 <label class="me-2 gray-content">Trạng thái: </label>
-<%--                Xử lý trạng thái còn hàng , hết hàng --%>
+                <%--                Xử lý trạng thái còn hàng , hết hàng --%>
                 <%int countProduct = product.getQuantity() - product.getSoldout(); %>
 
-                <%if(countProduct >1) {%>
+                <%if (countProduct > 1) {%>
                 <span>Còn hàng</span>
 
                 <% } else { %>
@@ -110,104 +118,82 @@
 
             </div>
             <h2 class="price-pd mb-4">
-                <%=product.getSellingPrice()%>
+                    <%=product.getSellingPrice()%>
 
-            <div class="row">
-                <div class="quantity-pd mb-4 col-4">
-                    <label  class="me-2"  style="font-size: 14px">Số lượng: </label>
-                    <div class="qu-value">
-                        <button class="pd-des m-0">-</button>
-                        <input type="text" class="quantity-input p-0" value="1">
-                        <button class="pd-inc m-0">+</button>
+                <div class="row">
+                    <div class="quantity-pd mb-4 col-4">
+                        <label class="me-2" style="font-size: 14px">Số lượng: </label>
+                        <div class="qu-value">
+                            <button class="pd-des m-0">-</button>
+                            <input type="text" class="quantity-input p-0" value="1">
+                            <button class="pd-inc m-0">+</button>
+                        </div>
                     </div>
+
+
+                    <button class="buy-btn col-4" style="font-size: 16px" <%=request.getAttribute("disable")%>>Thêm vào
+                        giỏ hàng
+                    </button>
+
+
                 </div>
 
 
+                <hr class="mx-auto">
+                <h4 class=" mt-4 mb-4 ">Chi tiết sản phẩm</h4>
 
-                <button class="buy-btn col-4" style="font-size: 16px" <%=request.getAttribute("disable")%>>Thêm vào giỏ hàng</button>
-
-
-            </div>
-
-
-
-
-
-            <hr class="mx-auto">
-            <h4 class=" mt-4 mb-4 ">Chi tiết sản phẩm</h4>
-
-            <%--          Xử lý hiển thị chi tiết sản phẩm theo từng dòng văn bản--%>
-            <%String[] lines = description.split("\\r?\\n");
+                <%--          Xử lý hiển thị chi tiết sản phẩm theo từng dòng văn bản--%>
+                    <%String[] lines = description.split("\\r?\\n");
                 for(String line : lines) {
 
 %>
 
-  <p class="gray-content"><%=line%>      </p>
-                <%}%>
+                <p class="gray-content"><%=line%>
+                </p>
+                    <%}%>
         </div>
     </div>
 
 
 </section>
-<section class="product-description container mt-5">
-    <h4 >Giới thiệu sản phẩm</h4>
-    <hr class="mx-auto under">
+<%--<section class="product-description container mt-5">--%>
+<%--    <h4>Giới thiệu sản phẩm</h4>--%>
+<%--    <hr class="mx-auto under">--%>
 
-    <div class="content-descr container">
-        <p>- <strong>Scrapbook </strong> được định nghĩa là một cuốn sổ lưu niệm tự thiết kế dùng để lưu giữ thông tin đến chủ sở hữu, gia đình và bạn bè. Scrapbook lưu giữ hình ảnh, hay cả những tác phẩm nghệ thuật. Đồng thời, album Scrapbook được trang trí và lưu lại bút ký của bạn, bạn bè hoặc bất cứ ai.</p>
-        <p>- Nó được làm hoàn toàn từ 100% giấy tái chế, có thể tái chế, phân hủy sinh học và có thể phân hủy sinh học. Tấm bìa được làm từ giấy cứng để đảm bảo độ chắc chắn và bảo vệ trang bên trong. Tất cả được ghép lại bằng dây kim loại. </p>
-        <div class="d-flex flex-column justify-content-center">
-            <img src="../../images/scrapbook-intro.jpg" alt="" class=" img-thumbnail mx-auto w-50">
-            <figure>Sản phẩm được làm thủ công tại HeadQuarters</figure>
-        </div>
-        <p>- Hãy lưu giữ những tấm hình chứa đựng những kỉ niệm đẹp, những mảng ký ức của bản thân, gia đình, bạn bè vào scrapbook và hi vọng bạn yêu thích sản phẩm của chúng tôi </p>
-        <p>- Sản phẩm này sẽ được vận chuyển sớm trong vòng 2-3 ngày.</p>
-        <p>- Nếu bạn có bất kỳ thắc mắc cần giải đáp xin vui lòng liên hệ qua Hotline 1900 3456.</p>
-    </div>
-
-
-
-</section>
-
-<section id="rating-comment" class="rating container mt-5" >
-    <h4 pb-1>Đánh giá - Bình luận </h4>
-
-    <div class="ratings mb-3">
-        <i class="bi bi-star-fill "></i>
-        <i class="bi bi-star-fill "></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-    </div>
-    <div class="d-flex comment-pd">
-    <textarea class="comment-input p-2" rows="3" placeholder="Viết bình luận" maxlength="350">
-
-    </textarea>
-        <button type="button" class="submit-comment btn  btn-outline-success btn-sm shadow-sm ">Gửi</button>
-        <div class="comments">
-            <!-- Các bình luận sẽ được hiển thị ở đây -->
-        </div>
-
-    </div>
-
-
-</section>
+<%--    <div class="content-descr container">--%>
+<%--        <p>- <strong>Scrapbook </strong> được định nghĩa là một cuốn sổ lưu niệm tự thiết kế dùng để lưu giữ thông tin--%>
+<%--            đến chủ sở hữu, gia đình và bạn bè. Scrapbook lưu giữ hình ảnh, hay cả những tác phẩm nghệ thuật. Đồng thời,--%>
+<%--            album Scrapbook được trang trí và lưu lại bút ký của bạn, bạn bè hoặc bất cứ ai.</p>--%>
+<%--        <p>- Nó được làm hoàn toàn từ 100% giấy tái chế, có thể tái chế, phân hủy sinh học và có thể phân hủy sinh học.--%>
+<%--            Tấm bìa được làm từ giấy cứng để đảm bảo độ chắc chắn và bảo vệ trang bên trong. Tất cả được ghép lại bằng--%>
+<%--            dây kim loại. </p>--%>
+<%--        <div class="d-flex flex-column justify-content-center">--%>
+<%--            <img src="../../images/scrapbook-intro.jpg" alt="" class=" img-thumbnail mx-auto w-50">--%>
+<%--            <figure>Sản phẩm được làm thủ công tại HeadQuarters</figure>--%>
+<%--        </div>--%>
+<%--        <p>- Hãy lưu giữ những tấm hình chứa đựng những kỉ niệm đẹp, những mảng ký ức của bản thân, gia đình, bạn bè vào--%>
+<%--            scrapbook và hi vọng bạn yêu thích sản phẩm của chúng tôi </p>--%>
+<%--        <p>- Sản phẩm này sẽ được vận chuyển sớm trong vòng 2-3 ngày.</p>--%>
+<%--        <p>- Nếu bạn có bất kỳ thắc mắc cần giải đáp xin vui lòng liên hệ qua Hotline 1900 3456.</p>--%>
+<%--    </div>--%>
 
 
 
-<section id="relate" class="my-5 ">
+
+<section id="relate" class="mt-5 ">
     <div class="container pb-4">
         <h4>Sản phẩm liên quan</h4>
         <hr class="mx-auto">
 
-        <div class="row my-5 " >
+        <div class="row my-5 ">
 
-            <%for(Product pr : relatedProduct) {%>
+            <%for (Product pr : relatedProduct) {%>
             <%String pathImage = ImageService.getInstance().pathImageOnly(pr.getId());%>
 
             <div class="col info-item mx-3">
                 <div class="info-img ">
-                    <img src="<%=request.getContextPath()%>/<%=pathImage%>" alt="" class="img-fluid d-block mx-auto mt-2">
+                    <img src="<%=request.getContextPath()%>/<%=pathImage%>" alt=""
+                    class="img-fluid d-block mx-auto mt-2">
 
 
                     <div class="row btns w-100 mx-auto ">
@@ -216,12 +202,13 @@
 
                         </button>
                         <button type="button" class="col-6 py-2">
-                            <a href="product-detail?id=<%=pr.getId()%>">  <i class="bi bi-eye"></i> </a>
+                            <a href="product-detail?id=<%=pr.getId()%>"> <i class="bi bi-eye"></i> </a>
                         </button>
                     </div>
                 </div>
-                <div class="info-product p-3" >
-                    <a href="product-detail?id=<%=pr.getId()%>" class="d-block text-dark text-decoration-none py-2 info-name">
+                <div class="info-product p-3">
+                    <a href="product-detail?id=<%=pr.getId()%>"
+                    class="d-block text-dark text-decoration-none py-2 info-name">
                         <%=pr.getName()%>
                     </a>
                     <span class="info-price fw-bold"><%=pr.getSellingPrice()%></span>
@@ -239,14 +226,57 @@
             <%}%>
 
 
-
-
         </div>
 
 
     </div>
 
 
+</section>
+<%--</section>--%>
+
+<section id="rating-comment" class="rating container mb-5">
+    <h4 pb-1>Đánh giá - Bình luận </h4>
+    <hr class="mx-auto">
+    <!-- Các bình luận sẽ được hiển thị ở đây -->
+<% for(Rate r : rateList) {%>
+    <div class="d-flex flex-column mx-2 comments">
+     <div class="p-1 d-flex flex-row">
+         <h6 class="pe-5 m-0 "><%=r.getUserId()%></h6>
+         <p style="font-style: italic ; color: #898989 ; font-family: Arial" class="m-0"> Đã đăng vào lúc   <%=" " + r.getCreateDate()%> </p>
+     </div>
+
+        <div class=" p-1 ratings ">
+            <%  int star = r.getStarRatings();
+                for(int i =1 ; i <= 5; i++) {   %>
+            <%if(i <= star) {%>
+            <i class="bi bi-star-fill " style="color: #ffcc00"></i>
+            <%}
+            else {%>
+            <i class="bi bi-star-fill "></i>
+          <%}
+                }%>
+              </div>
+        <p class="p-1"><%=r.getComment()%></p>
+    </div>
+    <%}%>
+
+
+
+    <div class="ratings mb-3">
+
+        <i class="bi bi-star-fill "></i>
+        <i class="bi bi-star-fill "></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill" style="color: red"></i>
+        <i class="bi bi-star-fill"></i>
+    </div>
+    <div class="d-flex comment-pd">
+    <textarea class="comment-input p-2" rows="3" placeholder="Viết bình luận" maxlength="350">
+
+    </textarea>
+        <button type="button" class="submit-comment btn  btn-outline-success btn-sm shadow-sm ">Gửi</button>
+    </div>
 
 
 
@@ -255,11 +285,7 @@
 </section>
 
 <!--    Footer-->
-    <%@include file="/views/Footer/footer.jsp"%>
-
-
-
-
+<%@include file="/views/Footer/footer.jsp" %>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
