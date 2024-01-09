@@ -1,6 +1,8 @@
 package controller.admin;
 
+import model.bean.Order;
 import model.service.DiscountService;
+import model.service.OrderService;
 import model.service.ProductService;
 
 import javax.servlet.ServletException;
@@ -23,8 +25,7 @@ public class OrderAdminController extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
 
         String currentOrderId = req.getParameter("currentOrderId");
-        System.out.println(currentOrderId);
-
+        req.setAttribute("currentOrder", OrderService.getInstance().getOrderById(currentOrderId));
         req.getRequestDispatcher("/views/Admin/order_management.jsp").forward(req, resp);
     }
 }

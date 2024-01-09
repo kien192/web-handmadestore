@@ -16,19 +16,15 @@ public class OrderService {
         return instance;
     }
 
-    public List<Order> getAll() {
-        return OrderDAO.getAll();
+    public List<Order> getAllOrder() {
+        return OrderDAO.getAllOrder();
     }
 
-    public List<Order> getOrderById(String orderId) {
+    public Order getOrderById(String orderId) {
         return OrderDAO.getOrderById(orderId);
     }
 
-    public List<OrderDetail> getAllOrderDetails() {
-        return OrderDAO.getAllOrderDetails();
-    }
-
-    public List<OrderDetail> getAll(String orderId) {
+    public List<OrderDetail> getOrderDetailsByOrderId(String orderId) {
         return OrderDAO.getOrderDetailsByOrderId(orderId);
     }
 

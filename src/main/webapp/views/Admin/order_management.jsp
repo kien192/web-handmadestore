@@ -3,8 +3,15 @@
 <%@ page import="model.service.OrderService" %>
 <%@ page import="model.service.UserService" %>
 <%@ page import="model.bean.User" %>
+<%@ page import="model.bean.OrderDetail" %>
+<%@ page import="model.bean.Product" %>
+<%@ page import="model.service.ProductService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%List<Order> orders = OrderService.getInstance().getAll();%>
+<%List<Order> orders = OrderService.getInstance().getAllOrder();%>
+<%
+    Order currentOrder = (Order) request.getAttribute("currentOrder");
+    User currentOrderCustomer = (currentOrder != null) ? UserService.getInstance().getUserById(currentOrder.getUserId() + "") : null;
+%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,12 +22,12 @@
     <style>
         #showBox {
             position: fixed;
-            top: 30%;
+            top: 40%;
             left: 50%;
             transform: translate(-50%, -50%);
             overflow: auto;
-            z-index: 9;
-            background-color: #2c3e50;
+            z-index: 1021;
+            background-color: #afe2ea;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -122,10 +129,132 @@
         </div>
         <input type="hidden" id="currentOrderId" name="currentOrderId" value="">
         <%--        showbox--%>
-        <div id="showBox" class="w-50 bg-secondary p-3 rounded">
-            <div class="text-center fw-bold p-3" style="font-size: 30px; color: #0dcaf0">Thông tin đơn hàng</div>
+        <%if (currentOrder != null) {%>
+        <div id="showBox" class="w-75 p-3 rounded">
+            <div class="fw-bold text-start" style="font-size: 30px; color: #0dcaf0">
+                <button id="back_btn" onclick="hideOrderBox()"><i
+                        class="fa-solid fa-arrow-left" style="color: #183153"></i>
+                </button>
+                Thông tin đơn hàng
+            </div>
+            <div class="m-3">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="row">
+                            Mã đơn hàng:
+                            <strong class="w-auto"><%=currentOrder.getId()%>
+                            </strong>
+                        </div>
+                        <div class="row">
+                            Địa chỉ giao:
+                            <strong class="w-auto"><%=currentOrder.getAddress()%>
+                            </strong>
+                        </div>
+                        <div class="row">
+                            Ngày đặt hàng:
+                            <strong class="w-auto"><%=currentOrder.getOrderDate()%>
+                            </strong>
+                        </div>
+                        <div class="row">
+                            Mã khách hàng:
+                            <strong class="w-auto"><%=currentOrder.getUserId()%>
+                            </strong>
+                        </div>
+                        <div class="row">
+                            Tên khách hàng:
+                            <strong class="w-auto"><%=currentOrderCustomer.getName()%>
+                            </strong>
+                        </div>
+                        <div class="row">
+                            SĐT:
+                            <strong class="w-auto"><%=currentOrderCustomer.getPhoneNumber()%>
+                            </strong>
+                        </div>
+                        <div class="row">
+                            Email khách hàng:
+                            <strong class="w-auto"><%=currentOrderCustomer.getEmail()%>
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Mã sản phẩm</th>
+                                    <th scope="col">Tên sản phẩm</th>
+                                    <th scope="col">Đơn giá</th>
+                                    <th scope="col">Số lượng mua</th>
+                                    <th scope="col">Thành tiền</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%!Product p;%>
+                                <%!double productsPrice = 0;%>
+                                <%
+                                    for (OrderDetail orderDetail : OrderService.getInstance().getOrderDetailsByOrderId(currentOrder.getId() + "")) {
+                                        p = ProductService.getInstance().getProductById(orderDetail.getProductId() + "");
+                                %>
 
+                                <tr>
+                                    <td><%=p.getId()%>
+                                    </td>
+                                    <td><%=p.getName()%>
+                                    </td>
+                                    <td>
+                                        <%if (orderDetail.getSellingPrice() != orderDetail.getFinalSellingPrice()) {%>
+                                        <del><%=orderDetail.getSellingPrice()%>
+                                        </del>
+                                        <%}%>
+                                        <%=orderDetail.getFinalSellingPrice()%>
+                                    </td>
+                                    <td><%=orderDetail.getQuantity()%>
+                                    </td>
+                                    <td><%=orderDetail.getQuantity() * orderDetail.getFinalSellingPrice()%>
+                                    </td>
+                                    <%productsPrice += orderDetail.getQuantity() * orderDetail.getFinalSellingPrice();%>
+                                </tr>
+                                <%}%>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row text-end">
+                            <div>
+                                <div class="row">
+                                    <div class="col-10">Tiền hóa đơn:</div>
+                                    <div class="col-2">
+                                        <strong><%=productsPrice%>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-10"> Tiền vận chuyển:</div>
+                                    <div class="col-2">
+                                        <strong><%=currentOrder.getShippingFee()%>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-10">Tổng tiền:</div>
+                                    <div class="col-2">
+                                        <strong><%=currentOrder.getTotalPrice()%>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-10">Trạng thái:</div>
+                                    <div class="col-2">
+                                        <strong><%=currentOrder.getStatus()%>
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <%}%>
     </form>
 </div>
 <script>
@@ -135,6 +264,10 @@
         //set cho hide input
         document.getElementById("currentOrderId").value = orderId;
         document.getElementById("orderForm").submit();
+    }
+
+    function hideOrderBox() {
+        document.getElementById("showBox").style.display = "none";
     }
 </script>
 </body>

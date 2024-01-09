@@ -5,8 +5,13 @@ public class OrderDetail {
     private int productId;
     private int quantity;
 
+    private double sellingPrice;
+    private double finalSellingPrice;
+    private String explainPriceDifference;
+
     public OrderDetail() {
     }
+
 
     public int getOrderId() {
         return orderId;
@@ -30,6 +35,30 @@ public class OrderDetail {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public double getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(double sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+
+    public double getFinalSellingPrice() {
+        return finalSellingPrice;
+    }
+
+    public void setFinalSellingPrice(double finalSellingPrice) {
+        this.finalSellingPrice = finalSellingPrice;
+    }
+
+    public String getExplainPriceDifference() {
+        return explainPriceDifference;
+    }
+
+    public void setExplainPriceDifference(String explainPriceDifference) {
+        this.explainPriceDifference = explainPriceDifference;
     }
 
     @Override

@@ -14,7 +14,6 @@ public class Order implements Serializable {
     private String address;
     private double shippingFee;
     private int userId;
-    private Map<Integer, Integer> orderedProducts;
 
     public Order() {
     }
@@ -75,25 +74,6 @@ public class Order implements Serializable {
         this.userId = userId;
     }
 
-    public Map<Integer, Integer> getOrderedProducts() {
-        return orderedProducts;
-    }
-
-    public void setOrderedProducts(Map<Integer, Integer> orderedProducts) {
-        this.orderedProducts = orderedProducts;
-    }
-
-    public void setOrderedProducts(List<OrderDetail> orderDetailsAll) {
-        this.orderedProducts = new HashMap<>();
-        for (int i = 0; i < orderDetailsAll.size(); i++) {
-            OrderDetail od = orderDetailsAll.get(i);
-            if (od.getOrderId() == this.getId()) {
-                this.orderedProducts.put(od.getProductId(), od.getQuantity());
-                orderDetailsAll.remove(i);
-                i--;
-            }
-        }
-    }
 
     @Override
     public String toString() {
@@ -105,7 +85,6 @@ public class Order implements Serializable {
                 ", address='" + address + '\'' +
                 ", shippingFee=" + shippingFee +
                 ", userId=" + userId +
-                ", orderedProducts=" + orderedProducts +
                 "}\n";
     }
 }
