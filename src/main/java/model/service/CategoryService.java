@@ -31,5 +31,16 @@ public class CategoryService {
     public String createNewCategory(String newCategoryName) {
         return CategoryDAO.insertCategory(newCategoryName);
     }
+
+    public void editCategoryNameById(String id, String newName) {
+        CategoryDAO.updateCategoryNameById(id, newName);
+    }
+    public void deleteNoUsedCategoryById(String id) {
+        CategoryDAO.deleteNoUsedCategoryById(id);
+    }
+
+    public boolean checkNoUsedCategoryById(String id) {
+        return CategoryDAO.checkNoUsedCategoryById(id);
+    }
 }
 

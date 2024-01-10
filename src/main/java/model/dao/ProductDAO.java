@@ -9,13 +9,14 @@ import java.util.UUID;
 
 import model.service.ImageService;
 
+import java.sql.Connection;
 import java.util.*;
 
 import java.util.stream.Collectors;
 
 public class ProductDAO {
     //Tất cả các sản phẩm
-    public static List<Product> getAll(){
+    public static List<Product> getAll() {
         List<Product> product = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from product")
                         .mapToBean(Product.class)
@@ -24,6 +25,7 @@ public class ProductDAO {
         );
         return product;
     }
+
     public static Product getProductById(final String id) {
         Optional<Product> product = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from product where id= :id")
@@ -109,6 +111,7 @@ public static List<Rate> getRateForProduct(int productId) {
 
 
 
+
 //Lấy ra danh sách ảnh của sản phẩm.
     public static List<Image> getImagesForProduct(int productId) {
         List<Image> imageList = JDBIConnector.me().withHandle(handle ->
@@ -116,6 +119,59 @@ public static List<Rate> getRateForProduct(int productId) {
                         .bind("productId", productId)
                         .mapToBean(Image.class)
                         .stream().toList());
+
+    public static List<Product> getProductBySubName(String subName) {
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from product where name like :subName")
+                        .bind("subName", "%" + subName + "%")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return products;
+    }
+
+    //    Sắp xếp theo giá tăng dần toàn bộ
+    public static List<Product> sortProductAZ() {
+        List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice ASC")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productAZ;
+    }
+
+    //    Sắp xếp theo giá giảm dần toàn bộ
+    public static List<Product> sortProductZA() {
+        List<Product> productZA = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice DESC")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productZA;
+    }
+
+    //    Sắp xếp theo giá tăng dần theo category
+    public static List<Product> sortProductByCategoryAZ(int Categoryid) {
+        List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product WHERE categoryId = :id ORDER BY product.sellingPrice ASC")
+                        .bind("id", Categoryid)
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productAZ;
+    }
+
+    //    Sắp xếp theo giá giảm dần theo category
+    public static List<Product> sortProductByCategoryZA(int Categoryid) {
+        List<Product> productZA = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product WHERE categoryId = :id ORDER BY product.sellingPrice DESC")
+                        .bind("id", Categoryid)
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productZA;
+    }
+
 
                         return  imageList;
     }
@@ -355,8 +411,66 @@ public static List<Rate> getRateForProduct(int productId) {
             );
         }
 
+    //Trang chính xuất 15 sản phẩm trong từng category và phải còn hàng
+    public static List<Product> list15product(int idCategory) {
+        List<Product> productList = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product WHERE categoryId = :id AND quantity > 0 LIMIT 15")
+                        .bind("id", idCategory)
+                        .mapToBean(Product.class)
+                        .stream().toList()
+        );
+        return productList;
+    }
+    //Tìm sản phẩm
+    public static List<Product> findProduct(String nameP){
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product WHERE name LIKE :name")
+                        .bind("name","%" +nameP +"%")
+                        .mapToBean(Product.class)
+                        .stream().toList());
+        return products;
+    }
 
 
+    public static void updateProduct(String id, String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, String discountId) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate(
+                                "UPDATE product" +
+                                        " SET name=:name, description=:description, costPrice=:costPrice, sellingPrice=:sellingPrice, quantity=:quantity, categoryId=:categoryId, discountId=:discountId" +
+                                        " WHERE id=:id"
+                        )
+                        .bind("name", name)
+                        .bind("description", description)
+                        .bind("costPrice", costPrice)
+                        .bind("sellingPrice", sellingPrice)
+                        .bind("quantity", quantity)
+                        .bind("categoryId", categoryId)
+                        .bind("discountId", discountId)
+                        .bind("id", id)
+                        .execute()
+        );
+    }
+
+    public static void updateProduct(String id, String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate(
+                                "UPDATE product" +
+                                        " SET name=:name, description=:description, costPrice=:costPrice, sellingPrice=:sellingPrice, quantity=:quantity, categoryId=:categoryId" +
+                                        " WHERE id=:id"
+                        )
+                        .bind("name", name)
+                        .bind("description", description)
+                        .bind("costPrice", costPrice)
+                        .bind("sellingPrice", sellingPrice)
+                        .bind("quantity", quantity)
+                        .bind("categoryId", categoryId)
+                        .bind("id", id)
+                        .execute()
+        );
+    }
+
+    public static void main(String[] args) {
+        System.out.println(findByCategory(1));
     }
 
 

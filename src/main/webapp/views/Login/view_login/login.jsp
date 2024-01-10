@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="container">
-    <form id="form" action="<%=request.getContextPath()%>/login" method="post">
+    <form id="form" action="<%=request.getContextPath()%>/login" method="post" >
         <div class="logo">
             <img src="<%=request.getContextPath()+"/"+ImageService.getLogoImagePath()%>" width="25%">
         </div>

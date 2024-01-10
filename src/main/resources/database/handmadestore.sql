@@ -812,9 +812,12 @@ CREATE TABLE `order`
 
 CREATE TABLE `order_details`
 (
-    `orderId`   int(11) NOT NULL,
-    `productId` int(11) NOT NULL,
-    `quantity`  int(11) NOT NULL
+    `orderId`                int(11) NOT NULL,
+    `productId`              int(11) NOT NULL,
+    `quantity`               int(11) NOT NULL,
+    `sellingPrice`           decimal(10, 2) NOT NULL,
+    `finalSellingPrice`      decimal(10, 2) NOT NULL,
+    `explainPriceDifference` varchar(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE `product`
@@ -1341,29 +1344,13 @@ VALUES (1, 218000.00, '2023-11-29 00:00:00', 'Đang giao', '29 Tô Vĩnh Diện 
        (14, 104000.00, '2023-12-02 00:00:00', 'Đang xử lý',
         '416 Phạm Văn Đồng, Phường 11, Bình Thạnh, Thành phố Hồ Chí Minh', 30.00, 3);
 
-INSERT INTO `order_details` (`orderId`, `productId`, `quantity`)
-VALUES (1, 1, 2),
-       (1, 7, 2),
-       (2, 12, 1),
-       (2, 14, 1),
-       (2, 118, 1),
-       (3, 122, 1),
-       (4, 88, 1),
-       (4, 99, 2),
-       (5, 36, 3),
-       (6, 54, 1),
-       (6, 77, 1),
-       (7, 82, 1),
-       (8, 130, 1),
-       (9, 5, 1),
-       (10, 15, 1),
-       (10, 30, 1),
-       (11, 61, 1),
-       (11, 66, 1),
-       (12, 23, 3),
-       (13, 46, 2),
-       (13, 111, 1),
-       (14, 132, 2);
+INSERT INTO `order_details` (`orderId`, `productId`, `quantity`, `sellingPrice`, `finalSellingPrice`)
+VALUES (1, 1, 2,3000.0,3000.0),
+       (1, 7, 2,50000.0,50000.0),
+       (2, 12, 1,39000.0,39000.0),
+       (2, 14, 1,30000.0,30000.0),
+       (2, 118, 1,395000.0,395000.0),
+       (3, 122, 1,135000.0,135000.0);
 
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `soldout`, `categoryId`,
                        `discountId`, `isSale`)

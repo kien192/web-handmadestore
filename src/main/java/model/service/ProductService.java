@@ -126,6 +126,15 @@ public class ProductService {
     public List<Rate> getRateForProduct(int productId) {
         return ProductDAO.getRateForProduct(productId);
     }
+
+    public void editProduct(String id, String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, String discountId) {
+        ProductDAO.updateProduct(id, name, description, costPrice, sellingPrice, quantity, categoryId, discountId);
+    }
+
+    public void editProduct(String id, String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId) {
+        ProductDAO.updateProduct(id, name, description, costPrice, sellingPrice, quantity, categoryId);
+    }
+
     public static void main(String[] args) {
 
         List<Product> products = ProductService.getInstance().sixProduct(0);
