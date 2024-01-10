@@ -2,6 +2,7 @@ package model.service;
 
 import model.bean.Discount;
 import model.bean.Product;
+import model.bean.Rate;
 import model.dao.ProductDAO;
 import model.db.JDBIConnector;
 
@@ -82,11 +83,11 @@ public class ProductService {
         return ProductDAO.getProductBySubName(subName);
     }
 
-    public List<Product> getProductByDiscountId(String discountId) {
+    public List<Product> getProductByDiscountId(int discountId) {
         return ProductDAO.getProductByDiscountId(discountId);
     }
 
-    public void removeDiscount(String product_id) {
+    public void removeDiscount(int product_id) {
         ProductDAO.removeDiscount(product_id);
     }
 
@@ -98,13 +99,12 @@ public class ProductService {
         ProductDAO.setNullDiscountForProductList(discountId);
     }
 
-    public void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, List<String> imagesPath) {
+    public void insertNewProduct(String name, String description, double costPrice, double sellingPrice,
+                                 int quantity, int categoryId, List<String> imagesPath) {
         ProductDAO.insertNewProduct(name, description, costPrice, sellingPrice, quantity, categoryId, imagesPath);
     }
 
-    public void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, String discountId, List<String> imagesPath) {
-        ProductDAO.insertNewProduct(name, description, costPrice, sellingPrice, quantity, categoryId, discountId, imagesPath);
-    }
+
     //Sắp xếp từ thấp đến cao
     public List<Product> sortProductsAZ(){
         return ProductDAO.sortProductAZ();
@@ -112,6 +112,19 @@ public class ProductService {
     //sắp xếp từ cao đến thấp
     public List<Product> sortProductsZA(){
         return ProductDAO.sortProductZA();
+    }
+    public List<Product> getAllProduct() {
+        return ProductDAO.getAll();
+    }
+    public Product getProductById(int productID) {
+        return ProductDAO.getProduct(productID);
+    }
+    public List<Product> getRelatedProduct(int productId, int categoryId, int limit) {
+      return  ProductDAO.getRelatedProduct(productId, categoryId,limit);
+    }
+
+    public List<Rate> getRateForProduct(int productId) {
+        return ProductDAO.getRateForProduct(productId);
     }
 
     public void editProduct(String id, String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, String discountId) {
@@ -122,8 +135,21 @@ public class ProductService {
         ProductDAO.updateProduct(id, name, description, costPrice, sellingPrice, quantity, categoryId);
     }
 
-
     public static void main(String[] args) {
+
+        List<Product> products = ProductService.getInstance().sixProduct(0);
+        List<Product> productsa = ProductService.getInstance().getAllProduct();
+        Product a = ProductService.getInstance().getProductById(10);
+        System.out.println(a);
+
         System.out.println(getInstance().getProductsByCategoryId(2));
+
     }
+
+
+
+    public void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, int categoryId, int discountId, List<String> imagesPath) {
+        ProductDAO.insertNewProduct(name, description, costPrice, sellingPrice, quantity, categoryId, discountId, imagesPath);
+    }
+
 }

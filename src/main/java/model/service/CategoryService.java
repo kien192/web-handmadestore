@@ -14,8 +14,19 @@ public class CategoryService {
     }
 
     public List<Category> getALl() {
-        return CategoryDAO.getAll();
+
+
+        return CategoryDAO.getAll() ;
     }
+
+    public  Category getCategoryById(int id) {
+        return CategoryDAO.getCategoryById(id);
+    }
+
+
+
+
+
 
     public String createNewCategory(String newCategoryName) {
         return CategoryDAO.insertCategory(newCategoryName);
@@ -32,3 +43,4 @@ public class CategoryService {
         return CategoryDAO.checkNoUsedCategoryById(id);
     }
 }
+

@@ -23,6 +23,17 @@ public class UserService {
         else return null;
     }
 
+    public User checkEmail(String email) {
+        User userByEmail = UserDAO.getUserByEmail(email);
+
+        if (userByEmail != null && userByEmail.getEmail().equals(email))
+            return userByEmail;
+        else return null;
+    }
+
+    public boolean isPhoneNumberExist(String phoneNumber) {
+        return UserDAO.isPhoneExist(phoneNumber);
+    }
     public List<User> getAllUsers() {
         List<User> users = UserDAO.getAllUsers();
         return users;

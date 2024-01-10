@@ -2,6 +2,7 @@ package controller;
 
 import model.bean.User;
 import model.dao.UserDAO;
+import model.service.UserService;
 import utils.HashPassword;
 
 import javax.servlet.ServletException;
@@ -44,15 +45,27 @@ public class SignUp extends HttpServlet {
         validateRequireField("verify", uverify, "Xác thực", errors);
         validateRequireField("email", uemail, "Email", errors);
 
+        User usByEmail = UserService.getInstance().checkEmail(uemail);
+
+
         if(!errors.isEmpty() ) {
             req.setAttribute("errors", errors);
             req.getRequestDispatcher("views/Login/view_login/signup.jsp").forward(req, resp);
         }
+
+     else    if(usByEmail != null ) {
+            req.setAttribute("erDuplicateEmail", "Email đã được sử dụng!");
+            req.getRequestDispatcher("views/Login/view_login/signup.jsp").forward(req,  resp);
+        }
+     else   if(UserService.getInstance().isPhoneNumberExist(utel) == true) {
+            req.setAttribute("erPhoneExist", "Số điện thoại đã được sử dụng!");
+            req.getRequestDispatcher("views/Login/view_login/signup.jsp").forward(req,  resp);
+        }
         else if (!upass.equals(uverify)) {
             req.setAttribute("errorVerify", "Lỗi xác thực mật khẩu không đúng!");
             req.getRequestDispatcher("views/Login/view_login/signup.jsp").forward(req, resp);
-        }
 
+        }
 
         else {
 

@@ -22,6 +22,14 @@ public class UserDAO {
         return user.isEmpty() ? null : user.get();
     }
 
+    public static boolean isPhoneExist(String phoneNumber) {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select COUNT(*) FROM user where phoneNumber = :phoneNumber")
+                        .bind("phoneNumber", phoneNumber)
+                        .mapTo(Integer.class)
+                        .one() > 0);
+    }
+
     public static User getUserById(final String id) {
         Optional<User> user = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from user where id= :id")
@@ -32,6 +40,22 @@ public class UserDAO {
         );
         return user.isEmpty() ? null : user.get();
     }
+
+    public static String getUserNameById(int userId) {
+        try{
+            String sql = "Select name from user where id= :userId";
+            String userName = JDBIConnector.me().withHandle(
+                    handle -> handle.createQuery(sql).bind("userId", userId).mapTo(String.class).findOne().orElse(null)
+            );
+            return userName;
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
     public static void setPasswordByEmail(final String email, String newPassword) {
         JDBIConnector.me().useHandle(handle -> {
@@ -76,6 +100,7 @@ public class UserDAO {
             throw new RuntimeException("Failed to insert user into the database", e);
         }
     }
+
 
     public static List<User> getAllUsers() {
         List<User> users = JDBIConnector.me().withHandle(handle ->
@@ -177,6 +202,8 @@ public class UserDAO {
 //        System.out.println(getNewUsersTop(3));
 //        System.out.println(findUserByEmail("admin@gmail.com"));
 //        setPasswordByEmail("lungbaphe772003@gmail.com", "haha");
+        int userId = 7;
+        System.out.println(UserDAO.getUserNameById(7));
     }
 
 }

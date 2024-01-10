@@ -75,6 +75,7 @@
         </li>
     </ul>
 </div>
+
 <!--carousel-->
 <div id="carouselExampleCaptions" class="carousel slide">
     <div class="carousel-indicators">
@@ -150,6 +151,7 @@
                         <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
                     </div>
 
+
                 </li>
                 <%}%>
                 <div class="load_produce text-center mt-5">
@@ -162,6 +164,7 @@
     </div>
 </div>
 
+
 <!--Bí Kíp-->
 
 <div class="bikip mt-5" id="bikip">
@@ -171,6 +174,7 @@
     <div class="solid_bk mb-5 m-auto"></div>
     <div class="content_bk">
         <ul class="d-flex ">
+
             <%List<Tips> tipsList = TipsDAO.tipsList();
             for (Tips t : tipsList){%>
             <li class="item text-center">

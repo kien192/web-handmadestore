@@ -17,6 +17,18 @@ public class CategoryDAO {
         return categories;
     }
 
+    //Lấy thông tin category thông qua id.
+    public static Category getCategoryById(int id) {
+        Category category = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from category where id= :id")
+                        .bind("id", id)
+                        .mapToBean(Category.class)
+                        .findFirst().orElse(null)
+
+                );
+        return category;
+    }
+
     public static String insertCategory(String newCategoryName) {
         AtomicInteger newID = new AtomicInteger();
         JDBIConnector.me().useHandle(handle -> {
@@ -27,7 +39,9 @@ public class CategoryDAO {
                             .one());
                 }
         );
-        return newID.get() + "";
+
+        return newID.get()+"";
+
     }
 
     public static void deleteNoUsedCategoryById(String id) {

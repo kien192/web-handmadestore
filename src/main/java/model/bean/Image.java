@@ -1,25 +1,29 @@
 package model.bean;
 
 public class Image {
-    private String id;
+
+    private int id;
     private String name;
     private String path;
-    private String productId;
+    private int productId;
 
     public Image() {
+
     }
 
-    public Image( String name, String path, String productId) {
+    public Image(int id, String name, String path, int productId) {
+        this.id = id;
         this.name = name;
         this.path = path;
         this.productId = productId;
     }
 
-    public String getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,11 +43,12 @@ public class Image {
         this.path = path;
     }
 
-    public String getProductId() {
+    public int getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(int productId) {
+
         this.productId = productId;
     }
 
@@ -54,6 +59,7 @@ public class Image {
                 ", name='" + name + '\'' +
                 ", path='" + path + '\'' +
                 ", productId='" + productId + '\'' +
+
                 '}';
     }
 }

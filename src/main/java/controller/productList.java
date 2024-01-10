@@ -1,6 +1,7 @@
 package controller;
 
 import model.bean.Category;
+import model.bean.Image;
 import model.bean.Product;
 import model.dao.CategoryDAO;
 import model.dao.ProductDAO;
@@ -13,11 +14,30 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/product"})
+@WebServlet(urlPatterns = {"/product"} )
 public class productList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+doPost(req,resp);
+    /**/
+        //Xem chi tiết sản phẩm
+//        int productId = Integer.parseInt(req.getParameter("productId"));
+
+
+       //Lấy sản phẩm từ database với id đã được chọn
+//
+//        Product product = ProductService.getInstance().getProductById(productId);
+//        List<Image> imageList = ProductDAO.getImagesForProduct(productId);
+//        req.setAttribute("productById", product);
+//        req.setAttribute("listImage",imageList );
+//
+//
+//        req.getRequestDispatcher("./views/product-details/view/productdt.jsp").forward(req, resp);
+
+
+
+
+
     }
 
     @Override

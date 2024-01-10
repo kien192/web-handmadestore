@@ -71,11 +71,11 @@ public class AddProductAdminController extends HttpServlet {
                         try {
                             if (!discount.equals("")) {
                                 ProductService.getInstance().insertNewProduct(productName, description, Double.parseDouble(costPrice), Double.parseDouble(sellingPrice), Integer.parseInt(quantity),
-                                        categoryId, discount, paths);
+                                        Integer.parseInt(categoryId),Integer.parseInt(discount), paths);
                             } else {
                                 // không áp dụng discount
                                 ProductService.getInstance().insertNewProduct(productName, description, Double.parseDouble(costPrice), Double.parseDouble(sellingPrice), Integer.parseInt(quantity),
-                                        categoryId, paths);
+                                        Integer.parseInt(categoryId), paths);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
