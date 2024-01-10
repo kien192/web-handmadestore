@@ -2,7 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.service.ImageService" %>
-<%@ page import="model.bean.*" %><%--
+<%@ page import="model.bean.*" %>
+<%@ page import="model.dao.UserDAO" %><%--
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 12/11/2023
@@ -19,7 +20,7 @@
 <% String description = product.getDescription();%>
 <% List<Product> relatedProduct = (List<Product>) request.getAttribute("productRelated");%>
 <%List<Rate> rateList = (List<Rate>) request.getAttribute("listRate");%>
-<%%>
+
 
 
 <html>
@@ -69,7 +70,7 @@
                 if (imageList != null && !imageList.isEmpty()) {
                     Image mainImage = imageList.get(0);
             %>
-            <img class="img-fluid w-100 pb-1 xzoom " id="MainImg" src="<%=mainImage.getPath()%>" alt="">
+            <img class="img-fluid w-100 pb-1 xzoom large-img" id="MainImg" src="<%=mainImage.getPath()%>" alt="">
             <div class="small-img-group">
                 <%
                     for (int i = 1; i < Math.min(imageList.size(), 4); i++) {
@@ -120,7 +121,7 @@
             <h2 class="price-pd mb-4">
                     <%=product.getSellingPrice()%>
 
-                <div class="row">
+                <div class="row mt-3">
                     <div class="quantity-pd mb-4 col-4">
                         <label class="me-2" style="font-size: 14px">Số lượng: </label>
                         <div class="qu-value">
@@ -156,29 +157,6 @@
 
 
 </section>
-<%--<section class="product-description container mt-5">--%>
-<%--    <h4>Giới thiệu sản phẩm</h4>--%>
-<%--    <hr class="mx-auto under">--%>
-
-<%--    <div class="content-descr container">--%>
-<%--        <p>- <strong>Scrapbook </strong> được định nghĩa là một cuốn sổ lưu niệm tự thiết kế dùng để lưu giữ thông tin--%>
-<%--            đến chủ sở hữu, gia đình và bạn bè. Scrapbook lưu giữ hình ảnh, hay cả những tác phẩm nghệ thuật. Đồng thời,--%>
-<%--            album Scrapbook được trang trí và lưu lại bút ký của bạn, bạn bè hoặc bất cứ ai.</p>--%>
-<%--        <p>- Nó được làm hoàn toàn từ 100% giấy tái chế, có thể tái chế, phân hủy sinh học và có thể phân hủy sinh học.--%>
-<%--            Tấm bìa được làm từ giấy cứng để đảm bảo độ chắc chắn và bảo vệ trang bên trong. Tất cả được ghép lại bằng--%>
-<%--            dây kim loại. </p>--%>
-<%--        <div class="d-flex flex-column justify-content-center">--%>
-<%--            <img src="../../images/scrapbook-intro.jpg" alt="" class=" img-thumbnail mx-auto w-50">--%>
-<%--            <figure>Sản phẩm được làm thủ công tại HeadQuarters</figure>--%>
-<%--        </div>--%>
-<%--        <p>- Hãy lưu giữ những tấm hình chứa đựng những kỉ niệm đẹp, những mảng ký ức của bản thân, gia đình, bạn bè vào--%>
-<%--            scrapbook và hi vọng bạn yêu thích sản phẩm của chúng tôi </p>--%>
-<%--        <p>- Sản phẩm này sẽ được vận chuyển sớm trong vòng 2-3 ngày.</p>--%>
-<%--        <p>- Nếu bạn có bất kỳ thắc mắc cần giải đáp xin vui lòng liên hệ qua Hotline 1900 3456.</p>--%>
-<%--    </div>--%>
-
-
-
 
 <section id="relate" class="mt-5 ">
     <div class="container pb-4">
@@ -242,7 +220,7 @@
 <% for(Rate r : rateList) {%>
     <div class="d-flex flex-column mx-2 comments">
      <div class="p-1 d-flex flex-row">
-         <h6 class="pe-5 m-0 "><%=r.getUserId()%></h6>
+         <h6 class="pe-5 m-0 "><%=UserDAO.getUserNameById(r.getUserId())%></h6>
          <p style="font-style: italic ; color: #898989 ; font-family: Arial" class="m-0"> Đã đăng vào lúc   <%=" " + r.getCreateDate()%> </p>
      </div>
 
@@ -268,7 +246,7 @@
         <i class="bi bi-star-fill "></i>
         <i class="bi bi-star-fill "></i>
         <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill" style="color: red"></i>
+        <i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
     </div>
     <div class="d-flex comment-pd">

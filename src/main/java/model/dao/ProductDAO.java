@@ -96,14 +96,18 @@ public class ProductDAO {
                  );
         return p;
     }
+
+
 //Lấy ra danh saách bình luận
 public static List<Rate> getRateForProduct(int productId) {
         List<Rate> rateList = JDBIConnector.me().withHandle(
-                handle -> handle.createQuery("SELECT FROM rate  where productId =:productId ")
+                handle -> handle.createQuery("SELECT * FROM rate  where productId =:productId ")
                         .bind("productId", productId).mapToBean(Rate.class)
                         .stream().toList());
                 return rateList;
       }
+
+
 
 //Lấy ra danh sách ảnh của sản phẩm.
     public static List<Image> getImagesForProduct(int productId) {

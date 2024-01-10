@@ -41,18 +41,18 @@ public class UserDAO {
         return user.isEmpty() ? null : user.get();
     }
 
-    public String getUserNameByIdRate(int userId) {
-        try {
-            String sql = "SELECT u.name from user u join rate r on u.id = r.userId where r.userId = :userId";
-            String userName = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery(sql).bind("userId", userId)
-                            .mapTo(String.class).findOne().orElse(null));
+    public static String getUserNameById(int userId) {
+        try{
+            String sql = "Select name from user where id= :userId";
+            String userName = JDBIConnector.me().withHandle(
+                    handle -> handle.createQuery(sql).bind("userId", userId).mapTo(String.class).findOne().orElse(null)
+            );
             return userName;
         }
-    catch (Exception e) {
+        catch(Exception e) {
             e.printStackTrace();
             return null;
-    }
+        }
     }
 
 
@@ -202,6 +202,8 @@ public class UserDAO {
 //        System.out.println(getNewUsersTop(3));
 //        System.out.println(findUserByEmail("admin@gmail.com"));
 //        setPasswordByEmail("lungbaphe772003@gmail.com", "haha");
+        int userId = 7;
+        System.out.println(UserDAO.getUserNameById(7));
     }
 
 }

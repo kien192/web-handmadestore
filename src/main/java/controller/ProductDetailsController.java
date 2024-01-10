@@ -33,9 +33,11 @@ public class ProductDetailsController extends HttpServlet {
         Product product = ProductDAO.getProduct(id);
         Category category = CategoryService.getInstance().getCategoryById(product.getCategoryId());
         List<Image> imageList = ProductDAO.getImagesForProduct(id);
-        List<Rate> rateList = ProductService.getInstance().getRateForProduct(product.getId());
         //Lâấy ra 5 sản phẩm liên quan!!
         List<Product> relatedList = ProductService.getInstance().getRelatedProduct(product.getId(), product.getCategoryId(), 5);
+
+//Bình luận
+        List<Rate> rateList = ProductService.getInstance().getRateForProduct(product.getId());
 
 
 
@@ -56,13 +58,12 @@ public class ProductDetailsController extends HttpServlet {
 //Các thông tin chi tiết của sản phẩm.
         req.setAttribute("productById", product);
         req.setAttribute("listImage",imageList );
-        req.setAttribute("listRate",rateList );
         req.setAttribute("categoryByProduct", category);
         req.setAttribute("productRelated", relatedList);
 
-
-
-        ServletContext context = req.getServletContext();
+        //Caác thông tin dành cho mục bình luận
+        req.setAttribute("listRate",rateList );
+         ServletContext context = req.getServletContext();
         String absolutePath = context.getRealPath("/");
         String jspPath = "/views/product-details/view/productdt.jsp";
 
