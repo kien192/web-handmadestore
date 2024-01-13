@@ -1,3 +1,6 @@
+<%@ page import="model.service.ProductService" %>
+<%@ page import="model.bean.User" %>
+<%@ page import="model.service.UserService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -48,7 +51,8 @@
             <div class="row g-0">
                 <div class="col-md-4 card-icon">
                     <i class="bi bi-bag-fill"></i>
-                    <p class="card-text">234</p>
+                    <p class="card-text"><%=ProductService.getInstance().getNumberAvailProduct()%>
+                    </p>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -126,73 +130,24 @@
         </div>
     </div>
     <div class="row">
-        <div class="table-user m-3 col-sm-3 ">
-            <div class="user-header ">
-                <h5 class="title-f">Khách hàng mới</h5>
-                <span><a href="../customer_managerment.html">Chi tiết</a></span>
-            </div>
-            <hr class="line-split">
-            <table class="table table-hover primary">
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>chautinhtri@gmail.com</td>
-
-                </tr>
-
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>ngogiabao@gmail.com</td>
-
-                </tr>
-
-
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>thanhlong@gmail.com</td>
-
-                </tr>
-
-
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>lylienkiet@gmail.com</td>
-
-                </tr>
-
-
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>votanphat@gmail.com</td>
-
-                </tr>
-
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>nguyentruonggiang@gmail.com</td>
-
-                </tr>
-
-                <tr>
-                    <td>
-                        <i class="bi bi-person-circle"></i>
-                    </td>
-                    <td>dokimphuc@gmail.com</td>
-
-                </tr>
-            </table>
+        <div class="user-header">
+            <h5 class="title-f">10 Khách hàng mới</h5>
+            <span><a href="../customer_managerment.html">Chi tiết</a></span>
         </div>
+        <hr class="line-split">
+        <%for (User u : UserService.getInstance().getNewUsersTop(10)) {%>
+        <div class="d-flex">
+            <div class="d-flex align-items-center mx-3">
+                <i class="bi bi-person-circle"></i>
+            </div>
+            <div class="mx-3"><%=u.getName()%>
+            </div>
+            <div class="mx-3"><%=u.getEmail()%>
+            </div>
+            <div class="mx-3"><%=u.getCreateDate()%>
+            </div>
+        </div>
+        <%}%>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -230,6 +185,6 @@
 </body>
 <%
     } else {
-        response.sendRedirect(request.getContextPath()+"/login");
+        response.sendRedirect(request.getContextPath() + "/login");
     }%>
 </html>

@@ -1,6 +1,7 @@
 <%@ page import="model.service.ImageService" %>
 <%@ page import="model.bean.User" %>
 <%@ page import="model.service.RoleService" %>
+<%@ page import="model.service.OrderService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% String framePath = ((String) request.getAttribute("framePath") == null) ?
         request.getContextPath() + "/views/Admin/dashboard.jsp"
@@ -101,9 +102,20 @@
         <li class="nav-item">
             <a href="<%=request.getContextPath()%>/admin?func=order_management"
                target="content" class="myfunccolor"
-               onclick="choiceMainFunc(3)" id="3">
-                <span class="icon"><i class="bi bi-minecart"></i></span>
-                <span class="title">Quản lý đơn hàng</span>
+               onclick="choiceMainFunc(3)" id="3"
+               style="display: block">
+                <div class="d-flex">
+                    <span class="icon"><i class="bi bi-minecart"></i></span>
+                    <span class="title">Quản lý đơn hàng</span>
+                </div>
+                <%--                new order--%>
+                <%!long waitConfirmOdersCount = OrderService.getInstance().waitConfirmOrderNumber();%>
+                <%if (waitConfirmOdersCount > 0) {%>
+                <div style="color:red; font-size: xx-small; text-align: center">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    (<%=waitConfirmOdersCount%>) đơn hàng mới cần xác nhận
+                </div>
+                <%}%>
             </a>
         </li>
         <li class="nav-item">
@@ -169,6 +181,6 @@
 </body>
 <%
     } else {
-        response.sendRedirect(request.getContextPath()+"/login");
+        response.sendRedirect(request.getContextPath() + "/login");
     }%>
 </html>

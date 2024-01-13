@@ -18,6 +18,7 @@ public class ProductService {
         if (instance == null) instance = new ProductService();
         return instance;
     }
+
     public List<Product> getAll() {
         return ProductDAO.getAll();
     }
@@ -106,21 +107,25 @@ public class ProductService {
 
 
     //Sắp xếp từ thấp đến cao
-    public List<Product> sortProductsAZ(){
+    public List<Product> sortProductsAZ() {
         return ProductDAO.sortProductAZ();
     }
+
     //sắp xếp từ cao đến thấp
-    public List<Product> sortProductsZA(){
+    public List<Product> sortProductsZA() {
         return ProductDAO.sortProductZA();
     }
+
     public List<Product> getAllProduct() {
         return ProductDAO.getAll();
     }
+
     public Product getProductById(int productID) {
         return ProductDAO.getProduct(productID);
     }
+
     public List<Product> getRelatedProduct(int productId, int categoryId, int limit) {
-      return  ProductDAO.getRelatedProduct(productId, categoryId,limit);
+        return ProductDAO.getRelatedProduct(productId, categoryId, limit);
     }
 
     public List<Rate> getRateForProduct(int productId) {
@@ -147,9 +152,11 @@ public class ProductService {
     }
 
 
-
     public void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, int categoryId, int discountId, List<String> imagesPath) {
         ProductDAO.insertNewProduct(name, description, costPrice, sellingPrice, quantity, categoryId, discountId, imagesPath);
     }
 
+    public long getNumberAvailProduct() {
+        return ProductDAO.getNumberAvailProduct();
+    }
 }
