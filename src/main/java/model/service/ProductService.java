@@ -120,6 +120,10 @@ public class ProductService {
         return ProductDAO.getAll();
     }
 
+    public List<Product> getTopSoldoutProduct(int number) {
+        return ProductDAO.getTopSoldoutProduct(number);
+    }
+
     public Product getProductById(int productID) {
         return ProductDAO.getProduct(productID);
     }

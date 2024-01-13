@@ -7,6 +7,7 @@ import model.db.JDBIConnector;
 import model.service.OrderService;
 import model.service.UserService;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,9 +43,15 @@ public class OrderDAO {
         return orderDetails;
     }
 
-    public static long waitConfirmOrderNumber() {
+    public static long waitConfirmOrdersNumber() {
         return JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select count(id) from `order` where status='Chờ xác nhận'")
+                        .mapTo(Long.class).one());
+    }
+
+    public static long deliveringOrdersNumber() {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select count(id) from `order` where status='Đang giao'")
                         .mapTo(Long.class).one());
     }
 
@@ -121,9 +128,29 @@ public class OrderDAO {
         );
     }
 
+    public static double getRevenueForMonth(int month, int year) {
+        String sql = "SELECT SUM(totalPrice) FROM `order` WHERE MONTH(orderDate) = ? AND YEAR(orderDate) = ? AND status='Thành công'";
+        Double re = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind(0, month)
+                        .bind(1, year)
+                        .mapTo(Double.class).one());
+        return re != null ? re : 0;
+    }
+
+    public static double getMonthRevenueMax(int year) {
+        String sql = "SELECT MAX(totalPrice) FROM (SELECT SUM(totalPrice) AS totalPrice FROM `order` WHERE YEAR(orderDate) = ? AND status='Thành công' GROUP BY MONTH(orderDate)) AS monthlyRevenue";
+        Double re = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind(0, year)
+                        .mapTo(Double.class).one());
+        return re != null ? re : 0;
+    }
+
+
     public static void main(String[] args) {
 //        System.out.println(OrderService.getInstance().getOrderByCustomerId(44 + ""));
 //        System.out.println(UserService.getInstance().getUserById((44 + "")));
-        confirmOrder(14 + "");
+//        System.out.println(waitConfirmOrdersNumber());
     }
 }

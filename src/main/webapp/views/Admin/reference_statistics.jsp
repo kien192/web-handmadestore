@@ -1,6 +1,10 @@
 <%@ page import="model.service.ProductService" %>
 <%@ page import="model.bean.User" %>
 <%@ page import="model.service.UserService" %>
+<%@ page import="model.service.OrderService" %>
+<%@ page import="model.bean.Product" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="model.service.CounterFilter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -36,7 +40,8 @@
             <div class="row g-0">
                 <div class="col-md-4 card-icon">
                     <i class="bi bi-eye"></i>
-                    <p class="card-text">2003</p>
+                    <p class="card-text"><%=CounterFilter.getCount()%>
+                    </p>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -67,7 +72,8 @@
             <div class="row g-0">
                 <div class="col-md-4 card-icon">
                     <i class="bi bi-truck"></i>
-                    <p class="card-text">78</p>
+                    <p class="card-text"><%=OrderService.getInstance().deliveringOrdersNumber()%>
+                    </p>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -82,7 +88,8 @@
             <div class="row g-0">
                 <div class="col-md-4 card-icon">
                     <i class="bi bi-people-fill"></i>
-                    <p class="card-text">571</p>
+                    <p class="card-text"><%=UserService.getInstance().usersNumber()%>
+                    </p>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -106,25 +113,36 @@
                     <th scope="col">STT</th>
                     <th scope="col">Mã sản phẩm</th>
                     <th scope="col">Tên sản phẩm</th>
-                    <th scope="col">Số lượng bán</th>
+                    <th scope="col">Số lượng đã bán</th>
+                    <th scope="col">Số lượng tồn kho</th>
                 </tr>
                 </thead>
                 <tbody>
+                <%
+                    int count = 0;
+                    for (Product p : ProductService.getInstance().getTopSoldoutProduct(5)) {
+                        count++;
+                %>
                 <tr>
-                    <td>1</td>
-                    <th scope="row"> TL100
+                    <td><%=count%>
+                    </td>
+                    <th scope="row"><%=p.getId()%>
                     </th>
-                    <th scope="row"> Thanh long đan len
+                    <th scope="row"><%=p.getName()%>>
                     </th>
-                    <td>47</td>
-
+                    <th><%=p.getSoldout()%>
+                    </th>
+                    <th><%=p.getQuantity()%>
+                    </th>
                 </tr>
+                <%}%>
                 </tbody>
             </table>
         </div>
 
         <div class="profit col-sm-7">
-            <h5 class="title-f">Doanh thu bán hàng năm 2023</h5>
+            <h5 class="title-f">Doanh thu bán hàng gần nhất <%=LocalDate.now().getYear()%>
+            </h5>
             <hr class="line-split">
             <canvas id="myCharts" style="width:100%;max-width:600px"></canvas>
         </div>
@@ -150,6 +168,40 @@
         <%}%>
     </div>
 </div>
+
+<%!int year = LocalDate.now().getYear();%>
+<input type="hidden" id="year" value="<%=year%>">
+<%!double lastyear_max = OrderService.getInstance().getMonthRevenueMax(year - 1);%>;
+<input type="hidden" id="lastyear_m1" value="<%=OrderService.getInstance().getRevenueForMonth(1,year-1)%>">
+<input type="hidden" id="lastyear_m2" value="<%=OrderService.getInstance().getRevenueForMonth(2,year-1)%>">
+<input type="hidden" id="lastyear_m3" value="<%=OrderService.getInstance().getRevenueForMonth(3,year-1)%>">
+<input type="hidden" id="lastyear_m4" value="<%=OrderService.getInstance().getRevenueForMonth(4,year-1)%>">
+<input type="hidden" id="lastyear_m5" value="<%=OrderService.getInstance().getRevenueForMonth(5,year-1)%>">
+<input type="hidden" id="lastyear_m6" value="<%=OrderService.getInstance().getRevenueForMonth(6,year-1)%>">
+<input type="hidden" id="lastyear_m7" value="<%=OrderService.getInstance().getRevenueForMonth(7,year-1)%>">
+<input type="hidden" id="lastyear_m8" value="<%=OrderService.getInstance().getRevenueForMonth(8,year-1)%>">
+<input type="hidden" id="lastyear_m9" value="<%=OrderService.getInstance().getRevenueForMonth(9,year-1)%>">
+<input type="hidden" id="lastyear_m10" value="<%=OrderService.getInstance().getRevenueForMonth(10,year-1)%>">
+<input type="hidden" id="lastyear_m11" value="<%=OrderService.getInstance().getRevenueForMonth(11,year-1)%>">
+<input type="hidden" id="lastyear_m12" value="<%=OrderService.getInstance().getRevenueForMonth(12,year-1)%>">
+
+
+<%!double current_max = OrderService.getInstance().getMonthRevenueMax(year);%>
+<input type="hidden" id="max" value="<%=(current_max>lastyear_max)?current_max:lastyear_max%>">
+<input type="hidden" id="m1" value="<%=OrderService.getInstance().getRevenueForMonth(1,year)%>">
+<input type="hidden" id="m2" value="<%=OrderService.getInstance().getRevenueForMonth(2,year)%>">
+<input type="hidden" id="m3" value="<%=OrderService.getInstance().getRevenueForMonth(3,year)%>">
+<input type="hidden" id="m4" value="<%=OrderService.getInstance().getRevenueForMonth(4,year)%>">
+<input type="hidden" id="m5" value="<%=OrderService.getInstance().getRevenueForMonth(5,year)%>">
+<input type="hidden" id="m6" value="<%=OrderService.getInstance().getRevenueForMonth(6,year)%>">
+<input type="hidden" id="m7" value="<%=OrderService.getInstance().getRevenueForMonth(7,year)%>">
+<input type="hidden" id="m8" value="<%=OrderService.getInstance().getRevenueForMonth(8,year)%>">
+<input type="hidden" id="m9" value="<%=OrderService.getInstance().getRevenueForMonth(9,year)%>">
+<input type="hidden" id="m10" value="<%=OrderService.getInstance().getRevenueForMonth(10,year)%>">
+<input type="hidden" id="m11" value="<%=OrderService.getInstance().getRevenueForMonth(11,year)%>">
+<input type="hidden" id="m12" value="<%=OrderService.getInstance().getRevenueForMonth(12,year)%>">
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
@@ -158,8 +210,54 @@
 <script src="../js/main.js"></script>
 <script src="../js/main.js"></script>
 <script>
-    const xValues = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
-    const yValues = [0.34, 1.24, 3.55, 6.4, 2.25, 4.0, 3.8, 2.3, 2.0, 5.7, 10.1];
+    var y_last1 = parseFloat(document.getElementById("lastyear_m1").value);
+    var y_last2 = parseFloat(document.getElementById("lastyear_m2").value);
+    var y_last3 = parseFloat(document.getElementById("lastyear_m3").value);
+    var y_last4 = parseFloat(document.getElementById("lastyear_m4").value);
+    var y_last5 = parseFloat(document.getElementById("lastyear_m5").value);
+    var y_last6 = parseFloat(document.getElementById("lastyear_m6").value);
+    var y_last7 = parseFloat(document.getElementById("lastyear_m7").value);
+    var y_last8 = parseFloat(document.getElementById("lastyear_m8").value);
+    var y_last9 = parseFloat(document.getElementById("lastyear_m9").value);
+    var y_last10 = parseFloat(document.getElementById("lastyear_m10").value);
+    var y_last11 = parseFloat(document.getElementById("lastyear_m11").value);
+    var y_last12 = parseFloat(document.getElementById("lastyear_m12").value);
+
+    var y1 = parseFloat(document.getElementById("m1").value);
+    var y2 = parseFloat(document.getElementById("m2").value);
+    var y3 = parseFloat(document.getElementById("m3").value);
+    var y4 = parseFloat(document.getElementById("m4").value);
+    var y5 = parseFloat(document.getElementById("m5").value);
+    var y6 = parseFloat(document.getElementById("m6").value);
+    var y7 = parseFloat(document.getElementById("m7").value);
+    var y8 = parseFloat(document.getElementById("m8").value);
+    var y9 = parseFloat(document.getElementById("m9").value);
+    var y10 = parseFloat(document.getElementById("m10").value);
+    var y11 = parseFloat(document.getElementById("m11").value);
+    var y12 = parseFloat(document.getElementById("m12").value);
+    var ymax = parseFloat(document.getElementById("max").value);
+
+    var year = parseFloat(document.getElementById("year").value);
+    var lastYear = year - 1;
+
+    var yValues = [];
+    var xValues = [];
+
+    for (var i = 1; i <= 12; i++) {
+        var lastYearValue = parseFloat(document.getElementById("lastyear_m" + i).value);
+        yValues.push(lastYearValue);
+        xValues.push(i + "/" + lastYear);
+    }
+
+    var currentMonth = new Date().getMonth() + 1;
+
+    for (var i = 1; i < currentMonth; i++) {
+        var currentValue = parseFloat(document.getElementById("m" + i).value);
+        yValues.push(currentValue);
+        xValues.push(i + "/" + year);
+    }
+
+    var ymax = parseFloat(document.getElementById("max").value);
 
     new Chart("myCharts", {
         type: "line",
@@ -176,10 +274,11 @@
         options: {
             legend: {display: false},
             scales: {
-                yAxes: [{ticks: {min: 0, max: 14}}],
+                yAxes: [{ticks: {min: 0, max: ymax}}],
             }
         }
     });
+
 
 </script>
 </body>

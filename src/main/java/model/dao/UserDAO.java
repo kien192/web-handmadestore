@@ -105,6 +105,7 @@ public class UserDAO {
                 handle.createQuery("select * from user").mapToBean(User.class).stream().collect(Collectors.toList()));
         return users;
     }
+
     public static List<User> getNewUsersTop(int number) {
         List<User> users = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select  * from user order by createDate desc limit " + number).mapToBean(User.class).stream().collect(Collectors.toList()));
@@ -127,7 +128,7 @@ public class UserDAO {
         );
     }
 
-    public static long customersCount() {
+    public static long usersNumber() {
         return JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select count(id) from user")
                         .mapTo(Long.class).one());

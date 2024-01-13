@@ -564,19 +564,19 @@ VALUES (1, 'Thiệp handmade vintage Beauty & the White', 'images/products/1.web
        (346, 'Background', 'images/background.jpg', NULL);
 
 INSERT INTO `order` (`id`, `totalPrice`, `orderDate`, `status`, `address`, `shippingFee`, `userId`)
-VALUES (1, 218000.00, '2023-11-29 00:00:00', 'Đang giao', '29 Tô Vĩnh Diện , Đông Hòa ,Dĩ An , Bình Dương', 30.00, 1),
+VALUES (1, 218000.00, '2023-11-29 00:00:00', 'Thành công', '29 Tô Vĩnh Diện , Đông Hòa ,Dĩ An , Bình Dương', 30.00, 1),
        (2, 1235000.00, '2023-11-29 00:00:00', 'Đang giao',
         '416 Phạm Văn Đồng, Phường 11, Bình Thạnh, Thành phố Hồ Chí Minh', 30.00, 3),
        (3, 649000.00, '2023-11-30 00:00:00', 'Đang giao', '312 Trường Chinh, Nhơn Hưng, An Nhơn, Bình Định', 40.00, 2),
-       (4, 349000.00, '2023-11-30 00:00:00', 'Đang giao', '32 Đ, Mạc Đĩnh Chi, Đa Kao, Quận 1, Thành phố Hồ Chí Minh',
+       (4, 349000.00, '2023-11-30 00:00:00', 'Thành công', '32 Đ, Mạc Đĩnh Chi, Đa Kao, Quận 1, Thành phố Hồ Chí Minh',
         30.00, 4),
        (5, 117000.00, '2023-11-30 00:00:00', 'Đang giao',
         '312 Đường Võ Nguyên Giáp, Thiện Nghiệp, Thành phố Phan Thiết, Bình Thuận', 40.00, 5),
-       (6, 780000.00, '2023-11-30 00:00:00', 'Đang giao', '31 Trần Phú, P, Mộ Lao, Hà Đông, Hà Nội', 50.00, 6),
+       (6, 780000.00, '2023-11-30 00:00:00', 'Thành công', '31 Trần Phú, P, Mộ Lao, Hà Đông, Hà Nội', 50.00, 6),
        (7, 240000.00, '2023-12-01 00:00:00', 'Đang giao', '29 Tô Vĩnh Diện , Đông Hòa ,Dĩ An , Bình Dương', 30.00, 1),
-       (8, 649000.00, '2023-12-01 00:00:00', 'Đang giao', '15 Trường Chinh, Phước Trung, Bà Rịa, Bà Rịa - Vũng Tàu',
+       (8, 649000.00, '2023-12-01 00:00:00', 'Thành công', '15 Trường Chinh, Phước Trung, Bà Rịa, Bà Rịa - Vũng Tàu',
         30.00, 8),
-       (9, 404000.00, '2023-12-01 00:00:00', 'Đang giao', '21 Võ Trường Toản, An Phú, Quận 2, Thành phố Hồ Chí Minh',
+       (9, 404000.00, '2023-12-01 00:00:00', 'Thành công', '21 Võ Trường Toản, An Phú, Quận 2, Thành phố Hồ Chí Minh',
         30.00, 7),
        (10, 322000.00, '2023-12-01 00:00:00', 'Chờ xác nhận', '314 Âu Cơ, TT, Tân Châu, Tân Châu, An Giang', 30.00, 9),
        (11, 78000.00, '2023-12-02 00:00:00', 'Thành công', '31 Trần Phú, P, Mộ Lao, Hà Đông, Hà Nội', 50.00, 6),
@@ -587,12 +587,12 @@ VALUES (1, 218000.00, '2023-11-29 00:00:00', 'Đang giao', '29 Tô Vĩnh Diện 
         '416 Phạm Văn Đồng, Phường 11, Bình Thạnh, Thành phố Hồ Chí Minh', 30.00, 3);
 
 INSERT INTO `order_details` (`orderId`, `productId`, `quantity`, `sellingPrice`, `finalSellingPrice`)
-VALUES (1, 1, 2,3000.0,3000.0),
-       (1, 7, 2,50000.0,50000.0),
-       (2, 12, 1,39000.0,39000.0),
-       (2, 14, 1,30000.0,30000.0),
-       (2, 118, 1,395000.0,395000.0),
-       (3, 122, 1,135000.0,135000.0);
+VALUES (1, 1, 2, 3000.0, 3000.0),
+       (1, 7, 2, 50000.0, 50000.0),
+       (2, 12, 1, 39000.0, 39000.0),
+       (2, 14, 1, 30000.0, 30000.0),
+       (2, 118, 1, 395000.0, 395000.0),
+       (3, 122, 1, 135000.0, 135000.0);
 
 INSERT INTO `product` (`id`, `name`, `description`, `costPrice`, `sellingPrice`, `quantity`, `soldout`, `categoryId`,
                        `discountId`, `isSale`)

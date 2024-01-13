@@ -4,14 +4,14 @@
 <%@ page import="model.service.OrderService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% String framePath = ((String) request.getAttribute("framePath") == null) ?
-        request.getContextPath() + "/views/Admin/dashboard.jsp"
+        request.getContextPath() + "/views/Admin/reference_statistics.jsp"
         : (request.getContextPath() + (String) request.getAttribute("framePath"));%>
 
 <%User u = (User) session.getAttribute("auth");%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ADMIN DASHBOARD</title>
+    <title>ADMIN</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/views/Admin/css/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -83,7 +83,7 @@
 <div class="navigation content-to-embed">
     <ul class="ps-0 ">
         <li class="nav-item">
-            <a href="<%=request.getContextPath()%>/admin?func=dashboard" target="content"
+            <a href="<%=request.getContextPath()%>/admin?func=reference_statistics" target="content"
                class="nav-link myfunccolor"
                onclick="choiceMainFunc(1)" id="1">
                 <span class="icon"><i class="bi bi-house-door"></i></span>
@@ -109,11 +109,10 @@
                     <span class="title">Quản lý đơn hàng</span>
                 </div>
                 <%--                new order--%>
-                <%!long waitConfirmOdersCount = OrderService.getInstance().waitConfirmOrderNumber();%>
-                <%if (waitConfirmOdersCount > 0) {%>
+                <%if (OrderService.getInstance().waitConfirmOrdersNumber() > 0) {%>
                 <div style="color:red; font-size: xx-small; text-align: center">
                     <i class="fa-solid fa-circle-exclamation"></i>
-                    (<%=waitConfirmOdersCount%>) đơn hàng mới cần xác nhận
+                    (<%=OrderService.getInstance().waitConfirmOrdersNumber()%>) đơn hàng mới cần xác nhận
                 </div>
                 <%}%>
             </a>
@@ -122,14 +121,22 @@
             <a href="<%=request.getContextPath()%>/admin/customer?func=customer_management"
                target="content" class="nav-link myfunccolor"
                onclick="choiceMainFunc(4)" id="4">
-                <span class="icon"><i class="fa-solid fa-users-gear"></i></span>
+                <span class="icon"><i class="fa-regular fa-address-book"></i></span>
                 <span class="title">Quản lý khách hàng </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="<%=request.getContextPath()%>/admin?func=banners_tips"
+               target="content" class="nav-link myfunccolor"
+               onclick="choiceMainFunc(5)" id="5">
+                <span class="icon"><i class="fa-brands fa-gratipay"></i></span>
+                <span class="title">Thay đổi banners, tips</span>
             </a>
         </li>
         <li class="nav-item">
             <a href="<%=request.getContextPath()%>/admin?func=support"
                target="content" class="nav-link myfunccolor"
-               onclick="choiceMainFunc(5)" id="5">
+               onclick="choiceMainFunc(6)" id="6">
                 <span class="icon"><i class="fa-solid fa-circle-info"></i></span>
                 <span class="title">Hỗ trợ</span>
             </a>

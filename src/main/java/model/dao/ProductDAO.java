@@ -426,6 +426,15 @@ public class ProductDAO {
                 handle.createQuery("select count(id) from product where quantity>0 and isSale!=0").mapTo(Long.class).one());
     }
 
+    public static List<Product> getTopSoldoutProduct(int number) {
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product where soldout > 0 order by soldout limit ?")
+                        .bind(0, number)
+                        .mapToBean(Product.class)
+                        .stream().toList());
+        return products;
+    }
+
     public static void main(String[] args) {
         System.out.println(findByCategory(1));
     }

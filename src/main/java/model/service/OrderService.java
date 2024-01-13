@@ -38,8 +38,12 @@ public class OrderService {
         return OrderDAO.getOrderDetailsByOrderId(orderId);
     }
 
-    public long waitConfirmOrderNumber() {
-        return OrderDAO.waitConfirmOrderNumber();
+    public long waitConfirmOrdersNumber() {
+        return OrderDAO.waitConfirmOrdersNumber();
+    }
+
+    public long deliveringOrdersNumber() {
+        return OrderDAO.deliveringOrdersNumber();
     }
 
     public void cancelOrder(String orderId) {
@@ -66,6 +70,13 @@ public class OrderService {
         return OrderDAO.getSucccessfulOrders();
     }
 
+    public double getRevenueForMonth(int month, int year) {
+        return OrderDAO.getRevenueForMonth(month, year);
+    }
+
+    public double getMonthRevenueMax(int year) {
+        return OrderDAO.getMonthRevenueMax(year);
+    }
 
     public static void main(String[] args) {
         System.out.println(getInstance().getOrderById("4444"));

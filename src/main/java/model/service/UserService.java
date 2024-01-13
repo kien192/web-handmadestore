@@ -1,6 +1,7 @@
 package model.service;
 
 import model.bean.User;
+import model.dao.OrderDAO;
 import model.dao.UserDAO;
 
 import java.util.ArrayList;
@@ -43,6 +44,10 @@ public class UserService {
     public List<User> getNewUsersTop(int number) {
         List<User> users = UserDAO.getNewUsersTop(number);
         return users;
+    }
+
+    public long usersNumber() {
+        return UserDAO.usersNumber();
     }
 
     public List<User> ascCreateDateFilter() {
