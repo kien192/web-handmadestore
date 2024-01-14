@@ -54,7 +54,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 7em;
+    height: 5em;
 }
 
 .content .productList .products .product_li .item_product a.image {

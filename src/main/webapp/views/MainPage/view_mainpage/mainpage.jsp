@@ -5,8 +5,9 @@
 <%@ page import="model.bean.Product" %>
 <%@ page import="model.dao.ProductDAO" %>
 <%@ page import="model.service.ImageService" %>
-<%@ page import="model.dao.TipsDAO" %>
-<%@ page import="model.bean.Tips" %>
+<%@ page import="model.service.ProductService" %>
+<%@ page import="model.bean.Tip" %>
+<%@ page import="model.dao.TipDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%User u = (User) session.getAttribute("auth");%>
@@ -146,8 +147,12 @@
                         <a class="image" href="#"> <img src="<%=request.getContextPath()%>/<%=pathImage%>"> </a>
                         <a href="#"><p class="pt-4 px-3"><%=pr.getName() %>
                         </p></a>
-                        <p><%=pr.getSellingPrice()%>đ
-                        </p>
+                        <%!double giaBanSauCung;%>
+                        <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(pr);%>
+                        <%if(pr.getCategoryId() >= 0 && giaBanSauCung!= pr.getSellingPrice()){%>
+                        <del><%=pr.getSellingPrice()%>đ</del>
+                        <%}%>
+                        <p><%=ProductService.getInstance().productPriceIncludeDiscount(pr)%>đ</p>
                         <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
                     </div>
 
@@ -175,11 +180,11 @@
     <div class="content_bk">
         <ul class="d-flex ">
 
-            <%List<Tips> tipsList = TipsDAO.tipsList();
-            for (Tips t : tipsList){%>
+            <%List<Tip> tipsList = TipDAO.getAllTips();
+            for (Tip t : tipsList){%>
             <li class="item text-center">
-                <a href="<%=t.getVideo_link()%>"><img src="<%=t.getImg_path()%>" width="90%"></a>
-                <a href="<%=t.getVideo_link()%>"><h6 class="fw-bold text-center mt-3 px-3"><%=t.getTitle()%></h6></a>
+                <a href="<%=t.getVideoLink()%>"><img src="<%=t.getImgPath()%>" width="90%"></a>
+                <a href="<%=t.getVideoLink()%>"><h6 class="fw-bold text-center mt-3 px-3"><%=t.getTitle()%></h6></a>
                 <p class="px-5"><%=t.getDescription()%></p>
             </li>
             <%}%>
