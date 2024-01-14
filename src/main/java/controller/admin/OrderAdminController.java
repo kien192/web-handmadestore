@@ -29,6 +29,8 @@ public class OrderAdminController extends HttpServlet {
         resp.setContentType("text/jsp; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         String currentFilter = req.getParameter("currentFilter");
+        char delim = ':';
+        System.out.println("Controller>> IN: " + currentFilter);
 //        Find
         String submit_filter = req.getParameter("submit_filter");
         if (submit_filter != null) {
@@ -38,11 +40,11 @@ public class OrderAdminController extends HttpServlet {
                 if (findText != null && !findText.equals("")) {
                     req.setAttribute("currentFindText", findText);
                     if (choiceFindType.equals("orderId_rdo")) {
-                        currentFilter = "orderId_rdo\t" + findText;
+                        currentFilter = "orderId_rdo" + delim + findText;
                     } else if (choiceFindType.equals("customerId_rdo")) {
-                        currentFilter = "customerId_rdo\t" + findText;
+                        currentFilter = "customerId_rdo" + delim + findText;
                     } else if (choiceFindType.equals("customerName_rdo")) {
-                        currentFilter = "customerName_rdo\t" + findText;
+                        currentFilter = "customerName_rdo" + delim + findText;
                     }
                 } else {
                     req.setAttribute("result", "Bạn chưa nhập từ khóa vào ô tìm kiếm");
@@ -72,11 +74,13 @@ public class OrderAdminController extends HttpServlet {
                 } else if (action.equals("confirm")) {
                     MailService.sendNotifyConfirmOrder(UserService.getInstance().getUserById(currentOrder.getUserId() + "").getEmail(), currentOrder);
                     OrderService.getInstance().confirmOrder(currentOrderId);
+                } else if (action.equals("delivered")) {
+                    OrderService.getInstance().deliveredOrder(currentOrderId);
                 }
             }
             req.setAttribute("currentOrderId", currentOrderId);
         }
-
+        System.out.println("Controller>> out: " + currentFilter);
         req.setAttribute("currentFilter", currentFilter);
         req.getRequestDispatcher("/views/Admin/order_management.jsp").forward(req, resp);
     }

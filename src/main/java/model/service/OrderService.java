@@ -54,6 +54,10 @@ public class OrderService {
         OrderDAO.confirmOrder(orderId);
     }
 
+    public void deliveredOrder(String orderId) {
+        OrderDAO.deliveredOrder(orderId);
+    }
+
     public List<Order> getWaitConfirmOrders() {
         return OrderDAO.getWaitConfirmOrders();
     }

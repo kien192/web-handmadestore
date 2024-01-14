@@ -67,11 +67,12 @@ public class AddProductAdminController extends HttpServlet {
                     try {
                         //write
                         List<String> paths = writeProductImagesFromClient(productName, req, resp);
+                        System.out.println("paths: " + paths);
                         //insert
                         try {
                             if (!discount.equals("")) {
                                 ProductService.getInstance().insertNewProduct(productName, description, Double.parseDouble(costPrice), Double.parseDouble(sellingPrice), Integer.parseInt(quantity),
-                                        Integer.parseInt(categoryId),Integer.parseInt(discount), paths);
+                                        Integer.parseInt(categoryId), Integer.parseInt(discount), paths);
                             } else {
                                 // không áp dụng discount
                                 ProductService.getInstance().insertNewProduct(productName, description, Double.parseDouble(costPrice), Double.parseDouble(sellingPrice), Integer.parseInt(quantity),

@@ -1,6 +1,7 @@
 package model.service.JavaMail;
 
 import model.bean.Order;
+import model.bean.User;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -87,6 +88,18 @@ public class MailService {
                         "<br> Đơn hàng của bạn có mã <strong>" + "#" + order.getId() + "</strong>" + "đã xác nhận và sẽ được giao đến bạn sớm nhất." +
                         "<br> Cảm ơn bạn đã tin tưởng mua hàng tại Handmadestore. Nếu bạn có vấn đề hay thắc mắc nào liên quan, hãy liên hệ với chúng tôi qua email này." +
                         "<br><strong>Thân ái! Handmadestore</strong>");
+    }
+
+    public static void sendAdminProblem(String adminEmail, User user, String problemTitle, String desc) {
+        MailService emailService = new MailService();
+        emailService.send(adminEmail,
+                "Khách hàng đang gặp vấn đề với website! ",
+                "<br>Mã khách hàng: <strong>" + user.getId() + "</strong>" +
+                        "<br> Email: <strong>" + user.getEmail() + "</strong>" +
+                        "<br> Sđt: <strong>" + user.getPhoneNumber() + "</strong>" +
+                        "<hr>" +
+                        "Vấn đề: <strong>" + problemTitle + "</strong>" +
+                        "Mô tả của khách hàng: " + desc);
     }
 
     public static void main(String[] args) {

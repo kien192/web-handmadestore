@@ -128,6 +128,14 @@ public class OrderDAO {
         );
     }
 
+    public static void deliveredOrder(String orderId) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate("UPDATE `order` SET status = 'Thành công' WHERE id=?")
+                        .bind(0, orderId)
+                        .execute()
+        );
+    }
+
     public static double getRevenueForMonth(int month, int year) {
         String sql = "SELECT SUM(totalPrice) FROM `order` WHERE MONTH(orderDate) = ? AND YEAR(orderDate) = ? AND status='Thành công'";
         Double re = JDBIConnector.me().withHandle(handle ->

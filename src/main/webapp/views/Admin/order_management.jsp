@@ -29,16 +29,16 @@
         } else if (currentFilter.equals("succcessfulOrders")) {
             orders = OrderService.getInstance().getSucccessfulOrders();
         } else if (currentFilter.startsWith("orderId_rdo")) {
-            StringTokenizer st = new StringTokenizer(currentFilter, "\t");
+            StringTokenizer st = new StringTokenizer(currentFilter, ":");
             st.nextToken();
             orders = new ArrayList<>();
             orders.add(OrderService.getInstance().getOrderById(st.nextToken()));
         } else if (currentFilter.startsWith("customerId_rdo")) {
-            StringTokenizer st = new StringTokenizer(currentFilter, "\t");
+            StringTokenizer st = new StringTokenizer(currentFilter, ":");
             st.nextToken();
             orders = OrderService.getInstance().getOrderByCustomerId(st.nextToken());
         } else if (currentFilter.startsWith("customerName_rdo")) {
-            StringTokenizer st = new StringTokenizer(currentFilter, "\t");
+            StringTokenizer st = new StringTokenizer(currentFilter, ":");
             st.nextToken();
             orders = OrderService.getInstance().getOrderByCustomerNamePart(st.nextToken());
         } else {
@@ -401,7 +401,7 @@
                 Đang xác nhận đơn hàng
             </div>
             <a class="btn btn-success mx-2" id="confirmButton" onclick="loadingConfirm()"
-               href="<%=request.getContextPath()%>/admin/order?action=confirm&currentOrderId=<%=currentOrder.getId()%>">
+               href="<%=request.getContextPath()%>/admin/order?action=confirm&currentOrderId=<%=currentOrder.getId()%>&currentFilter=<%=currentFilter%>">
                 Xác nhận đơn hàng</a>
         </div>
         <%} else if (currentOrder.isDeliveringOrder()) {%>
@@ -410,6 +410,9 @@
             <button class="btn btn-danger mx-2" onclick="showCancelBox()">
                 Hủy bỏ đơn hàng
             </button>
+            <a class="btn btn-success mx-2" title="Tạm thời dùng cách thủ công thay vì có API!"
+               href="<%=request.getContextPath()%>/admin/order?action=delivered&currentOrderId=<%=currentOrder.getId()%>&currentFilter=<%=currentFilter%>">
+                Đã giao</a>
         </div>
         <%}%>
     </div>
@@ -433,7 +436,7 @@
                 Đang hủy bỏ đơn hàng
             </div>
             <a class="btn btn-danger mx-2" id="cancelButton" onclick="loadingCancel()"
-               href="<%=request.getContextPath()%>/admin/order?action=cancel&currentOrderId=<%=currentOrder.getId()%>">
+               href="<%=request.getContextPath()%>/admin/order?action=cancel&currentOrderId=<%=currentOrder.getId()%>&currentFilter=<%=currentFilter%>">
                 Xác nhận hủy bỏ</a>
             <button class="btn btn-success mx-2" onclick="hideCancelBox()">
                 Thoát

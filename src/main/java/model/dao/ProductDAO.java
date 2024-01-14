@@ -157,7 +157,7 @@ public class ProductDAO {
 
             for (String imagePath : imagesPath) {
                 // Insert into image table with auto-increment ID
-                int imageId = handle.createUpdate("INSERT INTO image(name, path, product) VALUES (:name, :path, :productId)")
+                int imageId = handle.createUpdate("INSERT INTO image(name, path, productId) VALUES (:name, :path, :productId)")
                         .bind("name", name + " " + imagePath)
                         .bind("path", imagePath)
                         .bind("productId", productId)
