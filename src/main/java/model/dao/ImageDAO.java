@@ -6,6 +6,7 @@ import model.db.JDBIConnector;
 import java.util.Optional;
 
 public class ImageDAO {
+
     public static String pathImage(int productId){
         Optional<Image> result = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT image.path FROM image join product ON image.productId = product.id WHERE product.id = :productId")
