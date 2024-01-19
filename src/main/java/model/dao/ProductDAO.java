@@ -92,106 +92,52 @@ public class ProductDAO {
     //Lấy sản phẩm dựa vào id product
     public static Product getProduct(int productID) {
         Product p = JDBIConnector.me().withHandle(
-                handle ->  handle.createQuery("SELECT * from product where id = :productID")
+                handle -> handle.createQuery("SELECT * from product where id = :productID")
                         .bind("productID", productID)
-                            .mapToBean(Product.class).findFirst().orElse(null)
-                 );
+                        .mapToBean(Product.class).findFirst().orElse(null)
+        );
         return p;
     }
 
 
-//Lấy ra danh saách bình luận
-public static List<Rate> getRateForProduct(int productId) {
+    //Lấy ra danh saách bình luận
+    public static List<Rate> getRateForProduct(int productId) {
         List<Rate> rateList = JDBIConnector.me().withHandle(
                 handle -> handle.createQuery("SELECT * FROM rate  where productId =:productId ")
                         .bind("productId", productId).mapToBean(Rate.class)
                         .stream().toList());
-                return rateList;
-      }
+        return rateList;
+    }
 
 
-
-
-//Lấy ra danh sách ảnh của sản phẩm.
+    //Lấy ra danh sách ảnh của sản phẩm.
     public static List<Image> getImagesForProduct(int productId) {
         List<Image> imageList = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT * from image where productId = :productId ")
                         .bind("productId", productId)
                         .mapToBean(Image.class)
                         .stream().toList());
-
-    public static List<Product> getProductBySubName(String subName) {
-        List<Product> products = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("select * from product where name like :subName")
-                        .bind("subName", "%" + subName + "%")
-                        .mapToBean(Product.class)
-                        .stream()
-                        .toList());
-        return products;
-    }
-
-    //    Sắp xếp theo giá tăng dần toàn bộ
-    public static List<Product> sortProductAZ() {
-        List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice ASC")
-                        .mapToBean(Product.class)
-                        .stream()
-                        .toList());
-        return productAZ;
-    }
-
-    //    Sắp xếp theo giá giảm dần toàn bộ
-    public static List<Product> sortProductZA() {
-        List<Product> productZA = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice DESC")
-                        .mapToBean(Product.class)
-                        .stream()
-                        .toList());
-        return productZA;
-    }
-
-    //    Sắp xếp theo giá tăng dần theo category
-    public static List<Product> sortProductByCategoryAZ(int Categoryid) {
-        List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("SELECT * FROM product WHERE categoryId = :id ORDER BY product.sellingPrice ASC")
-                        .bind("id", Categoryid)
-                        .mapToBean(Product.class)
-                        .stream()
-                        .toList());
-        return productAZ;
-    }
-
-    //    Sắp xếp theo giá giảm dần theo category
-    public static List<Product> sortProductByCategoryZA(int Categoryid) {
-        List<Product> productZA = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("SELECT * FROM product WHERE categoryId = :id ORDER BY product.sellingPrice DESC")
-                        .bind("id", Categoryid)
-                        .mapToBean(Product.class)
-                        .stream()
-                        .toList());
-        return productZA;
+        return imageList;
     }
 
 
-                        return  imageList;
-    }
-//Lấy ra các sản phẩm liên quan đến sản phẩm (trang chi tiết sản phẩm).
+    //Lấy ra các sản phẩm liên quan đến sản phẩm (trang chi tiết sản phẩm).
     public static List<Product> getRelatedProduct(int productId, int categoryId, int limit) {
-       try {
-           List<Product> products = JDBIConnector.me().withHandle(
-                   handle -> handle.createQuery("SELECT * FROM product WHERE categoryId = :categoryId AND id != :productId LIMIT :limit")
-                           .bind("categoryId", categoryId)
-                           .bind("productId", productId)
-                           .bind("limit", limit)
-                           .mapToBean(Product.class)
-                           .stream().toList()
+        try {
+            List<Product> products = JDBIConnector.me().withHandle(
+                    handle -> handle.createQuery("SELECT * FROM product WHERE categoryId = :categoryId AND id != :productId LIMIT :limit")
+                            .bind("categoryId", categoryId)
+                            .bind("productId", productId)
+                            .bind("limit", limit)
+                            .mapToBean(Product.class)
+                            .stream().toList()
 
-           );
-           return products;
-       }catch (Exception e) {
-           e.printStackTrace();
-           return Collections.emptyList();
-       }
+            );
+            return products;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
 
 
@@ -247,169 +193,174 @@ public static List<Rate> getRateForProduct(int productId) {
                 }
         );
     }
-            public static List<Product> getTrueIsSaleProduct () {
-            List<Product> products = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery("select * from product where isSale = 1")
-                            .mapToBean(Product.class)
-                            .stream()
-                            .toList());
-            return products;
 
-        }
+    public static List<Product> getTrueIsSaleProduct() {
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from product where isSale = 1")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return products;
 
-        public static List<Product> getFalseIsSaleProduct () {
-            List<Product> products;
-            products = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery("select * from product where isSale = 0")
-                            .mapToBean(Product.class)
-                            .stream()
-                            .toList());
-            return products;
-        }
+    }
 
-        public static List<Product> getTrueHasDiscountProduct () {
-            List<Product> products = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery("select * from product where discountId IS NOT NULL")
-                            .mapToBean(Product.class)
-                            .stream()
-                            .toList());
-            return products;
-        }
+    public static List<Product> getFalseIsSaleProduct() {
+        List<Product> products;
+        products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from product where isSale = 0")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return products;
+    }
 
-        public static List<Product> getFalseHasDiscountProduct () {
-            List<Product> products = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery("select * from product where discountId IS NULL")
-                            .mapToBean(Product.class)
-                            .stream()
-                            .toList());
-            return products;
-        }
+    public static List<Product> getTrueHasDiscountProduct() {
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from product where discountId IS NOT NULL")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return products;
+    }
 
-        public static List<Product> getNullQuantityProduct () {
-            List<Product> products = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery("select * from product where quantity = 0")
-                            .mapToBean(Product.class)
-                            .stream()
-                            .toList());
-            return products;
-        }
+    public static List<Product> getFalseHasDiscountProduct() {
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from product where discountId IS NULL")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return products;
+    }
 
-        public static List<Product> getProductByDiscountId ( int discountId){
-            List<Product> products = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery("select * from product where discountId = :id")
-                            .bind("id", discountId)
-                            .mapToBean(Product.class)
-                            .stream()
-                            .toList());
-            return products;
-        }
-    public static List<Product> getProductBySubName (String subName){
-            List<Product> products = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery("select * from product where name like :subName")
-                            .bind("subName", "%" + subName + "%")
-                            .mapToBean(Product.class)
-                            .stream()
-                            .toList());
-            return products;
-        }
+    public static List<Product> getNullQuantityProduct() {
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from product where quantity = 0")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return products;
+    }
+
+    public static List<Product> getProductByDiscountId(int discountId) {
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from product where discountId = :id")
+                        .bind("id", discountId)
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return products;
+    }
+
+    public static List<Product> getProductBySubName(String subName) {
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select * from product where name like :subName")
+                        .bind("subName", "%" + subName + "%")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return products;
+    }
+
     //    Sắp xếp theo giá tăng dần toàn bộ
-    public static List<Product> sortProductAZ () {
-            List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice ASC")
-                            .mapToBean(Product.class)
-                            .stream()
-                            .toList());
-            return productAZ;
-        }
+    public static List<Product> sortProductAZ() {
+        List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice ASC")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productAZ;
+    }
+
     //    Sắp xếp theo giá giảm dần toàn bộ
-    public static List<Product> sortProductZA () {
-            List<Product> productZA = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice DESC")
-                            .mapToBean(Product.class)
-                            .stream()
-                            .toList());
-            return productZA;
-        }
+    public static List<Product> sortProductZA() {
+        List<Product> productZA = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product ORDER BY product.sellingPrice DESC")
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productZA;
+    }
+
     //    Sắp xếp theo giá tăng dần theo category
-    public static List<Product> sortProductByCategoryAZ ( int Categoryid){
-            List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery("SELECT * FROM product WHERE categoryId = :id ORDER BY product.sellingPrice ASC")
-                            .bind("id", Categoryid)
-                            .mapToBean(Product.class)
-                            .stream()
-                            .toList());
-            return productAZ;
-        }
+    public static List<Product> sortProductByCategoryAZ(int Categoryid) {
+        List<Product> productAZ = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product WHERE categoryId = :id ORDER BY product.sellingPrice ASC")
+                        .bind("id", Categoryid)
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productAZ;
+    }
     //    Sắp xếp theo giá giảm dần theo category
 
-        public static List<Product> sortProductByCategoryZA ( int Categoryid){
-            List<Product> productZA = JDBIConnector.me().withHandle(handle ->
-                    handle.createQuery("SELECT * FROM product WHERE categoryId = :id ORDER BY product.sellingPrice DESC")
-                            .bind("id", Categoryid)
-                            .mapToBean(Product.class)
-                            .stream()
-                            .toList());
-            return productZA;
-        }
+    public static List<Product> sortProductByCategoryZA(int Categoryid) {
+        List<Product> productZA = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product WHERE categoryId = :id ORDER BY product.sellingPrice DESC")
+                        .bind("id", Categoryid)
+                        .mapToBean(Product.class)
+                        .stream()
+                        .toList());
+        return productZA;
+    }
 
-        public static void removeDiscount ( int product_id){
-            JDBIConnector.me().useHandle(handle ->
-                    handle.createUpdate("UPDATE product SET discountId = 'null' WHERE id=?")
-                            .bind(0, product_id)
-                            .execute()
-            );
-        }
+    public static void removeDiscount(int product_id) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate("UPDATE product SET discountId = 'null' WHERE id=?")
+                        .bind(0, product_id)
+                        .execute()
+        );
+    }
 
-        public static void setDiscountForProductList (String discountId, List < String > product_id_list){
-            if (product_id_list != null && !product_id_list.isEmpty()) {
-                StringBuilder ids = new StringBuilder();
-                for (int i = 0; i < product_id_list.size(); i++) {
-                    String id = product_id_list.get(i);
-                    ids.append("'" + id + "'");
-                    if (i != product_id_list.size() - 1)
-                        ids.append(",");
-                }
-                System.out.println("thay đổi 1 số");
-                JDBIConnector.me().useHandle(handle ->
-                        handle.createUpdate(
-                                        "UPDATE product " +
-                                                "SET discountId = null WHERE id NOT IN (" + ids + ") AND discountId = :id "
-                                )
-                                .bind("id", discountId)
-                                .execute()
-                );
-
-                JDBIConnector.me().useHandle(handle ->
-                        handle.createUpdate(
-                                        "UPDATE product " +
-                                                "SET discountId = :id WHERE id IN (" + ids + ")"
-                                )
-                                .bind("id", discountId)
-                                .execute()
-                );
-            } else {
-                System.out.println("bỏ tất cả");
-                JDBIConnector.me().useHandle(handle ->
-                        handle.createUpdate(
-                                        "UPDATE product " +
-                                                "SET discountId = null WHERE discountId= :id"
-                                )
-                                .bind("id", discountId)
-                                .execute()
-                );
+    public static void setDiscountForProductList(String discountId, List<String> product_id_list) {
+        if (product_id_list != null && !product_id_list.isEmpty()) {
+            StringBuilder ids = new StringBuilder();
+            for (int i = 0; i < product_id_list.size(); i++) {
+                String id = product_id_list.get(i);
+                ids.append("'" + id + "'");
+                if (i != product_id_list.size() - 1)
+                    ids.append(",");
             }
-
-        }
-
-        public static void setNullDiscountForProductList (String discountId){
+            System.out.println("thay đổi 1 số");
             JDBIConnector.me().useHandle(handle ->
                     handle.createUpdate(
                                     "UPDATE product " +
-                                            "SET discountId = null WHERE discountId=?"
-                            ).bind(0, discountId)
+                                            "SET discountId = null WHERE id NOT IN (" + ids + ") AND discountId = :id "
+                            )
+                            .bind("id", discountId)
+                            .execute()
+            );
+
+            JDBIConnector.me().useHandle(handle ->
+                    handle.createUpdate(
+                                    "UPDATE product " +
+                                            "SET discountId = :id WHERE id IN (" + ids + ")"
+                            )
+                            .bind("id", discountId)
+                            .execute()
+            );
+        } else {
+            System.out.println("bỏ tất cả");
+            JDBIConnector.me().useHandle(handle ->
+                    handle.createUpdate(
+                                    "UPDATE product " +
+                                            "SET discountId = null WHERE discountId= :id"
+                            )
+                            .bind("id", discountId)
                             .execute()
             );
         }
+
+    }
+
+    public static void setNullDiscountForProductList(String discountId) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate(
+                                "UPDATE product " +
+                                        "SET discountId = null WHERE discountId=?"
+                        ).bind(0, discountId)
+                        .execute()
+        );
+    }
 
     //Trang chính xuất 15 sản phẩm trong từng category và phải còn hàng
     public static List<Product> list15product(int idCategory) {
@@ -421,11 +372,12 @@ public static List<Rate> getRateForProduct(int productId) {
         );
         return productList;
     }
+
     //Tìm sản phẩm
-    public static List<Product> findProduct(String nameP){
+    public static List<Product> findProduct(String nameP) {
         List<Product> products = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT * FROM product WHERE name LIKE :name")
-                        .bind("name","%" +nameP +"%")
+                        .bind("name", "%" + nameP + "%")
                         .mapToBean(Product.class)
                         .stream().toList());
         return products;
@@ -472,5 +424,5 @@ public static List<Rate> getRateForProduct(int productId) {
     public static void main(String[] args) {
         System.out.println(findByCategory(1));
     }
-
+}
 

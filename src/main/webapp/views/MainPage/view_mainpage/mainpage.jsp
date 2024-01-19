@@ -144,7 +144,7 @@
                 <li class="product_list">
                     <div class="item_product  me-4">
                         <a class="image" href="#"> <img src="<%=request.getContextPath()%>/<%=pathImage%>"> </a>
-                        <a href="#"><p class="pt-4 px-3"><%=pr.getName() %>
+                        <a href=""><p class="pt-4 px-3"><%=pr.getName() %>
                         </p></a>
                         <p><%=pr.getSellingPrice()%>đ
                         </p>
