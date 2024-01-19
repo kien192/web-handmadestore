@@ -38,18 +38,28 @@
             <p>Danh Mục</p>
         </div>
         <ul class="category_list text-center">
-            <%for (Category c : nameCategory){ %>
+<%--            Sản phẩm khuyến mãi sẽ hiện nếu có sản phẩm--%>
+            <%List<Product> productDiscount = ProductService.getInstance().listProductDiscount();%>
+            <%if(!productDiscount.isEmpty()){%>
+            <li id="khuyenmai" class="item_category py-2">
+                <a id="akhuyenmai"
+                   href="<%=request.getContextPath()%>/product?category=khuyenmai">Sản Phẩm Khuyến Mãi
+                    <i class="fa-solid fa-caret-down"></i></a>
+            </li>
+            <%}%>
+            <%for (Category c : nameCategory) { %>
             <li id="<%=c.getId()%>" class="item_category py-2">
-                <a id="a<%=c.getId()%>" href="<%=request.getContextPath()%>/product?category=<%=c.getId()%>"><%=c.getName()%>
-            <i class="fa-solid fa-caret-down"></i></a>
+                <a id="a<%=c.getId()%>"
+                   href="<%=request.getContextPath()%>/product?category=<%=c.getId()%>"><%=c.getName()%>
+                    <i class="fa-solid fa-caret-down"></i></a>
             </li>
             <%}%>
         </ul>
     </div>
-<%-- Phần chính trong danh sách sản phẩm (Sắp xếp, hiêển thị, số trang, chuyển tiếp ,...v..v)   --%>
+    <%-- Phần chính trong danh sách sản phẩm (Sắp xếp, hiêển thị, số trang, chuyển tiếp ,...v..v)   --%>
     <div class="productList">
 
-<%--Hiển thị theo việc sắp xếp. --%>
+        <%--Hiển thị theo việc sắp xếp. --%>
         <div class="sort ms-5 d-flex">
             <span>Sắp xếp: </span>
             <ul class="menu_sort">
@@ -60,7 +70,8 @@
                             String category = request.getParameter("category");
                             if (category == null) {
                         %>
-                        <li><a class="sort_item dropdown-item" href="<%=request.getContextPath()%>/product">Mặc định</a></li>
+                        <li><a class="sort_item dropdown-item" href="<%=request.getContextPath()%>/product">Mặc định</a>
+                        </li>
                         <li><a class="sort_item dropdown-item" href="?filter=descPrice">Giá giảm dần</a></li>
                         <li><a class="sort_item dropdown-item" href="?filter=ascPrice">Giá tăng dần</a></li>
                         <%} else {%>
@@ -76,14 +87,14 @@
             </ul>
         </div>
 
-<%-- Hiển thị sản phẩm theo category.   --%>
+        <%-- Hiển thị sản phẩm theo category.   --%>
         <%List<Product> allProduct = (List<Product>) request.getAttribute("productInPage");%>
         <ul id="allProduct" class="products m-2 me-5 ms-3 d-flex flex-wrap">
 
-               <%if (allProduct == null) {%>
-                <p>Không có dữ liệu</p>
-                 <%} else {%>
-        <%for (Product p : allProduct) {%>
+            <%if (allProduct == null) {%>
+            <p>Không có dữ liệu</p>
+            <%} else {%>
+            <%for (Product p : allProduct) {%>
             <%String pathImage = ImageService.getInstance().pathImageOnly(p.getId());%>
 
             <li class="product_li">
@@ -91,10 +102,11 @@
                     <a class="image" href="product-detail?id=<%=p.getId()%>">
                         <img src="<%=request.getContextPath()%>/<%=pathImage%>">
                     </a>
-                    <a href="product-detail?id=<%=p.getId()%>"><p class="pt-4 px-3"><%=p.getName() %></p></a>
+                    <a href="product-detail?id=<%=p.getId()%>"><p class="pt-4 px-3"><%=p.getName() %>
+                    </p></a>
                     <%!double giaBanSauCung;%>
                     <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(p);%>
-                    <%if(p.getCategoryId() >= 0 && giaBanSauCung!= p.getSellingPrice()){%>
+                    <%if (p.getCategoryId() >= 0 && giaBanSauCung != p.getSellingPrice()) {%>
                     <del><%=p.getSellingPrice()%>đ</del>
                     <%}%>
                     <p><%=ProductService.getInstance().productPriceIncludeDiscount(p)%>đ</p>
@@ -105,7 +117,7 @@
             <%}%>
             <%}%>
         </ul>
-    <%--    Số Trang--%>
+        <%--    Số Trang--%>
         <div class="pagination mx-5">
             <%int currentPage = (int) request.getAttribute("currentPage");%>
             <%int totalPage = (int) request.getAttribute("totalPage");%>
@@ -190,56 +202,22 @@
 </div>
 </body>
 <script>
-    let urlParagram  = new URLSearchParams(window.location.search);
+    let urlParagram = new URLSearchParams(window.location.search);
     let categoryParam = urlParagram.get('category');
+    let categorykm = document.getElementById("khuyenmai");
+    let acategorykm = document.getElementById("akhuyenmai");
+    if (categoryParam == "khuyenmai") {
+        categorykm.style.background = 'red';
+        acategorykm.style.color = 'white';
+    }
     <%for (Category category1 : nameCategory){%>
     let category<%=category1.getId()%> = document.getElementById("<%=category1.getId()%>");
     let acategory<%=category1.getId()%> = document.getElementById("a<%=category1.getId()%>");
-    if(categoryParam == <%=category1.getId()%>){
+    if (categoryParam == <%=category1.getId()%>) {
         category<%=category1.getId()%>.style.background = 'red';
         acategory<%=category1.getId()%>.style.color = 'white';
     }
     <%}%>
 
 </script>
-<style>
-    /*!*Sort*!*/
-    /*.menu_sort {*/
-    /*    padding: 0;*/
-    /*    margin: 0;*/
-    /*    margin-left: 5px;*/
-    /*    border: 1px solid grey;*/
-    /*}*/
-
-    /*.list_sort {*/
-    /*    width: 23vh;*/
-    /*    text-align: center;*/
-    /*}*/
-
-    /*.menu_sort li .sort_submenu {*/
-    /*    padding: 0;*/
-    /*    left: 0;*/
-    /*    top: 100%;*/
-    /*    border-radius: 0;*/
-    /*}*/
-
-    /*.menu_sort li .sort li {*/
-    /*    border-bottom: 1px solid grey;*/
-    /*}*/
-
-    /*.sort_submenu {*/
-    /*    display: none;*/
-    /*}*/
-
-    /*.menu_sort:hover .sort_submenu {*/
-    /*    display: block;*/
-    /*}*/
-
-    /*.sort_submenu .sort_item:hover {*/
-    /*    background: red;*/
-    /*    color: white;*/
-    /*}*/
-
-</style>
-
 </html>

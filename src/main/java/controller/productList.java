@@ -14,17 +14,17 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/product"} )
+@WebServlet(urlPatterns = {"/product"})
 public class productList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-doPost(req,resp);
-    /**/
+        doPost(req, resp);
+        /**/
         //Xem chi tiết sản phẩm
 //        int productId = Integer.parseInt(req.getParameter("productId"));
 
 
-       //Lấy sản phẩm từ database với id đã được chọn
+        //Lấy sản phẩm từ database với id đã được chọn
 //
 //        Product product = ProductService.getInstance().getProductById(productId);
 //        List<Image> imageList = ProductDAO.getImagesForProduct(productId);
@@ -33,9 +33,6 @@ doPost(req,resp);
 //
 //
 //        req.getRequestDispatcher("./views/product-details/view/productdt.jsp").forward(req, resp);
-
-
-
 
 
     }
@@ -51,39 +48,51 @@ doPost(req,resp);
         if (filter != null && category != null) {
             if (filter.equals("ascPrice")) {
                 List<Category> categoryList = CategoryDAO.getAll();
-                for (Category value : categoryList) {
-                    String values = String.valueOf(value.getId());
-                    if (category.equals(values)) {
-                        productList = ProductDAO.sortProductByCategoryAZ(value.getId());
-                        break;
+                if (category.equals("khuyenmai")) {
+                    productList = ProductService.getInstance().sortListProductDiscountAZ();
+                } else {
+                    for (Category value : categoryList) {
+                        String values = String.valueOf(value.getId());
+                        if (category.equals(values)) {
+                            productList = ProductDAO.sortProductByCategoryAZ(value.getId());
+                            break;
+                        }
                     }
                 }
             } else if (filter.equals("descPrice")) {
                 List<Category> categoryList = CategoryDAO.getAll();
+                if (category.equals("khuyenmai")) {
+                    productList = ProductService.getInstance().sortListProductDiscountZA();
+                } else {
+                    for (Category value : categoryList) {
+                        String values = String.valueOf(value.getId());
+                        if (category.equals(values)) {
+                            productList = ProductDAO.sortProductByCategoryZA(value.getId());
+                            break;
+                        }
+                    }
+                }
+            }
+        } else if (filter == null && category != null) {
+            List<Category> categoryList = CategoryDAO.getAll();
+            if (category.equals("khuyenmai")) {
+                productList = ProductService.getInstance().listProductDiscount();
+            } else {
                 for (Category value : categoryList) {
                     String values = String.valueOf(value.getId());
                     if (category.equals(values)) {
-                        productList = ProductDAO.sortProductByCategoryZA(value.getId());
+                        productList = ProductService.getInstance().getProductsByCategoryId(value.getId());
                         break;
                     }
                 }
             }
-        }else if(filter == null && category != null){
-            List<Category> categoryList = CategoryDAO.getAll();
-            for (Category value : categoryList) {
-                String values = String.valueOf(value.getId());
-                if (category.equals(values)) {
-                    productList = ProductService.getInstance().getProductsByCategoryId(value.getId());
-                    break;
-                }
-            }
-        }else if(filter != null) {
+        } else if (filter != null) {
             if (filter.equals("ascPrice")) {
                 productList = ProductService.getInstance().sortProductsAZ();
             } else if (filter.equals("descPrice")) {
                 productList = ProductService.getInstance().sortProductsZA();
             }
-        }else{
+        } else {
             productList = ProductService.getInstance().getAll();
         }
 

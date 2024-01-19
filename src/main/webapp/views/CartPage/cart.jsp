@@ -31,8 +31,10 @@
         <li class="logo me-4 my-auto">
             <img src="../images/logo.png" style="width: 12vh">
         </li>
-        <li class="item times p-4 my-auto">
-            <a href="#carouselExampleCaptions" >Trang chủ</a>
+        <li >
+
+              <a href="#carouselExampleCaptions" >  <div class="item times p-4 my-auto">Trang chủ </div></a>
+
         </li>
         <li class="item sanpham p-4 dropdown my-auto">
             <a href="#"  class = "title_sp">Sản phẩm <i class="fa-solid fa-caret-down"></i></a>
@@ -174,7 +176,7 @@
 
                     <div class="line-block text-end">
                         <button type="button" class="pause_bt" onclick="window.location = '../MainPage/view_mainpage/mainpage.jsp'">Tiếp tục mua hàng</button>
-                        <button type="button" class="complete_bt" onclick="window.location = '../PaymentPage/payment.html'">Tiếp tục đặt hàng</button>
+                        <button type="button" class="complete_bt" onclick="window.location = '../PaymentPage/payment.jsp'">Tiếp tục đặt hàng</button>
                     </div>
                 </div>
             </div>

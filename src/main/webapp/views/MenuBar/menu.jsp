@@ -23,6 +23,9 @@
         text-decoration: none;
         color: #797974;
     }
+    .menu ul .item_a{
+        padding: 25px 0;
+    }
     .menu ul li {
         list-style-type: none;
     }
@@ -99,17 +102,17 @@
 </style>
 <body>
 <div id="menubar" class="menu sticky-top">
-    <ul class="d-flex m-0">
+    <ul class="d-flex m-0 justify-content-around">
 
         <li class="logo me-4 my-auto">
             <img src="<%=request.getContextPath()%>/images/logo.png" style="width: 12vh">
 
         </li>
         <li class="item times p-4 my-auto">
-            <a href="<%=request.getContextPath()%>/views/MainPage/view_mainpage/mainpage.jsp">Trang chủ</a>
+            <a class="item_a" href="<%=request.getContextPath()%>/views/MainPage/view_mainpage/mainpage.jsp">Trang chủ</a>
         </li>
         <li class="item sanpham p-4 dropdown my-auto">
-            <a href="<%=request.getContextPath()%>/product" class="title_sp">Sản phẩm <i class="fa-solid fa-caret-down"></i></a>
+            <a class="item_a" href="<%=request.getContextPath()%>/product" class="title_sp">Sản phẩm <i class="fa-solid fa-caret-down"></i></a>
             <ul class="sub_menu dropdown-menu">
                 <%List<Category> categories = CategoryService.getInstance().getALl();%>
                 <%for(Category c : categories){%>
@@ -118,10 +121,10 @@
             </ul>
         </li>
         <li class="item bikip p-4 my-auto">
-            <a href="#bikip">Bí kíp làm đồ HandMade</a>
+            <a class="item_a" href="#bikip">Bí kíp làm đồ HandMade</a>
         </li>
         <li class="item footers p-4 my-auto">
-            <a href="#footer ">Về chúng tôi</a>
+            <a class="item_a" href="#footer ">Về chúng tôi</a>
         </li>
 
         <li class="search d-flex p-4 my-auto mx-5">
@@ -133,18 +136,20 @@
         <li class="login p-4 my-auto dropdown">
             <%if(u == null) {%>
             <i class="fa-solid fa-user" style="color: #496088;"></i>
-            <a href="<%=request.getContextPath()%>/login">Đăng Nhập</a>
+            <a class="item_a" href="<%=request.getContextPath()%>/login">Đăng Nhập</a>
             <%} else{%>
 
             <button type="button" class="btn btn-sm btn-primary "><i class="fa-solid fa-user" style="color: white;"></i> <span><%= u.getName()%></span></button>
             <ul id="dangxuat" class="dx dropdown-menu">
-                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp">Đăng Xuất</a></li>
+                <li><a class="dropdown-item" href=""><i class="fa-solid fa-user-pen"></i> Thay Đổi Thông Tin</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp"><i class="fa-solid fa-right-from-bracket"></i> Đăng
+                    Xuất</a></li>
             </ul>
             <%}%>
         </li>
         <li class="cart p-4 dropdown my-auto">
             <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>
-            <a href="<%=request.getContextPath()%>/views/CartPage/cart.html">Giỏ Hàng</a>
+            <a class="item_a" href="<%=request.getContextPath()%>/views/CartPage/cart.jsp">Giỏ Hàng</a>
         </li>
     </ul>
 </div>
