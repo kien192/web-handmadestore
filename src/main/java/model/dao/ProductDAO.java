@@ -117,9 +117,9 @@ public class ProductDAO {
                         .bind("productId", productId)
                         .mapToBean(Image.class)
                         .stream().toList());
+
         return imageList;
     }
-
 
     //Lấy ra các sản phẩm liên quan đến sản phẩm (trang chi tiết sản phẩm).
     public static List<Product> getRelatedProduct(int productId, int categoryId, int limit) {
@@ -157,7 +157,7 @@ public class ProductDAO {
 
             for (String imagePath : imagesPath) {
                 // Insert into image table with auto-increment ID
-                int imageId = handle.createUpdate("INSERT INTO image(name, path, product) VALUES (:name, :path, :productId)")
+                int imageId = handle.createUpdate("INSERT INTO image(name, path, productId) VALUES (:name, :path, :productId)")
                         .bind("name", name + " " + imagePath)
                         .bind("path", imagePath)
                         .bind("productId", productId)
@@ -419,6 +419,20 @@ public class ProductDAO {
                         .bind("id", id)
                         .execute()
         );
+    }
+
+    public static long getNumberAvailProduct() {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select count(id) from product where quantity>0 and isSale!=0").mapTo(Long.class).one());
+    }
+
+    public static List<Product> getTopSoldoutProduct(int number) {
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT * FROM product where soldout > 0 order by soldout limit ?")
+                        .bind(0, number)
+                        .mapToBean(Product.class)
+                        .stream().toList());
+        return products;
     }
 
     public static void main(String[] args) {

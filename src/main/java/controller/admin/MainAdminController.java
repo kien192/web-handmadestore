@@ -35,8 +35,8 @@ public class MainAdminController extends HttpServlet {
             String framePath = "views/Admin/admin.jsp";
             if (func != null) {
                 switch (func) {
-                    case "dashboard":
-                        framePath = "/views/Admin/dashboard.jsp";
+                    case "reference_statistics":
+                        framePath = "/views/Admin/reference_statistics.jsp";
                         break;
                     case "product_management":
                         framePath = "/views/Admin/product_management.jsp";
@@ -47,11 +47,15 @@ public class MainAdminController extends HttpServlet {
                     case "customer_management":
                         framePath = "/views/Admin/customer_management.jsp";
                         break;
+                    case "banners_tips":
+                        framePath = "/views/Admin/banners_tips.jsp";
+                        break;
+
                     case "support":
                         framePath = "/views/Admin/support.jsp";
                         break;
                     default:
-                        framePath = "/views/Admin/dashboard.jsp";
+                        framePath = "/views/Admin/reference_statistics.jsp";
                         break;
                 }
                 req.setAttribute("framePath", framePath);

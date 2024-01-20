@@ -42,19 +42,17 @@ public class UserDAO {
     }
 
     public static String getUserNameById(int userId) {
-        try{
+        try {
             String sql = "Select name from user where id= :userId";
             String userName = JDBIConnector.me().withHandle(
                     handle -> handle.createQuery(sql).bind("userId", userId).mapTo(String.class).findOne().orElse(null)
             );
             return userName;
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-
 
 
     public static void setPasswordByEmail(final String email, String newPassword) {
@@ -130,7 +128,7 @@ public class UserDAO {
         );
     }
 
-    public static long customersCount() {
+    public static long usersNumber() {
         return JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select count(id) from user")
                         .mapTo(Long.class).one());
@@ -210,5 +208,4 @@ public class UserDAO {
         int userId = 7;
         System.out.println(UserDAO.getUserNameById(7));
     }
-
 }
