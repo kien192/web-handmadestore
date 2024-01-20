@@ -14,6 +14,11 @@ public class UserService {
         return instance;
     }
 
+
+    public static void insertUser(User user) {
+        UserDAO.insertUser(user);
+    }
+
     public User checkLogin(String email, String password) {
         User userByEmail = UserDAO.getUserByEmail(email);
 
