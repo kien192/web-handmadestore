@@ -1,5 +1,6 @@
 <%@ page import="model.bean.Product" %>
-<%@ page import="model.service.ImageService" %><%--
+<%@ page import="model.service.ImageService" %>
+<%@ page import="model.service.ProductService" %><%--
   Created by IntelliJ IDEA.
   User: ASUS
   Date: 1/3/2024
@@ -49,8 +50,12 @@
                 <a class="image" href="#"> <img src="<%=request.getContextPath()%>/<%=pathImage%>"> </a>
                 <a href="#"><p class="pt-4 px-3"><%=p.getName() %>
                 </p></a>
-                <p><%=p.getSellingPrice()%>
-                </p>
+                <%!double giaBanSauCung;%>
+                <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(p);%>
+                <%if(p.getCategoryId() >= 0 && giaBanSauCung!= p.getSellingPrice()){%>
+                <del><%=p.getSellingPrice()%>đ</del>
+                <%}%>
+                <p><%=ProductService.getInstance().productPriceIncludeDiscount(p)%>đ</p>
                 <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
             </div>
         </li>

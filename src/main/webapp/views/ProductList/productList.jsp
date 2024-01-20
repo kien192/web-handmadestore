@@ -1,9 +1,9 @@
-<%@ page import="model.bean.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.service.ProductService" %>
 <%@ page import="model.service.ImageService" %>
-<%@ page import="model.bean.Category" %>
 <%@ page import="model.dao.CategoryDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.bean.*" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -38,33 +38,34 @@
             <p>Danh Mục</p>
         </div>
         <ul class="category_list text-center">
-            <%for (Category c : nameCategory){ %>
+            <%for (Category c : nameCategory) { %>
             <li id="<%=c.getId()%>" class="item_category py-2">
-                <a id="a<%=c.getId()%>" href="<%=request.getContextPath()%>/product?category=<%=c.getId()%>"><%=c.getName()%>
-            <i class="fa-solid fa-caret-down"></i></a>
+                <a id="a<%=c.getId()%>"
+                   href="<%=request.getContextPath()%>/product?category=<%=c.getId()%>"><%=c.getName()%>
+                    <i class="fa-solid fa-caret-down"></i></a>
             </li>
             <%}%>
         </ul>
     </div>
-<%-- Phần chính trong danh sách sản phẩm (Sắp xếp, hiêển thị, số trang, chuyển tiếp ,...v..v)   --%>
+    <%-- Phần chính trong danh sách sản phẩm (Sắp xếp, hiêển thị, số trang, chuyển tiếp ,...v..v)   --%>
     <div class="productList">
 
-<%--Hiển thị theo việc sắp xếp. --%>
+        <%--Hiển thị theo việc sắp xếp. --%>
         <div class="sort ms-5 d-flex">
             <span>Sắp xếp: </span>
             <ul class="menu_sort">
                 <li class="list_sort dropdown">
                     <span id="sortTitle"><%=filter%></span>
                     <ul class="sort_submenu list-group dropdown-menu">
-                        <li><a class="sort_item dropdown-item" href="<%=request.getContextPath()%>/product">Mặc định</a>
-                        </li>
                         <%
                             String category = request.getParameter("category");
                             if (category == null) {
                         %>
+                        <li><a class="sort_item dropdown-item" href="<%=request.getContextPath()%>/product">Mặc định</a></li>
                         <li><a class="sort_item dropdown-item" href="?filter=descPrice">Giá giảm dần</a></li>
                         <li><a class="sort_item dropdown-item" href="?filter=ascPrice">Giá tăng dần</a></li>
                         <%} else {%>
+                        <li><a class="sort_item dropdown-item" href="?category=<%=category%>">Mặc định</a></li>
                         <li><a class="sort_item dropdown-item" href="?category=<%=category%>&filter=descPrice">Giá giảm
                             dần</a></li>
                         <li><a class="sort_item dropdown-item" href="?category=<%=category%>&filter=ascPrice">Giá tăng
@@ -76,15 +77,16 @@
             </ul>
         </div>
 
-<%-- Hiển thị sản phẩm theo category.   --%>
-        <%List<Product> allProduct = (List<Product>) request.getAttribute("productInPage");%>
+        <%-- Hiển thị sản phẩm theo category.   --%>
+
         <ul id="allProduct" class="products m-2 me-5 ms-3 d-flex flex-wrap">
 
-               <%if (allProduct == null) {%>
-                <p>Không có dữ liệu</p>
-                 <%} else {%>
-        <%for (Product p : allProduct) {%>
+            <%if (allProduct == null) {%>
+            <p>Không có dữ liệu</p>
+            <%} else {%>
+            <%for (Product p : allProduct) {%>
             <%String pathImage = ImageService.getInstance().pathImageOnly(p.getId());%>
+
 
             <li class="product_li">
                 <div class="item_product  me-4">
@@ -92,13 +94,13 @@
                         <img src="<%=request.getContextPath()%>/<%=pathImage%>">
                     </a>
 
-
-                    <a href="product-detail?id=<%=p.getId()%>"><p class="pt-4 px-3"><%=p.getName() %>
-                    </p>
-                    </a>
-
-                    <p><%=p.getSellingPrice()%>
-                    </p>
+                    <a href="product-detail?id=<%=p.getId()%>"><p class="pt-4 px-3"><%=p.getName() %></p></a>
+                    <%!double giaBanSauCung;%>
+                    <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(p);%>
+                    <%if(p.getCategoryId() >= 0 && giaBanSauCung!= p.getSellingPrice()){%>
+                    <del><%=p.getSellingPrice()%>đ</del>
+                    <%}%>
+                    <p><%=ProductService.getInstance().productPriceIncludeDiscount(p)%>đ</p>
                     <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
                 </div>
             </li>
@@ -106,7 +108,7 @@
             <%}%>
             <%}%>
         </ul>
-    <%--    Số Trang--%>
+        <%--    Số Trang--%>
         <div class="pagination mx-5">
             <%int currentPage = (int) request.getAttribute("currentPage");%>
             <%int totalPage = (int) request.getAttribute("totalPage");%>
@@ -191,12 +193,12 @@
 </div>
 </body>
 <script>
-    let urlParagram  = new URLSearchParams(window.location.search);
+    let urlParagram = new URLSearchParams(window.location.search);
     let categoryParam = urlParagram.get('category');
     <%for (Category category1 : nameCategory){%>
     let category<%=category1.getId()%> = document.getElementById("<%=category1.getId()%>");
     let acategory<%=category1.getId()%> = document.getElementById("a<%=category1.getId()%>");
-    if(categoryParam == <%=category1.getId()%>){
+    if (categoryParam == <%=category1.getId()%>) {
         category<%=category1.getId()%>.style.background = 'red';
         acategory<%=category1.getId()%>.style.color = 'white';
     }

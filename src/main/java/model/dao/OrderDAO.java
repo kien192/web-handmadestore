@@ -1,13 +1,18 @@
 package model.dao;
 
-import model.bean.Discount;
-import model.bean.Order;
-import model.bean.OrderDetail;
+import model.bean.*;
 import model.db.JDBIConnector;
 import model.service.OrderService;
 import model.service.UserService;
 
+<<<<<<< HEAD
 import java.time.LocalDate;
+=======
+import javax.xml.crypto.Data;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+>>>>>>> 932407313bef4442ae164fd09b85ed13ebb60d5a
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +48,7 @@ public class OrderDAO {
         return orderDetails;
     }
 
+<<<<<<< HEAD
     public static long waitConfirmOrdersNumber() {
         return JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select count(id) from `order` where status='Chờ xác nhận'")
@@ -160,5 +166,59 @@ public class OrderDAO {
 //        System.out.println(OrderService.getInstance().getOrderByCustomerId(44 + ""));
 //        System.out.println(UserService.getInstance().getUserById((44 + "")));
 //        System.out.println(waitConfirmOrdersNumber());
+=======
+    /**
+     * Sử dụng cho việc checkout
+     */
+    //lấy ngày hiện tại
+//    java.time.LocalDate curDate = java.time.LocalDate.now();
+//    String date = curDate.toString();
+//    public void addOrder(User user , Cart cart) {
+//        Timestamp dateOrder = new Timestamp(System.currentTimeMillis());
+//    try {
+//        String sql = "INSERT INTO [order] (totalPrice, orderDate, userId) values (?,?,?)";
+//        JDBIConnector.me().useHandle(handle -> {
+//                handle.createUpdate(sql).bind(0, cart.getTotalPrice())
+//                        .bind(1, dateOrder)
+//                        .bind(2, user.getId())
+//                        .execute(); }
+//        );
+
+        //Lấy id vừa được theem vào order
+//        int orderId =  JDBIConnector.me().withHandle(handle ->
+//                handle.createQuery("Select id from [order] order by id desc limit 1")
+//                        .mapTo(Integer.class)
+//                        .findOne()
+//                        .orElseThrow()
+//        );
+//
+//        //Thực hiện insert vào bảng orderDetails cho từng sản phẩm trong giỏ hàng.
+//        String sql1 = "INSERT INTO [order_details] (orderId, productId, quantity) values (?,?,?)";
+//        for(Item item : cart.getItems()) {
+//            JDBIConnector.me().useHandle(
+//                    handle -> {
+//                        handle.createUpdate(sql1)
+//                                .bind(0,orderId )
+//                                .bind(1, item.getProduct().getId())
+//                                .bind(2, item.getQuantity())
+//                                .execute();
+//                    }
+//            );
+//        }
+//
+//    }
+//
+//    catch (Exception e) {
+//        e.printStackTrace();
+//    }
+// }
+
+
+    public static void main(String[] args) {
+        java.time.LocalDate curDate = java.time.LocalDate.now();
+        String date = curDate.toString();
+        System.out.println(date);
+//        System.out.println(getOrderDetailsByOrderId(2 + ""));
+>>>>>>> 932407313bef4442ae164fd09b85ed13ebb60d5a
     }
 }

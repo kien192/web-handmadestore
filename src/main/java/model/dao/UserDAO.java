@@ -189,6 +189,11 @@ public class UserDAO {
         return users;
     }
 
+    /**
+     * Lấy Account User.
+     *
+     */
+
     public static void main(String[] args) {
 //        List<User> users = JDBIConnector.me().withHandle(handle ->
 //                handle.createQuery("select * from user").mapToBean(User.class).collect(Collectors.toList())
