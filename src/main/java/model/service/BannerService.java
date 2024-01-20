@@ -4,6 +4,7 @@ import model.bean.BannerItem;
 import model.bean.Tip;
 import model.dao.BannerItemDAO;
 import model.dao.TipDAO;
+import model.db.JDBIConnector;
 
 import java.util.List;
 
@@ -27,8 +28,16 @@ public class BannerService {
         BannerItemDAO.deleteBannerByTitle(title);
     }
 
-    public static void updateByTitle(String oldTitle, String newTitle, String description) {
+    public void updateByTitle(String oldTitle, String newTitle, String description) {
         BannerItemDAO.updateByTitle(oldTitle, newTitle, description);
+    }
+
+    public void insertBannerItem(String title, String description, String img_path) {
+        BannerItemDAO.insertBannerItem(title, description, img_path);
+    }
+
+    public boolean isExist(String title) {
+        return BannerItemDAO.isExist(title);
     }
 
     public static void main(String[] args) {

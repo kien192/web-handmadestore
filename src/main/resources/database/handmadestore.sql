@@ -196,11 +196,12 @@ DELIMITER ;
 -- INSERT DATA
 --
 INSERT INTO `banner_items` (`title`, `description`, `img_path`)
-VALUES ('CÙNG NHAU KHÁM PHÁ NÀO!', 'Những sản phẩm đang nóng lòng đợi bạn rinh về nè !', 'images/products/item_3.jpg'),
+VALUES ('CÙNG NHAU KHÁM PHÁ NÀO!', 'Những sản phẩm đang nóng lòng đợi bạn rinh về nè !',
+        'images/banner_tip/item_1.jpg'),
        ('Độc - Đẹp - Bền - Giá Phù Hợp', 'Chế tạo những sản phẩm độc đáo, với tình yêu và sự tận tụy',
-        'images/products/item_2.jpg'),
+        'images/banner_tip/item_2.jpg'),
        ('KÍNH CHÀO QUÝ KHÁCH', 'Mỗi sản phẩm từ HandmadeStore là một phần trái tim của ai đó',
-        'images/banner_items/item_1.jpg');
+        'images/banner_tip/item_3.jpg');
 INSERT INTO `category` (`id`, `name`)
 VALUES (1, 'Thiệp, Khung Ảnh Handmade Vint'),
        (2, 'Scrapbook, Album Ảnh'),
@@ -1000,15 +1001,15 @@ VALUES (0, 'admin'),
 INSERT INTO `tips` (`title`, `description`, `img_path`, `video_link`)
 VALUES ('Cách cắm hoa khô đẹp trong 5 phút',
         'Hoa khô hay còn gọi là hoa không tàn, hoa vĩnh cửu luôn có nét đẹp riêng,\r\nĐể tăng thêm sự độc đáo và giá trị thì cách cắm hoa...',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ8lBiigy5MW1j56PFstMcdXypVGCGOI3rKQ&usqp=CAU',
+        'images/banner_tip/tip_1.jpg',
         'https://youtu.be/t4Sjrj0MvUg'),
        ('Cách làm trang trí thiệp hoa khô handmade siêu dễ',
         'Thiệp hoa khô tự nhiên có nét quyến rũ thú vị, thể hiện sự chỉnh chu của người tặng,\r\nTự tay làm chiếc thiệp hoa khô sẽ thật ý nghĩa...',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqeUKERx8fXxdyGuVP0PEfBoiHJr3FtIagLg&usqp=CAU',
+        'images/banner_tip/tip_2.jpg',
         'https://youtu.be/eA_cUtEO6zA'),
-       ('Hướng dẫn cách làm scrapbook album ảnh handmade si',
+       ('Hướng dẫn cách làm scrapbook album ảnh handmade',
         'Scrapbook là một dạng nhật ký ảnh, album hình được làm, trang trí thủ công có nội dung ,\r\ncâu chuyện hoàn chỉnh,Thời gian, sự kiện được ghi chú...',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrTXzfl_2PiSjlmKrTX97ftDQdz_eZpWBThA&usqp=CAU',
+        'images/banner_tip/tip_3.jpg',
         'https://youtu.be/U3kAyqvfWoc');
 
 INSERT INTO `user` (`id`, `name`, `phoneNumber`, `email`, `password`, `createDate`, `status`, `roleId`)

@@ -1,18 +1,13 @@
 package model.dao;
 
-import model.bean.*;
+import model.bean.Discount;
+import model.bean.Order;
+import model.bean.OrderDetail;
 import model.db.JDBIConnector;
 import model.service.OrderService;
 import model.service.UserService;
 
-<<<<<<< HEAD
 import java.time.LocalDate;
-=======
-import javax.xml.crypto.Data;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Timestamp;
->>>>>>> 932407313bef4442ae164fd09b85ed13ebb60d5a
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +43,6 @@ public class OrderDAO {
         return orderDetails;
     }
 
-<<<<<<< HEAD
     public static long waitConfirmOrdersNumber() {
         return JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select count(id) from `order` where status='Chờ xác nhận'")
@@ -166,11 +160,10 @@ public class OrderDAO {
 //        System.out.println(OrderService.getInstance().getOrderByCustomerId(44 + ""));
 //        System.out.println(UserService.getInstance().getUserById((44 + "")));
 //        System.out.println(waitConfirmOrdersNumber());
-=======
-    /**
-     * Sử dụng cho việc checkout
-     */
-    //lấy ngày hiện tại
+        /**
+         * Sử dụng cho việc checkout
+         */
+        //lấy ngày hiện tại
 //    java.time.LocalDate curDate = java.time.LocalDate.now();
 //    String date = curDate.toString();
 //    public void addOrder(User user , Cart cart) {
@@ -211,14 +204,5 @@ public class OrderDAO {
 //    catch (Exception e) {
 //        e.printStackTrace();
 //    }
-// }
-
-
-    public static void main(String[] args) {
-        java.time.LocalDate curDate = java.time.LocalDate.now();
-        String date = curDate.toString();
-        System.out.println(date);
-//        System.out.println(getOrderDetailsByOrderId(2 + ""));
->>>>>>> 932407313bef4442ae164fd09b85ed13ebb60d5a
     }
 }

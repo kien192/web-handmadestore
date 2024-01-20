@@ -32,6 +32,14 @@ public class TipService {
         TipDAO.updateByTitle(oldTitle, newTitle, description, videoLink);
     }
 
+    public void insertTip(String title, String description, String img_path, String video_link) {
+        TipDAO.insertTip(title, description, img_path, video_link);
+    }
+
+    public boolean isExist(String title) {
+        return TipDAO.isExist(title);
+    }
+
     public static void main(String[] args) {
         List<Tip> categories = TipService.getInstance().getAll();
         for (Tip c : categories) {

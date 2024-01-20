@@ -7,6 +7,7 @@ import model.db.JDBIConnector;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class BannerItemDAO {
@@ -47,5 +48,24 @@ public class BannerItemDAO {
                         .bind(0, title)
                         .execute()
         );
+    }
+
+    public static void insertBannerItem(String title, String description, String img_path) {
+        JDBIConnector.me().useHandle(handle -> {
+                    handle.createUpdate("INSERT INTO banner_items (title, description, img_path) VALUES (:title,:description,:img_path)")
+                            .bind("title", title)
+                            .bind("description", description)
+                            .bind("img_path", img_path)
+                            .execute();
+                }
+        );
+    }
+
+    public static boolean isExist(String title) {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select COUNT(title) FROM banner_items where title=:title")
+                        .bind("title", title)
+                        .mapTo(Integer.class)
+                        .one() > 0);
     }
 }

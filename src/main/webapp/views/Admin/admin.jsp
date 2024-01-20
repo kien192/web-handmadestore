@@ -146,7 +146,7 @@
 <div class="header sticky-top ">
     <div class="top-bar">
         <div class="branch-tit">
-            <a href="<%=request.getContextPath()%>/views/MainPage/view_mainpage/mainpage.jsp">
+            <a href="<%=request.getContextPath()%>/views/MainPage/view_mainpage/mainpage.jsp" target="_blank">
                 <img src="<%=request.getContextPath()+"/"+ImageService.getLogoImagePath()%>" alt="" class="me-2">
                 <span class="title">HEADQUARTERS</span>
             </a>

@@ -47,6 +47,26 @@ public class TipDAO {
         );
     }
 
+    public static void insertTip(String title, String description, String img_path, String video_link) {
+        JDBIConnector.me().useHandle(handle -> {
+                    handle.createUpdate("INSERT INTO tips (title, description, img_path, video_link) VALUES (:title,:description,:img_path,:video_link)")
+                            .bind("title", title)
+                            .bind("description", description)
+                            .bind("img_path", img_path)
+                            .bind("video_link", video_link)
+                            .execute();
+                }
+        );
+    }
+
+    public static boolean isExist(String title) {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("select COUNT(title) FROM tips where title=:title")
+                        .bind("title", title)
+                        .mapTo(Integer.class)
+                        .one() > 0);
+    }
+
     public static void main(String[] args) {
         System.out.println("Noooo");
         List<Tip> tips = getAllTips();

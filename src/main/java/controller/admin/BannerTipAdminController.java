@@ -2,10 +2,7 @@ package controller.admin;
 
 import model.bean.BannerItem;
 import model.bean.Tip;
-import model.service.BannerService;
-import model.service.DiscountService;
-import model.service.ProductService;
-import model.service.TipService;
+import model.service.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -76,7 +73,7 @@ public class BannerTipAdminController extends HttpServlet {
                     System.out.println(title);
                     System.out.println(description);
                     if (!(oldTitle == null || title == null || description == null)) {
-                        BannerService.updateByTitle(oldTitle, title, description);
+                        BannerService.getInstance().updateByTitle(oldTitle, title, description);
                     }
 //                    save
                     break;
@@ -84,59 +81,56 @@ public class BannerTipAdminController extends HttpServlet {
                     title = req.getParameter("title");
                     description = req.getParameter("description");
                     Part part = req.getPart("image");
+                    //check ton tai chua
+                    if (BannerService.getInstance().isExist(title)) {
+
+                    } else {//neu chua
+                        //write in server
+                        String imagePath = ImageService.writeBannerTipImagesFromClient(part, req, resp, getServletContext());
+                        //insert database
+                        title = (title != null) ? title : "";
+                        description = (description != null) ? description : "";
+
+                        BannerService.getInstance().insertBannerItem(title, description, imagePath);
+                    }
                     break;
                 case "add_tip":
                     title = req.getParameter("title");
                     description = req.getParameter("description");
                     video_link = req.getParameter("video_link");
-                    part = req.getPart("image");
+
+                    //check ton tai chua
+                    if (TipService.getInstance().isExist(title)) {
+
+                    } else {//neu chua
+                        title = (title != null) ? title : "";
+                        description = (description != null) ? description : "";
+                        video_link = (video_link != null) ? video_link : "";
+                        part = req.getPart("image");
+                        //write in server
+                        String imagePath = ImageService.writeBannerTipImagesFromClient(part, req, resp, getServletContext());
+                        //insert database
+                        TipService.getInstance().insertTip(title, description, imagePath, video_link);
+                    }
                     break;
                 case "delete_banner":
-                    //xoa an
                     String delete_banner_title = req.getParameter("delete_banner_title");
+                    //deleteImageInServer
                     BannerItem bannerItem = BannerService.getInstance().getBannerItemByTitle(delete_banner_title);
-                    //xóa image src
-                    deleteImage(bannerItem.getImg_path());
+                    ImageService.deleteImageInServer(getServletContext(), bannerItem.getImg_path());
+                    //deleteImagePathInDB
                     BannerService.getInstance().deleteBannerByTitle(delete_banner_title);
                     break;
                 case "delete_tip":
                     String delete_tip_title = req.getParameter("delete_tip_title");
+                    //deleteImageInServer
                     Tip tip = TipService.getInstance().getTipByTitle(delete_tip_title);
-                    //xóa image src
-                    deleteImage(tip.getImgPath());
+                    ImageService.deleteImageInServer(getServletContext(), tip.getImgPath());
+                    //deleteImagePathInDB
                     TipService.getInstance().deleteTipByTitle(delete_tip_title);
                     break;
             }
         }
         req.getRequestDispatcher("/views/Admin/banners_tips.jsp").forward(req, resp);
-    }
-
-    private String getSubmittedFileName(Part part) {
-        for (String content : part.getHeader("content-disposition").split(";")) {
-            if (content.trim().startsWith("filename")) {
-                return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
-            }
-        }
-        return "unknown";
-    }
-
-    private void deleteImage(String imagePath) {
-        String relativePath = "images"; // Đường dẫn tới thư mục images trong ứng dụng
-        String absolutePath = getServletContext().getRealPath(relativePath);
-
-        try {
-            Path filePath = Path.of(absolutePath, imagePath);
-            try {
-                // Kiểm tra xem tệp tin tồn tại trước khi xóa
-                if (Files.exists(filePath)) {
-                    Files.delete(filePath);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (
-                InvalidPathException e) {
-
-        }
     }
 }
