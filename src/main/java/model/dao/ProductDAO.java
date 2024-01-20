@@ -120,6 +120,7 @@ public class ProductDAO {
         return imageList;
     }
 
+
     //Lấy ra các sản phẩm liên quan đến sản phẩm (trang chi tiết sản phẩm).
     public static List<Product> getRelatedProduct(int productId, int categoryId, int limit) {
         try {

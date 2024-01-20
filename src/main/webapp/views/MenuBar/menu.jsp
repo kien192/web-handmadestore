@@ -7,6 +7,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <%User u = (User) session.getAttribute("auth");%>
+<%List<Product> allProduct = (List<Product>) request.getAttribute("productInPage");%>
+<%
+    if (allProduct == null) allProduct = new ArrayList<>();
+    Cart cart = (Cart) session.getAttribute("cart");
+    if (cart == null) {
+        cart = new Cart();
+    }
+
+%>
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -99,6 +108,15 @@
         border: none;
         background: red;
     }
+
+  .fa-solid {
+      font-size: 20px;
+
+    }
+    .fa-cart-shopping .badge   {
+      font-size: 10px;
+  }
+
 </style>
 <body>
 <div id="menubar" class="menu sticky-top">
@@ -127,7 +145,7 @@
             <a class="item_a" href="#footer ">Về chúng tôi</a>
         </li>
 
-        <li class="search d-flex p-4 my-auto mx-5">
+        <li class="search d-flex p-4 my-auto">
             <form action="<%=request.getContextPath()%>/findProduct" method="post" id="find" class="d-flex">
                 <input name="findProducts" type="text" placeholder="Bạn tìm gì...">
                 <button><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
@@ -148,8 +166,15 @@
             <%}%>
         </li>
         <li class="cart p-4 dropdown my-auto">
-            <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>
-            <a class="item_a" href="<%=request.getContextPath()%>/views/CartPage/cart.jsp">Giỏ Hàng</a>
+            <%--            <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>--%>
+            <%--            <a href="<%=request.getContextPath()%>/views/CartPage/cart.html">Giỏ Hàng</a>--%>
+            <a href="<%=request.getContextPath()%>/views/CartPage/cart.jsp">
+                <i class="fa-solid fa-cart-shopping position-relative" style="color: #2a3241;">
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill
+bg-danger "> <%=cart.getTotal()%></span>
+                </i>
+                <span class="label ps-2"> Giỏ hàng </span>
+            </a>
         </li>
     </ul>
 </div>

@@ -1,9 +1,9 @@
-<%@ page import="model.bean.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.service.ProductService" %>
 <%@ page import="model.service.ImageService" %>
-<%@ page import="model.bean.Category" %>
 <%@ page import="model.dao.CategoryDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.bean.*" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -88,7 +88,6 @@
         </div>
 
         <%-- Hiển thị sản phẩm theo category.   --%>
-        <%List<Product> allProduct = (List<Product>) request.getAttribute("productInPage");%>
         <ul id="allProduct" class="products m-2 me-5 ms-3 d-flex flex-wrap">
 
             <%if (allProduct == null) {%>
@@ -96,7 +95,6 @@
             <%} else {%>
             <%for (Product p : allProduct) {%>
             <%String pathImage = ImageService.getInstance().pathImageOnly(p.getId());%>
-
             <li class="product_li">
                 <div class="item_product  me-4">
                     <a class="image" href="product-detail?id=<%=p.getId()%>">
@@ -110,7 +108,43 @@
                     <del><%=p.getSellingPrice()%>đ</del>
                     <%}%>
                     <p><%=ProductService.getInstance().productPriceIncludeDiscount(p)%>đ</p>
-                    <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
+                    <button class="add-to-cart">
+                        <%String pageATC = request.getParameter("page");
+                        String filterATC = request.getParameter("filter");%>
+                        <%if(filterATC != null && category != null && pageATC != null){%>
+                        <a href="add-cart?category=<%=category%>&filter=<%=filterATC%>&id=<%=p.getId()%>&page=<%=pageATC%>">
+                            <span>Thêm vào giỏ hàng </span>
+                        </a>
+                        <%}else if(filterATC != null && category != null){%>
+                        <a href="add-cart?category=<%=category%>&filter=<%=filterATC%>&id=<%=p.getId()%>">
+                            <span>Thêm vào giỏ hàng </span>
+                        </a>
+                        <%}else if(filterATC != null && pageATC != null){%>
+                        <a href="add-cart?filter=<%=filterATC%>&id=<%=p.getId()%>&page=<%=pageATC%>">
+                            <span>Thêm vào giỏ hàng </span>
+                        </a>
+                        <%}else if(category != null && pageATC != null){%>
+                        <a href="add-cart?category=<%=category%>&id=<%=p.getId()%>&page=<%=pageATC%>">
+                            <span>Thêm vào giỏ hàng </span>
+                        </a>
+                        <%}else if(category != null){%>
+                        <a href="add-cart?category=<%=category%>&id=<%=p.getId()%>">
+                            <span>Thêm vào giỏ hàng </span>
+                        </a>
+                        <%}else if(pageATC != null){%>
+                        <a href="add-cart?id=<%=p.getId()%>&page=<%=pageATC%>">
+                            <span>Thêm vào giỏ hàng </span>
+                        </a>
+                        <%}else if(filterATC != null){%>
+                        <a href="add-cart?filter=<%=filterATC%>&id=<%=p.getId()%>">
+                            <span>Thêm vào giỏ hàng </span>
+                        </a>
+                        <%}else{%>
+                        <a href="add-cart?id=<%=p.getId()%>">
+                            <span>Thêm vào giỏ hàng </span>
+                        </a>
+                        <%}%>
+                    </button>
                 </div>
             </li>
 

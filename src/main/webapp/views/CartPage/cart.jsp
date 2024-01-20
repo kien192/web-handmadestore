@@ -1,12 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+<<<<<<< HEAD
+<%--
+  Created by IntelliJ IDEA.
+  User: Kien Nguyen
+  Date: 1/19/2024
+  Time: 11:47 AM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Giỏ Hàng</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
-    <link rel="stylesheet" href="../MainPage/css/mainpage.css"/>
+    <link rel="stylesheet" href="cartCSS.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         .pause_bt {
             padding: 10px 40px;
@@ -25,6 +33,7 @@
     </style>
 </head>
 <body>
+<<<<<<< HEAD
 <!--menu-->
 <div id="menubar" class="menu sticky-top" >
     <ul class="d-flex m-0">
@@ -54,6 +63,9 @@
                 <li>
                     <a href="#nguyenlieu" class="item sp5 dropdown-item" >Nguyên vật liệu,phụ kiện dụng cụ</a>
                 </li>
+                <div>
+
+                </div>
             </ul>
         </li>
         <li class="item bikip p-4 my-auto">
@@ -73,9 +85,64 @@
         <li class="cart p-4 dropdown my-auto">
             <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>
             <a href="#" >Giỏ Hàng</a>
+
+
+            <!--Danh sách giỏ hàng -->
+            <div class="list-cart">
+                <ul class="list-item-cart">
+                    <li class="item-sub">
+                        <div class="border_list d-flex ">
+                            <a class="product-image" href="">
+                                <img src="../../images/products/p102.webp" alt="">
+                            </a>
+                            <div class="detail-item">
+                                <div class="product-detail">
+                                    <p class="product-name">
+                                        <a href="">Thiệp sinh nhật Handemia OIILL</a>
+                                    </p>
+                                </div>
+                                <div class="product-detail-bottom">
+                                    <span class="price">150000</span>
+                                    <a href="">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                    </a>
+                                    <div class="quantity-select">
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </li>
+
+
+
+           </ul>
+
+       </div>
         </li>
+
+
+
+
     </ul>
 </div>
+=======
+<%--Thanh điều hướng - header--%>
+<%@include file="/views/MenuBar/menu.jsp" %>
+
+
+<%--NỘI DUNG CART--%>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb ">
+        <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page" style="color: #e32124">Giỏ hàng
+        </li>
+    </ol>
+</nav>
+
+>>>>>>> origin/main
 
 <div class="row">
     <div class="col-12">
@@ -131,6 +198,7 @@
                                     </button>
                                 </td>
                             </tr>
+<<<<<<< HEAD
                             <tr class="border-1">
                                 <td class="align-middle">
                                     <img class="product-img" src="../images/anh2.webp" alt="sanpham" width="80%"
@@ -166,6 +234,8 @@
                                     </button>
                                 </td>
                             </tr>
+=======
+>>>>>>> origin/main
                             </tbody>
                         </table>
                     </div>
@@ -176,7 +246,7 @@
 
                     <div class="line-block text-end">
                         <button type="button" class="pause_bt" onclick="window.location = '../MainPage/view_mainpage/mainpage.jsp'">Tiếp tục mua hàng</button>
-                        <button type="button" class="complete_bt" onclick="window.location = '../PaymentPage/payment.jsp'">Tiếp tục đặt hàng</button>
+                        <button type="button" class="complete_bt" onclick="window.location = '../PaymentPage/payment.html'">Tiếp tục đặt hàng</button>
                     </div>
                 </div>
             </div>
@@ -184,6 +254,7 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 <!--    Footer-->
 <div id="footer">
     <ul class="d-flex ">
@@ -233,3 +304,14 @@
 </script>
 </body>
 </html>
+=======
+
+
+
+
+<!--    Footer-->
+<%@include file="/views/Footer/footer.jsp" %>
+
+</body>
+</html>
+>>>>>>> origin/main

@@ -1,14 +1,110 @@
-
 body{
     margin: 0;
     padding: 0;
     font-size: 15px;
 }
+/*MenuBar*/
+.menu {
+    background: rgba(250, 244, 244,0.92);
+    border-bottom: 1px solid rgba(155, 158, 162, 0.7);
+}
+.menu ul a{
+    text-decoration: none;
+    color: #797974;
+}
+.menu ul li {
+    list-style-type: none;
+}
 
-
-.menu ul li.cart a:hover {
+.menu ul .sanpham .sub_menu{
+    left: 0%;
+    padding: 0;
+    top: 100%;
+    border: 1px;
+    display: none;
+}
+.menu ul li.times{
+    border-left: #8b8b8b solid 1px;
+}
+.menu ul li.item:hover {
+    background: red;
+}
+.menu ul li.item:hover a{
+    color: white;
+}
+.menu ul li.sanpham:hover .sub_menu{
+    display: block;
+}
+.menu ul li.sanpham .sub_menu li a{
+    color: #797974;
+}
+.menu ul li.sanpham .sub_menu li a:hover{
+    color: white;
+    background: red;
+    font-size: 17px;
+}
+.menu ul li.search i{
+    background: red;
+    padding: 4%;
+}
+.menu ul li.search {
+    border-left: 1px solid #8b8b8b;
+}
+.menu ul li.search input{
+    padding-left: 10px;
+    width: 85%;
+    border: none;
+    height: 100%;
+}
+.search button{
+    padding: 12px;
+    border: none;
+    background: red;
+}
+.menu ul li.login a:hover {
     color: red;
 }
+
+.menu ul li.cart  a:hover {
+    color: red;
+
+}
+
+ /*
+ Đây la noi css nè các ban
+  */
+.menu ul li:nth-child(8) {
+    position: relative;
+}
+
+.menu ul li .list-cart {
+    position: absolute;
+    background-color: #1a73e8;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+/*.menu ul li .list-cart ul li {*/
+/*    display: flex;*/
+/*}*/
+
+.menu ul li .list-cart .product-image {
+    width: 80px;
+}
+
+.menu ul li .list-cart .product-image img {
+    border: 0;
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+
+
+
+
 /*Carousel*/
 .carousel-inner .carousel-item img {
     height: 60vh;
@@ -81,7 +177,7 @@ body{
 
 .product .load_produce{
     background: #8b8b8b;
-    width: 14%;
+    width: 13%;
     padding: 20px;
     margin: auto;
     cursor: pointer;
@@ -102,8 +198,8 @@ body{
 
 /*Footer*/
 #footer {
-    background: linear-gradient(90deg, rgba(80, 82, 84, 0.7), rgba(44, 43, 43, 0.7)),
-                url("../../../images/background.jpg");
+    /*background: linear-gradient(90deg, rgba(80, 82, 84, 0.7), rgba(44, 43, 43, 0.7)),*/
+    /*url("../../../images/background.jpg");*/
 
     background-repeat: no-repeat;
     background-size: 100%;
@@ -127,6 +223,26 @@ body{
     color: rgba(245, 241, 241, 0.7);
 }
 
+/**/
+#dangxuat {
+    padding: 0;
+    display: none;
+}
+
+#dangxuat a:hover {
+    background: red;
+    color: white;
+}
+
+#dangxuat a {
+    color: black;
+    padding-right: 25%;
+    padding-left: 25%;
+}
+
+.menu ul li.login:hover #dangxuat {
+    display: block;
+}
 /*    add product*/
 li {
     list-style: none;
@@ -139,7 +255,7 @@ li {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 5em;
+    height: 7em;
 }
 
 .products .product_list .item_product a.image {
@@ -167,18 +283,13 @@ li {
 .products .product_list .item_product .add-to-cart {
     background: #8b8b8b;
     font-size: 1rem;
-    height: 10vh;
-    padding: 0;
+    padding: 1rem 0.8rem;
+    text-align: center;
+    color: white;
     cursor: pointer;
     visibility: hidden;
-    border: 0;
 }
-.products .product_list .item_product .add-to-cart a{
-    height: 9vh;
-}
-.products .product_list .item_product .add-to-cart span{
-    color: white;
-}
+
 .products .product_list .item_product:hover .add-to-cart {
     visibility: visible;
 }
