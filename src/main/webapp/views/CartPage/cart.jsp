@@ -87,30 +87,36 @@
                                 </td>
                                 <td class="align-middle">
                                     <div class="quantity-box d-flex p-1 border justify-content-center">
-                                        <form action="<%=request.getContextPath()%>/add-cart" method="post" >
-                                        <button id="increase_bt" class="text-center border-0 bg-body fw-bold"
-                                                style="width: 30px;">-
-                                        </button>
-                                        <input id="quantity_input" class="border-0 w-50 text-center" type="text" name="actionCart"
+                                            <form action="<%=request.getContextPath()%>/add-cart" method="get" >
+                                                <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">
+                                            <button id="increase_bt" name="actionCart" value="put" class="text-center border-0 bg-body fw-bold"
+                                                    style="width: 30px;">-
+                                            </button>
+                                            <input id="quantity_input" class="border-0 w-50 text-center" type="text" name="actionCart"
 
-                                               value="<%=item.getQuantity()%>">
-                                        <button id="reduce_bt" class="text-center border-0 bg-body fw-bold"
-                                                style="width:30px;">+
-                                        </button>
-                                        </form>
+                                                   value="<%=item.getQuantity()%>">
+
+                                            <button type="submit" name="actionCart" value="put"
+                                                    id="reduce_bt" class="text-center border-0 bg-body fw-bold"
+                                                    style="width:30px;">+
+                                            </button>
+
+                                            </form>
                                     </div>
                                 </td>
                                 <td class="align-middle">
                                     <%=numberFormat.format(item.getQuantity() * item.getPrice())%>
                                 </td>
                                 <td class="align-middle">
-                                    <form action="<%=request.getContextPath()%>/add-cart" method="get" >
-                                        <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">
-                                        <button type="submit" class="btn" name="actionCart" value="delete">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
 
-                                    </form>
+<%--                                    <form action="<%=request.getContextPath()%>/add-cart" method="get" >--%>
+<%--                                        <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">--%>
+<%--                                        <button type="submit" class="btn" name="actionCart" value="delete">--%>
+<%--                                        <i class="fa-solid fa-trash-can"></i>--%>
+<%--                                    </button>--%>
+
+<%--                                    </form>--%>
+
                                 </td>
                             </tr>
                             <%total += (item.getQuantity() * item.getPrice());%>
@@ -119,8 +125,8 @@
                         </table>
                     </div>
                     <div class="line-block text-end mb-3">
-                        <span class="h4 me-1 fw-normal">Tổng tiền:</span>
-                        <span class="h5"><%=numberFormat.format(total)%></span>
+                        <span class="total-amount h4 me-1 fw-normal">Tổng tiền:</span>
+                        <span id="total_amount" class="h5"><%=numberFormat.format(total)%></span>
                     </div>
 
                     <div class="line-block text-end">
@@ -141,6 +147,21 @@
 
 <!--    Footer-->
 <%@include file="/views/Footer/footer.jsp" %>
+<script>
+    function updateItemTotal(unitPrice) {
+        var quantityInput = document.getElementById('quantity_input');
+        var itemTotalSpan = document.getElementById('item_total');
 
+        var currentQuantity = parseInt(quantityInput.value);
+
+        // Calculate total amount for the item
+        var itemTotal = currentQuantity * unitPrice;
+
+        // Update item total amount in the UI
+        itemTotalSpan.textContent = '<%=itemTotal%>';
+    }
+
+
+</script>
 </body>
 </html>

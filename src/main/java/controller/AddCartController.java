@@ -78,7 +78,10 @@ public class AddCartController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        HttpSession sessions = req.getSession();
+        Cart cart = (Cart) sessions.getAttribute("cart");
+        int id = Integer.parseInt(req.getParameter("id"));
+
     }
 
 

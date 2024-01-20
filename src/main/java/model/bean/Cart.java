@@ -47,6 +47,11 @@ public class Cart {
         return true;
     }
 
+    public void updateValue(int id) {
+    if(!items.containsKey(id)) return;
+
+    }
+
 public int getTotal(){
         return items.size();
 }
