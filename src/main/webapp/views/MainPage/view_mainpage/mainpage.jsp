@@ -1,13 +1,11 @@
-<%@ page import="model.bean.User" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.bean.Category" %>
 <%@ page import="model.service.CategoryService" %>
-<%@ page import="model.bean.Product" %>
 <%@ page import="model.dao.ProductDAO" %>
 <%@ page import="model.service.ImageService" %>
 <%@ page import="model.service.ProductService" %>
-<%@ page import="model.bean.Tip" %>
 <%@ page import="model.dao.TipDAO" %>
+<%@ page import="model.bean.*" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -21,8 +19,10 @@
 </head>
 <body>
 <!--menu-->
+
 <%--Thanh điều hướng - header--%>
 <%@include file="/views/MenuBar/menu.jsp" %>
+
 
 <!--carousel-->
 <div id="carouselExampleCaptions" class="carousel slide">
@@ -74,46 +74,84 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
 
-<!--SanPham1-->
-<%
-    List<Category> categoryP = CategoryService.getInstance().getALl();
-    for (Category ca : categoryP) {
-%>
-<div class="product" id="<%=ca.getId()%>">
-    <div class="title_t">
-        <p class="text-center fs-5 fw-bold"><%=ca.getName()%></p>
+<!--SanPham-->
+
+<div class="product">
+<%--    --%>
+   <%List<Product> listProductDiscount = ProductService.getInstance().productDiscountMainPage();%>
+    <%if(!listProductDiscount.isEmpty()){%>
+    <div class="title_t" id="khuyenmai">
+        <p class="text-center fs-5 fw-bold">Sản Phẩm Khuyến Mãi
+        </p>
     </div>
     <div class="solid_t mb-3 m-auto"></div>
-        <div class="sp" id="sp_<%=ca.getId()%>">
-            <ul class="products  m-2 d-flex flex-wrap">
-                <%List<Product> product15 = ProductDAO.list15product(ca.getId());
-                    for (Product pr : product15) {%>
-                <%String pathImage = ImageService.getInstance().pathImageOnly(pr.getId());%>
-                <li class="product_list">
-                    <div class="item_product  me-4">
-                        <a class="image" href="#"> <img src="<%=request.getContextPath()%>/<%=pathImage%>"> </a>
-                        <a href=""><p class="pt-4 px-3"><%=pr.getName() %>
-                        </p></a>
-                        <%!double giaBanSauCung;%>
-                        <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(pr);%>
-                        <%if(pr.getCategoryId() >= 0 && giaBanSauCung!= pr.getSellingPrice()){%>
-                        <del><%=numberFormat.format(pr.getSellingPrice())%></del>
-                        <%}%>
-                        <p><%=numberFormat.format(ProductService.getInstance().productPriceIncludeDiscount(pr))%></p>
-                        <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&id=<%=pr.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
-                    </div>
-
-
-                </li>
-                <%}%>
-                <div class="load_produce text-center mt-5">
-                    <a href="<%=request.getContextPath()%>/product?category=<%=ca.getId()%>"><span>Xem tất cả sản phẩm</span></a>
+    <div class="sp" id="sp_khuyenmai">
+        <ul class="products  m-2 d-flex flex-wrap">
+            <%
+                for (Product prd : listProductDiscount) {
+            %>
+            <%String pathImage = ImageService.getInstance().pathImageOnly(prd.getId());%>
+            <li class="product_list">
+                <div class="item_product  me-4">
+                    <a class="image" href="<%=request.getContextPath()%>/product-detail?id=<%=prd.getId()%>"> <img  src="<%=request.getContextPath()%>/<%=pathImage%>"> </a>
+                    <a href="#"><p class="pt-4 px-3"><%=prd.getName() %>
+                    </p></a>
+                    <%!double giaKhuyenMai;%>
+                    <% giaKhuyenMai = ProductService.getInstance().productPriceIncludeDiscount(prd);%>
+                    <%if (prd.getCategoryId() >= 0 && giaKhuyenMai != prd.getSellingPrice()) {%>
+                    <del><%=numberFormat.format(prd.getSellingPrice())%></del>
+                    <%}%>
+                    <p><%=numberFormat.format(ProductService.getInstance().productPriceIncludeDiscount(prd))%></p>
+                    <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&id=<%=prd.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
                 </div>
-            </ul>
+            </li>
             <%}%>
-        </div>
 
+            <div class="load_produce text-center mt-5">
+                <a href="<%=request.getContextPath()%>/product?category=khuyenmai"><span>Xem tất cả sản phẩm</span></a>
+            </div>
+        </ul>
     </div>
+    <%}%>
+<%--    --%>
+    <%
+        List<Category> categoryP = CategoryService.getInstance().getALl();
+    %>
+    <% for (Category ca : categoryP) {%>
+    <div class="title_t" id="<%=ca.getId()%>">
+        <p class="text-center fs-5 fw-bold"><%=ca.getName()%>
+        </p>
+    </div>
+    <div class="solid_t mb-3 m-auto"></div>
+    <div class="sp" id="sp_<%=ca.getId()%>">
+        <ul class="products  m-2 d-flex flex-wrap">
+            <%
+                List<Product> product15 = ProductDAO.list15product(ca.getId());
+                for (Product pr : product15) {
+            %>
+            <%String pathImage = ImageService.getInstance().pathImageOnly(pr.getId());%>
+            <li class="product_list">
+                <div class="item_product  me-4">
+                    <a class="image" href="<%=request.getContextPath()%>/product-detail?id=<%=pr.getId()%>"> <img  src="<%=request.getContextPath()%>/<%=pathImage%>"> </a>
+                    <a href="#"><p class="pt-4 px-3"><%=pr.getName() %>
+                    </p></a>
+                    <%!double giaBanSauCung;%>
+                    <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(pr);%>
+                    <%if (pr.getCategoryId() >= 0 && giaBanSauCung != pr.getSellingPrice()) {%>
+                    <del><%=numberFormat.format(pr.getSellingPrice())%></del>
+                    <%}%>
+                    <p><%=numberFormat.format(ProductService.getInstance().productPriceIncludeDiscount(pr))%></p>
+                    <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&id=<%=pr.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
+                </div>
+            </li>
+            <%}%>
+
+            <div class="load_produce text-center mt-5">
+                <a href="<%=request.getContextPath()%>/product?category=<%=ca.getId()%>"><span>Xem tất cả sản phẩm</span></a>
+            </div>
+        </ul>
+    </div>
+    <%}%>
 </div>
 
 
@@ -127,12 +165,18 @@
     <div class="content_bk">
         <ul class="d-flex ">
 
-            <%List<Tip> tipsList = TipDAO.getAllTips();;
-            for (Tip t : tipsList){%>
+
+            <%
+                List<Tip> tipsList = TipDAO.getAllTips();
+                for (Tip t : tipsList) {
+            %>
+
             <li class="item text-center">
                 <a href="<%=t.getVideoLink()%>"><img src="<%=t.getImgPath()%>" width="90%"></a>
-                <a href="<%=t.getVideoLink()%>"><h6 class="fw-bold text-center mt-3 px-3"><%=t.getTitle()%></h6></a>
-                <p class="px-5"><%=t.getDescription()%></p>
+                <a href="<%=t.getVideoLink()%>"><h6 class="fw-bold text-center mt-3 px-3"><%=t.getTitle()%>
+                </h6></a>
+                <p class="px-5"><%=t.getDescription()%>
+                </p>
             </li>
             <%}%>
         </ul>

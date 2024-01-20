@@ -1,3 +1,6 @@
+<%@ page import="model.service.ImageService" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +18,8 @@
 <body>
 <div class="row">
     <div class="col-lg-8 col-sm-12 p-0">
-        <div class="h1 border-bottom alert ps-0">
-            <a href="../MainPage/view_mainpage/mainpage.jsp" class="text-decoration-none mx-5 color-for-text">HeadQuarters</a>
+        <div class="h1 border-bottom alert ps-0" style="height: 10%">
+            <a href="<%=request.getContextPath()%>/views/MainPage/view_mainpage/mainpage.jsp" class="text-decoration-none mx-3" style="color: #f4c994"><img src="<%=request.getContextPath()+"/"+ImageService.getLogoImagePath()%>" width="8%">HEADQUARTERS</a>
         </div>
         <div class="d-flex mx-5 pb-5">
             <div class="col-lg-7 col-sm-6 me-3">
@@ -26,21 +29,22 @@
                 <div class="mt-4">
                     <div class="input-group mb-3 justify-content-center">
                         <div class="input-group-prepend w-100">
-                            <div class="form-floating mb-3">
-                                <input id="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
-                                       class="form-control" placeholder="Email(tùy chọn)">
-                                <label for="email" class="floatingInput">Email(Tùy chọn)</label>
-                            </div>
+<%--                            email--%>
+<%--                            <div class="form-floating mb-3">--%>
+<%--                                <input id="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"--%>
+<%--                                       class="form-control" placeholder="Email(tùy chọn)">--%>
+<%--                                <label for="email" class="floatingInput">Email(Tùy Chọn)</label>--%>
+<%--                            </div>--%>
 
                             <div class="form-floating mb-3">
                                 <input id="name" type="text" class="form-control" placeholder="Họ và tên">
-                                <label for="name" class="floatingInput">Họ và tên</label>
+                                <label for="name" class="floatingInput">Họ Và  Tên</label>
                             </div>
 
                             <div class="form-floating mb-3">
                                 <input id="phone_number" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                                        class="form-control" placeholder="Số điện thoại">
-                                <label for="phone_number" class="floatingInput">Số điện thoại</label>
+                                <label for="phone_number" class="floatingInput">Số Điện Thoại</label>
                             </div>
                             <!--
                             -->
@@ -48,29 +52,29 @@
                                 <select name="province" id="province" class="form-select">
                                     <option value=""></option>
                                 </select>
-                                <label for="province">Tỉnh thành</label>
+                                <label for="province">Tỉnh Thành</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <select name="district" id="district" class="form-select">
                                     <option value=""></option>
                                 </select>
-                                <label for="district">Quận huyện</label>
+                                <label for="district">Quận Huyện</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <select name="ward" id="ward" class="form-select">
                                     <option value=""></option>
                                 </select>
-                                <label for="ward">Phường xã</label>
+                                <label for="ward">Phường Xã</label>
                             </div>
 
                             <div class="form-floating mb-3">
                                 <input id="address" type="text" class="form-control" placeholder="Địa chỉ">
-                                <label for="address" class="floatingInput">Địa chỉ: Số nhà, tên đường,...</label>
+                                <label for="address" class="floatingInput">Địa Chỉ: Số Nhà, Tên Đường,...</label>
                             </div>
 
                             <div class="form-floating mb-3">
                                 <textarea id="note" class="form-control" style="height: 150%"></textarea>
-                                <label for="address" class="floatingInput">Ghi chú(Tùy chọn)</label>
+                                <label for="address" class="floatingInput">Ghi Chú(Tùy Chọn)</label>
                             </div>
                         </div>
                     </div>
@@ -81,23 +85,7 @@
                     Thanh toán
                 </div>
                 <div class="mt-4">
-                    <div class="m-0 border alert alert-dismissible d-flex align-items-center">
-                        <input class="form-check-input fs-5 me-3" style="cursor: pointer" type="radio"
-                               name="flexRadioDefault"
-                               id="chuyenkhoan"
-                               onclick="showBankaccount_infor()">
-                        <label class="form-check-label" style="cursor: pointer" for="chuyenkhoan">
-                            Chuyển khoản qua ngân hàng
-                        </label>
-                        <i class="fa-regular fa-money-bill-1 fa-xl ms-auto" style="color: #357ebd;"></i>
-                    </div>
-                    <div class="p-3 rounded-3" style="background-color: #FAFAFA" id="bankaccount_infor">
-                        <p>BIDV chi nhánh Sài Gòn</p>
-                        <p>3148148992</p>
-                        <p>Kiên Phụng Nghĩa</p>
-                        <p>--------------------------</p>
-                        <p>NỘI DUNG CHUYỂN KHOẢN: TÊN + SĐT + MÃ ĐƠN HÀNG</p>
-                    </div>
+
                     <div class="border alert alert-dismissible d-flex align-items-center">
                         <input class="form-check-input fs-5 me-3" style="cursor: pointer" type="radio"
                                name="flexRadioDefault"
@@ -235,7 +223,7 @@
                 </div>
                 <div class="row py-3 ">
                     <div class="col-4 d-flex align-items-center">
-                        <span><a href="../CartPage/cart.html" class="text-decoration-none color-for-text"><strong><</strong> Quay lại giỏ hàng</a></span>
+                        <span><a href="../CartPage/cart.jsp" class="text-decoration-none color-for-text"><strong><</strong> Quay lại giỏ hàng</a></span>
                     </div>
                     <div class="col-8 text-end">
                         <button type="button" class="btn btn-primary fs-1 color-for-bg">Đặt Hàng</button>

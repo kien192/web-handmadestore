@@ -1,6 +1,11 @@
+
 <%@ page import="java.util.Map" %>
 <%@ page import="model.bean.Item" %>
 <%@ page import="model.service.ImageService" %><%--
+=======
+<<<<<<< HEAD
+<%--
+>>>>>>> origin/main
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 1/19/2024
@@ -14,6 +19,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
+
+
+    <link rel="stylesheet" href="cartCSS.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <style>
         .pause_bt {
             padding: 10px 40px;
@@ -32,12 +42,13 @@
     </style>
 </head>
 <body>
+
 <%--Thanh điều hướng - header--%>
 
 <%@include file="/views/MenuBar/menu.jsp" %>
 <%--<%Map<Integer, Item> list = cart. %>--%>
 
-<%--NỘI DUNG CART--%>
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb ">
         <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
@@ -45,6 +56,7 @@
         </li>
     </ol>
 </nav>
+
 
 
 <div class="row">
@@ -116,11 +128,20 @@
 <%--                                    </button>--%>
 
 <%--                                    </form>--%>
+    <form action="<%=request.getContextPath()%>/add-cart" method="get" >
+        <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">
+        <button type="submit" class="btn" name="actionCart" value="delete">
+            <i class="fa-solid fa-trash-can"></i>
+        </button>
 
+    </form>
                                 </td>
                             </tr>
+
                             <%total += (item.getQuantity() * item.getPrice());%>
                             <%}%>
+
+
                             </tbody>
                         </table>
                     </div>
@@ -145,6 +166,7 @@
 </div>
 
 
+
 <!--    Footer-->
 <%@include file="/views/Footer/footer.jsp" %>
 <script>
@@ -158,10 +180,11 @@
         var itemTotal = currentQuantity * unitPrice;
 
         // Update item total amount in the UI
-        itemTotalSpan.textContent = '<%=itemTotal%>';
+        itemTotalSpan.textContent = '';
     }
 
 
 </script>
 </body>
 </html>
+>>>>>>> origin/main

@@ -2,6 +2,7 @@ package controller.admin;
 
 import model.service.CategoryService;
 import model.service.DiscountService;
+import model.service.ImageService;
 import model.service.ProductService;
 
 import javax.servlet.ServletException;
@@ -66,12 +67,13 @@ public class AddProductAdminController extends HttpServlet {
                 if (categoryId != null) {
                     try {
                         //write
-                        List<String> paths = writeProductImagesFromClient(productName, req, resp);
+                        List<String> paths = ImageService.writeProductImagesFromClient(productName, req, resp, getServletContext());
+                        System.out.println("paths: " + paths);
                         //insert
                         try {
                             if (!discount.equals("")) {
                                 ProductService.getInstance().insertNewProduct(productName, description, Double.parseDouble(costPrice), Double.parseDouble(sellingPrice), Integer.parseInt(quantity),
-                                        Integer.parseInt(categoryId),Integer.parseInt(discount), paths);
+                                        Integer.parseInt(categoryId), Integer.parseInt(discount), paths);
                             } else {
                                 // không áp dụng discount
                                 ProductService.getInstance().insertNewProduct(productName, description, Double.parseDouble(costPrice), Double.parseDouble(sellingPrice), Integer.parseInt(quantity),
@@ -126,69 +128,5 @@ public class AddProductAdminController extends HttpServlet {
             req.setAttribute("result", "Điền đủ thông tin để thêm sản phẩm mới! Vui lòng thử lại");
             req.getRequestDispatcher("/views/Admin/add_product.jsp").forward(req, resp);
         }
-    }
-
-    //reference: ChatGPT - vì muốn lưu xuống  file multiple xuống local thui ... nên... write được thì ok :)))
-    private String getSubmittedFileName(Part part) {
-        for (String content : part.getHeader("content-disposition").split(";")) {
-            if (content.trim().startsWith("filename")) {
-                return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
-            }
-        }
-        return "unknown";
-    }
-
-    public List<String> writeProductImagesFromClient(String productName, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<String> uploadedFiles = new ArrayList<>();
-
-        String relativePath = "images/products"; // Đường dẫn tới thư mục images trong ứng dụng
-        String absolutePath = getServletContext().getRealPath(relativePath);
-
-        // Tạo thư mục nếu chưa tồn tại
-        Files.createDirectories(Path.of(absolutePath));
-        int count = 0;
-        for (Part part : req.getParts()) {
-            String fileName = getSubmittedFileName(part);
-            if (!(fileName.endsWith("unknown"))) {
-                count++;
-                String newFileName = count + "_" + productName + getFileExtension(fileName);
-                String filePath = Path.of(absolutePath, newFileName).toString();
-                part.write(filePath);
-
-                uploadedFiles.add("images/products/" + newFileName);
-            }
-        }
-        return uploadedFiles;
-    }
-
-    private void deleteProductImage() {
-        String fileNameToDelete = "your_file_name.jpg"; // Tên tệp tin cần xóa
-        String relativePath = "images"; // Đường dẫn tới thư mục images trong ứng dụng
-        String absolutePath = getServletContext().getRealPath(relativePath);
-
-        Path filePath = Path.of(absolutePath, fileNameToDelete);
-
-        try {
-            // Kiểm tra xem tệp tin tồn tại trước khi xóa
-            if (Files.exists(filePath)) {
-                Files.delete(filePath);
-//                resp.getWriter().println("File deleted successfully.");
-            } else {
-//                resp.getWriter().println("File not found.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace(); // Xử lý các ngoại lệ IO nếu có
-//            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    // Phương thức để lấy phần mở rộng của file
-    private static String getFileExtension(String fileName) {
-        String extension = "";
-        int lastDotIndex = fileName.lastIndexOf('.');
-        if (lastDotIndex > 0 && lastDotIndex < fileName.length() - 1) {
-            extension = fileName.substring(lastDotIndex);
-        }
-        return extension;
     }
 }

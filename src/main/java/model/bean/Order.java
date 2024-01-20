@@ -74,6 +74,21 @@ public class Order implements Serializable {
         this.userId = userId;
     }
 
+    public boolean isWaitConfirmOrder() {
+        return this.getStatus().equalsIgnoreCase("Chờ xác nhận");
+    }
+
+    public boolean isDeliveringOrder() {
+        return this.getStatus().equalsIgnoreCase("Đang giao");
+    }
+
+    public boolean isSucccessfulOrder() {
+        return this.getStatus().equalsIgnoreCase("Thành công");
+    }
+
+    public boolean isCanceledOrder() {
+        return this.getStatus().equalsIgnoreCase("Đã hủy");
+    }
 
     @Override
     public String toString() {

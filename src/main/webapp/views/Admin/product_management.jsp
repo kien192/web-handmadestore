@@ -11,7 +11,10 @@
 <%products = (products == null) ? new ArrayList<>() : products;%>
 <%List<Category> categories = (List<Category>) request.getAttribute("categories");%>
 <%categories = (categories == null) ? new ArrayList<>() : categories;%>
-<%String selectedCategory = (String) request.getAttribute("selectedCategory");%>
+<%
+    String selectedCategory = (String) request.getAttribute("selectedCategory");
+    selectedCategory = (selectedCategory == null) ? "all" : selectedCategory;
+%>
 <% String childFramePath = (String) request.getAttribute("childFramePath");%>
 <% String isShowChildFrame = (String) request.getAttribute("isShowChildFrame");%>
 <% String childFrameTitle = (String) request.getAttribute("childFrameTitle");%>
@@ -120,11 +123,14 @@
             border-bottom: 5px solid grey;
         }
 
-        .mytables {
-            height: 50vh;
-            width: 90%;
-            margin: auto;
-            overflow-y: scroll;
+        .my-custom-scrollbar {
+            position: relative;
+            height: 60%;
+            overflow: auto;
+        }
+
+        .table-wrapper-scroll-y {
+            display: block;
         }
 
         tr {
@@ -466,8 +472,8 @@
             <p class="fw-bold fs-5 pt-3  ">Danh sách sản phẩm</p>
         </div>
         <hr>
-        <div class="mytables">
-            <table class="m-auto" id="mytable">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table">
                 <thead>
                 <tr class="table_order sticky-top">
                     <th class="px-3" scope="col">Mã sản phẩm</th>
@@ -505,11 +511,20 @@
                     </td>
                     <td class="px-4"><%=p.getSellingPrice()%>
                     </td>
+                    <%!double finalSellingPrice;%>
+                    <%finalSellingPrice = ProductService.getInstance().productPriceIncludeDiscount(p);%>
                     <td class="px-4">
+
                         <%Discount d = DiscountService.getInstance().getDiscountById(p.getDiscountId() + "");%>
+                        <%if (finalSellingPrice == p.getSellingPrice()) {%>
+                        <del style="text-decoration-color: red;">
+                            <%=(d == null) ? "" : d.getName() + " - giảm " + (d.getPercentageOff() * 100) + "%"%>
+                        </del>
+                        <%} else {%>
                         <%=(d == null) ? "" : d.getName() + " - giảm " + (d.getPercentageOff() * 100) + "%"%>
+                        <%}%>
                     </td>
-                    <td class="px-4"><%=ProductService.getInstance().productPriceIncludeDiscount(p)%>
+                    <td class="px-4"><%=finalSellingPrice%>
                     <td class="px-2">
                         <%if (p.getIsSale() == 0) {%>
                         <%--0: false--%>
@@ -527,11 +542,11 @@
                     </td>
                     <td class="px-4">
                         <%--                        Delete product--%>
-                        <a href="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=<%=selectedCategory%>&edit_product_id=<%=p.getId()%>"
+                        <a href="<%=request.getContextPath()%>/admin/product?func=product_management&edit_product_id=<%=p.getId()%>"
                            class="px-2"><i
                                 class="fa-solid fa-pen fs-4" style="color: #5c7093;"></i></a>
                         <a
-                                href="<%=request.getContextPath()%>/admin/product?func=product_management&category_id=<%=selectedCategory%>&func_2=showConfirmBox&delete_product_id=<%=p.getId()%>"
+                                href="<%=request.getContextPath()%>/admin/product?func=product_management&func_2=showConfirmBox&delete_product_id=<%=p.getId()%>&category_id=<%=selectedCategory%>"
                                 class="px-2"><i
                                 class="fa-solid fa-trash-can fs-4" style="color: #5c7093;"></i></a>
                     </td>

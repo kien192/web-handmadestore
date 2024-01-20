@@ -18,6 +18,7 @@ public class ProductService {
         if (instance == null) instance = new ProductService();
         return instance;
     }
+
     public List<Product> getAll() {
         return ProductDAO.getAll();
     }
@@ -25,7 +26,6 @@ public class ProductService {
     public Product getProductById(String id) {
         return ProductDAO.getProductById(id);
     }
-
 
     public double productPriceIncludeDiscount(Product p) {
         if (p != null) {
@@ -43,10 +43,11 @@ public class ProductService {
         return 0;
     }
 
-    public List<Product> sixProduct(int offset) {
-        return ProductDAO.listSixProduct(offset);
-    }
-
+    //danh sách sản phẩm đang được giảm giá
+    public List<Product> productDiscountMainPage() {return ProductDAO. discountProduct();}
+    public List<Product> listProductDiscount(){return ProductDAO.listDiscountProduct();}
+    public List<Product> sortListProductDiscountAZ(){return ProductDAO.sortDiscountProductAZ();}
+    public List<Product> sortListProductDiscountZA(){return ProductDAO.sortDiscountProductZA();}
     public List<Product> getProductsByCategoryId(int category_id) {
         return ProductDAO.findByCategory(category_id);
     }
@@ -106,21 +107,29 @@ public class ProductService {
 
 
     //Sắp xếp từ thấp đến cao
-    public List<Product> sortProductsAZ(){
+    public List<Product> sortProductsAZ() {
         return ProductDAO.sortProductAZ();
     }
+
     //sắp xếp từ cao đến thấp
-    public List<Product> sortProductsZA(){
+    public List<Product> sortProductsZA() {
         return ProductDAO.sortProductZA();
     }
+
     public List<Product> getAllProduct() {
         return ProductDAO.getAll();
     }
+
+    public List<Product> getTopSoldoutProduct(int number) {
+        return ProductDAO.getTopSoldoutProduct(number);
+    }
+
     public Product getProductById(int productID) {
         return ProductDAO.getProduct(productID);
     }
+
     public List<Product> getRelatedProduct(int productId, int categoryId, int limit) {
-      return  ProductDAO.getRelatedProduct(productId, categoryId,limit);
+        return ProductDAO.getRelatedProduct(productId, categoryId, limit);
     }
 
     public List<Rate> getRateForProduct(int productId) {
@@ -137,19 +146,20 @@ public class ProductService {
 
     public static void main(String[] args) {
 
-        List<Product> products = ProductService.getInstance().sixProduct(0);
-        List<Product> productsa = ProductService.getInstance().getAllProduct();
-        Product a = ProductService.getInstance().getProductById(10);
-        System.out.println(a);
-
-        System.out.println(getInstance().getProductsByCategoryId(2));
-
+//        List<Product> productsa = ProductService.getInstance().getAllProduct();
+//        Product a = ProductService.getInstance().getProductById(10);
+//        System.out.println(a);
+//
+//        System.out.println(getInstance().getProductsByCategoryId(2));
+        System.out.println(ProductService.getInstance().listProductDiscount());
     }
-
 
 
     public void insertNewProduct(String name, String description, double costPrice, double sellingPrice, int quantity, int categoryId, int discountId, List<String> imagesPath) {
         ProductDAO.insertNewProduct(name, description, costPrice, sellingPrice, quantity, categoryId, discountId, imagesPath);
     }
 
+    public long getNumberAvailProduct() {
+        return ProductDAO.getNumberAvailProduct();
+    }
 }

@@ -1,6 +1,7 @@
 package model.service;
 
 import model.bean.User;
+import model.dao.OrderDAO;
 import model.dao.UserDAO;
 
 import java.util.ArrayList;
@@ -39,9 +40,19 @@ public class UserService {
     public boolean isPhoneNumberExist(String phoneNumber) {
         return UserDAO.isPhoneExist(phoneNumber);
     }
+
     public List<User> getAllUsers() {
         List<User> users = UserDAO.getAllUsers();
         return users;
+    }
+
+    public List<User> getNewUsersTop(int number) {
+        List<User> users = UserDAO.getNewUsersTop(number);
+        return users;
+    }
+
+    public long usersNumber() {
+        return UserDAO.usersNumber();
     }
 
     public List<User> ascCreateDateFilter() {
@@ -60,8 +71,8 @@ public class UserService {
         return UserDAO.descNameFilter();
     }
 
-    public List<User> getLockUsers(){
-        return  UserDAO.getLockUsers();
+    public List<User> getLockUsers() {
+        return UserDAO.getLockUsers();
     }
 
     public List<User> findUsersByName(String name) {
@@ -90,6 +101,5 @@ public class UserService {
     public void unlockUser(String id) {
         UserDAO.unlockUser(id);
     }
-
 
 }

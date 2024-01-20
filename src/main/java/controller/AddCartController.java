@@ -33,6 +33,7 @@ public class AddCartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         HttpSession sessions = req.getSession();
         Cart cart = (Cart) sessions.getAttribute("cart");
         String action = req.getParameter("actionCart");
@@ -101,6 +102,7 @@ public class AddCartController extends HttpServlet {
         cart.remove(id);
         sessions.setAttribute("cart", cart);
         resp.sendRedirect(req.getContextPath() + "/views/CartPage/cart.jsp");
+
 
     }
 }

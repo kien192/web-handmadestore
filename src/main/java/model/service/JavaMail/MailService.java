@@ -1,5 +1,8 @@
 package model.service.JavaMail;
 
+import model.bean.Order;
+import model.bean.User;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -62,6 +65,42 @@ public class MailService {
                 "<br> <strong>" + code + "</strong>");
 
         return code;
+    }
+
+    public static void sendNotifyCanceledOrder(String to, Order order, String canceledReason) {
+        System.out.println("final check: " + canceledReason);
+        MailService emailService = new MailService();
+        emailService.send(to,
+                "Thông báo hủy đơn hàng của bạn",
+                "Chào bạn, chúng tôi hy vọng email này sẽ đến được với bạn." +
+                        "<br> Chúng tôi rất tiếc phải thông báo với bạn rằng đơn hàng có mã <strong>" + " #" + order.getId() + " </strong>" + "đã bị hủy." +
+                        ((canceledReason != null && !canceledReason.equals("")) ? "<br> Lý do hủy: <strong>" + canceledReason + " </strong>" : "") +
+                        "<br> Vui lòng liên hệ với chúng tôi nếu bạn có thêm bất kỳ câu hỏi nào hoặc " +
+                        "cần hỗ trợ tìm kiếm sản phẩm thay thế. " +
+                        "Chúng tôi đánh giá cao sự hỗ trợ của bạn và mong được phục vụ bạn trong tương lai." +
+                        "<br><strong>Handmadestore</strong>");
+    }
+
+    public static void sendNotifyConfirmOrder(String to, Order order) {
+        MailService emailService = new MailService();
+        emailService.send(to,
+                "Đơn hàng của bạn đã xác nhận",
+                "Chào bạn, chúng tôi hy vọng email này sẽ đến được với bạn." +
+                        "<br> Đơn hàng của bạn có mã <strong>" + " #" + order.getId() + " </strong>" + " đã xác nhận và sẽ được giao đến bạn sớm nhất." +
+                        "<br> Cảm ơn bạn đã tin tưởng mua hàng tại Handmadestore. Nếu bạn có vấn đề hay thắc mắc nào liên quan, hãy liên hệ với chúng tôi qua email này." +
+                        "<br><strong>Thân ái! Handmadestore</strong>");
+    }
+
+    public static void sendAdminProblem(String adminEmail, User user, String problemTitle, String desc) {
+        MailService emailService = new MailService();
+        emailService.send(adminEmail,
+                "Khách hàng đang gặp vấn đề với website! ",
+                "<br>Mã khách hàng: <strong>" + user.getId() + "</strong>" +
+                        "<br> Email: <strong>" + user.getEmail() + "</strong>" +
+                        "<br> Sđt: <strong>" + user.getPhoneNumber() + "</strong>" +
+                        "<hr>" +
+                        "Vấn đề: <strong>" + problemTitle + "</strong>" +
+                        "Mô tả của khách hàng: " + desc);
     }
 
     public static void main(String[] args) {
