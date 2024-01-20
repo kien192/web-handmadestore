@@ -57,15 +57,15 @@
                 <li class="list_sort dropdown">
                     <span id="sortTitle"><%=filter%></span>
                     <ul class="sort_submenu list-group dropdown-menu">
-                        <li><a class="sort_item dropdown-item" href="<%=request.getContextPath()%>/product">Mặc định</a>
-                        </li>
                         <%
                             String category = request.getParameter("category");
                             if (category == null) {
                         %>
+                        <li><a class="sort_item dropdown-item" href="<%=request.getContextPath()%>/product">Mặc định</a></li>
                         <li><a class="sort_item dropdown-item" href="?filter=descPrice">Giá giảm dần</a></li>
                         <li><a class="sort_item dropdown-item" href="?filter=ascPrice">Giá tăng dần</a></li>
                         <%} else {%>
+                        <li><a class="sort_item dropdown-item" href="?category=<%=category%>">Mặc định</a></li>
                         <li><a class="sort_item dropdown-item" href="?category=<%=category%>&filter=descPrice">Giá giảm
                             dần</a></li>
                         <li><a class="sort_item dropdown-item" href="?category=<%=category%>&filter=ascPrice">Giá tăng
@@ -94,24 +94,14 @@
                         <img src="<%=request.getContextPath()%>/<%=pathImage%>">
                     </a>
 
-
-                    <a href="product-detail?id=<%=p.getId()%>"><p class="pt-4 px-3"><%=p.getName() %>
-                    </p>
-                    </a>
-
-                    <p><%=p.getSellingPrice()%>
-                    </p>
-
-
-
-                    <button class="add-to-cart">
-                            <a href="add-cart?id=<%=p.getId()%>">
-                            <span>Thêm vào giỏ hàng </span>
-                            </a>
-                        </button>
-
-
-                    <%--                    <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>--%>
+                    <a href="product-detail?id=<%=p.getId()%>"><p class="pt-4 px-3"><%=p.getName() %></p></a>
+                    <%!double giaBanSauCung;%>
+                    <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(p);%>
+                    <%if(p.getCategoryId() >= 0 && giaBanSauCung!= p.getSellingPrice()){%>
+                    <del><%=p.getSellingPrice()%>đ</del>
+                    <%}%>
+                    <p><%=ProductService.getInstance().productPriceIncludeDiscount(p)%>đ</p>
+                    <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
                 </div>
             </li>
 
