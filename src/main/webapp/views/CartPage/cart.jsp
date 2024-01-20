@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.Map" %>
+<%@ page import="model.bean.Item" %><%--
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 1/19/2024
@@ -12,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
-     <style>
+    <style>
         .pause_bt {
             padding: 10px 40px;
             margin-right: 10px;
@@ -31,8 +32,9 @@
 </head>
 <body>
 <%--Thanh điều hướng - header--%>
-<%@include file="/views/MenuBar/menu.jsp" %>
 
+<%@include file="/views/MenuBar/menu.jsp" %>
+<%--<%Map<Integer, Item> list = cart. %>--%>
 
 <%--NỘI DUNG CART--%>
 <nav aria-label="breadcrumb">
@@ -63,6 +65,8 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <% double total = 0;%>
+                            <% for (Item item : cart.getItems().values()) { %>
                             <tr class="border-1">
                                 <td class="align-middle">
                                     <img class="product-img" src="../images/anh1.webp" alt="sanpham" width="80%"
@@ -70,54 +74,67 @@
                                 </td>
                                 <td class="align-middle">
                                     <div>
-                                        <h6>Thiệp sinh nhật</h6>
-                                        <p>Nhỏ - vàng</p>
+                                        <h6><%=item.getProduct().getName()%>
+                                        </h6>
+
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                    98.000₫
+                                    <%=item.getPrice()%>
                                 </td>
                                 <td class="align-middle">
                                     <div class="quantity-box d-flex p-1 border justify-content-center">
+                                        <form action="<%=request.getContextPath()%>/add-cart" method="post" >
                                         <button id="increase_bt" class="text-center border-0 bg-body fw-bold"
                                                 style="width: 30px;">-
                                         </button>
-                                        <input id="quantity_input" class="border-0 w-50 text-center" type="text"
-                                               value="1">
+                                        <input id="quantity_input" class="border-0 w-50 text-center" type="text" name="actionCart"
+
+                                               value="<%=numberFormat.format(item.getQuantity())%>">
                                         <button id="reduce_bt" class="text-center border-0 bg-body fw-bold"
                                                 style="width:30px;">+
                                         </button>
+                                        </form>
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                    98.000₫
+                                    <%=numberFormat.format(item.getQuantity() * item.getPrice())%>
                                 </td>
                                 <td class="align-middle">
-                                    <button type="button" class="btn" onclick="deleteOrder(1)">
+                                    <form action="<%=request.getContextPath()%>/add-cart" method="post" >
+                                        <input type="hidden" name="actionCart" value="delete">
+                                        <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">
+                                        <button type="button" class="btn" name="actionCart" value="">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
+
+                                    </form>
                                 </td>
                             </tr>
+                            <%total += (item.getQuantity() * item.getPrice());%>
+                            <%}%>
                             </tbody>
                         </table>
                     </div>
                     <div class="line-block text-end mb-3">
                         <span class="h4 me-1 fw-normal">Tổng tiền:</span>
-                        <span class="h5">300.000₫</span>
+                        <span class="h5"><%=numberFormat.format(total)%></span>
                     </div>
 
                     <div class="line-block text-end">
-                        <button type="button" class="pause_bt" onclick="window.location = '../MainPage/view_mainpage/mainpage.jsp'">Tiếp tục mua hàng</button>
-                        <button type="button" class="complete_bt" onclick="window.location = '../PaymentPage/payment.html'">Tiếp tục đặt hàng</button>
+
+                        <button type="button" class="pause_bt"
+                                onclick="window.location = '../MainPage/view_mainpage/mainpage.jsp'">Tiếp tục mua hàng
+                        </button>
+                        <button type="button" class="complete_bt"
+                                onclick="window.location = '../PaymentPage/payment.html'">Tiếp tục đặt hàng
+                        </button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
 </div>
-
-
-
 
 
 <!--    Footer-->

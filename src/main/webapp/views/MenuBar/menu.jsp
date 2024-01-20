@@ -1,21 +1,24 @@
 <%@ page import="model.bean.User" %>
 <%@ page import="model.service.CategoryService" %>
 <%@ page import="model.bean.Category" %>
+<%@ page import="model.bean.Cart" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.util.Currency" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <%User u = (User) session.getAttribute("auth");%>
-<%List<Product> allProduct = (List<Product>) request.getAttribute("productInPage");%>
-<%
-    if (allProduct == null) allProduct = new ArrayList<>();
-    Cart cart = (Cart) session.getAttribute("cart");
-    if (cart == null) {
-        cart = new Cart();
-    }
-
+<%Cart cart = (Cart) session.getAttribute("cart");
+        if(cart == null) cart = new Cart();
+    Locale locale = new Locale("vi", "VN");
+    Currency currency = Currency.getInstance(locale);
+    NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+    numberFormat.setCurrency(currency);
 %>
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -412,10 +415,11 @@
         <li class="cart p-4 dropdown my-auto  position-relative">
             <%--            <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>--%>
             <%--            <a href="<%=request.getContextPath()%>/views/CartPage/cart.html">Giỏ Hàng</a>--%>
-            <a href="<%=request.getContextPath()%>/views/CartPage/cart.jsp">
+<%--            <a href="add-cart?actionCart=get">--%>
+                <a href="<%=request.getContextPath()%> + /views/CartPage/cart.jsp "  >
                 <i class="fa-solid fa-cart-shopping position-relative" style="color: #2a3241;">
             <span id="badge" class="position-absolute top-0 start-0  badge rounded-pill
-            bg-danger "> <%=cart.getTotal()%></span>
+            bg-danger "><%=cart.getTotal()%> </span>
 
                 </i>
                 <span class="label ps-2"> Giỏ hàng </span>

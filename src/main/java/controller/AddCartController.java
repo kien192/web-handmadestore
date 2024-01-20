@@ -14,17 +14,78 @@ import java.io.IOException;
 public class AddCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession sessions = req.getSession();
+        Cart cart = (Cart) sessions.getAttribute("cart");
+        if(cart == null) {
+            cart= new Cart();
+        }
+        sessions.setAttribute("cart", cart);
+//        resp.sendRedirect( req.getContextPath() + "/views/CartPage/cart.jsp");
+//    delegated
         doPost(req, resp);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-        if (cart == null) cart = new Cart();
+        HttpSession sessions = req.getSession();
+        Cart cart = (Cart) sessions.getAttribute("cart");
+        String action = req.getParameter("actionCart");
+        /*
+        doPost add san pham
+        doGet lay view san pham
+        doPut update san pham
+        doDelete xoa san pham
+        CRUD.
+         */
+
+        switch (action) {
+            case "get":
+                resp.sendRedirect(req.getContextPath() + "/views/CartPage/cart.jsp");
+                break;
+
+            case "delete":
+                doDelete(req,resp);
+                break;
+            case "put":
+                doPut(req,resp);
+                break;
+            default:
+                break;
+        }
+        int id = Integer.parseInt(req.getParameter("id")); // lay id product
+
+        cart.add(id );
+        sessions.setAttribute("cart", cart);
+        resp.sendRedirect(req.getContextPath() + "/product");
+
+
+
+
+
+
+//        HttpSession session = req.getSession();
+//        Cart cart = (Cart) session.getAttribute("cart");
+//        if (cart == null) cart = new Cart();
+//        int id = Integer.parseInt(req.getParameter("id"));
+//        cart.add(id);
+//        session.setAttribute("cart", cart);
+//        resp.sendRedirect("product");
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        cart.add(id);
-        session.setAttribute("cart", cart);
-        resp.sendRedirect("product");
+        HttpSession sessions = req.getSession();
+        Cart cart = (Cart) sessions.getAttribute("cart");
+        cart.remove(id);
+        sessions.setAttribute("cart", cart);
+        resp.sendRedirect(req.getContextPath() + "/views/CartPage/cart.jsp");
+
     }
 }

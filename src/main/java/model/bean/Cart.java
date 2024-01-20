@@ -13,6 +13,14 @@ public class Cart {
 
     Map<Integer, Item> items = new HashMap<>();
 
+    public Map<Integer, Item> getItems() {
+        return items;
+    }
+
+    public void setItems(Map<Integer, Item> items) {
+        this.items = items;
+    }
+
     //thêm 1 sản phầm
     public boolean add(int id) {
         return add(id, 1);

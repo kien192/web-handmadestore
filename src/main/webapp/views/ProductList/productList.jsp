@@ -80,7 +80,12 @@
         <%-- Hiển thị sản phẩm theo category.   --%>
 
         <ul id="allProduct" class="products m-2 me-5 ms-3 d-flex flex-wrap">
+            <%  List<Product> allProduct = (List<Product>) request.getAttribute("productInPage");%>
+            <%
+                if (allProduct == null) allProduct = new ArrayList<>();
 
+
+            %>
             <%if (allProduct == null) {%>
             <p>Không có dữ liệu</p>
             <%} else {%>
@@ -101,7 +106,7 @@
                     <del><%=p.getSellingPrice()%>đ</del>
                     <%}%>
                     <p><%=ProductService.getInstance().productPriceIncludeDiscount(p)%>đ</p>
-                    <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
+                    <div class="add-to-cart"><a href="add-cart?actionCart=post&id=<%=p.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
                 </div>
             </li>
 
