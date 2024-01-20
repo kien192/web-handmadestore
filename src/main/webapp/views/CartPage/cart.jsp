@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%--
   Created by IntelliJ IDEA.
   User: Kien Nguyen
@@ -12,7 +13,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
-     <style>
+    <link rel="stylesheet" href="cartCSS.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
         .pause_bt {
             padding: 10px 40px;
             margin-right: 10px;
@@ -30,6 +33,102 @@
     </style>
 </head>
 <body>
+<<<<<<< HEAD
+<!--menu-->
+<div id="menubar" class="menu sticky-top" >
+    <ul class="d-flex m-0">
+        <li class="logo me-4 my-auto">
+            <img src="../images/logo.png" style="width: 12vh">
+        </li>
+        <li >
+
+              <a href="#carouselExampleCaptions" >  <div class="item times p-4 my-auto">Trang chủ </div></a>
+
+        </li>
+        <li class="item sanpham p-4 dropdown my-auto">
+            <a href="#"  class = "title_sp">Sản phẩm <i class="fa-solid fa-caret-down"></i></a>
+            <ul class="sub_menu dropdown-menu">
+                <li>
+                    <a href="#thiep" class="item sp1 dropdown-item " >Thiệp HandMade Vintage</a>
+                </li>
+                <li>
+                    <a href="#anh" class="item sp2 dropdown-item" >Scrapbook,Album Ảnh</a>
+                </li>
+                <li>
+                    <a href="#sotay" class="item sp3 dropdown-item" >Sổ ghi chép, sổ tay</a>
+                </li>
+                <li>
+                    <a href="#decore" class="item sp4 dropdown-item" >Đồ decore trang trí nhà,cafe,Homestay</a>
+                </li>
+                <li>
+                    <a href="#nguyenlieu" class="item sp5 dropdown-item" >Nguyên vật liệu,phụ kiện dụng cụ</a>
+                </li>
+                <div>
+
+                </div>
+            </ul>
+        </li>
+        <li class="item bikip p-4 my-auto">
+            <a href="#bikip" >Bí kíp làm đồ HandMade</a>
+        </li>
+        <li class="item footers p-4 my-auto">
+            <a href="#footer " >Về chúng tôi</a>
+        </li>
+        <li class="search d-flex p-4 my-auto mx-5">
+            <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
+            <input type="text" placeholder="Bạn tìm gì...">
+        </li>
+        <li class="login p-4 my-auto">
+            <i class="fa-solid fa-user" style="color: #496088;"></i>
+            <a href="../Login/view_login/login.jsp" >Đăng Nhập</a>
+        </li>
+        <li class="cart p-4 dropdown my-auto">
+            <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>
+            <a href="#" >Giỏ Hàng</a>
+
+
+            <!--Danh sách giỏ hàng -->
+            <div class="list-cart">
+                <ul class="list-item-cart">
+                    <li class="item-sub">
+                        <div class="border_list d-flex ">
+                            <a class="product-image" href="">
+                                <img src="../../images/products/p102.webp" alt="">
+                            </a>
+                            <div class="detail-item">
+                                <div class="product-detail">
+                                    <p class="product-name">
+                                        <a href="">Thiệp sinh nhật Handemia OIILL</a>
+                                    </p>
+                                </div>
+                                <div class="product-detail-bottom">
+                                    <span class="price">150000</span>
+                                    <a href="">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                    </a>
+                                    <div class="quantity-select">
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </li>
+
+
+
+           </ul>
+
+       </div>
+        </li>
+
+
+
+
+    </ul>
+</div>
+=======
 <%--Thanh điều hướng - header--%>
 <%@include file="/views/MenuBar/menu.jsp" %>
 
@@ -43,6 +142,7 @@
     </ol>
 </nav>
 
+>>>>>>> origin/main
 
 <div class="row">
     <div class="col-12">
@@ -98,6 +198,44 @@
                                     </button>
                                 </td>
                             </tr>
+<<<<<<< HEAD
+                            <tr class="border-1">
+                                <td class="align-middle">
+                                    <img class="product-img" src="../images/anh2.webp" alt="sanpham" width="80%"
+                                         height="80%">
+                                </td>
+                                <td class="align-middle">
+                                    <div>
+                                        <h6>Thiệp sinh nhật</h6>
+                                        <p>Nhỏ - hồng</p>
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    101.000₫
+                                </td>
+                                <td class="align-middle">
+                                    <div class="quantity-box d-flex p-1 border justify-content-center">
+                                        <button id="increase_bt1" class="text-center border-0 bg-body fw-bold"
+                                                style="width: 30px;">-
+                                        </button>
+                                        <input id="quantity_input1" class="border-0 w-50 text-center" type="text"
+                                               value="2">
+                                        <button id="reduce_bt1" class="text-center border-0 bg-body fw-bold"
+                                                style="width:30px;">+
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    202.000₫
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn" onclick="deleteOrder(1)">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </td>
+                            </tr>
+=======
+>>>>>>> origin/main
                             </tbody>
                         </table>
                     </div>
@@ -116,6 +254,57 @@
     </div>
 </div>
 
+<<<<<<< HEAD
+<!--    Footer-->
+<div id="footer">
+    <ul class="d-flex ">
+        <li class="content col-6" >
+            <img src="../images/logo.png" width="30%">
+            <p class="me-5">
+                HEADQUARTERS là cửa hàng về đồ HANDMADE về đồ trang trí, phụ kiện, thiệp, album ảnh, sổ tay được làm thủ công
+                đẹp, ý nghĩa, thân thiện với mọi người.
+            </p>
+        </li>
+        <li class="contact col-6 mt-5">
+            <p class="content fs-2 fw-bold">Liên hệ với chúng tôi</p>
+            <div class="address d-flex">
+                <i class="fa-solid fa-location-dot py-2" style="color: #4d8a54"></i>
+                <p class="p-2">Địa chỉ: Lớp DH21DTC,Khoa Công Nghệ Thông Tin,</br> Trường Đại Học Nông Lâm TP.HCM</p>
+            </div>
+            <div class="hotline d-flex">
+                <i class="fa-solid fa-mobile-screen py-2" style="color: #4d8a54"></i>
+                <p class="p-2">Hotline : 1900 3456</p>
+            </div>
+            <div class="icon">
+                <a class="me-3 fs-3" href=""><i class="fa-brands fa-twitter" style="color: #4d8a54"></i></a>
+                <a class="mx-3 fs-3" href=""><i class="fa-brands fa-facebook" style="color: #4d8a54"></i></a>
+                <a class="mx-3 fs-3" href=""><i class="fa-brands fa-square-instagram" style="color: #4d8a54"></i></a>
+                <a class="mx-3 fs-3" href=""><i class="fa-brands fa-youtube" style="color: #4d8a54"></i></a>
+            </div>
+        </li>
+    </ul>
+    <div class="solid  m-auto "></div>
+    <div class="content_end fs-6 fw-bold text-center">
+        <p>Bản quyền thuộc về HEADQUARTERS| Cung cấp bởi HEADQUARTERS</p>
+    </div>
+</div>
+
+<script>
+    function deleteOrder(index) {
+        var table = document.getElementById("order-list");
+        table.deleteRow(index);
+
+        var count  = table.rows.length;
+         if(count == 1) document.write("Không có sản phẩm nào trong giỏ hàng. Quay lại cửa hàng để tiếp tục mua sắm.");
+    }
+
+    function getTableRowIndex(x) {
+        return x.rowIndex;
+    }
+</script>
+</body>
+</html>
+=======
 
 
 
@@ -125,3 +314,4 @@
 
 </body>
 </html>
+>>>>>>> origin/main
