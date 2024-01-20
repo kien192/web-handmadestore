@@ -180,7 +180,7 @@
     <div class="content_bk">
         <ul class="d-flex ">
 
-            <%List<Tip> tipsList = TipDAO.getAllTips();
+            <%List<Tip> tipsList = TipDAO.getAllTips();;
             for (Tip t : tipsList){%>
             <li class="item text-center">
                 <a href="<%=t.getVideoLink()%>"><img src="<%=t.getImgPath()%>" width="90%"></a>
