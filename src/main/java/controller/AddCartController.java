@@ -22,6 +22,11 @@ public class AddCartController extends HttpServlet {
         sessions.setAttribute("cart", cart);
 //        resp.sendRedirect( req.getContextPath() + "/views/CartPage/cart.jsp");
 //    delegated
+        /*
+          String referer = req.getHeader("Referer");//Hàm lấy url của trang hiện tại để reload
+        System.out.println(referer);
+        resp.sendRedirect(referer);
+         */
         doPost(req, resp);
 
     }
@@ -31,6 +36,7 @@ public class AddCartController extends HttpServlet {
         HttpSession sessions = req.getSession();
         Cart cart = (Cart) sessions.getAttribute("cart");
         String action = req.getParameter("actionCart");
+        String referer = req.getHeader("Referer");//Hàm lấy url của trang hiện tại để reload
         /*
         doPost add san pham
         doGet lay view san pham
@@ -41,6 +47,7 @@ public class AddCartController extends HttpServlet {
 
         switch (action) {
             case "get":
+
                 resp.sendRedirect(req.getContextPath() + "/views/CartPage/cart.jsp");
                 break;
 
@@ -56,7 +63,7 @@ public class AddCartController extends HttpServlet {
 
             cart.add(id );
             sessions.setAttribute("cart", cart);
-            resp.sendRedirect(req.getContextPath() + "/product");
+                resp.sendRedirect(referer);
             break;
             default:
 
