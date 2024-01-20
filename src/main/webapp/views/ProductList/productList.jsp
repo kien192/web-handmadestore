@@ -103,9 +103,9 @@
                     <%!double giaBanSauCung;%>
                     <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(p);%>
                     <%if(p.getCategoryId() >= 0 && giaBanSauCung!= p.getSellingPrice()){%>
-                    <del><%=p.getSellingPrice()%>đ</del>
+                    <del><%=numberFormat.format(p.getSellingPrice())%></del>
                     <%}%>
-                    <p><%=ProductService.getInstance().productPriceIncludeDiscount(p)%>đ</p>
+                    <p><%=numberFormat.format(ProductService.getInstance().productPriceIncludeDiscount(p))%></p>
                     <div class="add-to-cart"><a href="add-cart?actionCart=post&id=<%=p.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
                 </div>
             </li>

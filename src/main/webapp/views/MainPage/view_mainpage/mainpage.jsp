@@ -10,7 +10,6 @@
 <%@ page import="model.dao.TipDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%User u = (User) session.getAttribute("auth");%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -22,60 +21,8 @@
 </head>
 <body>
 <!--menu-->
-<div id="menubar" class="menu sticky-top">
-    <ul class="d-flex m-0">
-
-        <li class="logo me-4 my-auto">
-            <img src="<%=request.getContextPath()%>/images/logo.png" style="width: 12vh">
-        </li>
-        <li class="item times p-4 my-auto">
-            <a href="#carouselExampleCaptions">Trang chủ</a>
-        </li>
-        <li class="item sanpham p-4 dropdown my-auto">
-            <a href="<%=request.getContextPath()%>/product" class="title_sp">Sản phẩm <i
-                    class="fa-solid fa-caret-down"></i></a>
-            <ul class="sub_menu dropdown-menu">
-                <%List<Category> category = CategoryService.getInstance().getALl();%>
-                <%for (Category c : category) {%>
-                <li><a href="#<%=c.getId()%>" class="item dropdown-item"><%=c.getName()%>
-                </a></li>
-                <%}%>
-            </ul>
-        </li>
-        <li class="item bikip p-4 my-auto">
-            <a href="#bikip">Bí kíp làm đồ HandMade</a>
-        </li>
-        <li class="item footers p-4 my-auto">
-            <a href="#footer ">Về chúng tôi</a>
-        </li>
-
-        <li class="search d-flex p-4 my-auto mx-5">
-            <form action="<%=request.getContextPath()%>/findProduct" method="post" id="find" class="d-flex">
-                <input name="findProducts" type="text" placeholder="Bạn tìm gì...">
-                <button><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
-            </form>
-
-        </li>
-        <li class="login p-4 my-auto dropdown">
-            <%if (u == null) {%>
-            <i class="fa-solid fa-user" style="color: #496088;"></i>
-            <a href="<%=request.getContextPath()%>/login">Đăng Nhập</a>
-            <%} else {%>
-
-            <button type="button" class="btn btn-sm btn-primary "><i class="fa-solid fa-user" style="color: white;"></i>
-                <span><%= u.getName()%></span></button>
-            <ul id="dangxuat" class="dx dropdown-menu">
-                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp">Đăng
-                    Xuất</a></li>
-            </ul>
-            <%}%>
-        </li>
-        <li class="cart p-4 dropdown my-auto">
-            <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>
-            <a href="<%=request.getContextPath()%>/views/CartPage/cart.html">Giỏ Hàng</a>
-        </li>
-    </ul>
-</div>
+<%--Thanh điều hướng - header--%>
+<%@include file="/views/MenuBar/menu.jsp" %>
 
 <!--carousel-->
 <div id="carouselExampleCaptions" class="carousel slide">
@@ -150,10 +97,10 @@
                         <%!double giaBanSauCung;%>
                         <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(pr);%>
                         <%if(pr.getCategoryId() >= 0 && giaBanSauCung!= pr.getSellingPrice()){%>
-                        <del><%=pr.getSellingPrice()%>đ</del>
+                        <del><%=numberFormat.format(pr.getSellingPrice())%></del>
                         <%}%>
-                        <p><%=ProductService.getInstance().productPriceIncludeDiscount(pr)%>đ</p>
-                        <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
+                        <p><%=numberFormat.format(ProductService.getInstance().productPriceIncludeDiscount(pr))%></p>
+                        <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&id=<%=pr.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
                     </div>
 
 

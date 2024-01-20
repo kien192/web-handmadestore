@@ -1,5 +1,6 @@
 <%@ page import="java.util.Map" %>
-<%@ page import="model.bean.Item" %><%--
+<%@ page import="model.bean.Item" %>
+<%@ page import="model.service.ImageService" %><%--
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 1/19/2024
@@ -69,7 +70,9 @@
                             <% for (Item item : cart.getItems().values()) { %>
                             <tr class="border-1">
                                 <td class="align-middle">
-                                    <img class="product-img" src="../images/anh1.webp" alt="sanpham" width="80%"
+                                  <%  String pathImage = ImageService.getInstance().pathImageOnly(item.getProduct().getId()); %>
+
+                                    <img class="product-img" src="<%=request.getContextPath()%>/<%=pathImage%>" alt="sanpham" width="80%"
                                          height="80%">
                                 </td>
                                 <td class="align-middle">
@@ -80,7 +83,7 @@
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                    <%=item.getPrice()%>
+                                    <%=numberFormat.format(item.getPrice())%>
                                 </td>
                                 <td class="align-middle">
                                     <div class="quantity-box d-flex p-1 border justify-content-center">
@@ -90,7 +93,7 @@
                                         </button>
                                         <input id="quantity_input" class="border-0 w-50 text-center" type="text" name="actionCart"
 
-                                               value="<%=numberFormat.format(item.getQuantity())%>">
+                                               value="<%=item.getQuantity()%>">
                                         <button id="reduce_bt" class="text-center border-0 bg-body fw-bold"
                                                 style="width:30px;">+
                                         </button>
@@ -101,10 +104,9 @@
                                     <%=numberFormat.format(item.getQuantity() * item.getPrice())%>
                                 </td>
                                 <td class="align-middle">
-                                    <form action="<%=request.getContextPath()%>/add-cart" method="post" >
-                                        <input type="hidden" name="actionCart" value="delete">
+                                    <form action="<%=request.getContextPath()%>/add-cart" method="get" >
                                         <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">
-                                        <button type="button" class="btn" name="actionCart" value="">
+                                        <button type="submit" class="btn" name="actionCart" value="delete">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
 

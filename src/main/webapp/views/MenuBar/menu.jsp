@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <%User u = (User) session.getAttribute("auth");%>
+
 <%Cart cart = (Cart) session.getAttribute("cart");
         if(cart == null) cart = new Cart();
     Locale locale = new Locale("vi", "VN");
@@ -415,8 +416,8 @@
         <li class="cart p-4 dropdown my-auto  position-relative">
             <%--            <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>--%>
             <%--            <a href="<%=request.getContextPath()%>/views/CartPage/cart.html">Giỏ Hàng</a>--%>
-<%--            <a href="add-cart?actionCart=get">--%>
-                <a href="<%=request.getContextPath()%> + /views/CartPage/cart.jsp "  >
+            <a href="<%=request.getContextPath()%>/add-cart?actionCart=get">
+
                 <i class="fa-solid fa-cart-shopping position-relative" style="color: #2a3241;">
             <span id="badge" class="position-absolute top-0 start-0  badge rounded-pill
             bg-danger "><%=cart.getTotal()%> </span>

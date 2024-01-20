@@ -45,20 +45,23 @@ public class AddCartController extends HttpServlet {
                 break;
 
             case "delete":
-                doDelete(req,resp);
+                DeleteP(req,resp);
                 break;
             case "put":
                 doPut(req,resp);
                 break;
+
+            case "post":
+            int id = Integer.parseInt(req.getParameter("id")); // lay id product
+
+            cart.add(id );
+            sessions.setAttribute("cart", cart);
+            resp.sendRedirect(req.getContextPath() + "/product");
+            break;
             default:
+
                 break;
         }
-        int id = Integer.parseInt(req.getParameter("id")); // lay id product
-
-        cart.add(id );
-        sessions.setAttribute("cart", cart);
-        resp.sendRedirect(req.getContextPath() + "/product");
-
 
 
 
@@ -78,11 +81,13 @@ public class AddCartController extends HttpServlet {
         super.doPut(req, resp);
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
+
+    protected void DeleteP(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         HttpSession sessions = req.getSession();
         Cart cart = (Cart) sessions.getAttribute("cart");
+        String action = req.getParameter("actionCart");
+        int id = Integer.parseInt(req.getParameter("id"));
         cart.remove(id);
         sessions.setAttribute("cart", cart);
         resp.sendRedirect(req.getContextPath() + "/views/CartPage/cart.jsp");
