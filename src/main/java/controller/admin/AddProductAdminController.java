@@ -152,10 +152,11 @@ public class AddProductAdminController extends HttpServlet {
             String fileName = getSubmittedFileName(part);
             if (!(fileName.endsWith("unknown"))) {
                 count++;
-                String newFileName = count + "_" + productName + getFileExtension(fileName);
+                String newFileName = count + "_"
+                        + (productName.replaceAll("\\s", ""))
+                        + getFileExtension(fileName);
                 String filePath = Path.of(absolutePath, newFileName).toString();
                 part.write(filePath);
-
                 uploadedFiles.add("images/products/" + newFileName);
             }
         }

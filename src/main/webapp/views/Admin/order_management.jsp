@@ -417,31 +417,37 @@
         <%}%>
     </div>
     <%--        cancelBox--%>
+
     <div id="cancelBox" style="display: none">
-        <div style="font-size: 20px"><i class="fa-solid fa-triangle-exclamation"></i></div>
-        <div>Bạn có chắc chắn muốn hủy bỏ đơn hàng <strong>#<%=currentOrder.getId()%>
-        </strong>?
-        </div>
-        <div>
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Lý do hủy đơn hàng:</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                          name="cancelReason"></textarea>
+        <form action="<%=request.getContextPath()%>/admin/order" method="post">
+            <div style="font-size: 20px"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div>Bạn có chắc chắn muốn hủy bỏ đơn hàng <strong>#<%=currentOrder.getId()%>
+            </strong>?
             </div>
-        </div>
-        <div class="d-flex justify-content-end">
-            <div id="loadingCancelBox" style="display:none;">
+            <div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Lý do hủy đơn hàng:</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                              name="cancelReason"></textarea>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <div id="loadingCancelBox" style="display:none;">
                 <span class="spinner-border spinner-border-sm" role="status"
                       aria-hidden="true"></span>
-                Đang hủy bỏ đơn hàng
+                    Đang hủy bỏ đơn hàng
+                </div>
+                <input type="hidden" name="action" value="cancel">
+                <input type="hidden" name="currentOrderId" value="<%=currentOrder.getId()%>">
+                <input type="hidden" name="currentFilter" value="<%=currentFilter%>">
+                <button type="submit" class="btn btn-danger mx-2" id="cancelButton" onclick="loadingCancel()">
+                    Xác nhận hủy bỏ
+                </button>
+                <button class="btn btn-success mx-2" onclick="hideCancelBox()">
+                    Thoát
+                </button>
             </div>
-            <a class="btn btn-danger mx-2" id="cancelButton" onclick="loadingCancel()"
-               href="<%=request.getContextPath()%>/admin/order?action=cancel&currentOrderId=<%=currentOrder.getId()%>&currentFilter=<%=currentFilter%>">
-                Xác nhận hủy bỏ</a>
-            <button class="btn btn-success mx-2" onclick="hideCancelBox()">
-                Thoát
-            </button>
-        </div>
+        </form>
     </div>
     <%}%>
 

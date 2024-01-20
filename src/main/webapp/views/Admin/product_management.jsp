@@ -11,7 +11,10 @@
 <%products = (products == null) ? new ArrayList<>() : products;%>
 <%List<Category> categories = (List<Category>) request.getAttribute("categories");%>
 <%categories = (categories == null) ? new ArrayList<>() : categories;%>
-<%String selectedCategory = (String) request.getAttribute("selectedCategory");%>
+<%
+    String selectedCategory = (String) request.getAttribute("selectedCategory");
+    selectedCategory = (selectedCategory == null) ? "all" : selectedCategory;
+%>
 <% String childFramePath = (String) request.getAttribute("childFramePath");%>
 <% String isShowChildFrame = (String) request.getAttribute("isShowChildFrame");%>
 <% String childFrameTitle = (String) request.getAttribute("childFrameTitle");%>
@@ -543,7 +546,7 @@
                            class="px-2"><i
                                 class="fa-solid fa-pen fs-4" style="color: #5c7093;"></i></a>
                         <a
-                                href="<%=request.getContextPath()%>/admin/product?func=product_management&func_2=showConfirmBox&delete_product_id=<%=p.getId()%>"
+                                href="<%=request.getContextPath()%>/admin/product?func=product_management&func_2=showConfirmBox&delete_product_id=<%=p.getId()%>&category_id=<%=selectedCategory%>"
                                 class="px-2"><i
                                 class="fa-solid fa-trash-can fs-4" style="color: #5c7093;"></i></a>
                     </td>

@@ -1,6 +1,7 @@
 package controller.admin;
 
 import model.service.DiscountService;
+import model.service.ImageService;
 import model.service.ProductService;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 
 @WebServlet(name = "AdminConfirm", value = "/confirm")
 public class ConfirmAdminController extends HttpServlet {
@@ -31,6 +35,8 @@ public class ConfirmAdminController extends HttpServlet {
             String confirm = req.getParameter("confirm");
             //Nếu ok -> xóa product, isShowChildFrame = hide
             if (confirm != null && confirm.equals("ok")) {
+                //xoa image src: duyet tat ca cac anh product ->
+                //deleteImage(ImageService.pathImageOnly(Integer.parseInt(confirm_delete_product_id)));
                 ProductService.getInstance().deleteProduct(confirm_delete_product_id);
                 req.setAttribute("isShowChildFrame", "hide");
             }
@@ -53,6 +59,26 @@ public class ConfirmAdminController extends HttpServlet {
                 System.out.println("Chưa xóa " + deleteDiscountId);
             }
             req.getRequestDispatcher("/views/Admin/discount_management.jsp").forward(req, resp);
+        }
+    }
+
+    private void deleteImage(String imagePath) {
+        String relativePath = "images"; // Đường dẫn tới thư mục images trong ứng dụng
+        String absolutePath = getServletContext().getRealPath(relativePath);
+
+        try {
+            Path filePath = Path.of(absolutePath, imagePath);
+            try {
+                // Kiểm tra xem tệp tin tồn tại trước khi xóa
+                if (Files.exists(filePath)) {
+                    Files.delete(filePath);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (
+                InvalidPathException e) {
+
         }
     }
 }
