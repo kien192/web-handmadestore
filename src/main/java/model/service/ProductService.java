@@ -43,6 +43,7 @@ public class ProductService {
     }
 
     //danh sách sản phẩm đang được giảm giá
+    public List<Product> productDiscountMainPage() {return ProductDAO. discountProduct();}
     public List<Product> listProductDiscount(){return ProductDAO.listDiscountProduct();}
     public List<Product> sortListProductDiscountAZ(){return ProductDAO.sortDiscountProductAZ();}
     public List<Product> sortListProductDiscountZA(){return ProductDAO.sortDiscountProductZA();}

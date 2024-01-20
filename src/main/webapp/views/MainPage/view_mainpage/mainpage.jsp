@@ -130,11 +130,11 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
 
-<!--SanPham1-->
+<!--SanPham-->
 
 <div class="product">
 <%--    --%>
-   <%List<Product> listProductDiscount = ProductService.getInstance().listProductDiscount();%>
+   <%List<Product> listProductDiscount = ProductService.getInstance().productDiscountMainPage();%>
     <%if(!listProductDiscount.isEmpty()){%>
     <div class="title_t" id="khuyenmai">
         <p class="text-center fs-5 fw-bold">Sản Phẩm Khuyến Mãi
