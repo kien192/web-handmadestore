@@ -76,10 +76,16 @@ public class SignUp extends HttpServlet {
             user.setPassword(upass);
             user.setPhoneNumber(utel);
 
-            UserDAO userDAO = new UserDAO();
+
+//
+//            UserDAO userDAO = new UserDAO();
+//
+//
+//            userDAO.insertUser(user);
+
+            UserService.getInstance().insertUser(user);
 
 
-            userDAO.insertUser(user);
             resp.sendRedirect(req.getContextPath() + "/views/Login/view_login/login.jsp");
         }
     }

@@ -119,7 +119,7 @@
 
             </div>
             <h2 class="price-pd mb-4">
-                    <%=product.getSellingPrice()%>
+                    <%=numberFormat.format(product.getSellingPrice())%>
 
                 <div class="row mt-3">
                     <div class="quantity-pd mb-4 col-4">

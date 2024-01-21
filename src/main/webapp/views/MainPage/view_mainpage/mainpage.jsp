@@ -19,7 +19,11 @@
 </head>
 <body>
 <!--menu-->
-<%@include file="../../MenuBar/menu.jsp"%>
+
+<%--Thanh điều hướng - header--%>
+<%@include file="/views/MenuBar/menu.jsp" %>
+
+
 <!--carousel-->
 <div id="carouselExampleCaptions" class="carousel slide">
     <div class="carousel-indicators">
@@ -81,7 +85,6 @@
         </p>
     </div>
     <div class="solid_t mb-3 m-auto"></div>
-
     <div class="sp" id="sp_khuyenmai">
         <ul class="products  m-2 d-flex flex-wrap">
             <%
@@ -96,14 +99,10 @@
                     <%!double giaKhuyenMai;%>
                     <% giaKhuyenMai = ProductService.getInstance().productPriceIncludeDiscount(prd);%>
                     <%if (prd.getCategoryId() >= 0 && giaKhuyenMai != prd.getSellingPrice()) {%>
-                    <del><%=prd.getSellingPrice()%>đ</del>
+                    <del><%=numberFormat.format(prd.getSellingPrice())%></del>
                     <%}%>
-                    <p><%=ProductService.getInstance().productPriceIncludeDiscount(prd)%>đ</p>
-                    <button class="add-to-cart">
-                        <a href="<%=request.getContextPath()%>/add-cart?id=<%=prd.getId()%>">
-                            <span>Thêm vào giỏ hàng </span>
-                        </a>
-                    </button>
+                    <p><%=numberFormat.format(ProductService.getInstance().productPriceIncludeDiscount(prd))%></p>
+                    <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&id=<%=prd.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
                 </div>
             </li>
             <%}%>
@@ -139,14 +138,10 @@
                     <%!double giaBanSauCung;%>
                     <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(pr);%>
                     <%if (pr.getCategoryId() >= 0 && giaBanSauCung != pr.getSellingPrice()) {%>
-                    <del><%=pr.getSellingPrice()%>đ</del>
+                    <del><%=numberFormat.format(pr.getSellingPrice())%></del>
                     <%}%>
-                    <p><%=ProductService.getInstance().productPriceIncludeDiscount(pr)%>đ</p>
-                    <button class="add-to-cart">
-                        <a href="<%=request.getContextPath()%>/add-cart?id=<%=pr.getId()%>">
-                            <span>Thêm vào giỏ hàng </span>
-                        </a>
-                    </button>
+                    <p><%=numberFormat.format(ProductService.getInstance().productPriceIncludeDiscount(pr))%></p>
+                    <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&id=<%=pr.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
                 </div>
             </li>
             <%}%>
@@ -170,10 +165,12 @@
     <div class="content_bk">
         <ul class="d-flex ">
 
+
             <%
                 List<Tip> tipsList = TipDAO.getAllTips();
                 for (Tip t : tipsList) {
             %>
+
             <li class="item text-center">
                 <a href="<%=t.getVideoLink()%>"><img src="<%=t.getImgPath()%>" width="90%"></a>
                 <a href="<%=t.getVideoLink()%>"><h6 class="fw-bold text-center mt-3 px-3"><%=t.getTitle()%>

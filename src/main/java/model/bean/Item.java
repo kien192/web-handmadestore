@@ -45,7 +45,7 @@ public class Item {
     }
 
     public void incQuantity(int quantity) {
-this.quantity += quantity;
+        this.quantity += quantity;
 
     }
     public void decQuantity(int quantity) {

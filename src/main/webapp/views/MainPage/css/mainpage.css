@@ -139,7 +139,7 @@ li {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 5em;
+    height: 7em;
 }
 
 .products .product_list .item_product a.image {
