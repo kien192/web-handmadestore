@@ -89,7 +89,12 @@
 
         <%-- Hiển thị sản phẩm theo category.   --%>
         <ul id="allProduct" class="products m-2 me-5 ms-3 d-flex flex-wrap">
+            <%  List<Product> allProduct = (List<Product>) request.getAttribute("productInPage");%>
+            <%
+                if (allProduct == null) allProduct = new ArrayList<>();
 
+
+            %>
             <%if (allProduct == null) {%>
             <p>Không có dữ liệu</p>
             <%} else {%>
@@ -104,47 +109,13 @@
                     </p></a>
                     <%!double giaBanSauCung;%>
                     <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(p);%>
-                    <%if (p.getCategoryId() >= 0 && giaBanSauCung != p.getSellingPrice()) {%>
-                    <del><%=p.getSellingPrice()%>đ</del>
+
+                    <%if(p.getCategoryId() >= 0 && giaBanSauCung!= p.getSellingPrice()){%>
+                    <del><%=numberFormat.format(p.getSellingPrice())%></del>
                     <%}%>
-                    <p><%=ProductService.getInstance().productPriceIncludeDiscount(p)%>đ</p>
-                    <button class="add-to-cart">
-                        <%String pageATC = request.getParameter("page");
-                        String filterATC = request.getParameter("filter");%>
-                        <%if(filterATC != null && category != null && pageATC != null){%>
-                        <a href="add-cart?category=<%=category%>&filter=<%=filterATC%>&id=<%=p.getId()%>&page=<%=pageATC%>">
-                            <span>Thêm vào giỏ hàng </span>
-                        </a>
-                        <%}else if(filterATC != null && category != null){%>
-                        <a href="add-cart?category=<%=category%>&filter=<%=filterATC%>&id=<%=p.getId()%>">
-                            <span>Thêm vào giỏ hàng </span>
-                        </a>
-                        <%}else if(filterATC != null && pageATC != null){%>
-                        <a href="add-cart?filter=<%=filterATC%>&id=<%=p.getId()%>&page=<%=pageATC%>">
-                            <span>Thêm vào giỏ hàng </span>
-                        </a>
-                        <%}else if(category != null && pageATC != null){%>
-                        <a href="add-cart?category=<%=category%>&id=<%=p.getId()%>&page=<%=pageATC%>">
-                            <span>Thêm vào giỏ hàng </span>
-                        </a>
-                        <%}else if(category != null){%>
-                        <a href="add-cart?category=<%=category%>&id=<%=p.getId()%>">
-                            <span>Thêm vào giỏ hàng </span>
-                        </a>
-                        <%}else if(pageATC != null){%>
-                        <a href="add-cart?id=<%=p.getId()%>&page=<%=pageATC%>">
-                            <span>Thêm vào giỏ hàng </span>
-                        </a>
-                        <%}else if(filterATC != null){%>
-                        <a href="add-cart?filter=<%=filterATC%>&id=<%=p.getId()%>">
-                            <span>Thêm vào giỏ hàng </span>
-                        </a>
-                        <%}else{%>
-                        <a href="add-cart?id=<%=p.getId()%>">
-                            <span>Thêm vào giỏ hàng </span>
-                        </a>
-                        <%}%>
-                    </button>
+                    <p><%=numberFormat.format(ProductService.getInstance().productPriceIncludeDiscount(p))%></p>
+                    <div class="add-to-cart"><a href="add-cart?actionCart=post&id=<%=p.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
+
                 </div>
             </li>
 

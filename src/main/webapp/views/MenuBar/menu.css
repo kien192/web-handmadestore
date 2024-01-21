@@ -70,34 +70,6 @@ body{
 
 }
 
- /*
- Đây la noi css nè các ban
-  */
-.menu ul li:nth-child(8) {
-    position: relative;
-}
-
-.menu ul li .list-cart {
-    position: absolute;
-    background-color: #1a73e8;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, 0%);
-}
-
-/*.menu ul li .list-cart ul li {*/
-/*    display: flex;*/
-/*}*/
-
-.menu ul li .list-cart .product-image {
-    width: 80px;
-}
-
-.menu ul li .list-cart .product-image img {
-    border: 0;
-    max-width: 100%;
-    height: auto;
-}
 
 
 
@@ -105,7 +77,18 @@ body{
 
 
 
-/*Carousel*/
+
+
+
+
+
+
+
+
+
+
+
+    /*Carousel*/
 .carousel-inner .carousel-item img {
     height: 60vh;
     object-fit: cover;

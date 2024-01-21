@@ -14,7 +14,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @WebServlet(urlPatterns = {"/product"})
+
 public class productList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
