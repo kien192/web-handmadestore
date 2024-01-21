@@ -135,7 +135,7 @@
 
 
 
-                                            <a href="<%=request.getContextPath()%>/add-cart?actionCart=delete&id=<%=item.getProduct().getId()%>%>">
+                                            <a href="<%=request.getContextPath()%>/add-cart?actionCart=delete&id=<%=item.getProduct().getId()%>">
                                                 <i class="fa-solid fa-trash-can"></i> </a>
 
 

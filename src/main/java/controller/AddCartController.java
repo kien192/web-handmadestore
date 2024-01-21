@@ -36,12 +36,13 @@ public class AddCartController extends HttpServlet {
             case "get":
 
 //                req.getRequestDispatcher(req.getContextPath()+"/views/CartPage/cart.jsp").forward(req, resp);
-//                resp.sendRedirect(referer);
-                resp.sendRedirect(req.getContextPath()+"/views/CartPage/cart.jsp" );
+                resp.sendRedirect(referer);
+//                resp.sendRedirect(req.getContextPath()+"/views/CartPage/cart.jsp" );
                 break;
 
             case "delete":
                 DeleteP(req,resp);
+                resp.sendRedirect(referer);
                             break;
             case "put":
                 putP(req,resp);
@@ -85,11 +86,10 @@ public class AddCartController extends HttpServlet {
 
         HttpSession sessions = req.getSession();
         Cart cart = (Cart) sessions.getAttribute("cart");
-        String action = req.getParameter("actionCart");
         int id = Integer.parseInt(req.getParameter("id"));
         cart.remove(id);
         sessions.setAttribute("cart", cart);
-        req.getRequestDispatcher("/add-cart?actionCart=get").forward(req,resp);
+//        req.getRequestDispatcher("/add-cart?actionCart=get").forward(req,resp);
     }
 
 }

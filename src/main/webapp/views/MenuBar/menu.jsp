@@ -462,23 +462,20 @@
                                     </div>
                                     <div class="product-detail-bottom">
                                         <span class="price"> <%=numberFormat.format(item0.getPrice())%></span>
-<%--                                        DELETE SẢN PHẨM--%>
-<%--                                        <form action="<%=request.getContextPath()%>/add-cart" method="get" >--%>
-<%--                                            <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">--%>
-<%--                                            <button type="submit" class="btn" name="actionCart" value="delete">--%>
-<%--                                                <i class="bi bi-x-circle-fill"></i>--%>
-<%--                                            </button>--%>
 
-<%--                                        </form>--%>
+
+
                                         <a href="<%=request.getContextPath()%>/add-cart?actionCart=delete&id=<%=item0.getProduct().getId()%>">
                                             <i class="bi bi-x-circle-fill"></i>
                                         </a>
                                         <div class="quantity-select">
 
-                                            <button class="pd-des m-0">-</button>
-                                            <input type="text" class="quantity-input p-0" value="<%=item0.getQuantity()%>">
-                                            <button type="submit" name="actionCart" value="put"
-                                                    class="pd-inc m-0"><a href="<%=request.getContextPath()%>/add-cart?num=1&id=<%=item0.getProduct().getId()%>">+</a></button>
+                                            <button class="pd-des m-0" type="submit" name="num" value="-1">
+                                                <a href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=-1&id=<%=item0.getProduct().getId()%>">- </a></button>
+                                            <input type="text" readonly class="quantity-input p-0" value="<%=item0.getQuantity()%>">
+                                            <button type="submit" name="num" value="1"
+                                                    class="pd-inc m-0">
+                                                <a href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=1&id=<%=item0.getProduct().getId()%>">+</a></button>
 
                                         </div>
                                     </div>
