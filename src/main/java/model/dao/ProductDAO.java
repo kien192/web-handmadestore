@@ -302,7 +302,35 @@ public class ProductDAO {
                         .toList());
         return productZA;
     }
-
+    //Sản phẩm khuyến mãi
+    public static List<Product> listDiscountProduct(){
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT product.* FROM product INNER JOIN discount ON product.discountId = discount.id WHERE discount.startDate < CURRENT_DATE AND discount.endDate > CURRENT_DATE")
+                        .mapToBean(Product.class)
+                        .stream().toList());
+        return products;
+    }
+    public static List<Product> discountProduct(){
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT product.* FROM product INNER JOIN discount ON product.discountId = discount.id WHERE discount.startDate < CURRENT_DATE AND discount.endDate > CURRENT_DATE LIMIT 10")
+                        .mapToBean(Product.class)
+                        .stream().toList());
+        return products;
+    }
+    public static List<Product> sortDiscountProductAZ(){
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT product.* FROM product INNER JOIN discount ON product.discountId = discount.id WHERE discount.startDate < CURRENT_DATE AND discount.endDate > CURRENT_DATE  ORDER BY product.sellingPrice ASC")
+                        .mapToBean(Product.class)
+                        .stream().toList());
+        return products;
+    }
+    public static List<Product> sortDiscountProductZA(){
+        List<Product> products = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT product.* FROM product INNER JOIN discount ON product.discountId = discount.id WHERE discount.startDate < CURRENT_DATE AND discount.endDate > CURRENT_DATE ORDER BY product.sellingPrice DESC")
+                        .mapToBean(Product.class)
+                        .stream().toList());
+        return products;
+    }
     public static void removeDiscount(int product_id) {
         JDBIConnector.me().useHandle(handle ->
                 handle.createUpdate("UPDATE product SET discountId = 'null' WHERE id=?")
@@ -436,7 +464,7 @@ public class ProductDAO {
     }
 
     public static void main(String[] args) {
-        System.out.println(findByCategory(1));
+        System.out.println(sortDiscountProductAZ());
     }
 }
 

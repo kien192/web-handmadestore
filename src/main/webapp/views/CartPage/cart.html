@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
-    <link rel="stylesheet" href="cartCSS.css"/>
+    <link rel="stylesheet" href="../MenuBar/menu.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         .pause_bt {
@@ -72,18 +72,20 @@
             <i class="fa-solid fa-user" style="color: #496088;"></i>
             <a href="../Login/view_login/login.jsp" >Đăng Nhập</a>
         </li>
-        <li class="cart p-4 dropdown my-auto">
-            <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>
+        <li class="cart p-4 dropdown my-auto position-relative">
+            <i class="fa-solid fa-cart-shopping " style="color: #2a3241;"></i>
             <a href="#" >Giỏ Hàng</a>
 
 
             <!--Danh sách giỏ hàng -->
-            <div class="list-cart">
+            <div class="top-cart-content ">
+                <ul id="cart-side-bar" class="mini-product-list">
+
                 <ul class="list-item-cart">
                     <li class="item-sub">
-                        <div class="border_list d-flex ">
+                        <div class="border_list">
                             <a class="product-image" href="">
-                                <img src="../../images/products/p102.webp" alt="">
+                                <img src="../../images/products/p102.webp" width="100" alt="">
                             </a>
                             <div class="detail-item">
                                 <div class="product-detail">
@@ -98,6 +100,10 @@
                                     </a>
                                     <div class="quantity-select">
 
+                                            <button class="pd-des m-0">-</button>
+                                            <input type="text" class="quantity-input p-0" value="1">
+                                            <button class="pd-inc m-0">+</button>
+
                                     </div>
                                 </div>
 
@@ -108,6 +114,21 @@
 
 
 
+
+
+
+
+            </ul>
+                    <div class="pd">
+                        <div class="top-subtotal">
+                            Tổng tiền:
+                            <span class="price"> 800000</span>
+                        </div>
+                    </div>
+                    <div class="pda rigth-ct">
+                        <a href="" class="btn"><span>Giỏ hàng</span></a>
+                        <a href="" class="btn"><span>Thanh Toán</span></a>
+                    </div>
            </ul>
 
        </div>

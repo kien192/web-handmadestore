@@ -27,7 +27,6 @@ public class ProductService {
         return ProductDAO.getProductById(id);
     }
 
-
     public double productPriceIncludeDiscount(Product p) {
         if (p != null) {
             Discount discountApplied = DiscountService.getInstance().getDiscountById(p.getDiscountId() + "");
@@ -44,10 +43,11 @@ public class ProductService {
         return 0;
     }
 
-    public List<Product> sixProduct(int offset) {
-        return ProductDAO.listSixProduct(offset);
-    }
-
+    //danh sách sản phẩm đang được giảm giá
+    public List<Product> productDiscountMainPage() {return ProductDAO. discountProduct();}
+    public List<Product> listProductDiscount(){return ProductDAO.listDiscountProduct();}
+    public List<Product> sortListProductDiscountAZ(){return ProductDAO.sortDiscountProductAZ();}
+    public List<Product> sortListProductDiscountZA(){return ProductDAO.sortDiscountProductZA();}
     public List<Product> getProductsByCategoryId(int category_id) {
         return ProductDAO.findByCategory(category_id);
     }
@@ -146,13 +146,12 @@ public class ProductService {
 
     public static void main(String[] args) {
 
-        List<Product> products = ProductService.getInstance().sixProduct(0);
-        List<Product> productsa = ProductService.getInstance().getAllProduct();
-        Product a = ProductService.getInstance().getProductById(10);
-        System.out.println(a);
-
-        System.out.println(getInstance().getProductsByCategoryId(2));
-
+//        List<Product> productsa = ProductService.getInstance().getAllProduct();
+//        Product a = ProductService.getInstance().getProductById(10);
+//        System.out.println(a);
+//
+//        System.out.println(getInstance().getProductsByCategoryId(2));
+        System.out.println(ProductService.getInstance().listProductDiscount());
     }
 
 
