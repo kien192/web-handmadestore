@@ -94,8 +94,7 @@
     }
     #dangxuat a {
         color: black ;
-        padding-right: 25%;
-        padding-left: 25%;
+        padding: 0 10px;
     }
     .menu ul li.login:hover #dangxuat{
         display: block;
