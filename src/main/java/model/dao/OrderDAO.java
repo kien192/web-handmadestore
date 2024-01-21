@@ -204,5 +204,16 @@ public class OrderDAO {
 //    catch (Exception e) {
 //        e.printStackTrace();
 //    }
+        for (Order order : getAllOrder()) {
+            System.out.println(order.getId() + " - " + getExactlyTotalPriceNoShippingFee(order.getId() + ""));
+        }
+    }
+
+    public static double getExactlyTotalPriceNoShippingFee(String orderId) {
+        double re = 0;
+        for (OrderDetail orderDetail : OrderService.getInstance().getOrderDetailsByOrderId(orderId))
+            re += orderDetail.getQuantity() * orderDetail.getFinalSellingPrice();
+
+        return re;
     }
 }

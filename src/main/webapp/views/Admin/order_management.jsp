@@ -275,6 +275,16 @@
                         </strong>
                     </div>
                     <div class="row">
+                        Tên người nhận:
+                        <strong class="w-auto"><%=currentOrder.getConsigneeName()%>
+                        </strong>
+                    </div>
+                    <div class="row">
+                        Số điện thoại người nhận:
+                        <strong class="w-auto"><%=currentOrder.getConsigneePhoneNumber()%>
+                        </strong>
+                    </div>
+                    <div class="row">
                         Địa chỉ giao:
                         <strong class="w-auto"><%=currentOrder.getAddress()%>
                         </strong>
@@ -320,7 +330,6 @@
                             </thead>
                             <tbody>
                             <%!Product p;%>
-                            <%!double productsPrice = 0;%>
                             <%
                                 for (OrderDetail orderDetail : OrderService.getInstance().getOrderDetailsByOrderId(currentOrder.getId() + "")) {
                                     p = ProductService.getInstance().getProductById(orderDetail.getProductId() + "");
@@ -348,7 +357,6 @@
                                         <i class="fa-regular fa-star" style="color: #ffcc00"></i>
                                     </a>
                                 </td>
-                                <%productsPrice += orderDetail.getQuantity() * orderDetail.getFinalSellingPrice();%>
                             </tr>
                             <%}%>
                             </tbody>
@@ -359,7 +367,7 @@
                             <div class="row">
                                 <div class="col-10">Tiền hóa đơn:</div>
                                 <div class="col-2">
-                                    <strong><%=productsPrice%>
+                                    <strong><%=OrderService.getInstance().getExactlyTotalPriceNoShippingFee(currentOrder.getId() + "")%>
                                     </strong>
                                 </div>
                             </div>
