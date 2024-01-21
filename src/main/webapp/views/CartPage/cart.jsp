@@ -128,17 +128,17 @@
 <%--                                    </button>--%>
 
 <%--                                    </form>--%>
-    <form action="<%=request.getContextPath()%>/add-cart" method="get" >
-        <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">
-        <button type="submit" class="btn" name="actionCart" value="delete">
-            <i class="fa-solid fa-trash-can"></i>
-        </button>
+            <form action="<%=request.getContextPath()%>/add-cart" method="get" >
+                     <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">
+                     <button type="submit" class="btn" name="actionCart" value="delete">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
 
     </form>
                                 </td>
                             </tr>
 
-                            <%total += (item.getQuantity() * item.getPrice());%>
+
                             <%}%>
 
 
