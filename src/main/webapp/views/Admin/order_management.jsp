@@ -274,6 +274,13 @@
                         <strong class="w-auto"><%=currentOrder.getId()%>
                         </strong>
                     </div>
+
+                    <div class="row">
+                        Địa chỉ giao:
+                        <strong class="w-auto"><%=currentOrder.getAddress()%>
+                        </strong>
+                    </div>
+
                     <div class="row">
                         Tên người nhận:
                         <strong class="w-auto"><%=currentOrder.getConsigneeName()%>
@@ -282,11 +289,6 @@
                     <div class="row">
                         Số điện thoại người nhận:
                         <strong class="w-auto"><%=currentOrder.getConsigneePhoneNumber()%>
-                        </strong>
-                    </div>
-                    <div class="row">
-                        Địa chỉ giao:
-                        <strong class="w-auto"><%=currentOrder.getAddress()%>
                         </strong>
                     </div>
                     <div class="row">
@@ -312,6 +314,11 @@
                     <div class="row">
                         Email khách hàng:
                         <strong class="w-auto"><%=currentOrderCustomer.getEmail()%>
+                        </strong>
+                    </div>
+                    <div class="row">
+                        Ghi chú:
+                        <strong class="w-auto"><%=(currentOrder.getNote() != null) ? currentOrder.getNote() : ""%>
                         </strong>
                     </div>
                 </div>
@@ -352,10 +359,18 @@
                                 <td><%=orderDetail.getQuantity() * orderDetail.getFinalSellingPrice()%>
                                 </td>
                                 <td>
-                                    <a href="" style="color: #ffcc00;text-decoration: none;">
-                                        4
+                                    <%!int star = 0;%>
+                                    <%
+                                        star = ProductService.getInstance().getNumberRateStarsByUser(p.getId(), currentOrderCustomer.getId());
+                                        if (star > 0 && currentOrder.isSucccessfulOrder()) {
+                                    %>
+                                    <a href="<%=request.getContextPath()%>/product-detail?id=<%=p.getId()%>"
+                                       target="_blank"
+                                       style="color: #ffcc00;text-decoration: none;">
+                                        <%=star%>
                                         <i class="fa-regular fa-star" style="color: #ffcc00"></i>
                                     </a>
+                                    <%}%>
                                 </td>
                             </tr>
                             <%}%>

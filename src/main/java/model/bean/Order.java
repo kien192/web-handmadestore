@@ -16,6 +16,7 @@ public class Order implements Serializable {
     private String address;
     private double shippingFee;
     private int userId;
+    private String note;
 
     public Order() {
     }
@@ -90,6 +91,14 @@ public class Order implements Serializable {
 
     public void setConsigneePhoneNumber(String consigneePhoneNumber) {
         this.consigneePhoneNumber = consigneePhoneNumber;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public boolean isWaitConfirmOrder() {

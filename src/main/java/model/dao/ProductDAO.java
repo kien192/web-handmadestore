@@ -109,6 +109,18 @@ public class ProductDAO {
         return rateList;
     }
 
+    public static int getNumberRateStarsByUser(int productId, int userId) {
+        try {
+            return JDBIConnector.me().withHandle(handle ->
+                    handle.createQuery("select starRatings from rate where userId=? and productId=?")
+                            .bind(0, userId)
+                            .bind(1, productId)
+                            .mapTo(Integer.class).one());
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
 
     //Lấy ra danh sách ảnh của sản phẩm.
     public static List<Image> getImagesForProduct(int productId) {
@@ -302,35 +314,40 @@ public class ProductDAO {
                         .toList());
         return productZA;
     }
+
     //Sản phẩm khuyến mãi
-    public static List<Product> listDiscountProduct(){
+    public static List<Product> listDiscountProduct() {
         List<Product> products = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT product.* FROM product INNER JOIN discount ON product.discountId = discount.id WHERE discount.startDate < CURRENT_DATE AND discount.endDate > CURRENT_DATE")
                         .mapToBean(Product.class)
                         .stream().toList());
         return products;
     }
-    public static List<Product> discountProduct(){
+
+    public static List<Product> discountProduct() {
         List<Product> products = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT product.* FROM product INNER JOIN discount ON product.discountId = discount.id WHERE discount.startDate < CURRENT_DATE AND discount.endDate > CURRENT_DATE LIMIT 10")
                         .mapToBean(Product.class)
                         .stream().toList());
         return products;
     }
-    public static List<Product> sortDiscountProductAZ(){
+
+    public static List<Product> sortDiscountProductAZ() {
         List<Product> products = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT product.* FROM product INNER JOIN discount ON product.discountId = discount.id WHERE discount.startDate < CURRENT_DATE AND discount.endDate > CURRENT_DATE  ORDER BY product.sellingPrice ASC")
                         .mapToBean(Product.class)
                         .stream().toList());
         return products;
     }
-    public static List<Product> sortDiscountProductZA(){
+
+    public static List<Product> sortDiscountProductZA() {
         List<Product> products = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT product.* FROM product INNER JOIN discount ON product.discountId = discount.id WHERE discount.startDate < CURRENT_DATE AND discount.endDate > CURRENT_DATE ORDER BY product.sellingPrice DESC")
                         .mapToBean(Product.class)
                         .stream().toList());
         return products;
     }
+
     public static void removeDiscount(int product_id) {
         JDBIConnector.me().useHandle(handle ->
                 handle.createUpdate("UPDATE product SET discountId = 'null' WHERE id=?")
@@ -464,7 +481,7 @@ public class ProductDAO {
     }
 
     public static void main(String[] args) {
-        System.out.println(sortDiscountProductAZ());
+        System.out.println(getNumberRateStarsByUser(2, 3));
     }
 }
 
