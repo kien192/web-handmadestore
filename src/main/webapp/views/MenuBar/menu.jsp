@@ -443,7 +443,7 @@
             <!--Danh sách giỏ hàng -->
 
                  <div class="top-cart-content ">
-                <ul id="cart-side-bar" class="mini-product-list">
+                 <ul id="cart-side-bar" class="mini-product-list">
 
                     <ul class="list-item-cart">
                         <% double total = 0;%>
@@ -461,14 +461,22 @@
                                         </p>
                                     </div>
                                     <div class="product-detail-bottom">
-                                        <span class="price"> <%=numberFormat.format(item.getQuantity() * item.getPrice())%></span>
-                                        <a href="">
+                                        <span class="price"> <%=numberFormat.format(item.getPrice())%></span>
+<%--                                        DELETE SẢN PHẨM--%>
+<%--                                        <form action="<%=request.getContextPath()%>/add-cart" method="get" >--%>
+<%--                                            <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">--%>
+<%--                                            <button type="submit" class="btn" name="actionCart" value="delete">--%>
+<%--                                                <i class="bi bi-x-circle-fill"></i>--%>
+<%--                                            </button>--%>
+
+<%--                                        </form>--%>
+                                        <a href="<%=request.getContextPath()%>/add-cart?actionCart=delete&id=<%=item.getProduct().getId()%>">
                                             <i class="bi bi-x-circle-fill"></i>
                                         </a>
                                         <div class="quantity-select">
 
                                             <button class="pd-des m-0">-</button>
-                                            <input type="text" class="quantity-input p-0" value="1">
+                                            <input type="text" class="quantity-input p-0" value="<%=item.getQuantity()%>">
                                             <button class="pd-inc m-0">+</button>
 
                                         </div>
@@ -478,7 +486,7 @@
 
                             </div>
                         </li>
-                        <%total += (item.getQuantity() * item.getPrice());%>
+                        <%total +=  (item.getQuantity() * item.getPrice()); %>
 <%}%>
 
                     </ul>
