@@ -159,8 +159,8 @@
         display: none;
         position: absolute;
         position: fixed;
-        top: 100;
-        right: 20;
+        top: 100px;
+        right: 20px;
         /*transform: translate(10%,30%);*/
         box-shadow: 0 0 15px -5px rgba(0,0,0, 0.4);
         background-color:  rgba(255,255,255, 0.8);
@@ -429,7 +429,7 @@
         <li class="cart p-4 dropdown my-auto  position-relative">
             <%--            <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>--%>
             <%--            <a href="<%=request.getContextPath()%>/views/CartPage/cart.html">Giỏ Hàng</a>--%>
-            <a href="<%=request.getContextPath()%>/add-cart?actionCart=get">
+            <a href="<%=request.getContextPath()%>/views/CartPage/cart.jsp">
 
                 <i class="fa-solid fa-cart-shopping position-relative" style="color: #2a3241;">
             <span id="badge" class="position-absolute top-0 start-0  badge rounded-pill
@@ -448,21 +448,20 @@
 
                     <ul class="list-item-cart">
                         <% double total = 0;%>
-                        <% for (Item item : cart.getItems().values()) { %>
+                        <% for (Item item0 : cart.getItems().values()) { %>
                         <li class="item-sub">
                             <div class="border_list">
-                                <%  String pathImage = ImageService.getInstance().pathImageOnly(item.getProduct().getId()); %>
                                 <a class="product-image" href="">
-                                    <img src="<%=request.getContextPath()%>/<%=pathImage%>" width="100" alt="">
+                                    <img src="<%=request.getContextPath()%>/<%=ImageService.getInstance().pathImageOnly(item0.getProduct().getId())%>" width="100" alt="">
                                 </a>
                                 <div class="detail-item">
                                     <div class="product-detail">
                                         <p class="product-name">
-                                            <a href=""><%=item.getProduct().getName()%></a>
+                                            <a href=""><%=item0.getProduct().getName()%></a>
                                         </p>
                                     </div>
                                     <div class="product-detail-bottom">
-                                        <span class="price"> <%=numberFormat.format(item.getPrice())%></span>
+                                        <span class="price"> <%=numberFormat.format(item0.getPrice())%></span>
 <%--                                        DELETE SẢN PHẨM--%>
 <%--                                        <form action="<%=request.getContextPath()%>/add-cart" method="get" >--%>
 <%--                                            <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">--%>
@@ -471,14 +470,15 @@
 <%--                                            </button>--%>
 
 <%--                                        </form>--%>
-                                        <a href="<%=request.getContextPath()%>/add-cart?actionCart=delete&id=<%=item.getProduct().getId()%>">
+                                        <a href="<%=request.getContextPath()%>/add-cart?actionCart=delete&id=<%=item0.getProduct().getId()%>">
                                             <i class="bi bi-x-circle-fill"></i>
                                         </a>
                                         <div class="quantity-select">
 
                                             <button class="pd-des m-0">-</button>
-                                            <input type="text" class="quantity-input p-0" value="<%=item.getQuantity()%>">
-                                            <button class="pd-inc m-0">+</button>
+                                            <input type="text" class="quantity-input p-0" value="<%=item0.getQuantity()%>">
+                                            <button type="submit" name="actionCart" value="put"
+                                                    class="pd-inc m-0"><a href="<%=request.getContextPath()%>/add-cart?num=1&id=<%=item0.getProduct().getId()%>">+</a></button>
 
                                         </div>
                                     </div>
@@ -487,7 +487,7 @@
 
                             </div>
                         </li>
-                        <%total +=  (item.getQuantity() * item.getPrice()); %>
+                        <%total +=  (item0.getQuantity() * item0.getPrice()); %>
 <%}%>
 
                     </ul>

@@ -41,6 +41,15 @@ public class Cart {
         return true;
     }
 
+    public int getQuantityById(int id) {
+        int i= 0;
+        if(!items.containsKey(id))  return i;
+
+            Item item = items.get(id);
+        i =    item.getQuantity();
+        return i;
+    }
+
     public boolean remove(int id) {
         if (!items.containsKey(id)) return false;
         items.remove(id);
