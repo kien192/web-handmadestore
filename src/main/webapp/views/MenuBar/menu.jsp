@@ -13,12 +13,23 @@
 <%User u = (User) session.getAttribute("auth");%>
 
 <%Cart cart = (Cart) session.getAttribute("cart");
-        if(cart == null) cart = new Cart();
+    if(cart == null) cart = new Cart();
     Locale locale = new Locale("vi", "VN");
     Currency currency = Currency.getInstance(locale);
     NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
     numberFormat.setCurrency(currency);
 %>
+
+
+
+<%--<%--%>
+<%--    else {--%>
+<%--        if(cart == null) cart = new Cart();--%>
+<%--    Locale locale = new Locale("vi", "VN");--%>
+<%--    Currency currency = Currency.getInstance(locale);--%>
+<%--    NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);--%>
+<%--    numberFormat.setCurrency(currency);--%>
+<%--%>--%>
 
 <head>
     <meta charset="UTF-8">
@@ -495,7 +506,7 @@
                         </div>
                     </div>
                     <div class="pda rigth-ct">
-                        <a href="" class="btn"><span>Giỏ hàng</span></a>
+                        <a href="<%=request.getContextPath()%>/views/CartPage/cart.jsp" class="btn"><span>Giỏ hàng</span></a>
                         <a href="" class="btn"><span>Thanh Toán</span></a>
                     </div>
                 </ul>

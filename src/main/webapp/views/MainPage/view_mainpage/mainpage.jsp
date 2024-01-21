@@ -94,7 +94,7 @@
             <li class="product_list">
                 <div class="item_product  me-4">
                     <a class="image" href="<%=request.getContextPath()%>/product-detail?id=<%=prd.getId()%>"> <img  src="<%=request.getContextPath()%>/<%=pathImage%>"> </a>
-                    <a href="#"><p class="pt-4 px-3"><%=prd.getName() %>
+                    <a href="product-detail?id=<%=prd.getId()%>"><p class="pt-4 px-3"><%=prd.getName() %>
                     </p></a>
                     <%!double giaKhuyenMai;%>
                     <% giaKhuyenMai = ProductService.getInstance().productPriceIncludeDiscount(prd);%>
@@ -133,7 +133,7 @@
             <li class="product_list">
                 <div class="item_product  me-4">
                     <a class="image" href="<%=request.getContextPath()%>/product-detail?id=<%=pr.getId()%>"> <img  src="<%=request.getContextPath()%>/<%=pathImage%>"> </a>
-                    <a href="#"><p class="pt-4 px-3"><%=pr.getName() %>
+                    <a href="product-detail?id=<%=pr.getId()%>"><p class="pt-4 px-3"><%=pr.getName() %>
                     </p></a>
                     <%!double giaBanSauCung;%>
                     <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(pr);%>
@@ -141,7 +141,7 @@
                     <del><%=numberFormat.format(pr.getSellingPrice())%></del>
                     <%}%>
                     <p><%=numberFormat.format(ProductService.getInstance().productPriceIncludeDiscount(pr))%></p>
-                    <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&id=<%=pr.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
+                    <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&num=1&id=<%=pr.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
                 </div>
             </li>
             <%}%>

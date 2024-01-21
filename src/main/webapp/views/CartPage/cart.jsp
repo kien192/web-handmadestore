@@ -89,8 +89,8 @@
                                 </td>
                                 <td class="align-middle">
                                     <div>
-                                        <h6><%=item.getProduct().getName()%>
-                                        </h6>
+                                        <a href="product-detail?id=<%=item.getProduct().getId()%>"> <h6><%=item.getProduct().getName()%>
+                                        </h6> </a>
 
                                     </div>
                                 </td>

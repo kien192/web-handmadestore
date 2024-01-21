@@ -52,8 +52,8 @@ public class AddCartController extends HttpServlet {
 
             case "post":
             int id = Integer.parseInt(req.getParameter("id")); // lay id product
-
-            cart.add(id );
+                int num = Integer.parseInt(req.getParameter("num"));
+            cart.add(id, num);
             sessions.setAttribute("cart", cart);
                 resp.sendRedirect(referer);
             break;

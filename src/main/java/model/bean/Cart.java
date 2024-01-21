@@ -64,7 +64,9 @@ public class Cart {
 public int getTotal(){
         return items.size();
 }
-
+public void clear() {
+        items.clear();
+}
 
     //giỏ trống khong có gì.
 //    public Cart() {
