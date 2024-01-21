@@ -18,6 +18,7 @@ public class OrderService {
         return instance;
     }
 
+
     public List<Order> getAllOrder() {
         return OrderDAO.getAllOrder();
     }
@@ -80,6 +81,10 @@ public class OrderService {
 
     public double getMonthRevenueMax(int year) {
         return OrderDAO.getMonthRevenueMax(year);
+    }
+
+    public double getExactlyTotalPriceNoShippingFee(String orderId) {
+        return OrderDAO.getExactlyTotalPriceNoShippingFee(orderId);
     }
 
     public static void main(String[] args) {

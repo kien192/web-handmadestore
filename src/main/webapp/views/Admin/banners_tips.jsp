@@ -38,19 +38,29 @@
     background-color: darkslategrey;
 ">
 <div class="row" style="width: 100%;">
-    <div class="row border">
+    <div class="row">
         <div class="col-6 text-center" style="font-size: 30px; font-weight: bold; color:white;">
             Banner
+            <div class="float-end me-3">
+                <button onclick="showAddBanner()">
+                    <i class="fa-solid fa-plus" style="font-size: 40px;"></i>
+                </button>
+            </div>
         </div>
         <div class="col-6 text-center" style="font-size: 30px; font-weight: bold; color:white;">
             Tip
+            <div class="float-end me-3">
+                <button onclick="showAddTip()">
+                    <i class="fa-solid fa-plus" style="font-size: 40px;"></i>
+                </button>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-6 h-100" id="bannersBox">
-            <div style="overflow:auto; display: block; height: 100%">
-                <%--                show banner--%>
-                <form action="<%=request.getContextPath()%>/admin/bannertip" method="post" id="show_banner_form">
+            <%--                show banner--%>
+            <form action="<%=request.getContextPath()%>/admin/bannertip" method="post" id="show_banner_form">
+                <div style="overflow:auto; display: block; height: 800px">
                     <input type="hidden" name="submit_type" value="show_banner">
                     <input type="hidden" id="edit_banner_title" name="edit_banner_title" value="">
                     <% for (BannerItem b : banners) {%>
@@ -68,18 +78,13 @@
                         </div>
                     </div>
                     <%}%>
-                </form>
-                <div class="text-end me-3">
-                    <button onclick="showAddBanner()">
-                        <i class="fa-solid fa-plus" style="font-size: 40px;"></i>
-                    </button>
                 </div>
-            </div>
+            </form>
         </div>
         <div class="col-6 h-100" id="tipsBox">
-            <div style="overflow:auto; display: block; height: 100%">
-                <%--                show tip--%>
-                <form action="<%=request.getContextPath()%>/admin/bannertip" method="post" id="show_tip_form">
+            <%--                show tip--%>
+            <form action="<%=request.getContextPath()%>/admin/bannertip" method="post" id="show_tip_form">
+                <div style="overflow:auto; display: block; height: 800px">
                     <input type="hidden" name="submit_type" value="show_tip">
                     <input type="hidden" id="edit_tip_title" name="edit_tip_title" value="">
                     <% for (Tip t : tips) {%>
@@ -99,13 +104,8 @@
                         </div>
                     </div>
                     <%}%>
-                </form>
-                <div class="text-end me-3">
-                    <button onclick="showAddTip()">
-                        <i class="fa-solid fa-plus" style="font-size: 40px;"></i>
-                    </button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

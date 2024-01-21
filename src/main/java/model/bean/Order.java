@@ -11,6 +11,8 @@ public class Order implements Serializable {
     private double totalPrice;
     private Timestamp orderDate;
     private String status;
+    private String consigneeName;
+    private String consigneePhoneNumber;
     private String address;
     private double shippingFee;
     private int userId;
@@ -72,6 +74,22 @@ public class Order implements Serializable {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getConsigneeName() {
+        return consigneeName;
+    }
+
+    public void setConsigneeName(String consigneeName) {
+        this.consigneeName = consigneeName;
+    }
+
+    public String getConsigneePhoneNumber() {
+        return consigneePhoneNumber;
+    }
+
+    public void setConsigneePhoneNumber(String consigneePhoneNumber) {
+        this.consigneePhoneNumber = consigneePhoneNumber;
     }
 
     public boolean isWaitConfirmOrder() {
