@@ -78,7 +78,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% double total = 0;%>
+
                             <% for (Item item : cart.getItems().values()) { %>
                             <tr class="border-1">
                                 <td class="align-middle">

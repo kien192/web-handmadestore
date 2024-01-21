@@ -158,9 +158,10 @@
     .cart .top-cart-content {
         display: none;
         position: absolute;
-        top: 0px;
-        right: 50px;
-        transform: translate(10%,30%);
+        position: fixed;
+        top: 100;
+        right: 20;
+        /*transform: translate(10%,30%);*/
         box-shadow: 0 0 15px -5px rgba(0,0,0, 0.4);
         background-color:  rgba(255,255,255, 0.8);
         transition: all 0.3s ease;
@@ -441,23 +442,27 @@
 
 
             <!--Danh sách giỏ hàng -->
-            <div class="top-cart-content ">
+
+                 <div class="top-cart-content ">
                 <ul id="cart-side-bar" class="mini-product-list">
 
                     <ul class="list-item-cart">
+                        <% double total = 0;%>
+                        <% for (Item item : cart.getItems().values()) { %>
                         <li class="item-sub">
                             <div class="border_list">
+                                <%  String pathImage = ImageService.getInstance().pathImageOnly(item.getProduct().getId()); %>
                                 <a class="product-image" href="">
-                                    <img src="../../images/products/p102.webp" width="100" alt="">
+                                    <img src="<%=request.getContextPath()%>/<%=pathImage%>" width="100" alt="">
                                 </a>
                                 <div class="detail-item">
                                     <div class="product-detail">
                                         <p class="product-name">
-                                            <a href="">Thiệp sinh nhật Handemia OIILL</a>
+                                            <a href=""><%=item.getProduct().getName()%></a>
                                         </p>
                                     </div>
                                     <div class="product-detail-bottom">
-                                        <span class="price">150000</span>
+                                        <span class="price"> <%=numberFormat.format(item.getQuantity() * item.getPrice())%></span>
                                         <a href="">
                                             <i class="bi bi-x-circle-fill"></i>
                                         </a>
@@ -474,13 +479,14 @@
 
                             </div>
                         </li>
-
+                        <%total += (item.getQuantity() * item.getPrice());%>
+<%}%>
 
                     </ul>
                     <div class="pd">
                         <div class="top-subtotal">
                             Tổng tiền:
-                            <span class="price"> 800000</span>
+                            <span class="price"> <%=numberFormat.format(total)%></span>
                         </div>
                     </div>
                     <div class="pda rigth-ct">
