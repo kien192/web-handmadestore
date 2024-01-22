@@ -493,6 +493,11 @@
                 <%for (Product p : products) {%>
                 <tr class="item sp_1">
                     <td class="px-4"><%=p.getId()%>
+                        <%--                        show--%>
+                        <a href="<%=request.getContextPath()%>/product-detail?id=<%=p.getId()%>" target="_blank"
+                           class="px-2">
+                            <i class="fa-solid fa-eye fs-4" style="color: #5c7093;"></i>
+                        </a>
                     </td>
                     <td class="px-4"><%=p.getName()%>
                     </td>
@@ -543,12 +548,11 @@
                     <td class="px-4">
                         <%--                        Delete product--%>
                         <a href="<%=request.getContextPath()%>/admin/product?func=product_management&edit_product_id=<%=p.getId()%>"
-                           class="px-2"><i
-                                class="fa-solid fa-pen fs-4" style="color: #5c7093;"></i></a>
-                        <a
-                                href="<%=request.getContextPath()%>/admin/product?func=product_management&func_2=showConfirmBox&delete_product_id=<%=p.getId()%>&category_id=<%=selectedCategory%>"
-                                class="px-2"><i
-                                class="fa-solid fa-trash-can fs-4" style="color: #5c7093;"></i></a>
+                           class="px-2">
+                            <i class="fa-solid fa-pen fs-4" style="color: #5c7093;"></i></a>
+                        <a href="<%=request.getContextPath()%>/admin/product?func=product_management&func_2=showConfirmBox&delete_product_id=<%=p.getId()%>&category_id=<%=selectedCategory%>"
+                           class="px-2">
+                            <i class="fa-solid fa-trash-can fs-4" style="color: #5c7093;"></i></a>
                     </td>
                 </tr>
                 <%}%>
