@@ -2,6 +2,7 @@
 <%@ page import="model.service.CategoryService" %>
 <%@ page import="model.bean.Category" %>
 <%@ page import="model.bean.Cart" %>
+<%@ page import="model.bean.Item" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Locale" %>
@@ -501,8 +502,8 @@
                         </div>
                     </div>
                     <div class="pda rigth-ct">
-                        <a href="" class="btn"><span>Giỏ hàng</span></a>
-                        <a href="" class="btn"><span>Thanh Toán</span></a>
+                        <a href="<%=request.getContextPath()%>/views/CartPage/cart.jsp" class="btn"><span>Giỏ hàng</span></a>
+                        <a href="<%=request.getContextPath()%>/views/PaymentPage/payment.jsp" class="btn"><span>Thanh Toán</span></a>
                     </div>
                 </ul>
 

@@ -17,10 +17,10 @@
     <title>Tìm Kiếm</title>
 </head>
 <body>
-<%List<Product> allProduct1 = (List<Product>) request.getAttribute("productInPage1");%>
+<%List<Product> allProductfp = (List<Product>) request.getAttribute("productInPage1");%>
 <%String resultFind = (String) request.getAttribute("resultFind");%>
 <div class="header">
-    <%@include file="../MenuBar/menu.jsp" %>
+    <%@include file="/views/MenuBar/menu.jsp" %>
 </div>
 <div class="find">
     <p>Nhập từ khóa tìm kiếm</p>
@@ -31,12 +31,12 @@
             <%}else{%>
             <input name="findProducts" type="text" placeholder="Bạn tìm gì..." value="<%=resultFind%>">
             <%}%>
-            <button><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
+            <button ><a class="find_a" href="?findProducts=<%=resultFind%>"><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></a></button>
         </form>
     </div>
 </div>
 <div>
-    <%if(allProduct1.isEmpty()){%>
+    <%if(allProductfp.isEmpty() || allProductfp.equals("")){%>
     <p class="ms-5 fw-bold fs-5">Không có sản phẩm</p>
     <%}else{%>
     <p class="ms-5 fw-bold fs-5">Kết quả tìm thấy <%=request.getAttribute("numberProduct")%> sản phẩm từ khóa "<%=resultFind%>": </p>
@@ -44,11 +44,11 @@
 </div>
 <div class="product">
     <ul id="allProduct" class="products m-2 me-5 ms-3 d-flex flex-wrap">
-        <%for (Product pfp : allProduct1) {%>
-        <%String pathImage1 = ImageService.getInstance().pathImageOnly(pfp.getId());%>
+        <%for (Product pfp : allProductfp) {%>
+        <%String pathImagefp = ImageService.getInstance().pathImageOnly(pfp.getId());%>
         <li class="product_li">
             <div class="item_product  me-4">
-                <a class="image" href="#"> <img src="<%=request.getContextPath()%>/<%=pathImage1%>"> </a>
+                <a class="image" href="#"> <img src="<%=request.getContextPath()%>/<%=pathImagefp%>"> </a>
                 <a href="#"><p class="pt-4 px-3"><%=pfp.getName() %>
                 </p></a>
                 <%!double giaBanSauCung;%>
@@ -57,7 +57,7 @@
                 <del><%=pfp.getSellingPrice()%>đ</del>
                 <%}%>
                 <p><%=ProductService.getInstance().productPriceIncludeDiscount(pfp)%>đ</p>
-                <div class="add-to-cart"><span>Thêm vào giỏ hàng</span></div>
+                <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&id=<%=pfp.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
             </div>
         </li>
 
