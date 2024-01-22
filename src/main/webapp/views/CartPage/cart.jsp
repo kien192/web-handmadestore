@@ -1,11 +1,11 @@
-
 <%@ page import="java.util.Map" %>
 <%@ page import="model.bean.Item" %>
 <%@ page import="model.service.ImageService" %><%--
 =======
 <<<<<<< HEAD
 <%--
->>>>>>> origin/main
+>>>>>> origin/main
+
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 1/19/2024
@@ -58,7 +58,6 @@
 </nav>
 
 
-
 <div class="row">
     <div class="col-12">
         <form action="">
@@ -78,19 +77,21 @@
                             </tr>
                             </thead>
                             <tbody>
-
+                            <%Item itemTemp = new Item();%>
                             <% for (Item item : cart.getItems().values()) { %>
+                            <%itemTemp = item;%>
                             <tr class="border-1">
                                 <td class="align-middle">
-                                  <%  String pathImage = ImageService.getInstance().pathImageOnly(item.getProduct().getId()); %>
+                                    <% String pathImage = ImageService.getInstance().pathImageOnly(item.getProduct().getId()); %>
 
-                                    <img class="product-img" src="<%=request.getContextPath()%>/<%=pathImage%>" alt="sanpham" width="80%"
+                                    <img class="product-img" src="<%=request.getContextPath()%>/<%=pathImage%>"
+                                         alt="sanpham" width="80%"
                                          height="80%">
                                 </td>
                                 <td class="align-middle">
                                     <div>
-                                        <h6><%=item.getProduct().getName()%>
-                                        </h6>
+                                        <a class="text-decoration-none" href="product-detail?id=<%=item.getProduct().getId()%>"> <h6><%=item.getProduct().getName()%>
+                                        </h6> </a>
 
                                     </div>
                                 </td>
@@ -99,21 +100,27 @@
                                 </td>
                                 <td class="align-middle">
                                     <div class="quantity-box d-flex p-1 border justify-content-center">
-                                            <form action="<%=request.getContextPath()%>/add-cart" method="get" >
-                                                <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">
-                                            <button id="increase_bt" name="actionCart" value="put" class="text-center border-0 bg-body fw-bold"
-                                                    style="width: 30px;">-
-                                            </button>
-                                            <input id="quantity_input" class="border-0 w-50 text-center" type="text" name="actionCart"
 
-                                                   value="<%=item.getQuantity()%>">
 
-                                            <button type="submit" name="actionCart" value="put"
-                                                    id="reduce_bt" class="text-center border-0 bg-body fw-bold"
-                                                    style="width:30px;">+
-                                            </button>
 
-                                            </form>
+                                        <%--                                            <input type="hidden" name="actionCart" value="put">--%>
+
+                                        <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">
+
+                                        <button id="increase_bt" type="submit" name="num" value="-1"
+                                                class="text-center border-0 bg-body fw-bold"
+                                                style="width: 30px;" >
+                                            <a style="text-decoration: none" href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=-1&id=<%=item.getProduct().getId()%>">-</a>
+                                        </button>
+
+                                        <input id="quantity_input" readonly class="border-0 w-50 text-center" type="text"
+                                               value="<%=item.getQuantity()%>" >
+
+                                        <button type="submit"  name="num" value="1"
+                                                id="reduce_bt" class="text-center border-0 bg-body fw-bold"
+                                                style="width:30px;" >
+                                            <a style="text-decoration: none" href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=1&id=<%=itemTemp.getProduct().getId()%>">+</a>
+                                        </button>
                                     </div>
                                 </td>
                                 <td class="align-middle">
@@ -121,24 +128,19 @@
                                 </td>
                                 <td class="align-middle">
 
-<%--                                    <form action="<%=request.getContextPath()%>/add-cart" method="get" >--%>
-<%--                                        <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">--%>
-<%--                                        <button type="submit" class="btn" name="actionCart" value="delete">--%>
-<%--                                        <i class="fa-solid fa-trash-can"></i>--%>
-<%--                                    </button>--%>
 
-<%--                                    </form>--%>
-    <form action="<%=request.getContextPath()%>/add-cart" method="get" >
-        <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">
-        <button type="submit" class="btn" name="actionCart" value="delete">
-            <i class="fa-solid fa-trash-can"></i>
-        </button>
 
-    </form>
+
+
+                                    <a href="<%=request.getContextPath()%>/add-cart?actionCart=delete&id=<%=item.getProduct().getId()%>">
+                                        <i class="fa-solid fa-trash-can"></i> </a>
+
+
+
                                 </td>
                             </tr>
 
-                            <%total += (item.getQuantity() * item.getPrice());%>
+
                             <%}%>
 
 
@@ -155,9 +157,15 @@
                         <button type="button" class="pause_bt"
                                 onclick="window.location = '../MainPage/view_mainpage/mainpage.jsp'">Tiếp tục mua hàng
                         </button>
+                     <%if(u != null){%>
                         <button type="button" class="complete_bt"
-                                onclick="window.location = '../PaymentPage/payment.html'">Tiếp tục đặt hàng
+                                onclick="window.location = '<%=request.getContextPath()%>/views/PaymentPage/payment.jsp'">Thanh Toán
                         </button>
+                        <%}else{%>
+                        <button type="button" class="complete_bt"
+                                onclick="window.location = '<%=request.getContextPath()%>/login'">Thanh Toán
+                        </button>
+                        <%}%>
                     </div>
                 </div>
             </div>
@@ -166,25 +174,12 @@
 </div>
 
 
-
 <!--    Footer-->
 <%@include file="/views/Footer/footer.jsp" %>
 <script>
-    function updateItemTotal(unitPrice) {
-        var quantityInput = document.getElementById('quantity_input');
-        var itemTotalSpan = document.getElementById('item_total');
 
-        var currentQuantity = parseInt(quantityInput.value);
-
-        // Calculate total amount for the item
-        var itemTotal = currentQuantity * unitPrice;
-
-        // Update item total amount in the UI
-        itemTotalSpan.textContent = '';
-    }
 
 
 </script>
 </body>
 </html>
->>>>>>> origin/main

@@ -124,9 +124,12 @@ public class Order implements Serializable {
                 ", totalPrice=" + totalPrice +
                 ", orderDate=" + orderDate +
                 ", status='" + status + '\'' +
+                ", consigneeName='" + consigneeName + '\'' +
+                ", consigneePhoneNumber='" + consigneePhoneNumber + '\'' +
                 ", address='" + address + '\'' +
+                ", note='" + note + '\'' +
                 ", shippingFee=" + shippingFee +
                 ", userId=" + userId +
-                "}\n";
+                '}';
     }
 }

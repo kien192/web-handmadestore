@@ -1,4 +1,5 @@
 <%@ page import="model.service.ImageService" %>
+<%@ page import="model.bean.Cart" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -9,6 +10,14 @@
     <title>Đăng Nhập</title>
 </head>
 <body>
+<%
+    Cart cart = (Cart) session.getAttribute("cart");
+    if (cart == null) {
+        cart = new Cart();
+    } else {
+        cart.clear();
+    }
+%>
 <div class="container">
     <form id="form" action="<%=request.getContextPath()%>/login" method="post" >
         <div class="logo">
@@ -63,7 +72,7 @@
             </div>
         </div>
         <div class="submit dk">
-            <button><a href="<%=request.getContextPath()%>/register">Đăng Ký</a></button>
+            <button><a href="<%=request.getContextPath()%>/views/Login/view_login/signup.jsp">Đăng Ký</a></button>
         </div>
 
     </form>

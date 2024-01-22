@@ -207,6 +207,7 @@ public class OrderDAO {
         for (Order order : getAllOrder()) {
             System.out.println(order.getId() + " - " + getExactlyTotalPriceNoShippingFee(order.getId() + ""));
         }
+
     }
 
     public static double getExactlyTotalPriceNoShippingFee(String orderId) {
@@ -216,4 +217,7 @@ public class OrderDAO {
 
         return re;
     }
+
+
+
 }

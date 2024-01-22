@@ -1,5 +1,6 @@
 package controller;
 
+import model.bean.Cart;
 import model.bean.Role;
 import model.bean.User;
 import model.dao.UserDAO;
@@ -27,6 +28,7 @@ public class login extends HttpServlet {
         String email = req.getParameter("email");// nhận input từ ng dùng
         String pw = req.getParameter("password");
         pw = HashPassword.toSHA1(pw);// Hàm băm code
+        Cart cart = new Cart();
         User checkEmail = UserDAO.getUserByEmail(email);
         User user = UserService.getInstance().checkLogin(email, pw);
         if (email == null) {
@@ -38,6 +40,7 @@ public class login extends HttpServlet {
         if (user != null) {
             HttpSession session = req.getSession();
             session.setAttribute("auth", user);
+
             String c = RoleService.getInstance().checkRole(user);
 
             if (c.equals("admin")) {
@@ -46,6 +49,7 @@ public class login extends HttpServlet {
             } else {
                 req.getSession().setAttribute("isAdmin", false);
                 resp.sendRedirect(req.getContextPath() + "/views/MainPage/view_mainpage/mainpage.jsp");
+
             }
         } else {
             req.setAttribute("result", "Mật khẩu không chính xác!");
