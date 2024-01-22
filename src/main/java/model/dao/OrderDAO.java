@@ -204,9 +204,10 @@ public class OrderDAO {
 //    catch (Exception e) {
 //        e.printStackTrace();
 //    }
-        for (Order order : getAllOrder()) {
-            System.out.println(order.getId() + " - " + getExactlyTotalPriceNoShippingFee(order.getId() + ""));
-        }
+//        for (Order order : getAllOrder()) {
+//            System.out.println(order.getId() + " - " + getExactlyTotalPriceNoShippingFee(order.getId() + ""));
+//        }
+        addOrder("152.00","Sai","02523","dia chi","khong","1");
     }
 
     public static double getExactlyTotalPriceNoShippingFee(String orderId) {
@@ -216,4 +217,18 @@ public class OrderDAO {
 
         return re;
     }
+    public static void addOrder(String totalPrice,String fullName,String phoneNumber,String address,String note,String userId){
+        JDBIConnector.me().withHandle(handle ->
+                handle.createUpdate("INSERT INTO order(totalPrice,orderDate, status, consigneeName, consigneePhoneNumber, address, note, shippingFee, userId) VALUES (:total,CURRENT_DATE,'Chờ xác nhận',:name,:phone,:address,:note,30.000,:userId")
+                        .bind("total",totalPrice)
+                        .bind("name",fullName)
+                        .bind("phone",phoneNumber)
+                        .bind("address",address)
+                        .bind("note",note)
+                        .bind("userId",userId)
+                        .executeAndReturnGeneratedKeys("id")
+                        .mapTo(Integer.class).one());
+    }
+
+
 }

@@ -1,4 +1,5 @@
 <%@ page import="model.service.ImageService" %>
+<%@ page import="model.bean.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -15,91 +16,114 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&display=swap" rel="stylesheet">
 </head>
+<%User user = (User) session.getAttribute("auth");%>
 <body>
 <div class="row">
     <div class="col-lg-8 col-sm-12 p-0">
-        <div class="h1 border-bottom alert ps-0" style="height: 10%">
-            <a href="<%=request.getContextPath()%>/views/MainPage/view_mainpage/mainpage.jsp" class="text-decoration-none mx-3" style="color: #f4c994"><img src="<%=request.getContextPath()+"/"+ImageService.getLogoImagePath()%>" width="8%">HEADQUARTERS</a>
+        <div class="h1 border-bottom alert ps-0" style="height: 12%">
+            <a href="<%=request.getContextPath()%>/views/MainPage/view_mainpage/mainpage.jsp"
+               class="text-decoration-none mx-3" style="color: #f4c994"><img
+                    src="<%=request.getContextPath()+"/"+ImageService.getLogoImagePath()%>" width="8%">HEADQUARTERS</a>
         </div>
-        <div class="d-flex mx-5 pb-5">
-            <div class="col-lg-7 col-sm-6 me-3">
-                <div class="h6 text-black fw-bold text-center">
-                    Thông tin nhận hàng
-                </div>
-                <div class="mt-4">
-                    <div class="input-group mb-3 justify-content-center">
-                        <div class="input-group-prepend w-100">
-<%--                            email--%>
-<%--                            <div class="form-floating mb-3">--%>
-<%--                                <input id="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"--%>
-<%--                                       class="form-control" placeholder="Email(tùy chọn)">--%>
-<%--                                <label for="email" class="floatingInput">Email(Tùy Chọn)</label>--%>
-<%--                            </div>--%>
+        <form action="<%=request.getContextPath()%>/payment" method="post">
+            <div class="d-flex mx-5 pb-5">
+                <div class="col-lg-7 col-sm-6 me-3">
+                    <div class="h6 text-black fw-bold text-center">
+                        Thông tin nhận hàng
+                    </div>
+                    <div class="mt-4">
+                        <div class="input-group mb-3 justify-content-center">
+                            <div class="input-group-prepend w-100">
+                                <%--                            email--%>
+                                <%--                            <div class="form-floating mb-3">--%>
+                                <%--                                <input id="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"--%>
+                                <%--                                       class="form-control" placeholder="Email(tùy chọn)">--%>
+                                <%--                                <label for="email" class="floatingInput">Email(Tùy Chọn)</label>--%>
+                                <%--                            </div>--%>
 
-                            <div class="form-floating mb-3">
-                                <input id="name" type="text" class="form-control" placeholder="Họ và tên">
-                                <label for="name" class="floatingInput">Họ Và  Tên</label>
-                            </div>
+                                <div class="form-floating mb-3">
+                                    <%if (user == null) {%>
+                                    <input id="name" name="fullName" type="text" class="form-control" placeholder="Họ và tên">
+                                    <label for="name" class="floatingInput">Họ Và Tên</label>
+                                    <%} else {%>
+                                    <input id="name" name="fullName" type="text" class="form-control" placeholder="Họ và tên"
+                                           value="<%=user.getName()%>">
+                                    <label for="name" class="floatingInput">Họ Và Tên</label>
+                                    <%}%>
+                                </div>
 
-                            <div class="form-floating mb-3">
-                                <input id="phone_number" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                                       class="form-control" placeholder="Số điện thoại">
-                                <label for="phone_number" class="floatingInput">Số Điện Thoại</label>
-                            </div>
-                            <!--
-                            -->
-                            <div class="form-floating mb-3">
-                                <select name="province" id="province" class="form-select">
-                                    <option value=""></option>
-                                </select>
-                                <label for="province">Tỉnh Thành</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <select name="district" id="district" class="form-select">
-                                    <option value=""></option>
-                                </select>
-                                <label for="district">Quận Huyện</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <select name="ward" id="ward" class="form-select">
-                                    <option value=""></option>
-                                </select>
-                                <label for="ward">Phường Xã</label>
-                            </div>
+                                <div class="form-floating mb-3">
+                                    <%if (user == null) {%>
+                                    <input id="phone_number" name="phoneNumber" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                           class="form-control" placeholder="Số điện thoại">
+                                    <label for="phone_number" class="floatingInput">Số Điện Thoại</label>
+                                    <%} else {%>
+                                    <input id="phone_number" name="phoneNumber" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                           class="form-control" placeholder="Số điện thoại"
+                                           value="<%=user.getPhoneNumber()%>">
+                                    <label for="phone_number" class="floatingInput">Số Điện Thoại</label>
+                                    <%}%>
+                                </div>
+                                <!--
+                                -->
+                                <%--                            <div class="form-floating mb-3">--%>
+                                <%--                                <select name="province" id="province" class="form-select">--%>
+                                <%--                                    <option value=""></option>--%>
+                                <%--                                </select>--%>
+                                <%--                                <label for="province">Tỉnh Thành</label>--%>
+                                <%--                            </div>--%>
+                                <%--                            <div class="form-floating mb-3">--%>
+                                <%--                                <select name="district" id="district" class="form-select">--%>
+                                <%--                                    <option value=""></option>--%>
+                                <%--                                </select>--%>
+                                <%--                                <label for="district">Quận Huyện</label>--%>
+                                <%--                            </div>--%>
+                                <%--                            <div class="form-floating mb-3">--%>
+                                <%--                                <select name="ward" id="ward" class="form-select">--%>
+                                <%--                                    <option value=""></option>--%>
+                                <%--                                </select>--%>
+                                <%--                                <label for="ward">Phường Xã</label>--%>
+                                <%--                            </div>--%>
 
-                            <div class="form-floating mb-3">
-                                <input id="address" type="text" class="form-control" placeholder="Địa chỉ">
-                                <label for="address" class="floatingInput">Địa Chỉ: Số Nhà, Tên Đường,...</label>
-                            </div>
+                                <div class="form-floating mb-3">
+                                    <%if (user == null) {%>
+                                    <input id="address" name="address" type="text" class="form-control" placeholder="Địa chỉ">
+                                    <label for="address" class="floatingInput">Địa Chỉ: Số Nhà, Tên Đường,...</label>
+                                    <%} else {%>
+                                    <input id="address" name="address" type="text" class="form-control" placeholder="Địa chỉ">
+                                    <label for="address" class="floatingInput">Địa Chỉ: Số Nhà, Tên Đường,...</label>
+                                    <%}%>
+                                </div>
 
-                            <div class="form-floating mb-3">
-                                <textarea id="note" class="form-control" style="height: 150%"></textarea>
-                                <label for="address" class="floatingInput">Ghi Chú(Tùy Chọn)</label>
+                                <div class="form-floating mb-3">
+                                    <textarea id="note" name="note" class="form-control" style="height: 150%"></textarea>
+                                    <label for="address" class="floatingInput">Ghi Chú(Tùy Chọn)</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-5 col-sm-6">
-                <div class="h6 text-black fw-bold">
-                    Thanh toán
-                </div>
-                <div class="mt-4">
-
-                    <div class="border alert alert-dismissible d-flex align-items-center">
-                        <input class="form-check-input fs-5 me-3" style="cursor: pointer" type="radio"
-                               name="flexRadioDefault"
-                               id="thanhtoankhigiaohang"
-                               onclick="hideBankaccount_infor()">
-                        <label class="form-check-label" style="cursor: pointer" for="thanhtoankhigiaohang">
-                            Thanh toán khi giao hàng (COD)
-                        </label>
-                        <i class="fa-regular fa-money-bill-1 fa-xl ms-auto" style="color: #357ebd;"></i>
+                <div class="col-lg-5 col-sm-6">
+                    <div class="h6 text-black fw-bold">
+                        Thanh toán
                     </div>
-                    <img src="" alt="">
+                    <div class="mt-4">
+
+                        <div class="border alert alert-dismissible d-flex align-items-center">
+                            <input class="form-check-input fs-5 me-3" style="cursor: pointer" type="radio"
+                                   name="flexRadioDefault"
+                                   id="thanhtoankhigiaohang"
+                                   onclick="hideBankaccount_infor()">
+                            <label class="form-check-label" style="cursor: pointer" for="thanhtoankhigiaohang">
+                                Thanh toán khi giao hàng (COD)
+                            </label>
+                            <i class="fa-regular fa-money-bill-1 fa-xl ms-auto" style="color: #357ebd;"></i>
+                        </div>
+                        <img src="" alt="">
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
         <hr>
         <div class="row ms-auto float-end me-4">
             <ul class="list-group list-group-horizontal list-unstyled">
@@ -130,7 +154,7 @@
         </div>
 
     </div>
-
+    <%--Phần 2--%>
     <div class="col-lg-4 col-sm-12  border-start  p-0" style="background-color: #FAFAFA">
         <div class="h6 text-black fw-bold p-3 border">
             Đơn hàng
@@ -223,7 +247,8 @@
                 </div>
                 <div class="row py-3 ">
                     <div class="col-4 d-flex align-items-center">
-                        <span><a href="../CartPage/cart.jsp" class="text-decoration-none color-for-text"><strong><</strong> Quay lại giỏ hàng</a></span>
+                        <span><a href="../CartPage/cart.jsp"
+                                 class="text-decoration-none color-for-text"><strong><</strong> Quay lại giỏ hàng</a></span>
                     </div>
                     <div class="col-8 text-end">
                         <button type="button" class="btn btn-primary fs-1 color-for-bg">Đặt Hàng</button>

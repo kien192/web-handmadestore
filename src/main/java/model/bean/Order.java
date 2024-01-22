@@ -14,10 +14,19 @@ public class Order implements Serializable {
     private String consigneeName;
     private String consigneePhoneNumber;
     private String address;
+    private String note;
     private double shippingFee;
     private int userId;
 
     public Order() {
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public int getId() {
@@ -115,9 +124,12 @@ public class Order implements Serializable {
                 ", totalPrice=" + totalPrice +
                 ", orderDate=" + orderDate +
                 ", status='" + status + '\'' +
+                ", consigneeName='" + consigneeName + '\'' +
+                ", consigneePhoneNumber='" + consigneePhoneNumber + '\'' +
                 ", address='" + address + '\'' +
+                ", note='" + note + '\'' +
                 ", shippingFee=" + shippingFee +
                 ", userId=" + userId +
-                "}\n";
+                '}';
     }
 }

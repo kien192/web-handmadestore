@@ -172,7 +172,7 @@
             %>
 
             <li class="item text-center">
-                <a href="<%=t.getVideoLink()%>"><img src="<%=t.getImgPath()%>" width="90%"></a>
+                <a href="<%=t.getVideoLink()%>"><img src="<%=request.getContextPath()%>/<%=t.getImgPath()%>" width="90%"></a>
                 <a href="<%=t.getVideoLink()%>"><h6 class="fw-bold text-center mt-3 px-3"><%=t.getTitle()%>
                 </h6></a>
                 <p class="px-5"><%=t.getDescription()%>
