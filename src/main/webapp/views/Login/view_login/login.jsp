@@ -72,7 +72,7 @@
             </div>
         </div>
         <div class="submit dk">
-            <button><a href="<%=request.getContextPath()%>/register">Đăng Ký</a></button>
+            <button><a href="<%=request.getContextPath()%>/views/Login/view_login/signup.jsp">Đăng Ký</a></button>
         </div>
 
     </form>

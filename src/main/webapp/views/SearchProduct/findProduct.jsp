@@ -31,7 +31,7 @@
             <%}else{%>
             <input name="findProducts" type="text" placeholder="Bạn tìm gì..." value="<%=resultFind%>">
             <%}%>
-            <button ><a class="find_a" href="?findProducts=<%=resultFind%>"><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></a></button>
+            <button ><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
         </form>
     </div>
 </div>
@@ -57,7 +57,7 @@
                 <del><%=pfp.getSellingPrice()%>đ</del>
                 <%}%>
                 <p><%=ProductService.getInstance().productPriceIncludeDiscount(pfp)%>đ</p>
-                <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&id=<%=pfp.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
+                <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&num=1&id=<%=pfp.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
             </div>
         </li>
 
