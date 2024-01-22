@@ -189,10 +189,23 @@ public class UserDAO {
         return users;
     }
 
-    /**
-     * Lấy Account User.
-     *
-     */
+    public static void updateName(String userId, String newName) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate("UPDATE user SET name=:newName  WHERE id=:userId")
+                        .bind("userId", userId)
+                        .bind("newName", newName)
+                        .execute()
+        );
+    }
+
+    public static void updatePhoneNumber(String userId, String phoneNumber) {
+        JDBIConnector.me().useHandle(handle ->
+                handle.createUpdate("UPDATE user SET phoneNumber=:phoneNumber  WHERE id=:userId")
+                        .bind("userId", userId)
+                        .bind("phoneNumber", phoneNumber)
+                        .execute()
+        );
+    }
 
     public static void main(String[] args) {
 //        List<User> users = JDBIConnector.me().withHandle(handle ->

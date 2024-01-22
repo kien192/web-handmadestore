@@ -102,4 +102,11 @@ public class UserService {
         UserDAO.unlockUser(id);
     }
 
+    public void updateName(String userId, String newName) {
+        UserDAO.updateName(userId, newName);
+    }
+
+    public void updatePhoneNumber(String userId, String phoneNumber) {
+        UserDAO.updatePhoneNumber(userId, phoneNumber);
+    }
 }

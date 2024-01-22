@@ -160,7 +160,7 @@
                         <ul class="sub_menu border border-primary">
                             <li><a href="<%=request.getContextPath()%>/login">
                                 <i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất</a></li>
-                            <li><a href="<%=request.getContextPath()%>/account_management">
+                            <li><a href="<%=request.getContextPath()%>/changeUserInfo">
                                 <i class="fa-solid fa-user-pen me-2"></i>Thông tin tài khoản</a></li>
                         </ul>
                     </li>
