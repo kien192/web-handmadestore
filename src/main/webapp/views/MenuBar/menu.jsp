@@ -13,14 +13,24 @@
 <html lang="en">
 <%User u = (User) session.getAttribute("auth");%>
 
-<%
-    Cart cart = (Cart) session.getAttribute("cart");
-    if (cart == null) cart = new Cart();
+<%Cart cart = (Cart) session.getAttribute("cart");
+    if(cart == null) cart = new Cart();
     Locale locale = new Locale("vi", "VN");
     Currency currency = Currency.getInstance(locale);
     NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
     numberFormat.setCurrency(currency);
 %>
+
+
+
+<%--<%--%>
+<%--    else {--%>
+<%--        if(cart == null) cart = new Cart();--%>
+<%--    Locale locale = new Locale("vi", "VN");--%>
+<%--    Currency currency = Currency.getInstance(locale);--%>
+<%--    NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);--%>
+<%--    numberFormat.setCurrency(currency);--%>
+<%--%>--%>
 
 <head>
     <meta charset="UTF-8">
@@ -431,7 +441,7 @@
         <li class="cart p-4 dropdown my-auto  position-relative">
             <%--            <i class="fa-solid fa-cart-shopping" style="color: #2a3241;"></i>--%>
             <%--            <a href="<%=request.getContextPath()%>/views/CartPage/cart.html">Giỏ Hàng</a>--%>
-            <a href="<%=request.getContextPath()%>/add-cart?actionCart=get">
+            <a href="<%=request.getContextPath()%>/views/CartPage/cart.jsp">
 
                 <i class="fa-solid fa-cart-shopping position-relative" style="color: #2a3241;">
             <span id="badge" class="position-absolute top-0 start-0  badge rounded-pill
@@ -455,7 +465,7 @@
                             <div class="border_list">
                                 <% String pathImage = ImageService.getInstance().pathImageOnly(items.getProduct().getId()); %>
                                 <a class="product-image" href="">
-                                    <img src="<%=request.getContextPath()%>/<%=pathImage%>" width="100" alt="">
+                                    <img src="<%=request.getContextPath()%>/<%=ImageService.getInstance().pathImageOnly(item0.getProduct().getId())%>" width="100" alt="">
                                 </a>
                                 <div class="detail-item">
                                     <div class="product-detail">
@@ -479,11 +489,12 @@
                                         </a>
                                         <div class="quantity-select">
 
-                                            <button class="pd-des m-0">-</button>
-                                            <input type="text" class="quantity-input p-0"
-                                                   value="<%=items.getQuantity()%>">
-                                            <button class="pd-inc m-0">+</button>
-
+                                            <button class="pd-des m-0" type="submit" name="num" value="-1">
+                                                <a href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=-1&id=<%=item0.getProduct().getId()%>">- </a></button>
+                                            <input type="text" readonly class="quantity-input p-0" value="<%=item0.getQuantity()%>">
+                                            <button type="submit" name="num" value="1"
+                                                    class="pd-inc m-0">
+                                                <a href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=1&id=<%=item0.getProduct().getId()%>">+</a></button>
                                         </div>
                                     </div>
 

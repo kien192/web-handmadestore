@@ -114,7 +114,7 @@
                     <del><%=numberFormat.format(p.getSellingPrice())%></del>
                     <%}%>
                     <p><%=numberFormat.format(ProductService.getInstance().productPriceIncludeDiscount(p))%></p>
-                    <div class="add-to-cart"><a href="add-cart?actionCart=post&id=<%=p.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
+                    <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&num=1&id=<%=p.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
 
                 </div>
             </li>

@@ -132,8 +132,12 @@
                     </div>
 
 
-                    <button class="buy-btn col-4" style="font-size: 16px" <%=request.getAttribute("disable")%>>Thêm vào
+                    <button class="buy-btn col-4" style="font-size: 16px" <%=request.getAttribute("disable")%>>
+
+                        Thêm vào
                         giỏ hàng
+
+
                     </button>
 
 
@@ -176,8 +180,8 @@
 
                     <div class="row btns w-100 mx-auto ">
                         <button type="button" class="col-6 py-2">
-                            <i class="bi bi-cart-plus"></i>
-
+                            <a href="<%=request.getContextPath()%>/add-cart?actionCart=post&num=1&id=<%=pr.getId()%>">     <i class="bi bi-cart-plus"></i>
+                            </a>
                         </button>
                         <button type="button" class="col-6 py-2">
                             <a href="product-detail?id=<%=pr.getId()%>"> <i class="bi bi-eye"></i> </a>
@@ -294,16 +298,28 @@
         const incrementButton = document.querySelector(".pd-inc");
         const decrementButton = document.querySelector(".pd-des");
         const quantityInput = document.querySelector(".quantity-input");
+        const addToCartLink = document.querySelector(".buy-btn");
 
         incrementButton.addEventListener("click", function () {
+            console.log("Button + clicked");
             quantityInput.value = parseInt(quantityInput.value) + 1;
         });
 
         decrementButton.addEventListener("click", function () {
+            console.log("Button - clicked");
             const currentValue = parseInt(quantityInput.value);
+
             if (currentValue > 1) {
                 quantityInput.value = currentValue - 1;
             }
+        });
+        addToCartLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            const productId = <%=product.getId()%>;
+            const quantity = parseInt(quantityInput.value);
+            const URL = `<%=request.getContextPath()%>/add-cart?actionCart=post&num=${quantity}&id=${productId}`;
+            window.location.href =URL;
+            quantityInput.value = 1;
         });
     });
 </script>
