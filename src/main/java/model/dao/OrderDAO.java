@@ -1,9 +1,8 @@
 package model.dao;
 
-import model.bean.Discount;
-import model.bean.Order;
-import model.bean.OrderDetail;
+import model.bean.*;
 import model.db.JDBIConnector;
+import model.service.DiscountService;
 import model.service.OrderService;
 import model.service.UserService;
 
@@ -153,6 +152,84 @@ public class OrderDAO {
                         .bind(0, year)
                         .mapTo(Double.class).one());
         return re != null ? re : 0;
+    }
+
+    /**
+     * Thêm giỏ hàng - đặt hàng vào dâtabase !
+     *
+     *
+     * @param order
+     * @param cart
+     * @param u
+     */
+    public void addOrder(Order order, Cart cart, User u) {
+//        Kiểm tra order có null không?
+        if (order == null) {
+            throw new IllegalArgumentException("Order object is null");
+        }
+
+        LocalDate curDate = LocalDate.now();
+        String date = curDate.toString();
+        /*        Add vào bảng order trước -> Tạo orderId.
+
+
+         */
+        String sql = "INSERT INTO order ( totalPrice, orderDate, consigneeName, consigneePhoneNumber, address , userId)"
+                +
+                " VALUES(:totalPrice, :orderDate, :consigneeName, :consigneePhoneNumber , :address, :userId)";
+
+        try {
+            JDBIConnector.me().useHandle(handle -> {
+
+                //Lấy id của order
+                int orderId = handle.createUpdate(sql)
+                        .bind("totalPrice", cart.getTotalMoney())
+                        .bind("orderDate", date)
+                        .bind("consigneeName", order.getConsigneeName())
+                        .bind("consigneePhoneNumber", order.getConsigneePhoneNumber())
+                        .bind("address", order.getAddress())
+                        .bind("userId", u.getId())
+                        .bind("note", order.getNote())
+                        .executeAndReturnGeneratedKeys("id")
+                        .mapTo(Integer.class)
+                        .one();
+
+
+                for (Item i : cart.getItems().values()) {
+
+                    //add vào bảng order-details !
+                    String sql1 = "INSERT INTO order_details (orderId, productId, quantity, sellingPrice, finalSellingPrice"
+                            + "VALUES(:orderId, :productId, :quantity, :sellingPrice, :finalSellingPrice)";
+                    JDBIConnector.me().useHandle(handle1 -> {
+                        handle1.createUpdate(sql)
+                                .bind("oderId", orderId)
+                                .bind("productId", i.getProduct().getId())
+                                .bind("quantity", i.getQuantity())
+                                .bind("sellingPrice", i.getProduct().getSellingPrice())
+                                .bind("finalSellingPrice", i.getPrice())
+
+                                .execute();
+                    });
+
+
+                    //Lay id don hang vua them
+                }
+
+            });
+
+//            cập nhật lại số lượng sản phẩm
+            String sql3 = "UPDATE product SET quantity= quantity - :quantityOrder where id= :id";
+            for(Item item : cart.getItems().values() ) {
+            JDBIConnector.me().useHandle(handle3 ->
+                    handle3.createUpdate(sql3)
+                            .bind("quantityOrder", item.getQuantity() )
+                            .bind("id", item.getProduct().getId())
+                            .execute());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to insert order into the database", e);
+        }
     }
 
 

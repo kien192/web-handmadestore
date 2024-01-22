@@ -507,7 +507,10 @@
                     </div>
                     <div class="pda rigth-ct">
                         <a href="<%=request.getContextPath()%>/views/CartPage/cart.jsp" class="btn"><span>Giỏ hàng</span></a>
-                        <a href="" class="btn"><span>Thanh Toán</span></a>
+
+
+                         <a href="<%=request.getContextPath()%>/views/PaymentPage/payment.jsp" class="btn"><span>Thanh Toán</span></a>
+
                     </div>
                 </ul>
 

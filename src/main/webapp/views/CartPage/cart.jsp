@@ -2,9 +2,7 @@
 <%@ page import="model.bean.Item" %>
 <%@ page import="model.service.ImageService" %><%--
 =======
-<<<<<<< HEAD
-<%--
->>>>>>> origin/main
+
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 1/19/2024

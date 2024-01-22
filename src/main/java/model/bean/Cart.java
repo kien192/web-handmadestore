@@ -60,6 +60,13 @@ public class Cart {
     if(!items.containsKey(id)) return;
 
     }
+    public double getTotalMoney() {
+        double totalMoney = 0;
+        for(Item item : items.values()) {
+            totalMoney += (item.getQuantity() * item.getPrice());
+            }
+        return totalMoney;
+    }
 
 public int getTotal(){
         return items.size();

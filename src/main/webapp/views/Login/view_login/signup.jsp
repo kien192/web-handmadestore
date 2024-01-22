@@ -297,11 +297,7 @@
             <header>Đăng Ký</header>
             <!--    </div>-->
             <form method="post" action="<%=request.getContextPath()%>/login.jsp"
-                  onsubmit="return validateForm(); "
-
-            >
-
-
+                  onsubmit="return validateForm(); ">
 
 
                 <div class="infor">
@@ -384,11 +380,10 @@
 
             </form>
 
+
             <div class="form-link">
                 <span>Bạn đã có tài khoản? <a href="login.jsp" class="login-link">Đăng Nhập</a></span>
             </div>
-
-
         </div>
 
 
