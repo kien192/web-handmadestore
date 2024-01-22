@@ -16,6 +16,7 @@ public class Order implements Serializable {
     private String address;
     private double shippingFee;
     private int userId;
+    private String note;
 
     public Order() {
     }
@@ -92,6 +93,14 @@ public class Order implements Serializable {
         this.consigneePhoneNumber = consigneePhoneNumber;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     public boolean isWaitConfirmOrder() {
         return this.getStatus().equalsIgnoreCase("Chờ xác nhận");
     }
@@ -115,9 +124,12 @@ public class Order implements Serializable {
                 ", totalPrice=" + totalPrice +
                 ", orderDate=" + orderDate +
                 ", status='" + status + '\'' +
+                ", consigneeName='" + consigneeName + '\'' +
+                ", consigneePhoneNumber='" + consigneePhoneNumber + '\'' +
                 ", address='" + address + '\'' +
+                ", note='" + note + '\'' +
                 ", shippingFee=" + shippingFee +
                 ", userId=" + userId +
-                "}\n";
+                '}';
     }
 }

@@ -44,10 +44,22 @@ public class ProductService {
     }
 
     //danh sách sản phẩm đang được giảm giá
-    public List<Product> productDiscountMainPage() {return ProductDAO. discountProduct();}
-    public List<Product> listProductDiscount(){return ProductDAO.listDiscountProduct();}
-    public List<Product> sortListProductDiscountAZ(){return ProductDAO.sortDiscountProductAZ();}
-    public List<Product> sortListProductDiscountZA(){return ProductDAO.sortDiscountProductZA();}
+    public List<Product> productDiscountMainPage() {
+        return ProductDAO.discountProduct();
+    }
+
+    public List<Product> listProductDiscount() {
+        return ProductDAO.listDiscountProduct();
+    }
+
+    public List<Product> sortListProductDiscountAZ() {
+        return ProductDAO.sortDiscountProductAZ();
+    }
+
+    public List<Product> sortListProductDiscountZA() {
+        return ProductDAO.sortDiscountProductZA();
+    }
+
     public List<Product> getProductsByCategoryId(int category_id) {
         return ProductDAO.findByCategory(category_id);
     }
@@ -134,6 +146,10 @@ public class ProductService {
 
     public List<Rate> getRateForProduct(int productId) {
         return ProductDAO.getRateForProduct(productId);
+    }
+
+    public int getNumberRateStarsByUser(int productId, int userId) {
+        return ProductDAO.getNumberRateStarsByUser(productId, userId);
     }
 
     public void editProduct(String id, String name, String description, double costPrice, double sellingPrice, int quantity, String categoryId, String discountId) {

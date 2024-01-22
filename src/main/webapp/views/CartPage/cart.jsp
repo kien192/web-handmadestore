@@ -161,7 +161,7 @@
                                 onclick="window.location = '../MainPage/view_mainpage/mainpage.jsp'">Tiếp tục mua hàng
                         </button>
                         <button type="button" class="complete_bt"
-                                onclick="window.location = '../PaymentPage/payment.html'">Tiếp tục đặt hàng
+                                onclick="window.location = '<%=request.getContextPath()%>/views/PaymentPage/payment.jsp'">Thanh Toán
                         </button>
                     </div>
                 </div>
