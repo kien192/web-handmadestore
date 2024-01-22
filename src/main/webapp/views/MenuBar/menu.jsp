@@ -53,7 +53,7 @@
         color: #797974;
     }
 
-    .menu ul .item_a {
+    .menu ul .item_a{
         padding: 25px 0;
     }
 
@@ -131,7 +131,6 @@
 
     #dangxuat a {
         color: black;
-        padding: 0 10px;
     }
 
     .menu ul li.login:hover #dangxuat {
@@ -158,7 +157,7 @@
     }
 
     #badge {
-        transform: translate(50%, -50%);
+        transform: translate(50%,-50%);
     }
 
     /*    phần giỏ hàng*/
@@ -173,8 +172,8 @@
         top: 90px;
         right: 20px;
         /*transform: translate(10%,30%);*/
-        box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.4);
-        background-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px -5px rgba(0,0,0, 0.4);
+        background-color:  rgba(255,255,255, 0.8);
         transition: all 0.3s ease;
     }
 
@@ -184,7 +183,7 @@
     }
 
 
-    .cart .top-cart-content::before {
+    .cart .top-cart-content::before{
         background-color: #ffcc00;
         display: block;
         opacity: 0;
@@ -196,7 +195,7 @@
         left: auto;
         padding: 0;
         text-align: left;
-        box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 0 15px -5px rgba(0,0,0, 0.4);
         visibility: hidden;
         z-index: 10000;
     }
@@ -223,12 +222,10 @@
         padding-top: 10px;
         border-top: none;
     }
-
     .cart .top-cart-content #cart-side-bar .list-item-cart li.item-sub {
         padding: 12px 0px;
         overflow: hidden;
     }
-
     .cart .top-cart-content #cart-side-bar .list-item-cart li .border_list {
         overflow: hidden;
     }
@@ -243,7 +240,6 @@
         margin-right: 10px;
         margin-bottom: 5px;
     }
-
     .cart .top-cart-content #cart-side-bar .list-item-cart li .border_list a img {
         border: 0 none;
         max-width: 100%;
@@ -264,14 +260,13 @@
         overflow: hidden;
 
     }
-
     .top-cart-content .product-detail .product-name {
         margin: 0;
         line-height: 1;
         padding-right: 20px;
     }
 
-    .top-cart-content .product-detail .product-name a {
+    .top-cart-content .product-detail .product-name  a {
         font-size: 1em;
         line-height: 20px !important;
         font-weight: 400;
@@ -355,7 +350,7 @@
 
     }
 
-    #cart-side-bar .pda {
+    #cart-side-bar  .pda {
         text-align: center;
         margin-top: 10px;
         display: flex;
@@ -363,10 +358,10 @@
 
     }
 
-    #cart-side-bar .pda a {
+    #cart-side-bar  .pda a {
         padding: 0 20px;
         background-color: #ff0000;
-        color: #fff;
+        color : #fff;
         height: 40px;
         line-height: 40px;
         white-space: nowrap;
@@ -376,6 +371,11 @@
         letter-spacing: 0;
 
     }
+
+
+
+
+
 
 
 </style>
@@ -388,8 +388,7 @@
 
         </li>
         <li class="item times p-4 my-auto">
-            <a class="item_a" href="<%=request.getContextPath()%>/views/MainPage/view_mainpage/mainpage.jsp">Trang
-                chủ</a>
+            <a class="item_a" href="<%=request.getContextPath()%>/views/MainPage/view_mainpage/mainpage.jsp">Trang chủ</a>
         </li>
         <li class="item sanpham p-4 dropdown my-auto">
 
@@ -422,7 +421,7 @@
             <i class="fa-solid fa-user" style="color: #496088;"></i>
 
             <a class="item_a" href="<%=request.getContextPath()%>/login">Đăng Nhập</a>
-            <%} else {%>
+            <%} else{%>
 
 
             <button type="button" class="btn btn-sm btn-primary "><i class="fa-solid fa-user" style="color: white;"></i>
@@ -430,9 +429,7 @@
             <ul id="dangxuat" class="dx dropdown-menu">
 
                 <li><a class="dropdown-item" href=""><i class="fa-solid fa-user-pen"></i> Thay Đổi Thông Tin</a></li>
-                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp"><i
-                        class="fa-solid fa-right-from-bracket"></i> Đăng
-
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp"><i class="fa-solid fa-right-from-bracket"></i> Đăng
                     Xuất</a></li>
             </ul>
             <%}%>
@@ -459,42 +456,36 @@
                 <ul id="cart-side-bar" class="mini-product-list">
 
                     <ul class="list-item-cart">
-                        <%! double total = 0;%>
+                        <% double total = 0;%>
                         <% for (Item items : cart.getItems().values()) { %>
                         <li class="item-sub">
                             <div class="border_list">
-                                <% String pathImage = ImageService.getInstance().pathImageOnly(items.getProduct().getId()); %>
                                 <a class="product-image" href="">
-                                    <img src="<%=request.getContextPath()%>/<%=ImageService.getInstance().pathImageOnly(item0.getProduct().getId())%>" width="100" alt="">
+                                    <img src="<%=request.getContextPath()%>/<%=ImageService.getInstance().pathImageOnly(items.getProduct().getId())%>" width="100" alt="">
                                 </a>
                                 <div class="detail-item">
                                     <div class="product-detail">
                                         <p class="product-name">
-                                            <a href=""><%=items.getProduct().getName()%>
-                                            </a>
+                                            <a href=""><%=items.getProduct().getName()%></a>
                                         </p>
                                     </div>
                                     <div class="product-detail-bottom">
                                         <span class="price"> <%=numberFormat.format(items.getPrice())%></span>
-                                        <%--                                        DELETE SẢN PHẨM--%>
-                                        <%--                                        <form action="<%=request.getContextPath()%>/add-cart" method="get" >--%>
-                                        <%--                                            <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">--%>
-                                        <%--                                            <button type="submit" class="btn" name="actionCart" value="delete">--%>
-                                        <%--                                                <i class="bi bi-x-circle-fill"></i>--%>
-                                        <%--                                            </button>--%>
 
-                                        <%--                                        </form>--%>
+
+
                                         <a href="<%=request.getContextPath()%>/add-cart?actionCart=delete&id=<%=items.getProduct().getId()%>">
                                             <i class="bi bi-x-circle-fill"></i>
                                         </a>
                                         <div class="quantity-select">
 
                                             <button class="pd-des m-0" type="submit" name="num" value="-1">
-                                                <a href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=-1&id=<%=item0.getProduct().getId()%>">- </a></button>
-                                            <input type="text" readonly class="quantity-input p-0" value="<%=item0.getQuantity()%>">
+                                                <a href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=-1&id=<%=items.getProduct().getId()%>">- </a></button>
+                                            <input type="text" readonly class="quantity-input p-0" value="<%=items.getQuantity()%>">
                                             <button type="submit" name="num" value="1"
                                                     class="pd-inc m-0">
-                                                <a href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=1&id=<%=item0.getProduct().getId()%>">+</a></button>
+                                                <a href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=1&id=<%=items.getProduct().getId()%>">+</a></button>
+
                                         </div>
                                     </div>
 
@@ -502,7 +493,7 @@
 
                             </div>
                         </li>
-                        <%total += (items.getQuantity() * items.getPrice()); %>
+                        <%total +=  (items.getQuantity() * items.getPrice()); %>
                         <%}%>
 
                     </ul>
@@ -514,12 +505,18 @@
                     </div>
                     <div class="pda rigth-ct">
                         <a href="<%=request.getContextPath()%>/views/CartPage/cart.jsp" class="btn"><span>Giỏ hàng</span></a>
+                        <%if(u != null){%>
                         <a href="<%=request.getContextPath()%>/views/PaymentPage/payment.jsp" class="btn"><span>Thanh Toán</span></a>
+                        <%}else{%>
+                        <a href="<%=request.getContextPath()%>/login" class="btn"><span>Thanh Toán</span></a>
+                        <%}%>
+
                     </div>
                 </ul>
 
             </div>
             </a>
+
 
 
         </li>

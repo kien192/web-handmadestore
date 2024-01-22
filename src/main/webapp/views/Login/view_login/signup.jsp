@@ -29,7 +29,7 @@
         }
 
         body {
-            <%--background-image: url("<%=request.getContextPath()+"/"+ImageService.getBackgroundImagePath()%>");--%>
+            background-image: url("<%=request.getContextPath()+"/"+ImageService.getBackgroundImagePath()%>");
             backdrop-filter: blur(3px);
 
         }
@@ -385,7 +385,7 @@
             </form>
 
             <div class="form-link">
-                <span>Bạn đã có tài khoản? <a href="login.jsp" class="login-link">Đăng Nhập</a></span>
+                <span>Bạn đã có tài khoản? <a href="<%=request.getContextPath()%>/login" class="login-link">Đăng Nhập</a></span>
             </div>
 
 

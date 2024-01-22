@@ -4,7 +4,8 @@
 =======
 <<<<<<< HEAD
 <%--
->>>>>>> origin/main
+>>>>>> origin/main
+
   Created by IntelliJ IDEA.
   User: Kien Nguyen
   Date: 1/19/2024
@@ -89,7 +90,7 @@
                                 </td>
                                 <td class="align-middle">
                                     <div>
-                                        <a href="product-detail?id=<%=item.getProduct().getId()%>"> <h6><%=item.getProduct().getName()%>
+                                        <a class="text-decoration-none" href="product-detail?id=<%=item.getProduct().getId()%>"> <h6><%=item.getProduct().getName()%>
                                         </h6> </a>
 
                                     </div>
@@ -102,28 +103,24 @@
 
 
 
-<%--                                            <input type="hidden" name="actionCart" value="put">--%>
+                                        <%--                                            <input type="hidden" name="actionCart" value="put">--%>
 
-                                            <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">
+                                        <input type="hidden" name="id" value="<%=item.getProduct().getId()%>">
 
-                                            <button id="increase_bt" type="submit" name="num" value="-1"
-                                                    class="text-center border-0 bg-body fw-bold"
-                                                    style="width: 30px;" >
-                                                <a style="text-decoration: none" href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=-1&id=<%=item.getProduct().getId()%>">-</a>
-                                            </button>
+                                        <button id="increase_bt" type="submit" name="num" value="-1"
+                                                class="text-center border-0 bg-body fw-bold"
+                                                style="width: 30px;" >
+                                            <a style="text-decoration: none" href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=-1&id=<%=item.getProduct().getId()%>">-</a>
+                                        </button>
 
-                                            <input id="quantity_input" readonly class="border-0 w-50 text-center" type="text"
-                                                    value="<%=item.getQuantity()%>" >
+                                        <input id="quantity_input" readonly class="border-0 w-50 text-center" type="text"
+                                               value="<%=item.getQuantity()%>" >
 
-                                            <button type="submit"  name="num" value="1"
-                                                    id="reduce_bt" class="text-center border-0 bg-body fw-bold"
-                                                    style="width:30px;" >
-                                                <a style="text-decoration: none" href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=1&id=<%=itemTemp.getProduct().getId()%>">+</a>
-                                            </button>
-
-
-
-
+                                        <button type="submit"  name="num" value="1"
+                                                id="reduce_bt" class="text-center border-0 bg-body fw-bold"
+                                                style="width:30px;" >
+                                            <a style="text-decoration: none" href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=1&id=<%=itemTemp.getProduct().getId()%>">+</a>
+                                        </button>
                                     </div>
                                 </td>
                                 <td class="align-middle">
@@ -135,8 +132,8 @@
 
 
 
-                                            <a href="<%=request.getContextPath()%>/add-cart?actionCart=delete&id=<%=item.getProduct().getId()%>">
-                                                <i class="fa-solid fa-trash-can"></i> </a>
+                                    <a href="<%=request.getContextPath()%>/add-cart?actionCart=delete&id=<%=item.getProduct().getId()%>">
+                                        <i class="fa-solid fa-trash-can"></i> </a>
 
 
 
@@ -160,9 +157,15 @@
                         <button type="button" class="pause_bt"
                                 onclick="window.location = '../MainPage/view_mainpage/mainpage.jsp'">Tiếp tục mua hàng
                         </button>
+                     <%if(u != null){%>
                         <button type="button" class="complete_bt"
                                 onclick="window.location = '<%=request.getContextPath()%>/views/PaymentPage/payment.jsp'">Thanh Toán
                         </button>
+                        <%}else{%>
+                        <button type="button" class="complete_bt"
+                                onclick="window.location = '<%=request.getContextPath()%>/login'">Thanh Toán
+                        </button>
+                        <%}%>
                     </div>
                 </div>
             </div>
