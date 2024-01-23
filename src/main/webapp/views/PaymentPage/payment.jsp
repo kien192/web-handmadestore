@@ -5,6 +5,7 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="model.bean.Item" %>
 <%@ page import="model.service.ImageService" %>
+<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -26,6 +27,7 @@
 <%User user = (User) session.getAttribute("auth");%>
 
 <%
+
     Cart cart = (Cart) session.getAttribute("cart");
     if (cart == null) cart = new Cart();
     Locale locale = new Locale("vi", "VN");
@@ -37,10 +39,11 @@
 <%--Tạo cac parameter.--%>
 
 <%
+    Map<String, String> listNull = (Map<String, String>) request.getAttribute("errors") ;
     String namePay = request.getParameter("namePay") == null ? "" : request.getParameter("namePay");
     String phonePay = request.getParameter("phonePay") == null ? "" : request.getParameter("phonePay");
     String address = request.getParameter("address") == null ? "" : request.getParameter("address");
-//    String notePay = request.getParameter("notePay") == null ? "" : request.getParameter("notePay");
+    String notePay = request.getParameter("notePay") == null ? "" : request.getParameter("notePay");
 //    double totalMoney = Double.parseDouble(request.getParameter("pricePay") == null ? "" : request.getParameter("pricePay"));
 %>
 
@@ -79,11 +82,14 @@
                                                value="<%=namePay%>">
                                         <label for="name" class="floatingInput">Họ Và Tên</label>
                                         <%}%>
+                                        <% if (listNull != null && listNull.containsKey("namePay")) { %>
+                                        <span class="error-message warning" style="font-size: 11px"><%= listNull.get("namePay") %></span>
+                                        <% } %>
                                     </div>
 
                                     <div class="form-floating mb-3">
                                         <%if (user == null) {%>
-                                        <input id="phone_number" name="phonePay" type="tel"
+                                       <input id="phone_number" name="phonePay" type="tel"
                                                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  value="<%=phonePay%>"
                                                class="form-control" placeholder="Số điện thoại">
                                         <label for="phone_number" class="floatingInput">Số Điện Thoại</label>
@@ -93,6 +99,12 @@
                                                value="<%=phonePay%>"   >
                                         <label for="phone_number" class="floatingInput">Số Điện Thoại</label>
                                         <%}%>
+
+                                        <% if (listNull != null && listNull.containsKey("phonePay")) { %>
+                                        <span class="error-message warning" style="font-size: 11px"><%= listNull.get("phonePay") %></span>
+                                        <% } %>
+
+
                                     </div>
                                     <div class="form-floating mb-3">
                                         <%if (user == null) {%>
@@ -104,6 +116,11 @@
                                                placeholder="Địa chỉ" value="<%=address%>" >
                                         <label for="address" class="floatingInput">Địa Chỉ: Số Nhà, Tên Đường,...</label>
                                         <%}%>
+
+                                        <% if (listNull != null && listNull.containsKey("address")) { %>
+                                        <span class="error-message warning" style="font-size: 11px"><%= listNull.get("address") %></span>
+                                        <% } %>
+
                                     </div>
 
                                     <div class="form-floating mb-3">
@@ -194,7 +211,7 @@
                                     </div>
                                 </td>
                                <%totalMoney += (i.getPrice() * i.getQuantity());%>
-                                <td><%=i.getPrice() * i.getQuantity()%></td>
+                                <td><%=numberFormat.format(i.getPrice() * i.getQuantity())%></td>
                             </tr>
                             <%}%>
 

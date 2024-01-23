@@ -174,9 +174,9 @@ public class OrderDAO {
 
 
          */
-        String sql = "INSERT INTO `order` ( totalPrice, orderDate, status, consigneeName, consigneePhoneNumber, address ,shippingFee,  userId)"
+        String sql = "INSERT INTO `order` ( totalPrice, orderDate, status, consigneeName, consigneePhoneNumber, address ,shippingFee,  userId, note)"
                 +
-                " VALUES(:totalPrice, :orderDate, :status, :consigneeName, :consigneePhoneNumber , :address,:shippingFee, :userId)";
+                " VALUES(:totalPrice, :orderDate, :status, :consigneeName, :consigneePhoneNumber , :address,:shippingFee, :userId, :note)";
 
         try {
             JDBIConnector.me().useHandle(handle -> {
@@ -191,6 +191,7 @@ public class OrderDAO {
                         .bind("address", order.getAddress())
                         .bind("shippingFee", 35000)
                         .bind("userId", u.getId())
+                        .bind("note", order.getNote() )
                         .executeAndReturnGeneratedKeys("id")
                         .mapTo(Integer.class)
                         .one();

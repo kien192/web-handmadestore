@@ -132,6 +132,7 @@ public class SignUp extends HttpServlet {
             errors.put(fieldName, viewName + " không được bỏ trống");
         }
 
+
     }
 
 
