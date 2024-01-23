@@ -19,7 +19,6 @@ public class Order implements Serializable {
     private int userId;
     private String note;
 
-    private String note;
 
     public Order() {
     }

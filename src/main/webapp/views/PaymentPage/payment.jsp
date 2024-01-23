@@ -139,7 +139,7 @@
                             </div>
                         </div>
                     </div>
-<<<<<<< HEAD
+
                     <div class="col-lg-5 col-sm-6">
                         <div class="h6 text-black fw-bold">
                             Thanh toán
