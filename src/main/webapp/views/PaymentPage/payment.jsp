@@ -5,11 +5,7 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="model.bean.Item" %>
 <%@ page import="model.service.ImageService" %>
-<<<<<<< HEAD
 <%@ page import="java.util.Map" %>
-=======
-<%@ page import="model.bean.User" %>
->>>>>>> origin/main
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
