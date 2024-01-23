@@ -33,7 +33,7 @@ public class ForgotPassword extends HttpServlet {
         if (page.equals("1")) {
             String email = req.getParameter("email");
             if (email == null) {
-                req.getRequestDispatcher("views/Login/view_login/forgotpassword.jsp").forward(req, resp);
+                 req.getRequestDispatcher("views/Login/view_login/forgotpassword.jsp").forward(req, resp);
             } else {
                 User user = UserDAO.getUserByEmail(email);
                 if (user != null) {

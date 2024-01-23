@@ -373,11 +373,6 @@
     }
 
 
-
-
-
-
-
 </style>
 <body>
 <div id="menubar" class="menu sticky-top">
@@ -493,7 +488,9 @@
 
                             </div>
                         </li>
+
                         <%total +=  (items.getQuantity() * items.getPrice()); %>
+
                         <%}%>
 
                     </ul>
@@ -503,15 +500,23 @@
                             <span class="price"> <%=numberFormat.format(total)%></span>
                         </div>
                     </div>
+                     <%if (!cart.getItems().isEmpty()) {%>
                     <div class="pda rigth-ct">
+
                         <a href="<%=request.getContextPath()%>/views/CartPage/cart.jsp" class="btn"><span>Giỏ hàng</span></a>
+
                         <%if(u != null){%>
                         <a href="<%=request.getContextPath()%>/views/PaymentPage/payment.jsp" class="btn"><span>Thanh Toán</span></a>
                         <%}else{%>
                         <a href="<%=request.getContextPath()%>/login" class="btn"><span>Thanh Toán</span></a>
                         <%}%>
 
+
                     </div>
+                     <%} else {%>
+                     <div class="align-content-center">
+                   <span>Giỏ hàng đang trống !</span></div>
+               <%}%>
                 </ul>
 
             </div>
