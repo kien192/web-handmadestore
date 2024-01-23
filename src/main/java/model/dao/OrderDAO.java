@@ -174,17 +174,18 @@ public class OrderDAO {
 
 
          */
-        String sql = "INSERT INTO `order` ( totalPrice, orderDate, consigneeName, consigneePhoneNumber, address ,shippingFee,  userId)"
+        String sql = "INSERT INTO `order` ( totalPrice, orderDate, status, consigneeName, consigneePhoneNumber, address ,shippingFee,  userId)"
                 +
-                " VALUES(:totalPrice, :orderDate, :consigneeName, :consigneePhoneNumber , :address,:shippingFee, :userId)";
+                " VALUES(:totalPrice, :orderDate, :status, :consigneeName, :consigneePhoneNumber , :address,:shippingFee, :userId)";
 
         try {
             JDBIConnector.me().useHandle(handle -> {
 
                 //Lấy id của order
                 int orderId = handle.createUpdate(sql)
-                        .bind("totalPrice",5 )
+                        .bind("totalPrice",cart.getTotalMoney() + 35000 )
                         .bind("orderDate", date)
+                        .bind("status", "Chờ xác nhận")
                         .bind("consigneeName", order.getConsigneeName())
                         .bind("consigneePhoneNumber", order.getConsigneePhoneNumber())
                         .bind("address", order.getAddress())

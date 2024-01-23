@@ -42,6 +42,7 @@ public class Cart {
         return true;
     }
 
+
     public int getQuantityById(int id) {
         int i = 0;
         if (!items.containsKey(id)) return i;
@@ -65,7 +66,7 @@ public class Cart {
     public double getTotalMoney() {
         double totalMoney = 0;
         for (Item item : items.values()) {
-            totalMoney += (item.getQuantity() * item.getPrice());
+            totalMoney += (item.getQuantity() * item.getProduct().getSellingPrice());
         }
         return totalMoney;
     }
@@ -73,6 +74,7 @@ public class Cart {
     public int getTotal() {
         return items.size();
     }
+
 
     public void clear() {
         items.clear();
