@@ -218,6 +218,7 @@
         </div>
     </form>
 </div>
+<div><%@include file="../Footer/footer.jsp"%></div>
 <script>
     function editName() {
         document.getElementById("input_name").disabled = false;

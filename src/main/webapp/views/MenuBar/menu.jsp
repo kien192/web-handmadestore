@@ -428,7 +428,7 @@
                 <span><%= u.getName()%></span></button>
             <ul id="dangxuat" class="dx dropdown-menu">
 
-                <li><a class="dropdown-item" href=""><i class="fa-solid fa-user-pen"></i> Thay Đổi Thông Tin</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/views/Admin/changeUserInfo.jsp"><i class="fa-solid fa-user-pen"></i> Thay Đổi Thông Tin</a></li>
                 <li><a class="dropdown-item" href="<%=request.getContextPath()%>/logout"><i class="fa-solid fa-right-from-bracket"></i> Đăng
                     Xuất</a></li>
             </ul>
