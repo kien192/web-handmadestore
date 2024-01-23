@@ -86,7 +86,20 @@
         .table-wrapper-scroll-y {
             display: block;
         }
-
+        <%--                    order`
+                            `id`                   int(11) NOT NULL,
+                            `orderDate`            datetime       DEFAULT current_timestamp(),
+                            `status`               varchar(20)    NOT NULL,
+                            `consigneeName`        varchar(255)   NOT NULL,
+                            `consigneePhoneNumber` varchar(255)   NOT NULL,
+                            `address`              varchar(200)   NOT NULL,
+                            `shippingFee`          decimal(10, 2) DEFAULT 0.00,
+                            `totalPrice`           decimal(10, 2) NOT NULL,
+                                             `order_details`
+                            `productId`              int(11) NOT NULL,
+                            `quantity`               int(11) NOT NULL,
+                            `finalSellingPrice`      decimal(10, 2) NOT NULL,
+                        --%>
         .buttonload {
             background-color: #04AA6D; /* Green background */
             border: none; /* Remove borders */
