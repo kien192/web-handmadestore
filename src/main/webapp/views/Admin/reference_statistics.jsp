@@ -150,7 +150,6 @@
     <div class="row">
         <div class="user-header">
             <h5 class="title-f">10 Khách hàng mới</h5>
-            <span><a href="../customer_managerment.html">Chi tiết</a></span>
         </div>
         <hr class="line-split">
         <%for (User u : UserService.getInstance().getNewUsersTop(10)) {%>

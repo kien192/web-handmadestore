@@ -2,6 +2,7 @@
 <%@ page import="model.service.CategoryService" %>
 <%@ page import="model.bean.Category" %>
 <%@ page import="model.bean.Cart" %>
+<%@ page import="model.bean.Item" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Locale" %>
@@ -37,7 +38,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!--icon-->
-<%--    <%@include file="menu.css" %>--%>
+    <%--    <%@include file="menu.css" %>--%>
     <title>Menu</title>
 </head>
 <style>
@@ -130,8 +131,6 @@
 
     #dangxuat a {
         color: black;
-        padding-right: 25%;
-        padding-left: 25%;
     }
 
     .menu ul li.login:hover #dangxuat {
@@ -161,7 +160,7 @@
         transform: translate(50%,-50%);
     }
 
-/*    phần giỏ hàng*/
+    /*    phần giỏ hàng*/
     /*
 Đây la noi css nè các ban
  */
@@ -170,7 +169,7 @@
         display: none;
         position: absolute;
         position: fixed;
-        top: 100px;
+        top: 90px;
         right: 20px;
         /*transform: translate(10%,30%);*/
         box-shadow: 0 0 15px -5px rgba(0,0,0, 0.4);
@@ -425,8 +424,7 @@
             <ul id="dangxuat" class="dx dropdown-menu">
 
                 <li><a class="dropdown-item" href=""><i class="fa-solid fa-user-pen"></i> Thay Đổi Thông Tin</a></li>
-                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/views/Login/view_login/login.jsp"><i class="fa-solid fa-right-from-bracket"></i> Đăng
-
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/logout"><i class="fa-solid fa-right-from-bracket"></i> Đăng
                     Xuất</a></li>
             </ul>
             <%}%>
@@ -449,39 +447,39 @@
 
             <!--Danh sách giỏ hàng -->
 
-                 <div class="top-cart-content ">
-                 <ul id="cart-side-bar" class="mini-product-list">
+            <div class="top-cart-content ">
+                <ul id="cart-side-bar" class="mini-product-list">
 
                     <ul class="list-item-cart">
                         <% double total = 0;%>
-                        <% for (Item item0 : cart.getItems().values()) { %>
+                        <% for (Item items : cart.getItems().values()) { %>
                         <li class="item-sub">
                             <div class="border_list">
                                 <a class="product-image" href="">
-                                    <img src="<%=request.getContextPath()%>/<%=ImageService.getInstance().pathImageOnly(item0.getProduct().getId())%>" width="100" alt="">
+                                    <img src="<%=request.getContextPath()%>/<%=ImageService.getInstance().pathImageOnly(items.getProduct().getId())%>" width="100" alt="">
                                 </a>
                                 <div class="detail-item">
                                     <div class="product-detail">
                                         <p class="product-name">
-                                            <a href=""><%=item0.getProduct().getName()%></a>
+                                            <a href=""><%=items.getProduct().getName()%></a>
                                         </p>
                                     </div>
                                     <div class="product-detail-bottom">
-                                        <span class="price"> <%=numberFormat.format(item0.getPrice())%></span>
+                                        <span class="price"> <%=numberFormat.format(items.getPrice())%></span>
 
 
 
-                                        <a href="<%=request.getContextPath()%>/add-cart?actionCart=delete&id=<%=item0.getProduct().getId()%>">
+                                        <a href="<%=request.getContextPath()%>/add-cart?actionCart=delete&id=<%=items.getProduct().getId()%>">
                                             <i class="bi bi-x-circle-fill"></i>
                                         </a>
                                         <div class="quantity-select">
 
                                             <button class="pd-des m-0" type="submit" name="num" value="-1">
-                                                <a href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=-1&id=<%=item0.getProduct().getId()%>">- </a></button>
-                                            <input type="text" readonly class="quantity-input p-0" value="<%=item0.getQuantity()%>">
+                                                <a href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=-1&id=<%=items.getProduct().getId()%>">- </a></button>
+                                            <input type="text" readonly class="quantity-input p-0" value="<%=items.getQuantity()%>">
                                             <button type="submit" name="num" value="1"
                                                     class="pd-inc m-0">
-                                                <a href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=1&id=<%=item0.getProduct().getId()%>">+</a></button>
+                                                <a href="<%=request.getContextPath()%>/add-cart?actionCart=put&num=1&id=<%=items.getProduct().getId()%>">+</a></button>
 
                                         </div>
                                     </div>
@@ -490,7 +488,9 @@
 
                             </div>
                         </li>
-                        <%total +=  (item0.getQuantity() * item0.getPrice()); %>
+
+                        <%total +=  (items.getQuantity() * items.getPrice()); %>
+
                         <%}%>
 
                     </ul>
@@ -505,8 +505,12 @@
 
                         <a href="<%=request.getContextPath()%>/views/CartPage/cart.jsp" class="btn"><span>Giỏ hàng</span></a>
 
+                        <%if(u != null){%>
+                        <a href="<%=request.getContextPath()%>/views/PaymentPage/payment.jsp" class="btn"><span>Thanh Toán</span></a>
+                        <%}else{%>
+                        <a href="<%=request.getContextPath()%>/login" class="btn"><span>Thanh Toán</span></a>
+                        <%}%>
 
-                         <a href="<%=request.getContextPath()%>/views/PaymentPage/payment.jsp" class="btn"><span>Thanh Toán</span></a>
 
                     </div>
                      <%} else {%>

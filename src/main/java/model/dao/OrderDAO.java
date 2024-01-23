@@ -92,7 +92,7 @@ public class OrderDAO {
 
     public static List<Order> getOrderByCustomerId(String customerId) {
         List<Order> orders = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("select * from `order` where userId=?")
+                handle.createQuery("select * from `order` where userId=? order by orderDate desc")
                         .bind(0, customerId)
                         .mapToBean(Order.class)
                         .stream().collect(Collectors.toList())
@@ -103,7 +103,7 @@ public class OrderDAO {
     public static List<Order> getOrderByCustomerNamePart(String customerNamePart) {
         List<Order> orders = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("select * from `order` where userId IN(" +
-                                "select id from user where name like ?)")
+                                "select id from user where name like ?) order by orderDate desc")
                         .bind(0, "%" + customerNamePart + "%")
                         .mapToBean(Order.class)
                         .stream().collect(Collectors.toList())
@@ -241,6 +241,7 @@ public class OrderDAO {
         for (Order order : getAllOrder()) {
             System.out.println(order.getId() + " - " + getExactlyTotalPriceNoShippingFee(order.getId() + ""));
         }
+
     }
 
     public static double getExactlyTotalPriceNoShippingFee(String orderId) {
@@ -250,4 +251,7 @@ public class OrderDAO {
 
         return re;
     }
+
+
+
 }

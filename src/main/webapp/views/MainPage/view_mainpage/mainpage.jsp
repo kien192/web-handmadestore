@@ -1,11 +1,9 @@
 <%@ page import="java.util.List" %>
-<%@ page import="model.service.CategoryService" %>
 <%@ page import="model.dao.ProductDAO" %>
-<%@ page import="model.service.ImageService" %>
-<%@ page import="model.service.ProductService" %>
 <%@ page import="model.dao.TipDAO" %>
 <%@ page import="model.bean.*" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="model.service.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -35,30 +33,17 @@
                 aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
+        <%!List<BannerItem> bannerItems = model.service.BannerService.getInstance().getAll();%>
+        <%for(BannerItem i : bannerItems){%>
         <div class="carousel-item active">
-            <img src="https://images.pexels.com/photos/1303081/pexels-photo-1303081.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            <img src="<%=request.getContextPath()+"/"+i.getImg_path()%>"
                  class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
-                <h5 class=""> KÍNH CHÀO QUÝ KHÁCH!</h5>
-                <p>Mỗi sản phẩm handmade là một phần trái tim của ai đó.</p>
+                <h5 class=""><%=i.getTitle()%></h5>
+                <p><%=i.getDescription()%></p>
             </div>
         </div>
-        <div class="carousel-item">
-            <img src="https://images.pexels.com/photos/157888/fashion-glasses-go-pro-female-157888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                 class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>ĐỘC - ĐẸP - BỀN - GIÁ PHÙ HỢP</h5>
-                <p>Chế tạo những sản phẩm độc đáo, với tình yêu và sự tận tụy</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="https://images.pexels.com/photos/1424464/pexels-photo-1424464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                 class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>CÙNG NHAU KHÁM PHÁ NÀO!</h5>
-                <p>Những sản phẩm đang nóng lòng đợi bạn rinh về nè !</p>
-            </div>
-        </div>
+        <%}%>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -94,7 +79,7 @@
             <li class="product_list">
                 <div class="item_product  me-4">
                     <a class="image" href="<%=request.getContextPath()%>/product-detail?id=<%=prd.getId()%>"> <img  src="<%=request.getContextPath()%>/<%=pathImage%>"> </a>
-                    <a href="product-detail?id=<%=prd.getId()%>"><p class="pt-4 px-3"><%=prd.getName() %>
+                    <a href="<%=request.getContextPath()%>/product-detail?id=<%=prd.getId()%>"><p class="pt-4 px-3"><%=prd.getName() %>
                     </p></a>
                     <%!double giaKhuyenMai;%>
                     <% giaKhuyenMai = ProductService.getInstance().productPriceIncludeDiscount(prd);%>
@@ -102,7 +87,7 @@
                     <del><%=numberFormat.format(prd.getSellingPrice())%></del>
                     <%}%>
                     <p><%=numberFormat.format(ProductService.getInstance().productPriceIncludeDiscount(prd))%></p>
-                    <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&id=<%=prd.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
+                    <div class="add-to-cart"><a href="<%=request.getContextPath()%>/add-cart?actionCart=post&num=1&id=<%=prd.getId()%>"><span>Thêm vào giỏ hàng</span> </a></div>
                 </div>
             </li>
             <%}%>
@@ -133,7 +118,7 @@
             <li class="product_list">
                 <div class="item_product  me-4">
                     <a class="image" href="<%=request.getContextPath()%>/product-detail?id=<%=pr.getId()%>"> <img  src="<%=request.getContextPath()%>/<%=pathImage%>"> </a>
-                    <a href="product-detail?id=<%=pr.getId()%>"><p class="pt-4 px-3"><%=pr.getName() %>
+                    <a href="<%=request.getContextPath()%>/product-detail?id=<%=pr.getId()%>"><p class="pt-4 px-3"><%=pr.getName() %>
                     </p></a>
                     <%!double giaBanSauCung;%>
                     <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(pr);%>
@@ -172,7 +157,7 @@
             %>
 
             <li class="item text-center">
-                <a href="<%=t.getVideoLink()%>"><img src="<%=t.getImgPath()%>" width="90%"></a>
+                <a href="<%=t.getVideoLink()%>"><img src="<%=request.getContextPath()%>/<%=t.getImgPath()%>" width="90%"></a>
                 <a href="<%=t.getVideoLink()%>"><h6 class="fw-bold text-center mt-3 px-3"><%=t.getTitle()%>
                 </h6></a>
                 <p class="px-5"><%=t.getDescription()%>

@@ -5,7 +5,11 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="model.bean.Item" %>
 <%@ page import="model.service.ImageService" %>
+<<<<<<< HEAD
 <%@ page import="java.util.Map" %>
+=======
+<%@ page import="model.bean.User" %>
+>>>>>>> origin/main
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -22,7 +26,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&display=swap" rel="stylesheet">
 </head>
+
 <body>
+
 
 <%User user = (User) session.getAttribute("auth");%>
 
@@ -128,10 +134,12 @@
                                               style="height: 150%"></textarea>
                                         <label for="address" class="floatingInput">Ghi Chú(Tùy Chọn)</label>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <div class="col-lg-5 col-sm-6">
                         <div class="h6 text-black fw-bold">
                             Thanh toán
@@ -189,10 +197,12 @@
                     <span>(<%=cart.getTotal()%> sản phẩm)</span>
                 </div>
                 <div style="
+
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;">
+
                     <div style="width: 90%;">
                         <table class="table table-striped table-borderless table-hover text-start">
                 <%double totalMoney = 0;%>
@@ -258,9 +268,11 @@
                                 </span>
                                     </th>
                                     <td class="text-end pe-3 fs-4 text-primary">
+
                                 <span>
                                    <%=numberFormat.format(totalMoney + 35000)%>
                                 </span>
+
                                     </td>
                                 </tr>
                                 </tfoot>
@@ -274,6 +286,7 @@
                             <div class="col-8 text-end">
                                 <button type="submit" class="btn btn-primary fs-1 color-for-bg">Đặt Hàng</button>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -300,3 +313,4 @@
     <script src="../PaymentPage/js/provinces-api.js"></script>
     </body>
     </html>
+

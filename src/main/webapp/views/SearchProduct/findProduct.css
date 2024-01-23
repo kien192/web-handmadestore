@@ -18,8 +18,11 @@ margin-bottom: 1vh;
     color: white;
     cursor: pointer;
 }
+.find .find_a{
+    padding: 2vh 3vh;
+}
 .box_find form button{
-    padding: 13px;
+    padding: 2vh;
     border: none;
     background: red
 }
@@ -136,11 +139,17 @@ li {
 .products .product_li .item_product .add-to-cart {
     background: #8b8b8b;
     font-size: 1rem;
-    padding: 1rem 0.8rem;
-    text-align: center;
-    color: white;
+    height: 10vh;
+    padding: 0;
     cursor: pointer;
     visibility: hidden;
+    border: 0;
+}
+ .add-to-cart a{
+    height: 9vh;
+}
+.add-to-cart span{
+    color: white;
 }
 
 .products .product_li .item_product:hover .add-to-cart {

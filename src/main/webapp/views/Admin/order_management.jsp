@@ -1,4 +1,3 @@
-<%@ page import="java.util.List" %>
 <%@ page import="model.bean.Order" %>
 <%@ page import="model.service.OrderService" %>
 <%@ page import="model.service.UserService" %>
@@ -7,9 +6,15 @@
 <%@ page import="model.bean.Product" %>
 <%@ page import="model.service.ProductService" %>
 <%@ page import="java.io.StringReader" %>
-<%@ page import="java.util.StringTokenizer" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Locale locale = new Locale("vi", "VN");
+    Currency currency = Currency.getInstance(locale);
+    NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+    numberFormat.setCurrency(currency);
+%>
 
 <%String currentFilter = (String) request.getAttribute("currentFilter");%>
 <%
@@ -87,6 +92,20 @@
             display: block;
         }
 
+        <%--                    order`
+                            `id`                   int(11) NOT NULL,
+                            `orderDate`            datetime       DEFAULT current_timestamp(),
+                            `status`               varchar(20)    NOT NULL,
+                            `consigneeName`        varchar(255)   NOT NULL,
+                            `consigneePhoneNumber` varchar(255)   NOT NULL,
+                            `address`              varchar(200)   NOT NULL,
+                            `shippingFee`          decimal(10, 2) DEFAULT 0.00,
+                            `totalPrice`           decimal(10, 2) NOT NULL,
+                                             `order_details`
+                            `productId`              int(11) NOT NULL,
+                            `quantity`               int(11) NOT NULL,
+                            `finalSellingPrice`      decimal(10, 2) NOT NULL,
+                        --%>
         .buttonload {
             background-color: #04AA6D; /* Green background */
             border: none; /* Remove borders */
@@ -217,11 +236,11 @@
                         </td>
                         <td><%=o.getOrderDate()%>
                         </td>
-                        <td><%=o.getTotalPrice()%>
+                        <td><%=numberFormat.format(o.getTotalPrice())%>
                         </td>
-                        <td><%=o.getShippingFee()%>
+                        <td><%=numberFormat.format(o.getShippingFee())%>
                         </td>
-                        <td><%=o.getTotalPrice() + o.getShippingFee()%>
+                        <td><%=numberFormat.format(o.getTotalPrice() + o.getShippingFee())%>
                         </td>
                         <td
                                 <%!
@@ -274,6 +293,13 @@
                         <strong class="w-auto"><%=currentOrder.getId()%>
                         </strong>
                     </div>
+
+                    <div class="row">
+                        Địa chỉ giao:
+                        <strong class="w-auto"><%=currentOrder.getAddress()%>
+                        </strong>
+                    </div>
+
                     <div class="row">
                         Tên người nhận:
                         <strong class="w-auto"><%=currentOrder.getConsigneeName()%>
@@ -282,11 +308,6 @@
                     <div class="row">
                         Số điện thoại người nhận:
                         <strong class="w-auto"><%=currentOrder.getConsigneePhoneNumber()%>
-                        </strong>
-                    </div>
-                    <div class="row">
-                        Địa chỉ giao:
-                        <strong class="w-auto"><%=currentOrder.getAddress()%>
                         </strong>
                     </div>
                     <div class="row">
@@ -312,6 +333,11 @@
                     <div class="row">
                         Email khách hàng:
                         <strong class="w-auto"><%=currentOrderCustomer.getEmail()%>
+                        </strong>
+                    </div>
+                    <div class="row">
+                        Ghi chú:
+                        <strong class="w-auto"><%=(currentOrder.getNote() != null) ? currentOrder.getNote() : ""%>
                         </strong>
                     </div>
                 </div>
@@ -345,17 +371,25 @@
                                     <del><%=orderDetail.getSellingPrice()%>
                                     </del>
                                     <%}%>
-                                    <%=orderDetail.getFinalSellingPrice()%>
+                                    <%=numberFormat.format(orderDetail.getFinalSellingPrice())%>
                                 </td>
                                 <td><%=orderDetail.getQuantity()%>
                                 </td>
-                                <td><%=orderDetail.getQuantity() * orderDetail.getFinalSellingPrice()%>
+                                <td><%=numberFormat.format(orderDetail.getQuantity() * orderDetail.getFinalSellingPrice())%>
                                 </td>
                                 <td>
-                                    <a href="" style="color: #ffcc00;text-decoration: none;">
-                                        4
+                                    <%!int star = 0;%>
+                                    <%
+                                        star = ProductService.getInstance().getNumberRateStarsByUser(p.getId(), currentOrderCustomer.getId());
+                                        if (star > 0 && currentOrder.isSucccessfulOrder()) {
+                                    %>
+                                    <a href="<%=request.getContextPath()%>/product-detail?id=<%=p.getId()%>"
+                                       target="_blank"
+                                       style="color: #ffcc00;text-decoration: none;">
+                                        <%=star%>
                                         <i class="fa-regular fa-star" style="color: #ffcc00"></i>
                                     </a>
+                                    <%}%>
                                 </td>
                             </tr>
                             <%}%>
@@ -367,21 +401,21 @@
                             <div class="row">
                                 <div class="col-10">Tiền hóa đơn:</div>
                                 <div class="col-2">
-                                    <strong><%=OrderService.getInstance().getExactlyTotalPriceNoShippingFee(currentOrder.getId() + "")%>
+                                    <strong><%=numberFormat.format(OrderService.getInstance().getExactlyTotalPriceNoShippingFee(currentOrder.getId() + ""))%>
                                     </strong>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-10"> Tiền vận chuyển:</div>
                                 <div class="col-2">
-                                    <strong><%=currentOrder.getShippingFee()%>
+                                    <strong><%=numberFormat.format(currentOrder.getShippingFee())%>
                                     </strong>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-10">Tổng tiền:</div>
                                 <div class="col-2">
-                                    <strong><%=currentOrder.getTotalPrice()%>
+                                    <strong><%=numberFormat.format(currentOrder.getTotalPrice())%>
                                     </strong>
                                 </div>
                             </div>
