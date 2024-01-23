@@ -1,4 +1,3 @@
-<%@ page import="java.util.List" %>
 <%@ page import="model.bean.Order" %>
 <%@ page import="model.service.OrderService" %>
 <%@ page import="model.service.UserService" %>
@@ -7,9 +6,15 @@
 <%@ page import="model.bean.Product" %>
 <%@ page import="model.service.ProductService" %>
 <%@ page import="java.io.StringReader" %>
-<%@ page import="java.util.StringTokenizer" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Locale locale = new Locale("vi", "VN");
+    Currency currency = Currency.getInstance(locale);
+    NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+    numberFormat.setCurrency(currency);
+%>
 
 <%String currentFilter = (String) request.getAttribute("currentFilter");%>
 <%
@@ -86,6 +91,7 @@
         .table-wrapper-scroll-y {
             display: block;
         }
+
         <%--                    order`
                             `id`                   int(11) NOT NULL,
                             `orderDate`            datetime       DEFAULT current_timestamp(),
@@ -230,11 +236,11 @@
                         </td>
                         <td><%=o.getOrderDate()%>
                         </td>
-                        <td><%=o.getTotalPrice()%>
+                        <td><%=numberFormat.format(o.getTotalPrice())%>
                         </td>
-                        <td><%=o.getShippingFee()%>
+                        <td><%=numberFormat.format(o.getShippingFee())%>
                         </td>
-                        <td><%=o.getTotalPrice() + o.getShippingFee()%>
+                        <td><%=numberFormat.format(o.getTotalPrice() + o.getShippingFee())%>
                         </td>
                         <td
                                 <%!
@@ -365,11 +371,11 @@
                                     <del><%=orderDetail.getSellingPrice()%>
                                     </del>
                                     <%}%>
-                                    <%=orderDetail.getFinalSellingPrice()%>
+                                    <%=numberFormat.format(orderDetail.getFinalSellingPrice())%>
                                 </td>
                                 <td><%=orderDetail.getQuantity()%>
                                 </td>
-                                <td><%=orderDetail.getQuantity() * orderDetail.getFinalSellingPrice()%>
+                                <td><%=numberFormat.format(orderDetail.getQuantity() * orderDetail.getFinalSellingPrice())%>
                                 </td>
                                 <td>
                                     <%!int star = 0;%>
@@ -395,21 +401,21 @@
                             <div class="row">
                                 <div class="col-10">Tiền hóa đơn:</div>
                                 <div class="col-2">
-                                    <strong><%=OrderService.getInstance().getExactlyTotalPriceNoShippingFee(currentOrder.getId() + "")%>
+                                    <strong><%=numberFormat.format(OrderService.getInstance().getExactlyTotalPriceNoShippingFee(currentOrder.getId() + ""))%>
                                     </strong>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-10"> Tiền vận chuyển:</div>
                                 <div class="col-2">
-                                    <strong><%=currentOrder.getShippingFee()%>
+                                    <strong><%=numberFormat.format(currentOrder.getShippingFee())%>
                                     </strong>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-10">Tổng tiền:</div>
                                 <div class="col-2">
-                                    <strong><%=currentOrder.getTotalPrice()%>
+                                    <strong><%=numberFormat.format(currentOrder.getTotalPrice())%>
                                     </strong>
                                 </div>
                             </div>
