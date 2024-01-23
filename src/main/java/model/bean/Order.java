@@ -14,9 +14,11 @@ public class Order implements Serializable {
     private String consigneeName;
     private String consigneePhoneNumber;
     private String address;
+
     private double shippingFee;
     private int userId;
     private String note;
+
 
     public Order() {
     }

@@ -3,8 +3,11 @@
 <%@ page import="model.service.ImageService" %><%--
 =======
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <%--
 >>>>>> origin/main
+>>>>>>> origin/main
 
   Created by IntelliJ IDEA.
   User: Kien Nguyen
