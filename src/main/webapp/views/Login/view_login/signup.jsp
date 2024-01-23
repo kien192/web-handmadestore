@@ -290,7 +290,7 @@
 
     <div class="form signup">
         <div class="main-logo">
-<%--            <img src="<%=request.getContextPath()+"/"+ImageService.getLogoImagePath()%>" alt="" class="logo">--%>
+            <img src="<%=request.getContextPath()+"/"+ImageService.getLogoImagePath()%>" alt="" class="logo">
         </div>
 
         <div class="form-content">

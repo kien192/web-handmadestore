@@ -155,7 +155,7 @@
                         <tr>
                             <td>
                                 <div>
-                                    <img class="product-img" src="../../views/images/anh1.webp" alt="sanpham">
+                                    <img class="product-img" src="../../images/products/p01.webp" alt="sanpham">
                                     <span class="product-quantity">1</span>
                                 </div>
                             </td>
@@ -169,7 +169,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <img class="product-img" src="../../views/images/anh2.webp" alt="sanpham">
+                                <img class="product-img" src="../../images/products/p02.webp" alt="sanpham">
                                 <span class="product-quantity">2</span>
                             </td>
                             <td>
