@@ -1,5 +1,6 @@
 package model.bean;
 
+import com.google.protobuf.MapEntry;
 import model.service.ProductService;
 
 import java.util.ArrayList;
@@ -42,11 +43,11 @@ public class Cart {
     }
 
     public int getQuantityById(int id) {
-        int i= 0;
-        if(!items.containsKey(id))  return i;
+        int i = 0;
+        if (!items.containsKey(id)) return i;
 
-            Item item = items.get(id);
-        i =    item.getQuantity();
+        Item item = items.get(id);
+        i = item.getQuantity();
         return i;
     }
 
@@ -57,23 +58,25 @@ public class Cart {
     }
 
     public void updateValue(int id) {
-    if(!items.containsKey(id)) return;
+        if (!items.containsKey(id)) return;
 
     }
+
     public double getTotalMoney() {
         double totalMoney = 0;
-        for(Item item : items.values()) {
+        for (Item item : items.values()) {
             totalMoney += (item.getQuantity() * item.getPrice());
-            }
+        }
         return totalMoney;
     }
 
-public int getTotal(){
+    public int getTotal() {
         return items.size();
-}
-public void clear() {
+    }
+
+    public void clear() {
         items.clear();
-}
+    }
 
     //giỏ trống khong có gì.
 //    public Cart() {

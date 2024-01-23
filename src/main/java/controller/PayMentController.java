@@ -18,7 +18,15 @@ import java.io.IOException;
 public class PayMentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+        HttpSession sessions = req.getSession();
+        User user = (User) sessions.getAttribute("auth");
+        Cart cart = (Cart) sessions.getAttribute("cart");
+        if (user == null) {
+            resp.sendRedirect(  "views/Login/view_login/login.jsp");
+        } else {
+
+            doPost(req, resp);
+        }
     }
 
     //
@@ -28,9 +36,6 @@ public class PayMentController extends HttpServlet {
         User user = (User) sessions.getAttribute("auth");
         Cart cart = (Cart) sessions.getAttribute("cart");
 
-        if (user == null) {
-            resp.sendRedirect(  "views/Login/view_login/login.jsp");
-        } else {
             OrderDAO orderZ = new OrderDAO();
 
             req.setCharacterEncoding("UTF-8");
@@ -46,9 +51,10 @@ public class PayMentController extends HttpServlet {
 
 //           Xoasa sesion gio hàng
             orderZ.addOrder(order, cart, user);
-            req.getRequestDispatcher("req.getContextPath() + \"/views/MainPage/view_mainpage/mainpage.jsp").forward(req,resp);
-
+            cart.clear();
+            req.getSession().setAttribute("cart",cart);
+            resp.sendRedirect(req.getContextPath()+ "/views/MainPage/view_mainpage/mainpage.jsp");
 
         }
     }
-}
+

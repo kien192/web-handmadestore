@@ -174,43 +174,44 @@ public class OrderDAO {
 
 
          */
-        String sql = "INSERT INTO order ( totalPrice, orderDate, consigneeName, consigneePhoneNumber, address , userId)"
+        String sql = "INSERT INTO `order` ( totalPrice, orderDate, consigneeName, consigneePhoneNumber, address ,shippingFee,  userId)"
                 +
-                " VALUES(:totalPrice, :orderDate, :consigneeName, :consigneePhoneNumber , :address, :userId)";
+                " VALUES(:totalPrice, :orderDate, :consigneeName, :consigneePhoneNumber , :address,:shippingFee, :userId)";
 
         try {
             JDBIConnector.me().useHandle(handle -> {
 
                 //Lấy id của order
                 int orderId = handle.createUpdate(sql)
-                        .bind("totalPrice", cart.getTotalMoney())
+                        .bind("totalPrice",5 )
                         .bind("orderDate", date)
                         .bind("consigneeName", order.getConsigneeName())
                         .bind("consigneePhoneNumber", order.getConsigneePhoneNumber())
                         .bind("address", order.getAddress())
+                        .bind("shippingFee", 35000)
                         .bind("userId", u.getId())
-                        .bind("note", order.getNote())
                         .executeAndReturnGeneratedKeys("id")
                         .mapTo(Integer.class)
                         .one();
 
 
+                System.out.println("check 0: "+orderId);
                 for (Item i : cart.getItems().values()) {
-
+                    System.out.println("check 1: "+i.getProduct().getId());
                     //add vào bảng order-details !
-                    String sql1 = "INSERT INTO order_details (orderId, productId, quantity, sellingPrice, finalSellingPrice"
+                    String sql1 = "INSERT INTO `order_details` (orderId, productId, quantity, sellingPrice, finalSellingPrice)"
                             + "VALUES(:orderId, :productId, :quantity, :sellingPrice, :finalSellingPrice)";
                     JDBIConnector.me().useHandle(handle1 -> {
-                        handle1.createUpdate(sql)
-                                .bind("oderId", orderId)
+                        handle1.createUpdate(sql1)
+                                .bind("orderId", orderId)
                                 .bind("productId", i.getProduct().getId())
                                 .bind("quantity", i.getQuantity())
                                 .bind("sellingPrice", i.getProduct().getSellingPrice())
                                 .bind("finalSellingPrice", i.getPrice())
-
                                 .execute();
                     });
 
+                    System.out.println("check final: ");
 
                     //Lay id don hang vua them
                 }
@@ -218,7 +219,7 @@ public class OrderDAO {
             });
 
 //            cập nhật lại số lượng sản phẩm
-            String sql3 = "UPDATE product SET quantity= quantity - :quantityOrder where id= :id";
+            String sql3 = "UPDATE `product` SET quantity= quantity - :quantityOrder where id= :id";
             for(Item item : cart.getItems().values() ) {
             JDBIConnector.me().useHandle(handle3 ->
                     handle3.createUpdate(sql3)
@@ -234,53 +235,7 @@ public class OrderDAO {
 
 
     public static void main(String[] args) {
-//        System.out.println(OrderService.getInstance().getOrderByCustomerId(44 + ""));
-//        System.out.println(UserService.getInstance().getUserById((44 + "")));
-//        System.out.println(waitConfirmOrdersNumber());
-        /**
-         * Sử dụng cho việc checkout
-         */
-        //lấy ngày hiện tại
-//    java.time.LocalDate curDate = java.time.LocalDate.now();
-//    String date = curDate.toString();
-//    public void addOrder(User user , Cart cart) {
-//        Timestamp dateOrder = new Timestamp(System.currentTimeMillis());
-//    try {
-//        String sql = "INSERT INTO [order] (totalPrice, orderDate, userId) values (?,?,?)";
-//        JDBIConnector.me().useHandle(handle -> {
-//                handle.createUpdate(sql).bind(0, cart.getTotalPrice())
-//                        .bind(1, dateOrder)
-//                        .bind(2, user.getId())
-//                        .execute(); }
-//        );
-
-        //Lấy id vừa được theem vào order
-//        int orderId =  JDBIConnector.me().withHandle(handle ->
-//                handle.createQuery("Select id from [order] order by id desc limit 1")
-//                        .mapTo(Integer.class)
-//                        .findOne()
-//                        .orElseThrow()
-//        );
 //
-//        //Thực hiện insert vào bảng orderDetails cho từng sản phẩm trong giỏ hàng.
-//        String sql1 = "INSERT INTO [order_details] (orderId, productId, quantity) values (?,?,?)";
-//        for(Item item : cart.getItems()) {
-//            JDBIConnector.me().useHandle(
-//                    handle -> {
-//                        handle.createUpdate(sql1)
-//                                .bind(0,orderId )
-//                                .bind(1, item.getProduct().getId())
-//                                .bind(2, item.getQuantity())
-//                                .execute();
-//                    }
-//            );
-//        }
-//
-//    }
-//
-//    catch (Exception e) {
-//        e.printStackTrace();
-//    }
         for (Order order : getAllOrder()) {
             System.out.println(order.getId() + " - " + getExactlyTotalPriceNoShippingFee(order.getId() + ""));
         }

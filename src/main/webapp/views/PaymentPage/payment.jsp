@@ -40,11 +40,11 @@
     String namePay = request.getParameter("namePay") == null ? "" : request.getParameter("namePay");
     String phonePay = request.getParameter("phonePay") == null ? "" : request.getParameter("phonePay");
     String address = request.getParameter("address") == null ? "" : request.getParameter("address");
-    String notePay = request.getParameter("notePay") == null ? "" : request.getParameter("notePay");
-
+//    String notePay = request.getParameter("notePay") == null ? "" : request.getParameter("notePay");
+//    double totalMoney = Double.parseDouble(request.getParameter("pricePay") == null ? "" : request.getParameter("pricePay"));
 %>
 
-    <form action="<%=request.getContextPath()%>/payment" method="post">
+    <form action="<%=request.getContextPath()%>/payment" method="get">
         <div class="row">
             <div class="col-lg-8 col-sm-12 p-0">
                 <div class="h1 border-bottom alert ps-0" style="height: 12%">
@@ -102,12 +102,12 @@
                                         <%} else {%>
                                         <input id="address" name="address" type="text" class="form-control"
                                                placeholder="Địa chỉ" value="<%=address%>" >
-                                        <label for="address" class="floatingInput"></label>
+                                        <label for="address" class="floatingInput">Địa Chỉ: Số Nhà, Tên Đường,...</label>
                                         <%}%>
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                    <textarea id="note" name="note" class="form-control"
+                                    <textarea id="note" name="notePay" class="form-control"
                                               style="height: 150%"></textarea>
                                         <label for="address" class="floatingInput">Ghi Chú(Tùy Chọn)</label>
                                     </div>
@@ -125,7 +125,7 @@
                                 <input class="form-check-input fs-5 me-3" style="cursor: pointer" type="radio"
                                        name="flexRadioDefault"
                                        id="thanhtoankhigiaohang"
-                                       onclick="hideBankaccount_infor()">
+                                       onclick="hideBankaccount_infor()" checked>
                                 <label class="form-check-label" style="cursor: pointer" for="thanhtoankhigiaohang">
                                     Thanh toán khi giao hàng (COD)
                                 </label>
@@ -178,7 +178,7 @@
             text-align: center;">
                     <div style="width: 90%;">
                         <table class="table table-striped table-borderless table-hover text-start">
-                            <%double totalMoney = 0;%>
+                <%double totalMoney = 0;%>
                          <%for(Item i : cart.getItems().values()) {%>
                            <tr>
                                 <td>
