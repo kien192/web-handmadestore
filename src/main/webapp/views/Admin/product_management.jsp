@@ -6,7 +6,16 @@
 <%@ page import="model.service.DiscountService" %>
 <%@ page import="model.service.ProductService" %>
 <%@ page import="model.bean.Discount" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.util.Currency" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Locale locale = new Locale("vi", "VN");
+    Currency currency = Currency.getInstance(locale);
+    NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+    numberFormat.setCurrency(currency);
+%>
 <%List<Product> products = (List<Product>) request.getAttribute("products");%>
 <%products = (products == null) ? new ArrayList<>() : products;%>
 <%List<Category> categories = (List<Category>) request.getAttribute("categories");%>
@@ -512,9 +521,9 @@
                     </td>
                     <td class="px-4"><%=p.getSoldout()%>
                     </td>
-                    <td class="px-4"><%=p.getCostPrice()%>
+                    <td class="px-4"><%=numberFormat.format(p.getCostPrice())%>
                     </td>
-                    <td class="px-4"><%=p.getSellingPrice()%>
+                    <td class="px-4"><%=numberFormat.format(p.getSellingPrice())%>
                     </td>
                     <%!double finalSellingPrice;%>
                     <%finalSellingPrice = ProductService.getInstance().productPriceIncludeDiscount(p);%>
@@ -529,7 +538,7 @@
                         <%=(d == null) ? "" : d.getName() + " - giảm " + (d.getPercentageOff() * 100) + "%"%>
                         <%}%>
                     </td>
-                    <td class="px-4"><%=finalSellingPrice%>
+                    <td class="px-4"><%=numberFormat.format(finalSellingPrice)%>
                     <td class="px-2">
                         <%if (p.getIsSale() == 0) {%>
                         <%--0: false--%>
