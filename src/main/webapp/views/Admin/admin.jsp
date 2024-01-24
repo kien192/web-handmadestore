@@ -110,7 +110,7 @@
                 </div>
                 <%--                new order--%>
                 <%if (OrderService.getInstance().waitConfirmOrdersNumber() > 0) {%>
-                <div style="color:red; font-size: xx-small; text-align: center">
+                <div style="color:red; font-size:small; text-align: center">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     (<%=OrderService.getInstance().waitConfirmOrdersNumber()%>) đơn hàng mới cần xác nhận
                 </div>

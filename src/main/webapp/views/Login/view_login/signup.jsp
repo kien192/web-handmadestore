@@ -325,7 +325,7 @@
                         <span class="error-message warning" style="font-size: 11px"><%= listNull.get("tel") %></span>
                         <% } %>
                         <span class="error-message warning" style="font-size: 11px"> <%=erPhoneExist%></span>
-                        <span id="phoneError" style="color: #eacc00; font-size: 11px; font-weight: bold"></span>
+                        <span id="phoneError" style="color: #FF5733; font-size: 11px; font-weight: bold"></span>
 
 
                     </div>
@@ -356,7 +356,7 @@
                     <% } %>
 
 
-                    <span id="passwordError" style="color: #eacc00; font-size: 11px; font-weight: bold"></span>
+                    <span id="passwordError" style="color: #FF5733; font-size: 11px; font-weight: bold"></span>
 
                 </div>
 

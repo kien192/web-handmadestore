@@ -128,7 +128,7 @@
                     </td>
                     <th scope="row"><%=p.getId()%>
                     </th>
-                    <th scope="row"><%=p.getName()%>>
+                    <th scope="row"><%=p.getName()%>
                     </th>
                     <th><%=p.getSoldout()%>
                     </th>

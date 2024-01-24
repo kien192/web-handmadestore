@@ -2,7 +2,6 @@ package controller;
 
 import model.bean.User;
 import model.dao.UserDAO;
-import model.service.JavaMail.MailService;
 import model.service.UserService;
 import utils.HashPassword;
 
@@ -30,8 +29,6 @@ public class SignUp extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        String page = req.getParameter("pageRe");
-
         String uname = req.getParameter("name");
         String utel = req.getParameter("tel");
         String upass = req.getParameter("pass");
@@ -56,11 +53,11 @@ public class SignUp extends HttpServlet {
             req.getRequestDispatcher("views/Login/view_login/signup.jsp").forward(req, resp);
         }
 
-         else    if(usByEmail != null ) {
+        else    if(usByEmail != null ) {
             req.setAttribute("erDuplicateEmail", "Email đã được sử dụng!");
             req.getRequestDispatcher("views/Login/view_login/signup.jsp").forward(req,  resp);
         }
-      else   if(UserService.getInstance().isPhoneNumberExist(utel) == true) {
+        else   if(UserService.getInstance().isPhoneNumberExist(utel) == true) {
             req.setAttribute("erPhoneExist", "Số điện thoại đã được sử dụng!");
             req.getRequestDispatcher("views/Login/view_login/signup.jsp").forward(req,  resp);
         }
@@ -80,45 +77,11 @@ public class SignUp extends HttpServlet {
             user.setPhoneNumber(utel);
 
 
-            if (page.equals("1")) {
-                String email = req.getParameter("email");
-                if (email == null) {
-                    req.getRequestDispatcher("views/Login/view_login/forgotpassword.jsp").forward(req, resp);
-                } else {
-                   user = UserDAO.getUserByEmail(email);
-                    if (user != null) {
-                        String code = MailService.sendCode(email);
-                        req.getSession().setAttribute("code", code);
-                        req.getSession().setAttribute("email", email);
-                        //gởi email
-                        resp.sendRedirect(req.getContextPath() + "/login.jsp?page=2&email=" + email);
-                    } else {
-                        req.setAttribute("result", "Email không tồn tại trong hệ thống");
-                        req.getRequestDispatcher("views/Login/view_login/forgotpassword.jsp").forward(req, resp);
-                    }
-                }
-            }
-
-            else if (page.equals("2")) {
-                String code_input = req.getParameter("code_input");
-                String email = (String) req.getSession().getAttribute("email");
-                String code = (String) req.getSession().getAttribute("code");
-                if (code_input == null) {
-                    req.getRequestDispatcher("views/Login/view_login/login.jsp?email=" + email).forward(req, resp);
-                } else {
-
-                    if (email != null && code.equals(code_input)) {
-                        resp.sendRedirect(req.getContextPath() + "/forgotpassword?page=3&email=" + email);
-                        req.getSession().removeAttribute("code");
-                    } else if ((email != null && !code.equals(code_input))) {
-                        req.setAttribute("result", "Mã không chính xác");
-                        req.getRequestDispatcher("views/Login/view_login/forgotpw_code.jsp?email=" + email).forward(req, resp);
-                    } else
-                        resp.sendRedirect(req.getContextPath() + "/views/Login/view_login/forgotpassword.jsp");
-                }
-            }
-
-//            authenciation(uemail);
+//
+//            UserDAO userDAO = new UserDAO();
+//
+//
+//            userDAO.insertUser(user);
 
             UserService.getInstance().insertUser(user);
 
@@ -131,12 +94,6 @@ public class SignUp extends HttpServlet {
         if (value == null || value.trim().isEmpty()) {
             errors.put(fieldName, viewName + " không được bỏ trống");
         }
-
-
     }
 
-
-
-
 }
-
