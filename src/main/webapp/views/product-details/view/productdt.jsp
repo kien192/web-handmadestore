@@ -48,13 +48,14 @@
 <%--Thanh điều hướng - header--%>
 <%@include file="/views/MenuBar/menu.jsp" %>
 
+
 <!-- Nội dung Product-details-->
 <!-- Thẻ navigation : thanh chuyển hướng -->
 <section class="product-details container  pt-2">
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb ">
-            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/views/MainPage/view_mainpage/mainpage.jsp">Trang Chủ</a></li>
             <li class="breadcrumb-item"><a
                     href="product?category=<%=categoryByProduct.getId()%>"><%=categoryByProduct.getName()%>
             </a></li>
@@ -193,14 +194,10 @@
                     class="d-block text-dark text-decoration-none py-2 info-name">
                         <%=pr.getName()%>
                     </a>
-                    <span class="info-price fw-bold"><%=pr.getSellingPrice()%></span>
+                    <span class="info-price fw-bold"><%=numberFormat.format( pr.getSellingPrice()) %></span>
                     <div class="info-rating d-flex mt-1">
-                        <i class="bi bi-star-fill "></i>
-                        <i class="bi bi-star-fill "></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <span>(25 đánh giá)</span>
+
+                        <span>(<%=rateList.size()%> đánh giá)</span>
                     </div>
                 </div>
 

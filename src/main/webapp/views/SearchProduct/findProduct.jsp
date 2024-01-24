@@ -48,8 +48,8 @@
         <%String pathImagefp = ImageService.getInstance().pathImageOnly(pfp.getId());%>
         <li class="product_li">
             <div class="item_product  me-4">
-                <a class="image" href="#"> <img src="<%=request.getContextPath()%>/<%=pathImagefp%>"> </a>
-                <a href="#"><p class="pt-4 px-3"><%=pfp.getName() %>
+                <a class="image" href="<%=request.getContextPath()%>/product-detail?id=<%=pfp.getId()%>"> <img src="<%=request.getContextPath()%>/<%=pathImagefp%>"> </a>
+                <a href="<%=request.getContextPath()%>/product-detail?id=<%=pfp.getId()%>"><p class="pt-4 px-3"><%=pfp.getName() %>
                 </p></a>
                 <%!double giaBanSauCung;%>
                 <% giaBanSauCung = ProductService.getInstance().productPriceIncludeDiscount(pfp);%>

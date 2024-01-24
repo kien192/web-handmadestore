@@ -51,7 +51,7 @@ public class PayMentController extends HttpServlet {
 
         validateRequireField("namePay", namePay, "Tên hiển thị", errors);
         validateRequireField("phonePay", phonePay, "Số điện thoại", errors);
-        validateRequireField("address", address, "Mật khẩu", errors);
+        validateRequireField("address", address, "Địa chỉ", errors);
 
 
         if (!errors.isEmpty()) {

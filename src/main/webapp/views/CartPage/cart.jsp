@@ -54,7 +54,7 @@
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb ">
-        <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+        <li class="breadcrumb-item"><a style="text-decoration: none" href="<%=request.getContextPath()%>/views/MainPage/view_mainpage/mainpage.jsp">Trang Chủ</a></li>
         <li class="breadcrumb-item active" aria-current="page" style="color: #e32124">Giỏ hàng
         </li>
     </ol>
@@ -93,7 +93,7 @@
                                 </td>
                                 <td class="align-middle">
                                     <div>
-                                        <a class="text-decoration-none" href="product-detail?id=<%=item.getProduct().getId()%>"> <h6><%=item.getProduct().getName()%>
+                                        <a class="text-decoration-none" href="<%=request.getContextPath()%>/product-detail?id=<%=item.getProduct().getId()%>"> <h6><%=item.getProduct().getName()%>
                                         </h6> </a>
 
                                     </div>
